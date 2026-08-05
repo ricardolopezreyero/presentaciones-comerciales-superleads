@@ -225,7 +225,7 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 .btn-activar-sec:hover{border-color:var(--blue);color:var(--blue);}
 
 @media print{
-  @page{size:1280px 720px landscape;margin:0;}
+  @page{size:1280px 720px;margin:0;}
   #controls,#notesPanel,#editPanel,.no-print{display:none !important;}
   *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;color-adjust:exact !important;}
   body{background:#fff;}
@@ -1126,7 +1126,15 @@ document.getElementById('btnHtml').onclick = ()=>{
   downloadBlob(html, 'SuperLeads_Presentacion_' + slug(DATA.colegio) + '.html', 'text/html;charset=utf-8');
 };
 
-document.getElementById('btnPdf').onclick = ()=> window.print();
+document.getElementById('btnPdf').onclick = ()=>{
+  // El PDF toma su nombre del título del documento: lo cambiamos justo antes
+  // de imprimir para que se llame igual que la descarga de HTML.
+  const tituloPrevio = document.title;
+  document.title = 'SuperLeads_Presentacion_' + slug(DATA.colegio);
+  const restaurar = ()=>{ document.title = tituloPrevio; window.removeEventListener('afterprint', restaurar); };
+  window.addEventListener('afterprint', restaurar);
+  window.print();
+};
 
 fitStage();
 renderData();
