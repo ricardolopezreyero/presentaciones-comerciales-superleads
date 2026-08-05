@@ -153,6 +153,11 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 .venn .c1{width:220px;height:220px;left:0;top:0;background:rgba(86,239,159,.14);border:2px solid var(--green-d);color:var(--navy-deep);font-size:13px;align-items:flex-start;padding-top:14px;}
 .venn .c2{width:150px;height:150px;left:35px;top:55px;background:rgba(0,57,200,.12);border:2px solid var(--blue);color:var(--blue);font-size:13px;align-items:flex-start;padding-top:12px;}
 .venn .c3{width:76px;height:76px;left:72px;top:100px;background:var(--navy-deep);color:#fff;font-size:13px;}
+/* Versión grande del diagrama (lámina Sistema + Metodología + Tecnología) */
+.venn-lg{width:320px;height:320px;}
+.venn-lg .c1{width:320px;height:320px;font-size:15px;padding:20px 52px 0;}
+.venn-lg .c2{width:216px;height:216px;left:52px;top:82px;font-size:15px;padding-top:18px;}
+.venn-lg .c3{width:110px;height:110px;left:105px;top:150px;font-size:15px;}
 
 /* ===== tool columns ===== */
 .toolcol h4{font-size:14px;text-transform:uppercase;letter-spacing:.8px;color:var(--blue);margin:0 0 10px;}
@@ -412,24 +417,26 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 <section class="slide light" data-notes="No es cuestión de tecnología nada más —vendimos tecnología en algún punto y no era suficiente. SuperLeads es la empresa con la metodología, con el soporte, con el sistema completo. El CRM es apenas la parte de tecnología.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
   <h1>Sistema + Metodología + Tecnología</h1>
-  <div style="display:flex;gap:32px;align-items:center;margin:10px 0 18px;">
-    <div class="venn">
+  <div style="display:flex;gap:46px;flex:1;min-height:0;align-items:center;margin-top:6px;">
+    <div class="venn venn-lg" style="flex-shrink:0;">
       <div class="c c1">Sistema de Inscripciones SuperLeads</div>
       <div class="c c2">Metodología</div>
       <div class="c c3">CRM</div>
     </div>
-    <div class="body-txt" style="font-size:18px;">El CRM es la tecnología. Encima va la metodología —qué decir, cuándo y por qué. Y encima, el sistema completo de inscripciones que opera todo junto.</div>
-  </div>
-  <div class="grid3" style="flex:1;">
-    <div class="toolcol"><h4>Para papás y futuros alumnos</h4><ul>
-      <li>Formularios educativos</li><li>Agendas expuestas</li><li>Formulario de documentación</li><li>Formulario de eventos</li><li>Generador de referidos</li>
-    </ul></div>
-    <div class="toolcol"><h4>Herramientas internas</h4><ul>
-      <li>Conversaciones unificadas</li><li>Contactos y listas inteligentes</li><li>CRM para admisiones</li><li>Tablero de control</li>
-    </ul></div>
-    <div class="toolcol"><h4>Aceleradores</h4><ul>
-      <li>Automatizaciones educativas</li><li>Inteligencia artificial conversacional</li><li>Sistema de puntaje</li>
-    </ul></div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:18px;min-width:0;">
+      <div class="body-txt" style="font-size:17px;">El CRM es la tecnología. Encima va la metodología —qué decir, cuándo y por qué. Y encima, el sistema completo de inscripciones que opera todo junto.</div>
+      <div class="grid3">
+        <div class="toolcol"><h4>Para papás y futuros alumnos</h4><ul>
+          <li>Formularios educativos</li><li>Agendas expuestas</li><li>Formulario de documentación</li><li>Formulario de eventos</li><li>Generador de referidos</li>
+        </ul></div>
+        <div class="toolcol"><h4>Herramientas internas</h4><ul>
+          <li>Conversaciones unificadas</li><li>Contactos y listas inteligentes</li><li>CRM para admisiones</li><li>Tablero de control</li>
+        </ul></div>
+        <div class="toolcol"><h4>Aceleradores</h4><ul>
+          <li>Automatizaciones educativas</li><li>Inteligencia artificial conversacional</li><li>Sistema de puntaje</li>
+        </ul></div>
+      </div>
+    </div>
   </div>
   <div class="slide-num">13</div>
 </section>
