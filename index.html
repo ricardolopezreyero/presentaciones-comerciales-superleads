@@ -733,13 +733,14 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
     <tr id="rowEstrategia"><td>Dirección Estratégica</td><td class="small">Departamento dedicado, metodología, acompañamiento quincenal</td><td class="val" id="valEstrategia" data-bind="precio_estrategia" data-fmt="mxnmes"></td></tr>
     <tr id="rowDescuento" style="display:none;"><td>Descuento acordado</td><td class="small">Monto mensual acordado en la negociación</td><td class="val" style="color:var(--green-d);">− <span data-bind="descuento" data-fmt="mxnmes"></span></td></tr>
   </table>
-  <div class="body-txt" style="font-size:15.5px;margin-top:14px;max-width:1000px;">
-    Empezamos con la implementación completa: migración de su información, configuración del embudo a su medida y capacitación de su equipo — no se cobra aparte, es la base sobre la que construimos todo lo demás.
-    <span id="txtEstrategia">El CRM es la tecnología; la Dirección Estratégica es el acompañamiento — un departamento completo revisando su ratio cada quincena, junto con ustedes.
-    Es una sola decisión con dos gastos fijos y predecibles: nada variable aquí — lo variable vive solo en comunicación.</span><span id="txtIncluida" style="display:none;">El CRM es la tecnología y la Dirección Estratégica va incluida en el precio — un departamento completo revisando su ratio cada quincena, junto con ustedes, sin costo aparte.
-    Es una sola decisión con un gasto fijo y predecible: nada variable aquí — lo variable vive solo en comunicación.</span><span id="txtSoloCrm" style="display:none;">Esta cotización incluye únicamente la tecnología. La Dirección Estratégica —el departamento que revisa su ratio cada quincena— se cotiza aparte, y es la que sostiene el resultado en el tiempo.</span>
+  <div class="body-txt" style="font-size:16px;margin-top:16px;max-width:900px;font-weight:600;color:var(--navy);">
+    <span id="txtEstrategia">Una sola decisión, dos gastos fijos y predecibles — lo variable vive solo en comunicación.</span><span id="txtIncluida" style="display:none;">Una sola decisión, un gasto fijo y predecible — lo variable vive solo en comunicación.</span><span id="txtSoloCrm" style="display:none;">Hoy, solo la tecnología. La Dirección Estratégica —el acompañamiento que sostiene el resultado— se cotiza aparte.</span>
   </div>
-  <div class="stat-hero" style="font-size:56px;margin-top:14px;"><span id="precioLista" style="display:none;font-size:26px;font-weight:700;color:var(--dim);text-decoration:line-through;margin-right:16px;" data-bind="precio_lista" data-fmt="mxn"></span><span data-bind="precio_total" data-fmt="mxn"></span><span style="font-size:20px;font-weight:700;color:var(--muted);">/mes + IVA</span></div>
+  <div style="display:inline-flex;align-items:baseline;gap:14px;margin-top:18px;border:2px solid var(--green-d);background:var(--blue-softer);border-radius:16px;padding:16px 36px;">
+    <span id="precioLista" style="display:none;font-size:24px;font-weight:700;color:var(--dim);text-decoration:line-through;" data-bind="precio_lista" data-fmt="mxn"></span>
+    <span class="stat-hero" style="font-size:56px;" data-bind="precio_total" data-fmt="mxn"></span>
+    <span style="font-size:19px;font-weight:800;color:var(--muted);white-space:nowrap;">/mes&nbsp;<span style="opacity:.65;font-weight:700;">+ IVA</span></span>
+  </div>
   <div class="slide-num">24</div>
 </section>
 
@@ -888,9 +889,6 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
   <button id="btnPrev" title="Anterior (←)">‹</button>
   <span id="counter">1 / 31</span>
   <button id="btnNext" title="Siguiente (→)">›</button>
-  <button id="mejMinus" title="Bajar la mejora de conversión">−</button>
-  <span id="mejLabel" title="Mejora de conversión (puntos)" style="color:var(--green);font-size:12px;font-weight:800;letter-spacing:.5px;min-width:52px;text-align:center;">+<span data-bind="mejora_conservadora"></span> pts</span>
-  <button id="mejPlus" title="Subir la mejora de conversión">+</button>
   <button id="notesBtn" class="wide-btn" title="Notas del orador (N)">NOTAS</button>
   <button id="btnPdf" class="wide-btn" title="Descargar PDF">⬇ PDF</button>
   <button id="btnHtml" class="wide-btn" title="Descargar HTML con estos datos">⬇ HTML</button>
@@ -962,9 +960,14 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
       <div class="efield"><label>Colegiatura mensual</label><input data-f="colegiatura_mensual" type="number"></div>
       <div class="efield"><label>Meses de permanencia</label><input data-f="meses_permanencia" type="number"></div>
     </div>
-    <div class="erow2">
-      <div class="efield"><label>Costo por alumno (ads)</label><input data-f="costo_por_alumno" type="number"></div>
-      <div class="efield"><label>Mejora conservadora %</label><input data-f="mejora_conservadora" type="number" step="0.1"></div>
+    <div class="efield"><label>Costo por alumno (ads)</label><input data-f="costo_por_alumno" type="number"></div>
+    <div class="efield">
+      <label>Mejora conservadora de conversión</label>
+      <div style="display:flex;align-items:center;gap:10px;background:#fafbff;border:1px solid var(--border);border-radius:8px;padding:6px 10px;">
+        <button type="button" id="mejMinus" title="Bajar la mejora de conversión" style="width:30px;height:30px;border-radius:7px;border:1px solid var(--border);background:#fff;color:var(--navy);font-size:16px;font-weight:800;cursor:pointer;">−</button>
+        <span id="mejLabel" title="Mejora de conversión (puntos)" style="flex:1;text-align:center;color:var(--green-d);font-size:14px;font-weight:800;letter-spacing:.3px;">+<span data-bind="mejora_conservadora"></span> pts</span>
+        <button type="button" id="mejPlus" title="Subir la mejora de conversión" style="width:30px;height:30px;border-radius:7px;border:1px solid var(--border);background:#fff;color:var(--navy);font-size:16px;font-weight:800;cursor:pointer;">+</button>
+      </div>
     </div>
     <div class="efield"><label>Personas de admisiones</label><input data-f="personas_admisiones" type="number"></div>
     <div class="efield"><label>Herramienta actual</label><input data-f="herramienta_actual"></div>
