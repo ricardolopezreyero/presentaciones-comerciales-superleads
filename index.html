@@ -374,8 +374,8 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
               <div class="stat-label" style="font-size:12px;margin-top:2px;">tasa de conversión</div>
             </div>
             <div style="flex:1;">
-              <div class="stat-hero green" style="font-size:25px;"><span data-bind="leads_meta_2b" data-fmt="num"></span></div>
-              <div class="stat-label" style="font-size:12px;margin-top:2px;">prospectos al año (+<span data-bind="leads_extra_2b" data-fmt="num"></span> vs hoy)</div>
+              <div class="stat-hero green" style="font-size:25px;">+<span data-bind="leads_extra_2b" data-fmt="num"></span></div>
+              <div class="stat-label" style="font-size:12px;margin-top:2px;">prospectos extra al año · <span data-bind="leads_meta_2b" data-fmt="num"></span> en total</div>
             </div>
           </div>
         </div>
@@ -783,6 +783,9 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
   <button id="btnPrev" title="Anterior (←)">‹</button>
   <span id="counter">1 / 31</span>
   <button id="btnNext" title="Siguiente (→)">›</button>
+  <button id="mejMinus" title="Bajar la mejora de conversión">−</button>
+  <span id="mejLabel" title="Mejora de conversión (puntos)" style="color:var(--green);font-size:12px;font-weight:800;letter-spacing:.5px;min-width:52px;text-align:center;">+<span data-bind="mejora_conservadora"></span> pts</span>
+  <button id="mejPlus" title="Subir la mejora de conversión">+</button>
   <button id="notesBtn" class="wide-btn" title="Notas del orador (N)">NOTAS</button>
   <button id="btnPdf" class="wide-btn" title="Descargar PDF">⬇ PDF</button>
   <button id="btnHtml" class="wide-btn" title="Descargar HTML con estos datos">⬇ HTML</button>
@@ -1075,6 +1078,13 @@ function prev(){ if(idx>0){ idx--; render(); } }
 document.getElementById('btnNext').onclick = next;
 document.getElementById('btnPrev').onclick = prev;
 document.getElementById('notesBtn').onclick = ()=>{ editPanel.classList.remove('open'); notesPanel.classList.toggle('open'); };
+/* Stepper de mejora de conversión: ajusta en vivo y recalcula toda la presentación */
+function ajustarMejora(delta){
+  DATA.mejora_conservadora = Math.max(0.5, Math.round((DATA.mejora_conservadora + delta)*10)/10);
+  renderData(); saveData();
+}
+document.getElementById('mejMinus').onclick = ()=> ajustarMejora(-0.5);
+document.getElementById('mejPlus').onclick = ()=> ajustarMejora(0.5);
 document.getElementById('btnFs').onclick = ()=>{
   if(!document.fullscreenElement){ document.documentElement.requestFullscreen().catch(()=>{}); }
   else{ document.exitFullscreen(); }
