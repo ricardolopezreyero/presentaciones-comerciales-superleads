@@ -211,6 +211,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 #notesPanel.open{transform:translateX(0);}
 #notesPanel h4{margin:0 0 4px;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--green);}
 #notesPanel p{font-size:14.5px;line-height:1.65;color:#dfe8ff;white-space:pre-line;}
+#notesBody .nh{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:var(--green);font-weight:800;margin:18px 0 6px;}
+#notesBody .nh:first-child{margin-top:6px;}
+#notesBody .np{font-size:14.5px;line-height:1.6;color:#dfe8ff;margin:0 0 8px;}
+#notesBody .nb{font-size:14px;line-height:1.55;color:#c9d6f2;margin:0 0 7px;padding-left:16px;position:relative;}
+#notesBody .nb::before{content:'▸';position:absolute;left:0;color:var(--green);font-weight:800;}
+#notesBody .nq{font-size:14px;line-height:1.55;color:#dfe8ff;font-weight:600;border-left:3px solid var(--green);background:rgba(86,239,159,.07);padding:9px 12px;border-radius:0 8px 8px 0;margin:4px 0 10px;}
 
 /* ===== EDIT PANEL ===== */
 #editPanel{position:fixed;left:0;top:0;bottom:52px;width:400px;background:#fff;color:#1a1a1a;padding:26px;overflow-y:auto;transform:translateX(-100%);transition:transform .25s var(--ease);z-index:20;border-right:1px solid var(--border);}
@@ -255,7 +261,13 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 <div id="stage"><div class="slide-frame" id="frame">
 
 <!-- ============ 01 PORTADA ============ -->
-<section class="slide dark active" data-notes="Súper mega gracias por esta cita y por estar los dos — que estén juntos quienes deciden es exactamente como debe ser. Esta sesión es diferente a la pasada: mini repaso express de sus números, apoyos visuales, el sistema completo y precios. La frase del pie posiciona desde el segundo uno: instalación y mantenimiento de sistemas de inscripciones premium para colegios y universidades privadas en LATAM — que sepan QUÉ somos antes de la primera lámina. TÉCNICA: esta presentación sigue la lógica de conversión oficial — diagnóstico, impacto económico, sistema, inversión y siguiente paso con fecha. Nunca se sale de una propuesta sin fecha de decisión.">
+<section class="slide dark active" data-notes="## En una frase
+SuperLeads instala y opera sistemas de inscripciones premium para colegios y universidades privadas en LATAM.
+## La sesion de hoy
+* Repaso express de sus numeros, con sus propios datos.
+* El sistema completo: herramientas, metodologia y acompanamiento.
+* Precios claros y el siguiente paso.
+>> Todo lo que veran esta calculado con los datos reales de su institucion.">
   <div class="fill center" style="gap:20px;">
     <img class="logo" src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" style="height:34px;">
     <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Presentación del Sistema</div></div>
@@ -272,7 +284,14 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 02 AGENDA ============ -->
-<section class="slide dark" data-notes="Este mapa es el MISMO que reaparece a la mitad de la presentación (Hasta aquí, el mapa) — esa repetición da orden y estructura mental: saben hacia dónde vamos y luego ven el avance. Cinco paradas: Rayos X (más para mí que para ustedes, para meterme en su negocio), por qué SuperLeads, las herramientas, precios y conclusión. TÉCNICA: pedir el sí a la agenda desde el minuto uno genera micro-acuerdos; y anunciar que habrá precios elimina la ansiedad — saben que la respuesta viene, no tienen que pescarla.">
+<section class="slide dark" data-notes="## En una frase
+Cinco paradas, siempre en el mismo orden — este mismo mapa reaparece a la mitad para ver el avance.
+## Las paradas
+* El Rayos X: donde estan parados hoy, con sus numeros.
+* Por que SuperLeads: nuestra creencia y proposito.
+* Las herramientas: sistema, metodologia y tecnologia.
+* Precios: claros y sin sorpresas.
+* Conclusion: como seguimos.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Agenda</div></div>
   <h1>El mapa de hoy</h1>
   <div class="fill center">
@@ -309,7 +328,13 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 03 SEMAFORO ============ -->
-<section class="slide light" data-notes="No están únicos y no se sientan solos: la mayoría de los colegios trae este mismo tema, y por eso existe SuperLeads. DATO: la industria sana opera 60% de tasa cita-alumno y 5% o más de lead a alumno — compárenlo con su fila del semáforo. Enero, julio y agosto son los meses tope de inscripción: un mes antes tiene que haber campaña agresiva de puntos de contacto. Y la regla madre: lo que no se mide no se mejora — este semáforo existe para eso.">
+<section class="slide light" data-notes="## En una frase
+El semaforo compara sus metricas contra los rangos sanos de la industria educativa.
+## Referencias de la industria
+* Tasa cita a alumno sana: 60% o mas.
+* Conversion lead a alumno sana: 5% o mas.
+* Enero, julio y agosto son los meses tope de inscripcion — la campana fuerte va un mes antes.
+>> Lo que no se mide no se mejora. Este semaforo existe para medir.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El diagnóstico</div></div>
   <h1>El semáforo</h1>
   <div class="sub">de <span data-bind="colegio"></span></div>
@@ -326,7 +351,13 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 04 SU EMBUDO ============ -->
-<section class="slide dark" data-notes="Ocho pasos separan un anuncio de un alumno inscrito: impresiones, alcance, clics, leads, contactados, cita, asistió, inscrito. Cada flecha es una fuga posible. DATO: la fuga más cara casi nunca está en atraer — está entre lead y cita. El estándar de excelencia es primer contacto en menos de 5 minutos en horario, con cobertura de tardes y sábados; cada hora que pasa sin contacto, el lead se enfría y la competencia contesta primero.">
+<section class="slide dark" data-notes="## En una frase
+Ocho pasos separan un anuncio de un alumno inscrito — y cada flecha es una fuga posible.
+## Datos clave
+* La fuga mas cara casi nunca esta en atraer: esta entre el lead y la cita.
+* Estandar de excelencia: primer contacto en menos de 5 minutos.
+* La cobertura importa: tardes, sabados y respuesta automatica fuera de horario.
+>> Cada hora sin contacto, el lead se enfria — y alguien mas contesta primero.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El diagnóstico</div></div>
   <h1>Su embudo de admisión</h1>
   <div class="fill" style="margin-top:6px;">
@@ -338,7 +369,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 05 DONDE SE PIERDE ============ -->
-<section class="slide dark" data-notes="Ustedes son buenísimos atrayendo — son unos genios, mis respetos. La turbulencia está después: entra el prospecto y ya no hay claridad de qué sigue, qué sigue, qué sigue. PRINCIPIO del marco SuperLeads: un buen anuncio no compensa un mal seguimiento. Por eso el dinero extra en ads, sin arreglar el proceso, solo compra fugas más caras.">
+<section class="slide dark" data-notes="## En una frase
+Su institucion atrae muy bien; la turbulencia aparece despues, entre el interes y la inscripcion.
+## Por que pasa
+* El prospecto entra y no hay un camino claro de que sigue en cada paso.
+* Un buen anuncio no compensa un mal seguimiento.
+* Mas presupuesto en anuncios, sin arreglar el proceso, solo compra fugas mas caras.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El diagnóstico</div></div>
   <h1>Dónde se pierde el prospecto</h1>
   <div class="fill" style="margin-top:6px;">
@@ -350,7 +386,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 06 ESCALA ============ -->
-<section class="slide dark" data-notes="Ese porcentaje, ahí hay tema — y no están únicos: la mayoría trae este tema. La imagen lo hace físico: de todas estas personas que levantaron la mano, solo esta cantidad se inscribe. Había mucha incertidumbre de si lo estaban haciendo bien o si pudiera ser increíblemente mejor — nosotros damos esa certeza con datos, no con opiniones. TÉCNICA: dejar 3 segundos de silencio con la imagen; que la dimensionen ellos.">
+<section class="slide dark" data-notes="## En una frase
+La imagen hace fisico el porcentaje: de una sala de juntas llena de interesados, cuantos terminan inscritos.
+## Como leerla
+* Cada silla es una familia que levanto la mano.
+* La silla verde es la que hoy se convierte en alumno.
+* La pregunta no es si esta bien o mal — es cuanto mas se puede capturar con sistema.">
   <div class="fill" style="padding:0;margin:-52px -64px;position:relative;" id="scaleWrap">
     <img class="scale-img" data-idx="0" src="assets_deck_instituto_frontera/l05-escala-salajuntas.png" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
     <img class="scale-img" data-idx="1" src="assets_deck_instituto_frontera/l05-escala-autobus.png" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;display:none;">
@@ -369,7 +410,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 07 DECIMAL ============ -->
-<section class="slide light" data-notes="Esta matemática nadie se las puede hacer, porque nadie baja el producto a decimales. Cada 0.1 punto de tasa de conversión son alumnos extra al año — con los mismos prospectos que ya generan, sin gastar un peso más en marketing. TÉCNICA: este número está calculado en vivo con SUS leads y SU valor de vida por alumno; si mueven cualquier dato, la lámina se recalcula. Eso es operar con sistema.">
+<section class="slide light" data-notes="## En una frase
+Cada 0.1 punto de tasa de conversion son alumnos extra al ano — con los mismos prospectos que ya generan.
+## Datos clave
+* Este numero esta calculado con SUS leads y SU valor de vida por alumno.
+* No requiere gastar un peso mas en marketing: solo convertir mejor lo que ya llega.
+* Si cambian cualquier dato en el panel, la cifra se recalcula al instante.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El diagnóstico</div></div>
   <h1>Cuánto vale un decimal</h1>
   <div class="fill center">
@@ -381,7 +427,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 08 SILLA VACIA ============ -->
-<section class="slide dark" data-notes="Es más barato meterle dinero a marketing que tener una silla vacía — ese es el cambio de chip. DATO: cada silla vacía cuesta el valor de vida completo del alumno que no se sentó ahí; y el alumno que se reinscribe cuesta cero captarlo y vale 10 a 15 veces más que uno nuevo. Con el retorno que ustedes tienen por alumno, el marketing no es gasto: es la compra de dinero a descuento.">
+<section class="slide dark" data-notes="## En una frase
+Cada silla vacia cuesta el valor de vida completo del alumno que no se sento ahi.
+## Datos clave
+* El alumno que se reinscribe cuesta cero captarlo y vale 10 a 15 veces mas que uno nuevo.
+* Con el retorno por alumno de su institucion, el marketing no es gasto: es compra de crecimiento.
+>> Es mas barato invertir en llenar la silla que dejarla vacia.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El diagnóstico</div></div>
   <h1>La silla vacía</h1>
   <div class="fill center">
@@ -395,7 +446,13 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 09 DOS CAMINOS ============ -->
-<section class="slide light" data-notes="Camino 1: billetazos a marketing — jalan prospectos, los inscriben, todos desgastados y con la mitad del dinero quemado. Camino 2, mucho más bonito: mejorar la tasa de conversión, porque estar lleno es matemático — es una multiplicación entre leads y tasa. Con mejor tasa necesitas la mitad de leads para el mismo resultado. TÉCNICA: los dos caminos no compiten, se suman; pero el orden correcto es tasa primero, volumen después.">
+<section class="slide light" data-notes="## En una frase
+Estar lleno es matematico: leads por tasa de conversion. Hay dos formas de mover ese resultado.
+## Los caminos
+* Camino 1: mas presupuesto en marketing — mas leads con la misma tasa.
+* Camino 2: mejorar la tasa de conversion — el mismo resultado con la mitad de leads.
+## Para conversar
+* El orden recomendado: primero la tasa, despues el volumen. Los dos caminos se suman.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El diagnóstico</div></div>
   <h1>Los dos caminos</h1>
   <div class="fill center" style="gap:0;">
@@ -435,7 +492,11 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ POR QUÉ EXISTIMOS ============ -->
-<section class="slide dark" data-notes="Esto no se los digo para venderles — es en lo que creemos de verdad. Ningún alumno debería perder la oportunidad de estudiar en el colegio correcto por culpa de un mal proceso de admisión. Y para cumplir la misión educativa, primero hay que ser rentable. Nuestro propósito: darle poder a los colegios y universidades para que inscriban fácilmente a millones de estudiantes. TÉCNICA: hablar esta lámina más lento — es la única que no vende nada.">
+<section class="slide dark" data-notes="## Nuestra creencia
+Ningun alumno deberia perder la oportunidad de estudiar en el colegio correcto por culpa de un mal proceso de admision.
+## Nuestro proposito
+>> Darle poder a los colegios y universidades para que inscriban facilmente a millones de estudiantes.
+* Para cumplir la mision educativa, la institucion primero tiene que ser rentable.">
   <div class="fill center" style="gap:0;">
     <img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" style="height:42px;margin-bottom:38px;" alt="SuperLeads">
     <div class="eyebrow" style="justify-content:center;"><div class="ew-dot"></div><div class="ew-t">Por qué existimos</div></div>
@@ -449,7 +510,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 10 HERRAMIENTA ============ -->
-<section class="slide light" data-notes="Misma persona, diferente medio de transporte, diferentes kilómetros. No es más lista — es más eficiente. Con Excel logras una cantidad, con un CRM otra, y con SuperLeads otra distinta. PRUEBA: Prepa Harkness logró la mayor generación de alumnos de toda su historia con el mismo equipo y el mismo presupuesto de marketing — lo único que cambió fue la herramienta y el método.">
+<section class="slide light" data-notes="## En una frase
+La misma persona, con mejor herramienta, recorre mas kilometros — no es mas lista, es mas eficiente.
+## La prueba
+* Prepa Harkness logro la mayor generacion de alumnos de su historia.
+* Mismo equipo, mismo presupuesto de marketing — lo que cambio fue la herramienta y el metodo.
+* Excel logra una cantidad; un CRM otra; un sistema completo, otra distinta.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
   <h1>La herramienta correcta multiplica</h1>
   <div class="fill" style="margin-top:6px;">
@@ -460,7 +526,13 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 12 SISTEMA (native rebuild, bigger) ============ -->
-<section class="slide light" data-notes="Señalar el círculo chiquito: el CRM es A PROPÓSITO lo más pequeño del diagrama — vendimos solo tecnología en algún punto y no era suficiente. No es CRM, no es campaña: es el sistema operativo de admisiones. PRINCIPIOS del marco: las inscripciones fallan por falta de sistema; un buen anuncio no compensa mal seguimiento; el sistema se construye por capas. Y la frase diferenciadora del pie, dicha con calma: con SuperLeads no contratan la tecnología — contratan a la empresa que tiene la tecnología y se especializa en inscripciones. Eso nos separa de cualquier CRM y de cualquier agencia.">
+<section class="slide light" data-notes="## En una frase
+El CRM es solo la tecnologia — a proposito el circulo mas chico. Encima va la metodologia, y encima el sistema completo.
+## Principios
+* Las inscripciones fallan por falta de sistema, no por falta de esfuerzo.
+* Un buen anuncio no compensa un mal seguimiento.
+* El sistema se construye por capas: base, activadores, ejecucion.
+>> Con SuperLeads no contratan la tecnologia: contratan a la empresa que tiene la tecnologia y se especializa en inscripciones.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
   <h1>Sistema + Metodología + Tecnología</h1>
   <div style="display:flex;gap:46px;flex:1;min-height:0;align-items:center;margin-top:6px;">
@@ -493,7 +565,13 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ RED DE CONOCIMIENTO ============ -->
-<section class="slide light" data-notes="AQUÍ es donde se presume la red — este es el lugar, no una lámina de números suelta. Más de 70 colegios operando y más de un millón de prospectos al año alimentando este mismo loop, en 5 países de habla hispana: México, Colombia, Perú, Guatemala y Estados Unidos. Nuestra perspectiva les conviene: con ese volumen sabemos qué está funcionando y qué no — y a ustedes les instalamos SOLO lo que está funcionando. Cada aprendizaje se encapsula en documentos, cursos o automatizaciones; cada semana hay sesión de preguntas y respuestas en vivo con alguien técnico. Y seguimos boutique: solo 8 instituciones nuevas al mes.">
+<section class="slide light" data-notes="## En una frase
+Cada colegio de la red alimenta el mismo loop: lo que funciona en uno, llega a todos.
+## La red hoy
+* Mas de 70 colegios operando y mas de un millon de prospectos al ano.
+* 5 paises de habla hispana: Mexico, Colombia, Peru, Guatemala y Estados Unidos.
+* Cada semana hay sesion de preguntas y respuestas en vivo con el equipo tecnico.
+>> Con ese volumen sabemos que funciona y que no — y les instalamos solo lo que funciona.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
   <h1>Una red que aprende cada semana</h1>
   <div class="fill center" style="margin-top:2px;min-height:0;">
@@ -539,7 +617,11 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ TRANSICION: DONDE VAMOS ============ -->
-<section class="slide dark" data-notes="Recapitulando: ya vimos su Rayos X con sus propios números y por qué existe SuperLeads. Ahora entramos a las herramientas, después precios, y cerramos con conclusión. TÉCNICA: ubicar a la audiencia en el mapa baja la ansiedad — saben exactamente cuánto falta y cuándo viene el precio. Una mente ansiosa no compra; una mente ubicada sí escucha.">
+<section class="slide dark" data-notes="## En una frase
+Punto de ubicacion: ya vimos su Rayos X y por que existe SuperLeads; ahora vienen las herramientas, luego precios y conclusion.
+## Por que este alto
+* Saber en que parte del camino vamos da orden y baja la ansiedad.
+* Lo que falta esta anunciado: nada llega por sorpresa — ni siquiera el precio.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
   <h1>Hasta aquí, el mapa</h1>
   <div class="fill center">
@@ -576,7 +658,13 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 13 ESTRELLITA (rediseño: puntaje + top prospectos) ============ -->
-<section class="slide dark" data-notes="El Radar de Inscripción — nuestra herramienta estrella, y el nombre lo dice: detecta, por probabilidad y estadística, quién está listo para inscribirse HOY. Cada acción del prospecto suma o resta puntos — 60% suma, 40% resta. Los del tope del radar tienen el máximo puntaje y NO se han inscrito: gente deseosa de que le marquen y le ayuden a terminar. Un clic, se seleccionan todos, y sale un WhatsApp. DATO: esa lista es el dinero más barato del colegio — demanda ya pagada, esperando una llamada. Aquí no se nos va ni uno.">
+<section class="slide dark" data-notes="## En una frase
+El Radar de Inscripcion detecta, por probabilidad y estadistica, quien esta listo para inscribirse hoy.
+## Como funciona
+* Cada accion del prospecto suma o resta puntos: mensajes, citas, visitas, silencios.
+* Los del tope del radar tienen maximo puntaje y aun no se inscriben: solo falta acompanarlos a terminar.
+* Un clic selecciona a todos y sale un WhatsApp.
+>> Esa lista es demanda ya pagada, esperando una llamada.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
   <h1>El Radar de Inscripción</h1>
   <div class="sub" style="color:#9fb3d9;">Análisis de probabilidad de inscripción, en tiempo real</div>
@@ -636,7 +724,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 14 GENERADOR DE REFERIDOS (moved to núcleo, native mockup) ============ -->
-<section class="slide soft" data-notes="Hay bolsas de gente que quiere entrar con ustedes si les damos la entrada correcta. Cada persona tiene un link único, estático y eterno, que jala referidos automáticamente — pagable con dinero o con estatus. DATO: la familia satisfecha que trae a la siguiente reduce el costo de adquisición y sube la calidad del lead; la métrica sana es que una de cada tres inscripciones nuevas venga por referido. Vean su semáforo: ahí está el espacio.">
+<section class="slide soft" data-notes="## En una frase
+Cada persona de su comunidad recibe un link unico, estatico y eterno, que trae referidos automaticamente.
+## Datos clave
+* La familia satisfecha que recomienda reduce el costo de adquisicion y trae leads de mejor calidad.
+* Referencia sana: una de cada tres inscripciones nuevas por referido.
+* El reconocimiento puede ser con dinero o con estatus — cada institucion lo decide.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
   <h1>El generador de referidos</h1>
   <div class="fill" style="flex-direction:row;gap:36px;align-items:center;justify-content:center;">
@@ -660,7 +753,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 15 WHATSAPP UN PESO ============ -->
-<section class="slide light" data-notes="Este mensaje de un peso puede estar regresando una colegiatura completa — no es ahorrar comunicación, es usarla con eficiencia, y nosotros auditamos lo que se manda. PRINCIPIO (100M Leads, Hormozi): contactar varias veces por varios medios — cada quien contesta distinto: unos el WhatsApp, otros la llamada, otros el correo. REGLA de la casa: nadie se marca como abandonado antes de 9 intentos reales de contacto.">
+<section class="slide light" data-notes="## En una frase
+Un mensaje bien puesto puede regresar una colegiatura completa — por eso cada mensaje se audita y se mejora.
+## Como se trabaja
+* Contacto por varios medios: cada familia contesta distinto (WhatsApp, llamada, correo).
+* Nadie se da por perdido antes de 9 intentos reales de contacto.
+* No es ahorrar comunicacion: es usarla donde mas mueve la probabilidad de inscripcion.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
   <h1>De WhatsApp a alumno</h1>
   <div class="grid3" style="flex:1;margin-top:10px;">
@@ -674,7 +772,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 16 CONSTANZA ============ -->
-<section class="slide dark" data-notes="Constanza es nuestra IA optimizada para UNA sola cosa: generar citas — porque más citas de nuestros clientes son más inscritos. Trabaja 24 horas, 365 días. DATO operativo: cadencia día 0, 1, 3, 7 y 14 si no contestan; siempre ofrece dos horarios concretos; recordatorios 24 horas y 2 horas antes de la cita. Muchos leads llegan a las 11 de la noche — la respuesta fuera de horario es estándar de excelencia, no lujo.">
+<section class="slide dark" data-notes="## En una frase
+Constanza es la inteligencia artificial de SuperLeads, optimizada para una sola cosa: generar citas.
+## Como trabaja
+* 24 horas, 365 dias — muchos leads llegan a las 11 de la noche.
+* Cadencia si no contestan: dia 0, 1, 3, 7 y 14.
+* Siempre ofrece dos horarios concretos y manda recordatorios 24 h y 2 h antes de la cita.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
   <h1>Constanza contesta a las 11pm</h1>
   <div class="fill" style="flex-direction:row;gap:56px;align-items:center;justify-content:center;">
@@ -698,7 +801,13 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 17 TIEMPO REAL ============ -->
-<section class="slide light" data-notes="La Torre de Control — desde aquí se dirige la operación, como en un aeropuerto: nada aterriza sin que se vea venir. En admisiones el problema es matemático, y el tablero correcto lo resuelve. Tres números cuentan la historia completa: prospectos nuevos, tasa de conversión y activos en proceso. Con esos tres, la junta de admisiones dura 10 minutos y termina en decisiones. DATO: un asesor promedio pierde 3 horas a la semana armando reportes a mano — 12 horas al mes que aquí regresan a llamadas y seguimiento. Ya no hay pretexto: la tendencia se ve antes de que pase.">
+<section class="slide light" data-notes="## En una frase
+Desde la Torre de Control se dirige la operacion: nada aterriza sin que se vea venir.
+## Los tres numeros que mandan
+* Prospectos nuevos: que tan abierta esta la llave.
+* Tasa de conversion: la salud real del proceso.
+* Activos en proceso: el futuro cercano del ciclo.
+>> Con esos tres numeros, la junta de admisiones dura 10 minutos y termina en decisiones.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
   <h1>La Torre de Control</h1>
   <div class="sub">Ustedes ven todo, en tiempo real</div>
@@ -710,7 +819,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 18a COLEGIO OPERANDO: CRM ============ -->
-<section class="slide light" data-notes="Esto no es una promesa — es un colegio operando hoy. Alumnos por etapa, moviéndose con automatizaciones, secuencias y metodología. DATO: la base sana es una sola — CRM activo con TODOS los leads, dueño claro por prospecto, histórico completo de interacciones y razones de no-inscripción capturadas. Sin Excel paralelo: el Excel paralelo es donde se van a morir los seguimientos.">
+<section class="slide light" data-notes="## En una frase
+Un colegio real operando hoy: alumnos por etapa, moviendose con automatizaciones y metodologia.
+## La base sana
+* Todos los leads en un solo lugar, con dueno claro por prospecto.
+* Historico completo de interacciones y razones de no-inscripcion capturadas.
+* Sin Excel paralelo: ahi es donde se mueren los seguimientos.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Un colegio operando hoy</div></div>
   <h1>El CRM: sus alumnos en orden</h1>
   <div class="fill" style="margin-top:6px;"><div class="imgwrap" style="height:100%;"><img src="assets_deck_instituto_frontera/l16-mosaico-2.png"></div></div>
@@ -720,7 +834,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 18b COLEGIO OPERANDO: CAPACITACION ============ -->
-<section class="slide light" data-notes="La Academia SuperLeads: la capacitación vive dentro del mismo sistema — cursos con lo mínimo que su personal necesita dominar, el sistema y la forma de inscribir. TÉCNICA: el estándar tiene que vivir en el sistema, no en la memoria de una persona; si mañana rota alguien del equipo, el conocimiento se queda. Y el coaching se hace con métricas individuales, no con regaños.">
+<section class="slide light" data-notes="## En una frase
+La Academia SuperLeads vive dentro del mismo sistema: cursos con lo minimo que el equipo necesita dominar.
+## Por que importa
+* El estandar vive en el sistema, no en la memoria de una persona.
+* Si alguien rota, el conocimiento se queda en la institucion.
+* El acompanamiento se hace con metricas, no con opiniones.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Un colegio operando hoy</div></div>
   <h1>Academia SuperLeads</h1>
   <div class="sub">La capacitación vive dentro del mismo sistema</div>
@@ -731,7 +850,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 18c COLEGIO OPERANDO: CALENDARIO ============ -->
-<section class="slide light" data-notes="Antes de ser alumnos, son citas — y este calendario se llena solo: Constanza agenda, el sistema confirma y recuerda. Un calendario lleno es lo que precede a una matrícula llena. DATO: el benchmark sano de asistencia es 70%. Una cita solo cuenta como confirmada si pasan tres cosas: evento enviado, confirmación por WhatsApp y enviado el qué preparar. Y al no-show se le reacciona en 10 minutos, no al día siguiente — ahí todavía se rescata.">
+<section class="slide light" data-notes="## En una frase
+Antes de ser alumnos, son citas — y este calendario se llena solo: Constanza agenda, el sistema confirma y recuerda.
+## Datos clave
+* Referencia sana de asistencia a citas: 70%.
+* Una cita confirmada de verdad: evento enviado, confirmacion por WhatsApp y que preparar.
+* A la cita que no llega se le busca en los primeros 10 minutos — ahi todavia se rescata.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Un colegio operando hoy</div></div>
   <h1>El calendario que se llena solo</h1>
   <div class="fill" style="margin-top:6px;"><div class="imgwrap" style="height:100%;"><img src="assets_deck_instituto_frontera/l16-mosaico-1.png"></div></div>
@@ -741,7 +865,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 18d COLEGIO OPERANDO: MARKETING ============ -->
-<section class="slide light" data-notes="La Máquina de Atracción — el músculo que opera el producto de Atracción Inteligente. Todos sus alumnos, en algún punto, no sabían que el colegio existía: hacer ruido estructurado llena la parte alta del embudo. DATO: presupuesto constante todo el año, no solo en temporada; remarketing activo — la familia ve al colegio varias veces antes de levantar la mano; y el número que manda no es el costo por lead, es el costo por lead CALIFICADO por canal.">
+<section class="slide light" data-notes="## En una frase
+La Maquina de Atraccion es el musculo del producto de Atraccion Inteligente: llenar la parte alta del embudo.
+## Como se opera
+* Presupuesto constante todo el ano, no solo en temporada.
+* Remarketing: la familia ve a la institucion varias veces antes de levantar la mano.
+* El numero que manda es el costo por lead CALIFICADO por canal, no el lead barato.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Un colegio operando hoy</div></div>
   <h1>La Máquina de Atracción</h1>
   <div class="sub">El marketing, estructurado — el músculo detrás de Atracción Inteligente</div>
@@ -752,7 +881,13 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 19 CASO ============ -->
-<section class="slide soft" data-notes="El caso se elige solo según el perfil del prospecto, y se puede cambiar con el selector. TÉCNICA: contarlo como historia — situación, sistema, número. Los números reales de la red: Universidad Católica de Cuenca pasó de 3 a 4.52% de conversión en dos meses (+50%); Swiss Academy llegó a 10.64%; Colegio del Pilar inscribe al 16% con UNA persona atendiendo citas; Prepa Harkness rompió su récord histórico con el mismo equipo y presupuesto.">
+<section class="slide soft" data-notes="## En una frase
+Casos reales de la red SuperLeads — el que se muestra se elige segun el perfil de su institucion.
+## Resultados de la red
+* Universidad Catolica de Cuenca: de 3 a 4.52% de conversion en dos meses.
+* Swiss Academy: 10.64% de conversion.
+* Colegio del Pilar: 16% de inscripcion con una sola persona en citas.
+* Prepa Harkness: record historico con el mismo equipo y presupuesto.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Prueba</div></div>
   <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
     <h1>Caso real</h1>
@@ -778,7 +913,13 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 20 PROCESO A SU MEDIDA ============ -->
-<section class="slide light" data-notes="Este es un pipeline real implementado para otro cliente — el de ustedes se construye a su medida. El mensaje central: sabemos lo MÍNIMO que tiene que tener un sistema de inscripciones para funcionar, y lo implementamos en tiempo récord, porque su tiempo son alumnos — cada semana sin sistema son prospectos que se enfrían. DATO: kickoff en máximo 5 días hábiles tras la firma, implementación completa en 2 a 3 semanas. La personalización no pelea con la velocidad cuando hay método.">
+<section class="slide light" data-notes="## En una frase
+Sabemos lo minimo que necesita un sistema de inscripciones para funcionar — y se implementa en tiempo record.
+## El arranque
+* Kickoff en maximo 5 dias habiles despues de la firma.
+* Implementacion completa en 2 a 3 semanas.
+* El pipeline se construye a la medida de su proceso — este es un ejemplo real de otro cliente.
+>> Su tiempo son alumnos: cada semana sin sistema son prospectos que se enfrian.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
   <h1>Implementación avanzada de sistemas</h1>
   <div class="fill" style="margin-top:6px;">
@@ -790,7 +931,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 21 HOY VS NECESITAN ============ -->
-<section class="slide light" data-notes="Cada ciclo se repite lo mismo: leads sin contestar, prospectos perdidos, equipo saturado, decisiones sin datos, gasto sin medición y alumnos que se van. No es un problema de esfuerzo — es de sistema. SI DICEN que ya tienen CRM: perfecto, ya resolvieron dónde guardar datos. ¿Pueden ver en un clic en cuánto tiempo se contesta el primer mensaje y en qué etapa exacta se enfrían las familias? Si no, no es sistema: es caos con login.">
+<section class="slide light" data-notes="## En una frase
+No es un problema de esfuerzo — es de sistema: el mismo ciclo se repite hasta que algo cambia de fondo.
+## El contraste
+* Hoy: herramientas genericas, decisiones por intuicion, equipo saturado.
+* Lo que necesitan: tecnologia especializada, procesos medibles con dueno, y un socio que opera con ustedes.
+>> Guardar datos no es sistema: sistema es saber en cuanto tiempo se contesta y donde se enfrian las familias.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
   <h1>Lo que hacen hoy vs. lo que necesitan</h1>
   <div style="display:flex;gap:20px;flex:1;margin-top:14px;">
@@ -830,7 +976,14 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 22 INVERSION ============ -->
-<section class="slide light" data-notes="La tabla muestra exactamente lo que estamos cotizando — ni un producto más: aquí no buscamos upsell, buscamos cerrar y pasar al siguiente punto. Números limpios. TÉCNICA del ancla: leer los tres números en orden — anual (ciclo de 10 meses), mensual, y AL DÍA. La perspectiva cambia todo: somos un servicio único, no hay contra qué compararnos, y no queremos que nos comparen — queremos que vean la eficiencia. Después, girar la conversación al pie de la lámina: su capacidad disponible y el ingreso extra posible al año. Enfoquémonos en crecer lo que ya tienen, no en lo que costamos. SI DICEN caro: el proyecto no se justifica por lo que cuesta, sino por lo que cuesta no hacerlo.">
+<section class="slide light" data-notes="## En una frase
+La tabla muestra exactamente lo que se esta cotizando — ni un producto mas. Numeros limpios.
+## Como leer los tres numeros
+* Anual: el ciclo escolar completo de 10 meses.
+* Mensual: el compromiso real, mes a mes.
+* Al dia: la perspectiva — lo que cuesta el sistema cada dia de operacion.
+## Para conversar
+>> La conversacion importante no es lo que cuesta el sistema: es la capacidad disponible y el ingreso extra posible al ano.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">La inversión</div></div>
   <h1>Su inversión</h1>
   <table class="semaforo" style="margin-top:8px;">
@@ -868,7 +1021,13 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 23 SALIMOS GRATIS ============ -->
-<section class="slide dark" data-notes="Esta es la lámina del corazón del cierre: la inversión asimétrica. Ustedes saben EXACTAMENTE cuánto voy a ganar yo — está en la lámina anterior, sin trucos. Yo no sé cuánto van a ganar ustedes, y la única forma de saberlo es entrando. El riesgo es conocido y acotado: con estos alumnos extra al mes salimos gratis (calculado en vivo con SU colegiatura y SU paquete). El crecimiento es abierto: la curva verde contra la curva plana. TÉCNICA: señalar la gráfica del fondo — el punto de salir gratis está al principio del camino; todo lo demás es la parte de ellos. Contratar acelera la curva; no contratar es quedarse en la planita. No hace sentido no hacerlo.">
+<section class="slide dark" data-notes="## En una frase
+La inversion es asimetrica: el costo es conocido y acotado; el crecimiento es abierto.
+## Como leerla
+* El numero del bloque es todo el riesgo: esos alumnos extra cubren la inversion completa.
+* La curva verde es el crecimiento con sistema; la punteada, sin el.
+* La estrella marca el punto de salir gratis — esta al principio del camino.
+>> Ustedes saben exactamente cuanto ganamos nosotros. La unica forma de saber cuanto ganan ustedes es entrando.">
   <svg viewBox="0 0 1280 720" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;" aria-hidden="true">
     <line x1="110" y1="606" x2="1170" y2="606" stroke="#22406e" stroke-width="1.5"/>
     <path d="M110,600 C480,588 830,556 1170,492" fill="none" stroke="#4a6aaa" stroke-width="3" stroke-dasharray="7 7" opacity=".8"/>
@@ -901,7 +1060,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 24 COSTOS VARIABLES ============ -->
-<section class="slide light" data-notes="No es ahorrar comunicación — es usar el recurso con eficiencia. No estamos pensando en un peso, estamos pensando en veces de retorno. DATO para dimensionar: un mensaje de WhatsApp cuesta un peso y una colegiatura vale miles — si un solo mensaje de mil regresa a una familia, la cuenta salió gratis. Por eso auditamos lo que se manda: cada peso de comunicación debe rendir al máximo.">
+<section class="slide light" data-notes="## En una frase
+Los costos variables son centavos con retorno en miles — no se ahorran: se eficientan.
+## Para dimensionar
+* Un WhatsApp cuesta un peso; una colegiatura vale miles.
+* Si un solo mensaje de mil regresa a una familia, toda la comunicacion salio gratis.
+* Cada peso de comunicacion se audita para que rinda al maximo.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">La inversión</div></div>
   <h1>Costos variables — eficientar, no ahorrar</h1>
   <table class="semaforo" style="margin-top:12px;font-size:16px;">
@@ -920,7 +1084,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 25 SALDO ============ -->
-<section class="slide light" data-notes="Son dos gastos, una sola decisión — pero hay que pensarlo como empresarios: el fijo se mantiene planito; el variable acompaña la campaña. DATO: enero, julio y agosto son los meses tope — ahí el saldo sube A PROPÓSITO, porque está jalando inscripciones, y se recupera con cada alumno que entra. Un solo pozo de saldo, todos los canales: WhatsApp, correo, llamada, SMS y ads toman de ahí.">
+<section class="slide light" data-notes="## En una frase
+Un solo saldo de comunicacion para todos los canales: WhatsApp, correo, llamada, SMS, Messenger e Instagram.
+## Como se comporta
+* El gasto fijo se mantiene planito mes a mes.
+* El variable acompana la campana: sube en meses tope (enero, julio, agosto) porque esta jalando inscripciones.
+* Se recupera con cada alumno que entra.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">La inversión</div></div>
   <h1>Cómo funciona el saldo</h1>
   <div class="body-txt" style="font-size:15px;margin-top:-6px;max-width:940px;">Un solo saldo de comunicación — cualquier canal lo usa para hablar con el prospecto, y cada mensaje mejora la probabilidad de inscripción.</div>
@@ -958,7 +1127,13 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 26 SEIS SEMANAS ============ -->
-<section class="slide light" data-notes="Semana 1: entrevista. Semana 2: personalización. Semana 3: capacitación y formularios. Semana 4: automatización de recibimiento y calendarios. Semana 5: los aha moments fuertes. Semana 6: ya es bien difícil que regresen a como lo hacían antes. DATO: la implementación completa toma 2 a 3 semanas (tope 5), y los cambios visibles empiezan desde la semana 2 — no hay un valle de seis meses como con los ERP tradicionales.">
+<section class="slide light" data-notes="## En una frase
+De la firma a operar: cambios visibles desde la semana 2, momentos fuertes en la 5 y 6.
+## La linea de tiempo
+* Semana 1: entrevista. Semana 2: personalizacion.
+* Semana 3: capacitacion y formularios. Semana 4: automatizaciones y calendarios.
+* Semana 5 y 6: los resultados que hacen dificil volver a lo de antes.
+* Implementacion completa: 2 a 3 semanas (tope 5).">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Siguiente paso</div></div>
   <h1>Las primeras semanas</h1>
   <div class="fill" style="margin-top:6px;">
@@ -970,7 +1145,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 27 LO QUE NO VAMOS A PEDIR ============ -->
-<section class="slide dark" data-notes="Yo no les puedo prometer alumnos ni que van a estar llenos — mi socio me dice: Ricardo, no sobrevendas. Lo que sí prometo: llevarlos matemáticamente a lo máximo que sabemos. DIFERENCIA clave si comparan con agencia: la agencia responde por costo por lead; si el lead llega bien y se cae en el seguimiento, la agencia cumplió y ustedes perdieron al alumno. Nosotros respondemos por conversión de lead a inscrito — la responsabilidad es compartida.">
+<section class="slide dark" data-notes="## En una frase
+Honestidad primero: no prometemos alumnos garantizados — prometemos llevarlos matematicamente a lo maximo que sabemos.
+## Lo que si es distinto
+* No somos una agencia: la agencia responde por costo por lead; nosotros por conversion de lead a inscrito.
+* No venimos a reemplazar a su equipo: les damos sistema y capacitacion para que su equipo crezca.
+* La responsabilidad del resultado es compartida.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Honestidad</div></div>
   <h1>Lo que no les vamos a pedir</h1>
   <div class="fill" style="justify-content:center;gap:20px;">
@@ -984,7 +1164,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 28 LO QUE SIGUE (roadmap) ============ -->
-<section class="slide dark" data-notes="Les mando la presentación y la propuesta elaborada por WhatsApp y correo; la leen con calma, con el contador, y nos vemos en una semana. REGLA de la casa: una propuesta nunca se deja abierta — las tres salidas válidas son firma, envío de propuesta formal, o revisión interna CON fecha definida. Hoy salimos de aquí con la fecha puesta. Las inscripciones no fallan por esfuerzo — fallan por sistema.">
+<section class="slide dark" data-notes="## En una frase
+La presentacion y la propuesta llegan por WhatsApp y correo, para revisarlas con calma y con su contador.
+## El acuerdo
+* Se revisa en equipo, con todos los que deciden.
+* Se define una fecha concreta para la decision — asi nadie queda en el aire.
+>> Las inscripciones no fallan por esfuerzo: fallan por sistema.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Siguiente paso</div></div>
   <h1>Lo que sigue</h1>
   <div class="fill" style="justify-content:center;">
@@ -1000,7 +1185,13 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ ANEXO A1 CRONOGRAMA DE PAGO ============ -->
-<section class="slide soft anexo" data-notes="TÉCNICA: no frenar el impulso. Cuando ya dijeron sí, lo que sigue tiene que ser lo MÁS simple: crear la cuenta — un clic al botón de su moneda, dos minutos. La firma es importantísima pero secundaria a la cuenta; si la propuesta ya tiene link capturado, aparece el botón (nunca hay uno por default — solo el de este cliente). Y la transferencia se vende, no se cobra: no es un pago, es adquirir un sistema de inscripciones funcionando — tecnología + metodología + soporte + estrategia. Cierre de la lámina: al alumno del breakeven salimos gratis, y de ahí nos quedamos buscando subir su matrícula. Aquí no se puede parar de vender.">
+<section class="slide soft anexo" data-notes="## En una frase
+Cuando la decision es si, lo que sigue es simple — y en este orden.
+## Los tres pasos
+* Crear la cuenta SuperLeads: dos clics, con el boton de su moneda.
+* Firmar la propuesta: el dia que consideren optimo, con factura en MXN o USD por link de pago.
+* Alta y transferencia: adquirir un sistema de inscripciones funcionando — tecnologia, metodologia, soporte y estrategia.
+>> Al alumno del punto de equilibrio, la inversion sale gratis — y de ahi, todo es crecimiento.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Anexo · Cómo se activa</div></div>
   <h1>¿Qué sigue?</h1>
   <div class="fill" style="justify-content:center;gap:20px;margin-top:8px;">
@@ -1020,7 +1211,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ ANEXO A3 FAQ ============ -->
-<section class="slide soft anexo" data-notes="Seis preguntas que casi siempre salen antes de activar — incluidas las dos objeciones más comunes ya respondidas en la lámina: el «ya tengo CRM» (guardar datos no es sistema) y el «ya tengo agencia» (ellos responden por costo por lead, nosotros por conversión). TÉCNICA de objeciones: toda objeción regresa a cuatro lugares — el sistema, el impacto económico, el costo de seguir igual, y el siguiente paso con fecha. Nunca descuento inmediato, nunca presión vacía. Resueltas las preguntas, viene la lámina final: el cierre.">
+<section class="slide soft anexo" data-notes="## En una frase
+Las seis preguntas que mas se repiten antes de activar, respondidas por escrito.
+## Las dos mas importantes
+* Ya tengo CRM: guardar datos no es sistema — sistema es velocidad de respuesta y visibilidad de cada etapa.
+* Ya tengo agencia: la agencia responde por costo por lead; SuperLeads por conversion a inscrito. Se complementan.
+* Cualquier otra duda se responde antes de firmar — sin letra chica.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Anexo · Preguntas frecuentes</div></div>
   <h1>Preguntas antes de activar cuenta</h1>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;margin-top:10px;align-items:stretch;">
@@ -1036,7 +1232,12 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 37 CIERRE ============ -->
-<section class="slide dark" data-notes="El cierre teatral — la última oportunidad de cerrar, y se cierra con poderío. Leerlo con calma, mirándolos: ustedes tienen la institución, nosotros somos el sistema de inscripciones hecho y derecho, exclusivamente para educación privada. Hace sentido juntarnos — probemos y veamos. UN solo botón, el de su moneda: cuando digan sí, se da clic AQUÍ MISMO, en la llamada, y la cuenta queda creada antes de colgar. TÉCNICA: silencio después de la pregunta. El que habla primero después del cierre, pierde. Y los nombres importan: dirigirse a ellos por su nombre — la decisión es de personas, no de instituciones.">
+<section class="slide dark" data-notes="## En una frase
+Ustedes tienen la institucion; SuperLeads es el sistema de inscripciones exclusivo para educacion privada.
+## El acuerdo propuesto
+* Probar y medir: ver cuantos alumnos extra se pueden generar juntos.
+* Riesgo conocido y acotado; crecimiento abierto.
+* Un solo boton: activar la cuenta en su moneda, y empezamos.">
   <div class="fill center" style="gap:0;">
     <a href="https://superleads.mx" target="_blank" rel="noopener" style="display:block;"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" style="height:52px;" alt="SuperLeads"></a>
     <div style="width:56px;height:2px;background:var(--green);margin:30px 0;"></div>
@@ -1065,8 +1266,8 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </div>
 
 <div id="notesPanel" class="no-print">
-  <h4>Notas del orador</h4>
-  <p id="notesBody"></p>
+  <h4>Notas de la lámina</h4>
+  <div id="notesBody"></div>
 </div>
 
 <div id="editPanel" class="no-print">
@@ -1475,8 +1676,19 @@ window.addEventListener('resize', fitStage);
 function render(){
   slides.forEach((s,i)=> s.classList.toggle('active', i===idx));
   counter.textContent = (idx+1)+' / '+total;
-  notesBody.textContent = slides[idx].dataset.notes || '(sin notas para esta lámina)';
+  renderNotes(slides[idx].dataset.notes);
   window.scrollTo(0,0);
+}
+function escN(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function renderNotes(txt){
+  const lines = (txt || '').split('\n').map(l=>l.trim()).filter(Boolean);
+  if(!lines.length){ notesBody.innerHTML = '<p class="np">(sin notas para esta lámina)</p>'; return; }
+  notesBody.innerHTML = lines.map(l=>{
+    if(l.startsWith('## ')) return '<div class="nh">'+escN(l.slice(3))+'</div>';
+    if(l.startsWith('* '))  return '<div class="nb">'+escN(l.slice(2))+'</div>';
+    if(l.startsWith('>> ')) return '<div class="nq">'+escN(l.slice(3))+'</div>';
+    return '<p class="np">'+escN(l)+'</p>';
+  }).join('');
 }
 function next(){ if(idx<total-1){ idx++; render(); } }
 function prev(){ if(idx>0){ idx--; render(); } }
