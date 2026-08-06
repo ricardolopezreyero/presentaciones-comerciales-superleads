@@ -419,7 +419,7 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
     <div style="text-align:center;max-width:900px;font-size:25px;line-height:1.55;font-weight:500;color:#dfe8ff;margin-top:16px;">Creemos que ningún alumno debería perder la oportunidad de estudiar en el colegio correcto por culpa de un mal proceso de admisión — y que los colegios deben ser rentables para poder cumplir su misión educativa.</div>
     <div style="width:56px;height:2px;background:var(--green);margin:34px 0;"></div>
     <div class="eyebrow" style="justify-content:center;"><div class="ew-dot"></div><div class="ew-t">Propósito SuperLeads</div></div>
-    <div style="text-align:center;max-width:880px;font-size:34px;line-height:1.3;font-weight:800;letter-spacing:-.5px;color:#fff;margin-top:16px;">Darle poder a las escuelas para que inscriban fácilmente a millones de estudiantes.</div>
+    <div style="text-align:center;max-width:880px;font-size:34px;line-height:1.3;font-weight:800;letter-spacing:-.5px;color:#fff;margin-top:16px;">Darle poder a los colegios y universidades para que inscriban fácilmente a millones de estudiantes.</div>
   </div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
   <div class="slide-num">10</div>
@@ -782,7 +782,7 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
   <h1>Su inversión</h1>
   <table class="semaforo" style="margin-top:8px;">
     <tr><th>Producto</th><th>Detalle</th><th>Precio</th></tr>
-    <tr><td>Implementación y capacitación</td><td class="small">Migración, embudo configurado, capacitación completa del equipo</td><td class="val" style="font-size:19px;color:var(--green-d);">$0<span style="font-size:12px;color:var(--dim);font-weight:600;"> · antes $60,000</span></td></tr>
+    <tr><td>Implementación y capacitación</td><td class="small">Migración, embudo configurado, capacitación completa del equipo</td><td class="val" style="font-size:19px;color:var(--green-d);">$0<span style="font-size:12px;color:var(--dim);font-weight:600;"> · antes <span data-bind="valor_implementacion" data-fmt="mxn"></span></span></td></tr>
     <tr><td>CRM SuperLeads</td><td class="small">Usuarios y prospectos ilimitados, agente IA, embudo configurado</td><td class="val" style="font-size:19px;" data-bind="precio_crm" data-fmt="mxnmes"></td></tr>
     <tr><td>Dirección Estratégica</td><td class="small">Departamento dedicado, metodología, acompañamiento quincenal</td><td class="val" style="font-size:19px;" data-bind="precio_estrategia" data-fmt="mxnmes"></td></tr>
     <tr><td>Atracción Inteligente</td><td class="small">Generación de demanda calificada — leads que sí convierten</td><td class="val" style="font-size:19px;" data-bind="precio_atraccion" data-fmt="mxnmes"></td></tr>
@@ -838,11 +838,11 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
     <tr><th>Canal</th><th>Costo</th></tr>
     <tr><td>💬 Messenger e Instagram</td><td class="val" style="font-size:19px;">$0</td></tr>
     <tr><td>📧 Recepción de correos</td><td class="val" style="font-size:19px;">$0 · ilimitado</td></tr>
-    <tr><td>💚 Nueva conversación de WhatsApp</td><td class="val" style="font-size:19px;">$1</td></tr>
-    <tr><td>✉️ Correo saliente individual</td><td class="val" style="font-size:19px;">$0.10</td></tr>
-    <tr><td>📞 Llamada con grabación</td><td class="val" style="font-size:19px;">$1 / minuto</td></tr>
-    <tr><td>🔌 Webhook / API</td><td class="val" style="font-size:19px;">$0.33</td></tr>
-    <tr><td>🤖 IA conversacional (Constanza)</td><td class="val" style="font-size:19px;">$1,800/mes</td></tr>
+    <tr><td>💚 Nueva conversación de WhatsApp</td><td class="val" style="font-size:19px;"><span data-bind="costo_wa" data-fmt="mxn2"></span></td></tr>
+    <tr><td>✉️ Correo saliente individual</td><td class="val" style="font-size:19px;"><span data-bind="costo_correo" data-fmt="mxn2"></span></td></tr>
+    <tr><td>📞 Llamada con grabación</td><td class="val" style="font-size:19px;"><span data-bind="costo_llamada" data-fmt="mxn2"></span> / minuto</td></tr>
+    <tr><td>🔌 Webhook / API</td><td class="val" style="font-size:19px;"><span data-bind="costo_webhook" data-fmt="mxn2"></span></td></tr>
+    <tr><td>🤖 IA conversacional (Constanza)</td><td class="val" style="font-size:19px;"><span data-bind="costo_constanza" data-fmt="mxn2"></span>/mes</td></tr>
   </table>
   <div class="callout" style="margin-top:12px;"><b>📌 Ojo:</b> si el papá o el alumno escribe primero, no es «conversación nueva» — solo cuenta cuando SuperLeads abre con plantilla. Mientras dure el intercambio, no hay costo extra por mensaje.</div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
@@ -933,8 +933,8 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Anexo · Cómo se activa</div></div>
   <h1>Cronograma de pago</h1>
   <div class="fill" style="justify-content:center;gap:18px;margin-top:10px;">
-    <div class="step-row"><div class="num-badge">1</div><div><div class="t">Firma de la propuesta</div><div class="d">El día que ustedes consideren óptimo. Factura y cuenta 100% mexicana (Afirme).</div></div></div>
-    <div class="step-row"><div class="num-badge">2</div><div><div class="t">Creación de cuenta</div><div class="d">Cobro único de $200 pesos (constancia y situación fiscal).</div></div></div>
+    <div class="step-row"><div class="num-badge">1</div><div><div class="t">Firma de la propuesta</div><div class="d">El día que ustedes consideren óptimo. Factura y cuenta en la moneda elegida — MXN (Afirme, 100% mexicana) o USD.</div></div></div>
+    <div class="step-row"><div class="num-badge">2</div><div><div class="t">Creación de cuenta</div><div class="d">Cobro único de <span data-bind="cuota_apertura" data-fmt="mxn"></span> (constancia y situación fiscal).</div></div></div>
     <div class="step-row"><div class="num-badge">3</div><div><div class="t">Licencia mensual</div><div class="d">CRM + Dirección Estratégica, con grupo de WhatsApp y ejecutivo de cuenta asignado.</div></div></div>
     <div class="step-row"><div class="num-badge">4</div><div><div class="t">Arranque variables</div><div class="d">Aproximadamente en la semana 3 o 4 empiezan los primeros gastos variables — pequeños, y crecen con la campaña, no de golpe.</div></div></div>
   </div>
@@ -968,8 +968,8 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
   <div class="fill center" style="margin-top:8px;">
     <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Listos cuando ustedes lo estén</div></div>
     <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center;">
-      <a href="https://superleads.mx/activa-tu-cuenta" target="_blank" rel="noopener" class="btn-activar">🚀 Activar cuenta · MXN</a>
-      <a href="https://superleads.mx/activa-tu-cuenta-usd" target="_blank" rel="noopener" class="btn-activar-sec">Activar cuenta · USD</a>
+      <a id="btnCtaMxn" href="https://superleads.mx/activa-tu-cuenta" target="_blank" rel="noopener" class="btn-activar">🚀 Activar cuenta · MXN</a>
+      <a id="btnCtaUsd" href="https://superleads.mx/activa-tu-cuenta-usd" target="_blank" rel="noopener" class="btn-activar-sec">Activar cuenta · USD</a>
     </div>
   </div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
@@ -1083,7 +1083,14 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
       </div>
       <input type="hidden" data-f="paquete">
     </div>
-    <div class="efield"><label>Descuento mensual ($) <span style="font-weight:400;color:var(--dim);">(0 = sin descuento)</span></label><input data-f="descuento" type="number" min="0" step="500"></div>
+    <div class="efield"><label>Moneda de la propuesta <span style="font-weight:400;color:var(--dim);">(todo se captura en MXN; USD se convierte solo — TC $18, ligeramente redondeado hacia arriba)</span></label>
+      <div class="segpills" id="monedaPills">
+        <div class="segpill" data-mon="mxn">Pesos (MXN)</div>
+        <div class="segpill" data-mon="usd">Dólares (USD)</div>
+      </div>
+      <input type="hidden" data-f="moneda">
+    </div>
+    <div class="efield"><label>Descuento mensual <span style="font-weight:400;color:var(--dim);">(siempre en MXN; 0 = sin descuento)</span></label><input data-f="descuento" type="number" min="0" step="500"></div>
     <div class="efield"><label>Caso de éxito <span style="font-weight:400;color:var(--dim);">(Auto lo elige según su perfil)</span></label>
       <select data-f="caso_id" id="casoSelect" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:9px 11px;font-size:13.5px;font-family:inherit;color:#1a1a1a;background:#fafbff;">
         <option value="auto">Auto</option>
@@ -1126,6 +1133,7 @@ let DATA = {
   fecha_presentacion:"11 de agosto de 2026",
   segmento:"k12",
   paquete:"estrategia",
+  moneda:"mxn",
   sedes:1,
   antiguedad_anios:30,
   leads_dia:30,
@@ -1163,30 +1171,52 @@ function resolveCaso(d){
   return CASOS.find(c=>c.key===id) || CASOS[1];
 }
 
-function mxn(n){ return '$'+Math.round(n).toLocaleString('es-MX'); }
+/* ===== Bimoneda: MXN (canónico, aquí se itera todo) y USD (derivado automático) ===== */
+const TIPO_CAMBIO = 18; // MXN por USD
+/* Precios de lista SuperLeads en USD: /18 con redondeo ligero hacia arriba */
+function usdNice(m){
+  if(!m) return 0;
+  const u = m / TIPO_CAMBIO;
+  return u >= 1000 ? Math.ceil(u/50)*50 : Math.ceil(u/5)*5;
+}
+/* Micro-costos variables en USD: /18 con redondeo hacia arriba al centavo */
+function usdMicro(m){ return Math.ceil(m / TIPO_CAMBIO * 100) / 100; }
+function money(n){
+  if(DATA.moneda === 'usd') return 'US$' + Math.round(n).toLocaleString('en-US');
+  return '$' + Math.round(n).toLocaleString('es-MX');
+}
+function money2(n){
+  const usd = DATA.moneda === 'usd';
+  const opts = {minimumFractionDigits: Number.isInteger(+n) ? 0 : 2, maximumFractionDigits: 2};
+  return (usd ? 'US$' : '$') + Number(n).toLocaleString(usd ? 'en-US' : 'es-MX', opts);
+}
 function numf(n){ return Math.round(n).toLocaleString('es-MX'); }
 
 function calc(d){
+  const usd = d.moneda === 'usd';
+  const fx = usd ? TIPO_CAMBIO : 1;
   const precio = PRECIOS[d.segmento] || PRECIOS.k12;
-  const precio_crm = precio.crm;
-  const precio_estrategia = precio.de;
-  const precio_atraccion = precio.ai;
+  const precio_crm = usd ? usdNice(precio.crm) : precio.crm;
+  const precio_estrategia = usd ? usdNice(precio.de) : precio.de;
+  const precio_atraccion = usd ? usdNice(precio.ai) : precio.ai;
   const precio_base = precio_crm;
   const precio_con_estrategia = precio_crm + precio_estrategia;
   const precio_todo = precio_crm + precio_estrategia + precio_atraccion;
   const paquete = PAQUETES.includes(d.paquete) ? d.paquete : 'estrategia';
   const precio_lista = paquete==='base' ? precio_base : paquete==='todo' ? precio_todo : precio_con_estrategia;
-  const descuento = Math.max(0, +d.descuento || 0);
+  const descuento = Math.round(Math.max(0, +d.descuento || 0) / fx); // el descuento se captura siempre en MXN
   const precio_total = Math.max(0, precio_lista - descuento);
   const leads_anio = Math.round(d.leads_dia*365);
   const ocupacion = d.matricula_actual / d.capacidad_instalada * 100;
   const lugares_vacios = Math.max(0, d.capacidad_instalada - d.matricula_actual);
-  const ltv = d.colegiatura_mensual * d.meses_permanencia;
+  const colegiatura_conv = d.colegiatura_mensual / fx; // datos del prospecto: capturados en MXN, convertidos al vuelo
+  const costo_alumno_conv = d.costo_por_alumno / fx;
+  const ltv = colegiatura_conv * d.meses_permanencia;
   const hueco_total = lugares_vacios * ltv;
-  const roas = ltv / d.costo_por_alumno;
+  const roas = ltv / costo_alumno_conv;
   const alumnos_por_decimal = leads_anio * 0.001;
   const pesos_por_decimal = alumnos_por_decimal * ltv;
-  const alumnos_breakeven = precio_total / d.colegiatura_mensual;
+  const alumnos_breakeven = precio_total / colegiatura_conv;
   const alumnos_extra = Math.round(leads_anio * (d.mejora_conservadora/100));
   const ingreso_extra_anual = alumnos_extra * ltv;
   const estrellitas_est = Math.round(leads_anio * 0.004);
@@ -1198,16 +1228,25 @@ function calc(d){
   const leads_meta_2b = Math.round(lugares_vacios / (tasa_objetivo/100));
   const leads_extra_2b = Math.max(0, leads_meta_2b - leads_anio);
   const perdida_pct = Math.round(100 - d.tasa_conversion);
+  // Montos fijos de la propuesta, también bimoneda
+  const valor_implementacion = usd ? usdNice(60000) : 60000;
+  const cuota_apertura = usd ? usdNice(200) : 200;
+  const costo_wa = usd ? usdMicro(1) : 1;
+  const costo_correo = usd ? usdMicro(0.10) : 0.10;
+  const costo_llamada = usd ? usdMicro(1) : 1;
+  const costo_webhook = usd ? usdMicro(0.33) : 0.33;
+  const costo_constanza = usd ? usdMicro(1800) : 1800;
   const casoObj = resolveCaso(d);
   const caso_nombre = casoObj.nombre, caso_resultado = casoObj.resultado, caso_quote = casoObj.quote;
-  return Object.assign({}, d, {precio_crm, precio_estrategia, precio_atraccion, precio_base, precio_con_estrategia, precio_todo, paquete, precio_lista, descuento, precio_total, leads_anio, ocupacion, lugares_vacios, ltv, hueco_total, roas, alumnos_por_decimal, pesos_por_decimal, alumnos_breakeven, alumnos_extra, ingreso_extra_anual, estrellitas_est, valor_estrellitas, leads_adicionales_camino1, tasa_objetivo, leads_meta_2b, leads_extra_2b, perdida_pct, caso_nombre, caso_resultado, caso_quote});
+  return Object.assign({}, d, {precio_crm, precio_estrategia, precio_atraccion, precio_base, precio_con_estrategia, precio_todo, paquete, precio_lista, descuento, precio_total, leads_anio, ocupacion, lugares_vacios, ltv, hueco_total, roas, alumnos_por_decimal, pesos_por_decimal, alumnos_breakeven, alumnos_extra, ingreso_extra_anual, estrellitas_est, valor_estrellitas, leads_adicionales_camino1, tasa_objetivo, leads_meta_2b, leads_extra_2b, perdida_pct, caso_nombre, caso_resultado, caso_quote, valor_implementacion, cuota_apertura, costo_wa, costo_correo, costo_llamada, costo_webhook, costo_constanza});
 }
 
 function fmtVal(v, fmt){
   if(v===undefined||v===null) return '';
   switch(fmt){
-    case 'mxn': return mxn(v);
-    case 'mxnmes': return mxn(v)+'/mes';
+    case 'mxn': return money(v);
+    case 'mxnmes': return money(v)+'/mes';
+    case 'mxn2': return money2(v);
     case 'num': return numf(v);
     case 'pct0': return Math.round(v)+'%';
     case 'pct1': return (Math.round(v*10)/10).toFixed(1)+'%';
@@ -1272,6 +1311,16 @@ function renderData(){
   if(descNote) descNote.style.display = c.descuento > 0 ? '' : 'none';
   const lista = document.getElementById('precioLista');
   if(lista) lista.style.display = c.descuento > 0 ? '' : 'none';
+
+  // CTA de activación (anexo A3): el botón principal es el de la moneda elegida.
+  const usdSel = DATA.moneda === 'usd';
+  const ctaM = document.getElementById('btnCtaMxn'), ctaU = document.getElementById('btnCtaUsd');
+  if(ctaM && ctaU){
+    ctaM.className = usdSel ? 'btn-activar-sec' : 'btn-activar';
+    ctaU.className = usdSel ? 'btn-activar' : 'btn-activar-sec';
+    ctaM.textContent = (usdSel ? '' : '🚀 ') + 'Activar cuenta · MXN';
+    ctaU.textContent = (usdSel ? '🚀 ' : '') + 'Activar cuenta · USD';
+  }
 
   autoScaleImage(c.tasa_conversion);
 }
@@ -1359,6 +1408,12 @@ function setPaquetePill(v){
   const inp = document.querySelector('#editForm [data-f="paquete"]');
   if(inp) inp.value = v;
 }
+function setMonedaPill(v){
+  const mon = (v==='usd') ? 'usd' : 'mxn';
+  document.querySelectorAll('#monedaPills .segpill').forEach(p=> p.classList.toggle('active', p.dataset.mon===mon));
+  const inp = document.querySelector('#editForm [data-f="moneda"]');
+  if(inp) inp.value = mon;
+}
 function syncToolField(){
   const selected = Array.from(document.querySelectorAll('#herramientaPills .toolpill.active')).map(p=>p.dataset.tool);
   const inp = document.querySelector('#editForm [data-f="herramienta_actual"]');
@@ -1379,6 +1434,7 @@ function populateForm(){
   });
   setSegPill(DATA.segmento);
   setPaquetePill(DATA.paquete || 'estrategia');
+  setMonedaPill(DATA.moneda || 'mxn');
   setEscalaPill(DATA.imagen_escala || 'auto');
   setToolPills(DATA.herramienta_actual);
 }
@@ -1388,6 +1444,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
   });
   document.querySelectorAll('#paquetePills .segpill').forEach(p=>{
     p.addEventListener('click', ()=> setPaquetePill(p.dataset.paq));
+  });
+  document.querySelectorAll('#monedaPills .segpill').forEach(p=>{
+    p.addEventListener('click', ()=> setMonedaPill(p.dataset.mon));
   });
   document.querySelectorAll('#escalaPills .segpill').forEach(p=>{
     p.addEventListener('click', ()=> setEscalaPill(p.dataset.esc));
@@ -1448,8 +1507,9 @@ function slug(s){
 function buildExportHTML(){
   const dataBlock = 'let DATA = ' + JSON.stringify(DATA, null, 2) + ';';
   let html = ORIGINAL_HTML_SOURCE.replace(/let DATA = \{[\s\S]*?\n\};/, dataBlock);
-  // Deja marcada la primer lámina como activa y el segmento correcto ya seleccionado al abrir.
-  html = html.replace('renderData();\nrender();', "renderData();\nsetSegPill(DATA.segmento);\nsetPaquetePill(DATA.paquete || 'estrategia');\nrender();");
+  // Cada exportación usa su propia clave de guardado: así un archivo exportado
+  // nunca hereda ni pisa los datos de otra presentación abierta en el mismo equipo.
+  html = html.replace(/const STORAGE_KEY = '[^']*';/, "const STORAGE_KEY = 'sl_pres_" + slug(DATA.colegio) + "';");
   return '<!DOCTYPE html>\n' + html;
 }
 function downloadBlob(content, filename, type){
@@ -1479,6 +1539,7 @@ fitStage();
 renderData();
 setSegPill(DATA.segmento);
 setPaquetePill(DATA.paquete || 'estrategia');
+setMonedaPill(DATA.moneda || 'mxn');
 setEscalaPill(DATA.imagen_escala || 'auto');
 render();
 </script>
