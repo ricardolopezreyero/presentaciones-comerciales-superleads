@@ -77,6 +77,13 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 .card h3{margin:0 0 8px;font-size:21px;font-weight:800;}
 .card img{border-radius:8px;}
 
+.pkg-card{flex:1;border:1px solid var(--border);border-radius:12px;padding:14px 16px;text-align:center;background:#fff;transition:border-color .2s,background .2s;}
+.pkg-card.selected{border:2px solid var(--green-d);background:var(--blue-softer);}
+.pkg-t{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin-bottom:6px;}
+.pkg-card.selected .pkg-t{color:var(--green-d);}
+.pkg-p{font-size:21px;font-weight:800;color:var(--navy-deep);}
+.pkg-d{font-size:11px;color:var(--dim);margin-top:3px;font-weight:600;}
+
 .fill{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;overflow:hidden;}
 .center{align-items:center;text-align:center;justify-content:center;}
 .imgwrap{border-radius:12px;overflow:hidden;border:.5px solid var(--border);background:#f4f7ff;display:flex;align-items:center;justify-content:center;}
@@ -741,23 +748,42 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 22 INVERSION ============ -->
-<section class="slide light" data-notes="Este es la base, el sistema. A partir de aquí les construyo. Implementación inicial y capacitación completa: antes la cobrábamos en sesenta mil pesos, hoy no la cobramos, pero no significa que no valga.">
+<section class="slide light" data-notes="Aquí está todo el menú de productos, sin trucos: implementación, CRM, Dirección Estratégica y Atracción Inteligente. No es más caro ni más barato — es lo que es. Y les proponemos el paquete marcado.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">La inversión</div></div>
   <h1>Su inversión</h1>
-  <table class="semaforo" style="margin-top:12px;">
-    <tr><th>Concepto</th><th>Detalle</th><th>Inversión</th></tr>
-    <tr><td>Implementación y capacitación</td><td class="small">Con esto arrancamos: migración, embudo configurado, capacitación completa del equipo</td><td class="val" style="color:var(--green-d);">$0<span style="font-size:13px;color:var(--dim);font-weight:600;"> · antes $60,000</span></td></tr>
-    <tr><td>CRM SuperLeads Avanzado</td><td class="small">Usuarios y prospectos ilimitados, agente IA, embudo configurado</td><td class="val" data-bind="precio_crm" data-fmt="mxnmes"></td></tr>
-    <tr id="rowEstrategia"><td>Dirección Estratégica</td><td class="small">Departamento dedicado, metodología, acompañamiento quincenal</td><td class="val" id="valEstrategia" data-bind="precio_estrategia" data-fmt="mxnmes"></td></tr>
-    <tr id="rowDescuento" style="display:none;"><td>Descuento acordado</td><td class="small">Monto mensual acordado en la negociación</td><td class="val" style="color:var(--green-d);">− <span data-bind="descuento" data-fmt="mxnmes"></span></td></tr>
+  <table class="semaforo" style="margin-top:8px;">
+    <tr><th>Producto</th><th>Detalle</th><th>Precio</th></tr>
+    <tr><td>Implementación y capacitación</td><td class="small">Migración, embudo configurado, capacitación completa del equipo</td><td class="val" style="font-size:19px;color:var(--green-d);">$0<span style="font-size:12px;color:var(--dim);font-weight:600;"> · antes $60,000</span></td></tr>
+    <tr><td>CRM SuperLeads</td><td class="small">Usuarios y prospectos ilimitados, agente IA, embudo configurado</td><td class="val" style="font-size:19px;" data-bind="precio_crm" data-fmt="mxnmes"></td></tr>
+    <tr><td>Dirección Estratégica</td><td class="small">Departamento dedicado, metodología, acompañamiento quincenal</td><td class="val" style="font-size:19px;" data-bind="precio_estrategia" data-fmt="mxnmes"></td></tr>
+    <tr><td>Atracción Inteligente</td><td class="small">Generación de demanda calificada — leads que sí convierten</td><td class="val" style="font-size:19px;" data-bind="precio_atraccion" data-fmt="mxnmes"></td></tr>
   </table>
-  <div class="body-txt" style="font-size:16px;margin-top:16px;max-width:900px;font-weight:600;color:var(--navy);">
-    <span id="txtEstrategia">Una sola decisión, dos gastos fijos y predecibles — lo variable vive solo en comunicación.</span><span id="txtIncluida" style="display:none;">Una sola decisión, un gasto fijo y predecible — lo variable vive solo en comunicación.</span><span id="txtSoloCrm" style="display:none;">Hoy, solo la tecnología. La Dirección Estratégica —el acompañamiento que sostiene el resultado— se cotiza aparte.</span>
+
+  <div style="display:flex;gap:12px;margin-top:16px;">
+    <div id="pkgBase" class="pkg-card">
+      <div class="pkg-t">Base</div>
+      <div class="pkg-p" data-bind="precio_base" data-fmt="mxnmes"></div>
+      <div class="pkg-d">Solo tecnología</div>
+    </div>
+    <div id="pkgEstrategia" class="pkg-card">
+      <div class="pkg-t">+ Dirección Estratégica</div>
+      <div class="pkg-p" data-bind="precio_con_estrategia" data-fmt="mxnmes"></div>
+      <div class="pkg-d">Tecnología + acompañamiento</div>
+    </div>
+    <div id="pkgTodo" class="pkg-card">
+      <div class="pkg-t">+ Atracción Inteligente</div>
+      <div class="pkg-p" data-bind="precio_todo" data-fmt="mxnmes"></div>
+      <div class="pkg-d">Todo incluido</div>
+    </div>
   </div>
-  <div style="display:inline-flex;align-items:baseline;gap:14px;margin-top:18px;border:2px solid var(--green-d);background:var(--blue-softer);border-radius:16px;padding:16px 36px;">
-    <span id="precioLista" style="display:none;font-size:24px;font-weight:700;color:var(--dim);text-decoration:line-through;" data-bind="precio_lista" data-fmt="mxn"></span>
-    <span class="stat-hero" style="font-size:56px;" data-bind="precio_total" data-fmt="mxn"></span>
-    <span style="font-size:19px;font-weight:800;color:var(--muted);white-space:nowrap;">/mes&nbsp;<span style="opacity:.65;font-weight:700;">+ IVA</span></span>
+
+  <div class="body-txt" id="txtPaquete" style="font-size:14.5px;margin-top:14px;max-width:900px;font-weight:600;color:var(--navy);"></div>
+  <div id="descuentoNote" style="display:none;font-size:12px;color:var(--dim);font-weight:600;margin-top:4px;">Incluye descuento acordado de <span data-bind="descuento" data-fmt="mxnmes"></span> sobre el paquete propuesto.</div>
+
+  <div style="display:inline-flex;align-items:baseline;gap:12px;margin-top:14px;border:2px solid var(--green-d);background:var(--blue-softer);border-radius:16px;padding:14px 32px;">
+    <span id="precioLista" style="display:none;font-size:16px;font-weight:700;color:var(--dim);text-decoration:line-through;" data-bind="precio_lista" data-fmt="mxn"></span>
+    <span class="stat-hero" style="font-size:46px;" data-bind="precio_total" data-fmt="mxn"></span>
+    <span style="font-size:16px;font-weight:800;color:var(--muted);white-space:nowrap;">/mes&nbsp;<span style="opacity:.65;font-weight:700;">+ IVA</span></span>
   </div>
   <div class="slide-num">24</div>
 </section>
@@ -951,17 +977,23 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
       <div class="efield"><label>Fecha de presentación</label><input data-f="fecha_presentacion"></div>
       <div class="efield"><label>Antigüedad (años)</label><input data-f="antiguedad_anios" type="number"></div>
     </div>
-    <div class="efield"><label>Segmento / precio <span style="font-weight:400;color:var(--dim);">(un clic selecciona)</span></label>
+    <div class="efield"><label>Segmento <span style="font-weight:400;color:var(--dim);">(un clic selecciona)</span></label>
       <div class="segpills" id="segPills">
-        <div class="segpill" data-seg="academia1">Academia (1 unidad) · $6,000</div>
-        <div class="segpill" data-seg="academiaAll">Academia (todas) · $25,000</div>
-        <div class="segpill" data-seg="maternal">Maternal · $5,000 + $4,000</div>
-        <div class="segpill" data-seg="k12">K12 · $12,000 + $6,000</div>
-        <div class="segpill soloCrm" data-seg="k12SoloCrm">K12 sin estrategia · $12,000</div>
-        <div class="segpill" data-seg="grupo">Grupo / Universidad · $25,000 + $10,000</div>
-        <div class="segpill soloCrm" data-seg="grupoSoloCrm">Grupo / Universidad sin estrategia · $25,000</div>
+        <div class="segpill" data-seg="academia1">Academia (1 unidad)</div>
+        <div class="segpill" data-seg="academiaAll">Academia (todas)</div>
+        <div class="segpill" data-seg="maternal">Maternal</div>
+        <div class="segpill" data-seg="k12">K12</div>
+        <div class="segpill" data-seg="grupo">Grupo / Universidad</div>
       </div>
       <input type="hidden" data-f="segmento">
+    </div>
+    <div class="efield"><label>Paquete propuesto <span style="font-weight:400;color:var(--dim);">(los 3 precios se muestran siempre)</span></label>
+      <div class="segpills" id="paquetePills">
+        <div class="segpill" data-paq="base">Base (CRM)</div>
+        <div class="segpill" data-paq="estrategia">+ Dirección Estratégica</div>
+        <div class="segpill" data-paq="todo">+ Atracción Inteligente</div>
+      </div>
+      <input type="hidden" data-f="paquete">
     </div>
     <div class="efield"><label>Descuento mensual ($) <span style="font-weight:400;color:var(--dim);">(0 = sin descuento)</span></label><input data-f="descuento" type="number" min="0" step="500"></div>
     <div class="efield"><label>Imagen de la lámina de escala <span style="font-weight:400;color:var(--dim);">(Auto la elige según la tasa)</span></label>
@@ -1032,14 +1064,14 @@ const STORAGE_KEY = 'sl_presentacion_frontera_data';
 
 /* ===================== DATA MODEL ===================== */
 const PRECIOS = {
-  academia1:{crm:6000, de:0, incluida:true, label:'Academia (1 unidad)'},
-  academiaAll:{crm:25000, de:0, incluida:true, label:'Academia (todas)'},
-  maternal:{crm:5000, de:4000, label:'Maternal'},
-  k12:{crm:12000, de:6000, label:'K12'},
-  k12SoloCrm:{crm:12000, de:0, label:'K12 · solo CRM'},
-  grupo:{crm:25000, de:10000, label:'Grupo / Universidad'},
-  grupoSoloCrm:{crm:25000, de:0, label:'Grupo / Universidad · solo CRM'},
+  academia1:{crm:6000, de:0, ai:6000, label:'Academia (1 unidad)'},
+  academiaAll:{crm:25000, de:0, ai:10000, label:'Academia (todas)'},
+  maternal:{crm:5000, de:4000, ai:4000, label:'Maternal'},
+  k12:{crm:12000, de:6000, ai:6000, label:'K12'},
+  grupo:{crm:25000, de:10000, ai:10000, label:'Grupo / Universidad'},
 };
+/* Tres paquetes por segmento, cumulativos: base (CRM) → + estrategia → + atracción inteligente (todo) */
+const PAQUETES = ['base','estrategia','todo'];
 
 let DATA = {
   colegio:"Instituto Frontera AC",
@@ -1051,6 +1083,7 @@ let DATA = {
   pais:"México",
   fecha_presentacion:"11 de agosto de 2026",
   segmento:"k12",
+  paquete:"estrategia",
   sedes:1,
   antiguedad_anios:30,
   leads_dia:30,
@@ -1073,8 +1106,8 @@ let DATA = {
 
 /* ===== Biblioteca de casos de éxito reales (SuperLeads) ===== */
 const CASOS = [
-  {key:'cuenca', nombre:'Universidad Católica de Cuenca', resultado:'Del 3% al 4.52% de conversión en menos de dos meses.', quote:'Su proceso operaba sin sistema — los prospectos entraban, pero nadie los acompañaba hasta la inscripción. Instalamos el sistema y, en dos meses, su conversión creció 50%. Más alumnos, con los mismos leads.', segs:['grupo','grupoSoloCrm']},
-  {key:'swiss', nombre:'Swiss Academy', resultado:'De un proceso fragmentado a 10.64% de conversión.', quote:'Sin control ni visibilidad real del embudo — cada ciclo era una apuesta. Lo estructuramos, y su tasa de inscripción llegó a 10.64%.', segs:['k12','k12SoloCrm']},
+  {key:'cuenca', nombre:'Universidad Católica de Cuenca', resultado:'Del 3% al 4.52% de conversión en menos de dos meses.', quote:'Su proceso operaba sin sistema — los prospectos entraban, pero nadie los acompañaba hasta la inscripción. Instalamos el sistema y, en dos meses, su conversión creció 50%. Más alumnos, con los mismos leads.', segs:['grupo']},
+  {key:'swiss', nombre:'Swiss Academy', resultado:'De un proceso fragmentado a 10.64% de conversión.', quote:'Sin control ni visibilidad real del embudo — cada ciclo era una apuesta. Lo estructuramos, y su tasa de inscripción llegó a 10.64%.', segs:['k12']},
   {key:'pilar', nombre:'Colegio del Pilar', resultado:'16% de inscripción, con una sola persona atendiendo citas.', quote:'El equipo era pequeño, y el sistema que lo respaldaba, casi inexistente. Hoy tienen 16% de inscripción en su último periodo.', segs:['maternal','academia1']},
   {key:'alamos', nombre:'Colegio Álamos Cancún', resultado:'Control total del embudo, con un objetivo claro: llenar al 100%.', quote:'Pasaron de admisiones reactivas a un proceso con seguimiento real, etapa por etapa, hasta la inscripción.', segs:[]},
   {key:'harkness', nombre:'Prepa Harkness', resultado:'La mayor generación de alumnos en toda su historia.', quote:'Con el mismo equipo y el mismo presupuesto de marketing, lograron su récord histórico de inscripciones.', segs:['academiaAll']},
@@ -1095,8 +1128,12 @@ function calc(d){
   const precio = PRECIOS[d.segmento] || PRECIOS.k12;
   const precio_crm = precio.crm;
   const precio_estrategia = precio.de;
-  const estrategia_incluida = !!precio.incluida;   // Academia: va dentro del precio
-  const precio_lista = precio_crm + precio_estrategia;
+  const precio_atraccion = precio.ai;
+  const precio_base = precio_crm;
+  const precio_con_estrategia = precio_crm + precio_estrategia;
+  const precio_todo = precio_crm + precio_estrategia + precio_atraccion;
+  const paquete = PAQUETES.includes(d.paquete) ? d.paquete : 'estrategia';
+  const precio_lista = paquete==='base' ? precio_base : paquete==='todo' ? precio_todo : precio_con_estrategia;
   const descuento = Math.max(0, +d.descuento || 0);
   const precio_total = Math.max(0, precio_lista - descuento);
   const leads_anio = Math.round(d.leads_dia*365);
@@ -1121,7 +1158,7 @@ function calc(d){
   const perdida_pct = Math.round(100 - d.tasa_conversion);
   const casoObj = resolveCaso(d);
   const caso_nombre = casoObj.nombre, caso_resultado = casoObj.resultado, caso_quote = casoObj.quote;
-  return Object.assign({}, d, {precio_crm, precio_estrategia, estrategia_incluida, precio_lista, descuento, precio_total, leads_anio, ocupacion, lugares_vacios, ltv, hueco_total, roas, alumnos_por_decimal, pesos_por_decimal, alumnos_breakeven, alumnos_extra, ingreso_extra_anual, estrellitas_est, valor_estrellitas, leads_adicionales_camino1, tasa_objetivo, leads_meta_2b, leads_extra_2b, perdida_pct, caso_nombre, caso_resultado, caso_quote});
+  return Object.assign({}, d, {precio_crm, precio_estrategia, precio_atraccion, precio_base, precio_con_estrategia, precio_todo, paquete, precio_lista, descuento, precio_total, leads_anio, ocupacion, lugares_vacios, ltv, hueco_total, roas, alumnos_por_decimal, pesos_por_decimal, alumnos_breakeven, alumnos_extra, ingreso_extra_anual, estrellitas_est, valor_estrellitas, leads_adicionales_camino1, tasa_objetivo, leads_meta_2b, leads_extra_2b, perdida_pct, caso_nombre, caso_resultado, caso_quote});
 }
 
 function fmtVal(v, fmt){
@@ -1174,25 +1211,23 @@ function renderData(){
     el.className = 'chip '+t.cls;
     el.textContent = t.text;
   });
-  // El slide de inversión tiene tres estados según el segmento:
-  //   incluida  → Academia: la estrategia va dentro del precio del CRM
-  //   cotizada  → Maternal, K12, Grupo: renglón propio con su precio
-  //   ausente   → variantes "solo CRM": el renglón desaparece
-  const incluida = !!c.estrategia_incluida;
-  const ausente  = !incluida && c.precio_estrategia === 0;
-  const rowEst   = document.getElementById('rowEstrategia');
-  const valEst   = document.getElementById('valEstrategia');
-  if(rowEst) rowEst.style.display = ausente ? 'none' : '';
-  if(valEst && incluida) valEst.textContent = 'Incluida';
-  const estados = { txtEstrategia: (!incluida && !ausente), txtIncluida: incluida, txtSoloCrm: ausente };
-  Object.entries(estados).forEach(([id, visible])=>{
+  // Slide "Su inversión": menú de 3 paquetes siempre visible, se marca el propuesto.
+  const TXT_PAQUETE = {
+    base: 'Hoy proponemos solo la tecnología. La Dirección Estratégica y la Atracción Inteligente quedan disponibles cuando quieran sumarlas.',
+    estrategia: 'Una sola decisión, dos gastos fijos y predecibles — lo variable vive solo en comunicación.',
+    todo: 'Todo incluido: tecnología, acompañamiento estratégico y generación de demanda — un solo equipo operando su rueda completa.',
+  };
+  const pkgIds = {base:'pkgBase', estrategia:'pkgEstrategia', todo:'pkgTodo'};
+  Object.entries(pkgIds).forEach(([paq, id])=>{
     const el = document.getElementById(id);
-    if(el) el.style.display = visible ? '' : 'none';
+    if(el) el.classList.toggle('selected', c.paquete===paq);
   });
+  const txtPaq = document.getElementById('txtPaquete');
+  if(txtPaq) txtPaq.textContent = TXT_PAQUETE[c.paquete] || TXT_PAQUETE.estrategia;
 
-  // Descuento: renglón en la tabla + precio de lista tachado, solo si hay monto
-  const rowDesc = document.getElementById('rowDescuento');
-  if(rowDesc) rowDesc.style.display = c.descuento > 0 ? '' : 'none';
+  // Descuento: nota discreta + precio de lista tachado, solo si hay monto — a propósito muy tenue.
+  const descNote = document.getElementById('descuentoNote');
+  if(descNote) descNote.style.display = c.descuento > 0 ? '' : 'none';
   const lista = document.getElementById('precioLista');
   if(lista) lista.style.display = c.descuento > 0 ? '' : 'none';
 
@@ -1277,6 +1312,11 @@ function setEscalaPill(v){
   const inp = document.querySelector('#editForm [data-f="imagen_escala"]');
   if(inp) inp.value = v;
 }
+function setPaquetePill(v){
+  document.querySelectorAll('#paquetePills .segpill').forEach(p=> p.classList.toggle('active', p.dataset.paq===v));
+  const inp = document.querySelector('#editForm [data-f="paquete"]');
+  if(inp) inp.value = v;
+}
 function syncToolField(){
   const selected = Array.from(document.querySelectorAll('#herramientaPills .toolpill.active')).map(p=>p.dataset.tool);
   const inp = document.querySelector('#editForm [data-f="herramienta_actual"]');
@@ -1296,12 +1336,16 @@ function populateForm(){
     if(k in DATA) el.value = DATA[k];
   });
   setSegPill(DATA.segmento);
+  setPaquetePill(DATA.paquete || 'estrategia');
   setEscalaPill(DATA.imagen_escala || 'auto');
   setToolPills(DATA.herramienta_actual);
 }
 document.addEventListener('DOMContentLoaded', ()=>{
   document.querySelectorAll('#segPills .segpill').forEach(p=>{
     p.addEventListener('click', ()=> setSegPill(p.dataset.seg));
+  });
+  document.querySelectorAll('#paquetePills .segpill').forEach(p=>{
+    p.addEventListener('click', ()=> setPaquetePill(p.dataset.paq));
   });
   document.querySelectorAll('#escalaPills .segpill').forEach(p=>{
     p.addEventListener('click', ()=> setEscalaPill(p.dataset.esc));
@@ -1363,7 +1407,7 @@ function buildExportHTML(){
   const dataBlock = 'let DATA = ' + JSON.stringify(DATA, null, 2) + ';';
   let html = ORIGINAL_HTML_SOURCE.replace(/let DATA = \{[\s\S]*?\n\};/, dataBlock);
   // Deja marcada la primer lámina como activa y el segmento correcto ya seleccionado al abrir.
-  html = html.replace('renderData();\nrender();', "renderData();\nsetSegPill(DATA.segmento);\nrender();");
+  html = html.replace('renderData();\nrender();', "renderData();\nsetSegPill(DATA.segmento);\nsetPaquetePill(DATA.paquete || 'estrategia');\nrender();");
   return '<!DOCTYPE html>\n' + html;
 }
 function downloadBlob(content, filename, type){
@@ -1392,6 +1436,7 @@ document.getElementById('btnPdf').onclick = ()=>{
 fitStage();
 renderData();
 setSegPill(DATA.segmento);
+setPaquetePill(DATA.paquete || 'estrategia');
 setEscalaPill(DATA.imagen_escala || 'auto');
 render();
 </script>
