@@ -217,6 +217,11 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 #notesBody .nb{font-size:14px;line-height:1.55;color:#c9d6f2;margin:0 0 7px;padding-left:16px;position:relative;}
 #notesBody .nb::before{content:'▸';position:absolute;left:0;color:var(--green);font-weight:800;}
 #notesBody .nq{font-size:14px;line-height:1.55;color:#dfe8ff;font-weight:600;border-left:3px solid var(--green);background:rgba(86,239,159,.07);padding:9px 12px;border-radius:0 8px 8px 0;margin:4px 0 10px;}
+#notesEditor{min-height:120px;border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:11px 13px;font-size:14px;line-height:1.6;color:#fff;background:rgba(255,255,255,.045);outline:none;}
+#notesEditor:focus{border-color:var(--green);}
+#notesEditor:empty::before{content:attr(data-ph);color:#5c78ab;}
+#notesEditor b,#notesEditor strong{font-weight:800;color:#ffd76a;}
+#notesEditor ul{margin:4px 0;padding-left:20px;}
 
 /* ===== EDIT PANEL ===== */
 #editPanel{position:fixed;left:0;top:0;bottom:52px;width:400px;background:#fff;color:#1a1a1a;padding:26px;overflow-y:auto;transform:translateX(-100%);transition:transform .25s var(--ease);z-index:20;border-right:1px solid var(--border);}
@@ -1268,6 +1273,16 @@ Ustedes tienen la institucion; SuperLeads es el sistema de inscripciones exclusi
 <div id="notesPanel" class="no-print">
   <h4>Notas de la lámina</h4>
   <div id="notesBody"></div>
+  <div style="margin-top:24px;border-top:1px solid rgba(255,255,255,.14);padding-top:16px;">
+    <h4 style="color:#ffd76a;">✏️ Notas de la llamada</h4>
+    <div style="font-size:11.5px;color:#5c78ab;font-weight:600;margin-bottom:8px;">Lo que diga el prospecto se escribe aquí — se guarda solo, por lámina, y viaja dentro del HTML que le mandes.</div>
+    <div id="noteTools" style="display:flex;gap:6px;margin-bottom:8px;">
+      <button type="button" data-cmd="bold" title="Negrita" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;font-weight:800;font-size:13px;padding:4px 12px;border-radius:7px;cursor:pointer;">B</button>
+      <button type="button" data-cmd="italic" title="Cursiva" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;font-style:italic;font-size:13px;padding:4px 12px;border-radius:7px;cursor:pointer;">I</button>
+      <button type="button" data-cmd="insertUnorderedList" title="Lista" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;padding:4px 12px;border-radius:7px;cursor:pointer;">• Lista</button>
+    </div>
+    <div id="notesEditor" contenteditable="true" data-ph="Escribe aquí…"></div>
+  </div>
 </div>
 
 <div id="editPanel" class="no-print">
@@ -1423,6 +1438,7 @@ let DATA = {
   paquete:"estrategia",
   moneda:"mxn",
   comercial:"ricardo",
+  notas_slide:{},
   sedes:1,
   antiguedad_anios:30,
   leads_dia:30,
@@ -1660,6 +1676,7 @@ const total = slides.length;
 let idx = 0;
 const counter = document.getElementById('counter');
 const notesBody = document.getElementById('notesBody');
+const notesEditor = document.getElementById('notesEditor');
 const notesPanel = document.getElementById('notesPanel');
 const editPanel = document.getElementById('editPanel');
 const frame = document.getElementById('frame');
@@ -1677,6 +1694,7 @@ function render(){
   slides.forEach((s,i)=> s.classList.toggle('active', i===idx));
   counter.textContent = (idx+1)+' / '+total;
   renderNotes(slides[idx].dataset.notes);
+  if(notesEditor) notesEditor.innerHTML = (DATA.notas_slide && DATA.notas_slide[idx]) || '';
   window.scrollTo(0,0);
 }
 function escN(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -1689,6 +1707,17 @@ function renderNotes(txt){
     if(l.startsWith('>> ')) return '<div class="nq">'+escN(l.slice(3))+'</div>';
     return '<p class="np">'+escN(l)+'</p>';
   }).join('');
+}
+if(notesEditor){
+  notesEditor.addEventListener('input', ()=>{
+    if(!DATA.notas_slide || typeof DATA.notas_slide !== 'object') DATA.notas_slide = {};
+    const clean = notesEditor.innerHTML.replace(/<\/?script[^>]*>/gi,'');
+    if(clean.trim()) DATA.notas_slide[idx] = clean; else delete DATA.notas_slide[idx];
+    saveData();
+  });
+  document.querySelectorAll('#noteTools button').forEach(b=>{
+    b.addEventListener('mousedown', e=>{ e.preventDefault(); notesEditor.focus(); document.execCommand(b.dataset.cmd, false, null); });
+  });
 }
 function next(){ if(idx<total-1){ idx++; render(); } }
 function prev(){ if(idx>0){ idx--; render(); } }
@@ -1801,7 +1830,7 @@ document.getElementById('editForm').addEventListener('submit', (e)=>{
 
 window.addEventListener('keydown', (e)=>{
   const tag = (e.target && e.target.tagName) || '';
-  if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT') return;
+  if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT'||(e.target && e.target.isContentEditable)) return;
   if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){ e.preventDefault(); next(); }
   else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); prev(); }
   else if(e.key==='n'||e.key==='N'){ editPanel.classList.remove('open'); notesPanel.classList.toggle('open'); }
