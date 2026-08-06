@@ -1339,6 +1339,13 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
       <div class="efield"><label>Matrícula actual</label><input data-f="matricula_actual" type="text" inputmode="decimal" class="numfld"></div>
       <div class="efield"><label>Capacidad instalada</label><input data-f="capacidad_instalada" type="text" inputmode="decimal" class="numfld"></div>
     </div>
+    <div class="efield"><label>Moneda <span style="font-weight:400;color:var(--dim);">(todo se captura en MXN; USD se convierte solo — TC $18, ligeramente redondeado hacia arriba)</span></label>
+      <div class="segpills" id="monedaPills">
+        <div class="segpill" data-mon="mxn">Pesos (MXN)</div>
+        <div class="segpill" data-mon="usd">Dólares (USD)</div>
+      </div>
+      <input type="hidden" data-f="moneda">
+    </div>
     <div class="erow2">
       <div class="efield"><label>Colegiatura mensual</label><input data-f="colegiatura_mensual" type="text" inputmode="decimal" class="numfld"></div>
       <div class="efield"><label>Meses de permanencia</label><input data-f="meses_permanencia" type="text" inputmode="decimal" class="numfld"></div>
@@ -1389,13 +1396,6 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
         <div class="segpill" data-paq="todo">+ Atracción Inteligente</div>
       </div>
       <input type="hidden" data-f="paquete">
-    </div>
-    <div class="efield"><label>Moneda de la propuesta <span style="font-weight:400;color:var(--dim);">(todo se captura en MXN; USD se convierte solo — TC $18, ligeramente redondeado hacia arriba)</span></label>
-      <div class="segpills" id="monedaPills">
-        <div class="segpill" data-mon="mxn">Pesos (MXN)</div>
-        <div class="segpill" data-mon="usd">Dólares (USD)</div>
-      </div>
-      <input type="hidden" data-f="moneda">
     </div>
     <div class="efield"><label>Descuento mensual <span style="font-weight:400;color:var(--dim);">(siempre en MXN; 0 = sin descuento)</span></label><input data-f="descuento" type="text" inputmode="decimal" class="numfld"></div>
     <div class="efield"><label>Link de la propuesta <span style="font-weight:400;color:var(--dim);">(vacío = sin botón; NUNCA hay uno por default — solo el de este cliente)</span></label><input data-f="link_propuesta" type="text" placeholder="https://…"></div>
