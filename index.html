@@ -268,7 +268,7 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
     <div style="margin-top:20px;font-size:16px;font-weight:600;color:#9fb3d9;letter-spacing:.2px;max-width:860px;text-align:center;line-height:1.55;">Instalación y mantenimiento de sistemas de inscripciones <span style="color:var(--green);font-weight:800;">premium</span> para colegios y universidades privadas en LATAM.</div>
   </div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
-  <div class="slide-num">Ricardo López Reyero · SuperLeads</div>
+  <div class="slide-num"><span data-bind="comercial_firma"></span></div>
 </section>
 
 <!-- ============ 02 AGENDA ============ -->
@@ -1046,7 +1046,7 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
     </div>
   </div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
-  <div class="slide-num">Ricardo López Reyero · SuperLeads</div>
+  <div class="slide-num"><span data-bind="comercial_firma"></span></div>
 </section>
 
 </div></div>
@@ -1137,6 +1137,13 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 
     <h4 style="margin-top:30px;border-top:1px solid var(--border);padding-top:22px;">Editar datos de la propuesta</h4>
     <div class="eHint" style="margin-top:-10px;">Esta parte es comercial: define qué le estamos cotizando.</div>
+    <div class="efield"><label>Comercial que presenta <span style="font-weight:400;color:var(--dim);">(firma en portada y cierre)</span></label>
+      <div class="segpills" id="comercialPills">
+        <div class="segpill" data-com="ricardo">Ing. Ricardo López Reyero</div>
+        <div class="segpill" data-com="victor">Lic. Víctor Jiménez Gallo</div>
+      </div>
+      <input type="hidden" data-f="comercial">
+    </div>
     <div class="efield"><label>Segmento <span style="font-weight:400;color:var(--dim);">(un clic selecciona)</span></label>
       <div class="segpills" id="segPills">
         <div class="segpill" data-seg="academia1">Academia (1 unidad)</div>
@@ -1194,6 +1201,11 @@ const PRECIOS = {
 };
 /* Tres paquetes por segmento, cumulativos: base (CRM) → + estrategia → + atracción inteligente (todo) */
 const PAQUETES = ['base','estrategia','todo'];
+/* Comerciales que pueden presentar — la firma aparece en portada y cierre */
+const COMERCIALES = {
+  ricardo:{nombre:'Ing. Ricardo López Reyero', email:'Ricardo@SuperLeads.mx'},
+  victor:{nombre:'Lic. Víctor Jiménez Gallo', email:'Victor@SuperLeads.mx'},
+};
 
 let DATA = {
   colegio:"Instituto Frontera AC",
@@ -1207,6 +1219,7 @@ let DATA = {
   segmento:"k12",
   paquete:"estrategia",
   moneda:"mxn",
+  comercial:"ricardo",
   sedes:1,
   antiguedad_anios:30,
   leads_dia:30,
@@ -1311,9 +1324,11 @@ function calc(d){
   const costo_llamada = usd ? usdMicro(1) : 1;
   const costo_webhook = usd ? usdMicro(0.33) : 0.33;
   const costo_constanza = usd ? usdMicro(1800) : 1800;
+  const com = COMERCIALES[d.comercial] || COMERCIALES.ricardo;
+  const comercial_firma = com.nombre + ' \u00b7 ' + com.email;
   const casoObj = resolveCaso(d);
   const caso_nombre = casoObj.nombre, caso_resultado = casoObj.resultado, caso_quote = casoObj.quote;
-  return Object.assign({}, d, {precio_crm, precio_estrategia, precio_atraccion, precio_base, precio_con_estrategia, precio_todo, paquete, precio_lista, descuento, precio_total, precio_anual, precio_diario, leads_anio, ocupacion, lugares_vacios, ltv, hueco_total, roas, alumnos_por_decimal, pesos_por_decimal, alumnos_breakeven, alumnos_extra, ingreso_extra_anual, estrellitas_est, valor_estrellitas, leads_adicionales_camino1, tasa_objetivo, leads_meta_2b, leads_extra_2b, perdida_pct, caso_nombre, caso_resultado, caso_quote, valor_implementacion, cuota_apertura, costo_wa, costo_correo, costo_llamada, costo_webhook, costo_constanza});
+  return Object.assign({}, d, {precio_crm, precio_estrategia, precio_atraccion, precio_base, precio_con_estrategia, precio_todo, paquete, precio_lista, descuento, precio_total, precio_anual, precio_diario, leads_anio, ocupacion, lugares_vacios, ltv, hueco_total, roas, alumnos_por_decimal, pesos_por_decimal, alumnos_breakeven, alumnos_extra, ingreso_extra_anual, estrellitas_est, valor_estrellitas, leads_adicionales_camino1, tasa_objetivo, leads_meta_2b, leads_extra_2b, perdida_pct, caso_nombre, caso_resultado, caso_quote, valor_implementacion, cuota_apertura, costo_wa, costo_correo, costo_llamada, costo_webhook, costo_constanza, comercial_firma});
 }
 
 function fmtVal(v, fmt){
@@ -1494,6 +1509,12 @@ function setPaquetePill(v){
   const inp = document.querySelector('#editForm [data-f="paquete"]');
   if(inp) inp.value = v;
 }
+function setComercialPill(v){
+  const com = (v==='victor') ? 'victor' : 'ricardo';
+  document.querySelectorAll('#comercialPills .segpill').forEach(p=> p.classList.toggle('active', p.dataset.com===com));
+  const inp = document.querySelector('#editForm [data-f="comercial"]');
+  if(inp) inp.value = com;
+}
 function setMonedaPill(v){
   const mon = (v==='usd') ? 'usd' : 'mxn';
   document.querySelectorAll('#monedaPills .segpill').forEach(p=> p.classList.toggle('active', p.dataset.mon===mon));
@@ -1521,6 +1542,7 @@ function populateForm(){
   setSegPill(DATA.segmento);
   setPaquetePill(DATA.paquete || 'estrategia');
   setMonedaPill(DATA.moneda || 'mxn');
+  setComercialPill(DATA.comercial || 'ricardo');
   setEscalaPill(DATA.imagen_escala || 'auto');
   setToolPills(DATA.herramienta_actual);
 }
@@ -1533,6 +1555,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
   });
   document.querySelectorAll('#monedaPills .segpill').forEach(p=>{
     p.addEventListener('click', ()=> setMonedaPill(p.dataset.mon));
+  });
+  document.querySelectorAll('#comercialPills .segpill').forEach(p=>{
+    p.addEventListener('click', ()=> setComercialPill(p.dataset.com));
   });
   document.querySelectorAll('#escalaPills .segpill').forEach(p=>{
     p.addEventListener('click', ()=> setEscalaPill(p.dataset.esc));
@@ -1626,6 +1651,7 @@ renderData();
 setSegPill(DATA.segmento);
 setPaquetePill(DATA.paquete || 'estrategia');
 setMonedaPill(DATA.moneda || 'mxn');
+setComercialPill(DATA.comercial || 'ricardo');
 setEscalaPill(DATA.imagen_escala || 'auto');
 render();
 </script>
