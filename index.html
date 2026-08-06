@@ -317,11 +317,13 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
     <img class="scale-img" data-idx="0" src="assets_deck_instituto_frontera/l05-escala-salon.png" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
     <img class="scale-img" data-idx="1" src="assets_deck_instituto_frontera/l05-escala-autobus.png" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;display:none;">
     <img class="scale-img" data-idx="2" src="assets_deck_instituto_frontera/l05-escala-cine.png" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;display:none;">
+    <img class="scale-img" data-idx="3" src="assets_deck_instituto_frontera/l05-escala-auditorio.png" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;display:none;">
     <div class="scale-cap">Así se ve su <span data-bind="tasa_conversion" data-fmt="pct2"></span> de conversión hoy</div>
     <div class="scale-thumbs no-print">
       <div class="scale-dot" data-goto="0" title="Salón de clase"></div>
       <div class="scale-dot" data-goto="1" title="Autobús"></div>
       <div class="scale-dot" data-goto="2" title="Sala de cine"></div>
+      <div class="scale-dot" data-goto="3" title="Auditorio"></div>
     </div>
   </div>
   <div class="slide-num">06</div>
@@ -957,6 +959,7 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
         <div class="segpill" data-esc="salon">🏫 Salón</div>
         <div class="segpill" data-esc="autobus">🚌 Autobús</div>
         <div class="segpill" data-esc="cine">🎬 Cine</div>
+        <div class="segpill" data-esc="auditorio">🎓 Auditorio</div>
       </div>
       <input type="hidden" data-f="imagen_escala">
     </div>
@@ -986,7 +989,15 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
       </div>
     </div>
     <div class="efield"><label>Personas de admisiones</label><input data-f="personas_admisiones" type="number"></div>
-    <div class="efield"><label>Herramienta actual</label><input data-f="herramienta_actual"></div>
+    <div class="efield"><label>Herramienta actual <span style="font-weight:400;color:var(--dim);">(clic para marcar las que usan)</span></label>
+      <div class="segpills" id="herramientaPills">
+        <div class="segpill toolpill" data-tool="WhatsApp">WhatsApp</div>
+        <div class="segpill toolpill" data-tool="Excel">Excel</div>
+        <div class="segpill toolpill" data-tool="CRM genérico">CRM genérico</div>
+        <div class="segpill toolpill" data-tool="CRM empresarial">CRM empresarial</div>
+      </div>
+      <input type="hidden" data-f="herramienta_actual">
+    </div>
     <div class="efield"><label>Cita en portada (nota de llamada)</label><textarea data-f="notas_llamada_1"></textarea></div>
     <div class="efield"><label>Caso — nombre del colegio</label><input data-f="caso_nombre"></div>
     <div class="efield"><label>Caso — cita textual</label><textarea data-f="caso_quote"></textarea></div>
@@ -1159,10 +1170,10 @@ function showScale(i){
 }
 function autoScaleImage(tasa){
   if(scaleManual) return;
-  const fija = {salon:0, autobus:1, cine:2}[DATA.imagen_escala];
+  const fija = {salon:0, autobus:1, cine:2, auditorio:3}[DATA.imagen_escala];
   if(fija !== undefined){ showScale(fija); return; }
   let i = 0;
-  if(tasa>=3.5) i=0; else if(tasa>=1.5) i=1; else i=2;
+  if(tasa>=3.5) i=0; else if(tasa>=1.5) i=1; else if(tasa>=0.75) i=2; else i=3;
   showScale(i);
 }
 document.addEventListener('DOMContentLoaded', ()=>{
@@ -1224,6 +1235,19 @@ function setEscalaPill(v){
   const inp = document.querySelector('#editForm [data-f="imagen_escala"]');
   if(inp) inp.value = v;
 }
+function syncToolField(){
+  const selected = Array.from(document.querySelectorAll('#herramientaPills .toolpill.active')).map(p=>p.dataset.tool);
+  const inp = document.querySelector('#editForm [data-f="herramienta_actual"]');
+  if(inp) inp.value = selected.join(' y ');
+}
+function setToolPills(str){
+  const selected = (str||'').split(/\s*,\s*|\s+y\s+/i).map(s=>s.trim()).filter(Boolean);
+  document.querySelectorAll('#herramientaPills .toolpill').forEach(p=>{
+    p.classList.toggle('active', selected.some(s=> s.toLowerCase()===p.dataset.tool.toLowerCase()));
+  });
+  const inp = document.querySelector('#editForm [data-f="herramienta_actual"]');
+  if(inp) inp.value = str || '';
+}
 function populateForm(){
   document.querySelectorAll('#editForm [data-f]').forEach(el=>{
     const k = el.dataset.f;
@@ -1231,6 +1255,7 @@ function populateForm(){
   });
   setSegPill(DATA.segmento);
   setEscalaPill(DATA.imagen_escala || 'auto');
+  setToolPills(DATA.herramienta_actual);
 }
 document.addEventListener('DOMContentLoaded', ()=>{
   document.querySelectorAll('#segPills .segpill').forEach(p=>{
@@ -1238,6 +1263,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
   });
   document.querySelectorAll('#escalaPills .segpill').forEach(p=>{
     p.addEventListener('click', ()=> setEscalaPill(p.dataset.esc));
+  });
+  document.querySelectorAll('#herramientaPills .toolpill').forEach(p=>{
+    p.addEventListener('click', ()=>{ p.classList.toggle('active'); syncToolField(); });
   });
 });
 document.getElementById('btnEdit').onclick = ()=>{
