@@ -961,14 +961,20 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ ANEXO A1 CRONOGRAMA DE PAGO ============ -->
-<section class="slide soft anexo" data-notes="Un buen ingeniero siempre tiene la respuesta anticipada. Se firma la propuesta el día que ustedes decidan; la cuenta se crea en la moneda elegida — MXN con Afirme, 100% mexicana, o USD — con un cobro único de apertura. Luego arranca la licencia mensual, y los primeros gastos variables aparecen hasta la semana 3 o 4 — pequeños, y crecen con la campaña, no de golpe. El kickoff ocurre en máximo 5 días hábiles después de la firma.">
+<section class="slide soft anexo" data-notes="TÉCNICA: no frenar el impulso. Cuando ya dijeron sí, lo que sigue tiene que ser lo MÁS simple: crear la cuenta — un clic al botón de su moneda, dos minutos. La firma es importantísima pero secundaria a la cuenta; si la propuesta ya tiene link capturado, aparece el botón (nunca hay uno por default — solo el de este cliente). Y la transferencia se vende, no se cobra: no es un pago, es adquirir un sistema de inscripciones funcionando — tecnología + metodología + soporte + estrategia. Cierre de la lámina: al alumno del breakeven salimos gratis, y de ahí nos quedamos buscando subir su matrícula. Aquí no se puede parar de vender.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Anexo · Cómo se activa</div></div>
-  <h1>Cronograma de pago</h1>
-  <div class="fill" style="justify-content:center;gap:18px;margin-top:10px;">
-    <div class="step-row"><div class="num-badge">1</div><div><div class="t">Firma de la propuesta</div><div class="d">El día que ustedes consideren óptimo. Factura y cuenta en la moneda elegida — MXN (Afirme, 100% mexicana) o USD.</div></div></div>
-    <div class="step-row"><div class="num-badge">2</div><div><div class="t">Creación de cuenta</div><div class="d">Cobro único de <span data-bind="cuota_apertura" data-fmt="mxn"></span> (constancia y situación fiscal).</div></div></div>
-    <div class="step-row"><div class="num-badge">3</div><div><div class="t">Licencia mensual</div><div class="d">CRM + Dirección Estratégica, con grupo de WhatsApp y ejecutivo de cuenta asignado.</div></div></div>
-    <div class="step-row"><div class="num-badge">4</div><div><div class="t">Arranque variables</div><div class="d">Aproximadamente en la semana 3 o 4 empiezan los primeros gastos variables — pequeños, y crecen con la campaña, no de golpe.</div></div></div>
+  <h1>¿Qué sigue?</h1>
+  <div class="fill" style="justify-content:center;gap:20px;margin-top:8px;">
+    <div class="step-row"><div class="num-badge">1</div><div style="flex:1;"><div class="t">Creación de la cuenta SuperLeads</div><div class="d">Lo más simple va primero: dos clics y su cuenta existe. Cobro único de <span data-bind="cuota_apertura" data-fmt="mxn"></span> (constancia y situación fiscal).</div>
+      <div style="margin-top:10px;">
+        <a id="ctaCronMxn" href="https://superleads.mx/activa-tu-cuenta" target="_blank" rel="noopener" class="btn-activar" style="font-size:14.5px;padding:10px 20px;">🚀 Crear cuenta · MXN</a>
+        <a id="ctaCronUsd" href="https://superleads.mx/activa-tu-cuenta-usd" target="_blank" rel="noopener" class="btn-activar" style="font-size:14.5px;padding:10px 20px;display:none;">🚀 Crear cuenta · USD</a>
+      </div></div></div>
+    <div class="step-row"><div class="num-badge">2</div><div style="flex:1;"><div class="t">Firma de la propuesta</div><div class="d">El día que ustedes consideren óptimo. Factura en la moneda elegida — MXN (Afirme, 100% mexicana) o USD.</div>
+      <div style="margin-top:10px;"><a id="linkPropuesta" href="#" target="_blank" rel="noopener" class="btn-activar-sec" style="font-size:13.5px;padding:9px 18px;display:none;">📄 Ver su propuesta</a></div></div></div>
+    <div class="step-row"><div class="num-badge">3</div><div style="flex:1;"><div class="t">Alta y transferencia</div><div class="d">La inversión en tecnología + metodología + soporte + estrategia. Esta transferencia no es un pago: es adquirir un sistema de inscripciones funcionando para su colegio.</div>
+      <div style="margin-top:10px;"><a href="https://drive.google.com/file/d/1DAAcw3Y5zoEqhKd9VDLaO8SQ3pgN8FJN/view" target="_blank" rel="noopener" class="btn-activar-sec" style="font-size:13.5px;padding:9px 18px;">📋 Formato de alta de cuenta</a></div></div></div>
+    <div style="margin-top:6px;padding:14px 20px;border-left:3px solid var(--green-d);background:rgba(86,239,159,.06);border-radius:0 12px 12px 0;font-size:16.5px;font-weight:700;color:var(--navy-deep);">⭐ Al alumno <span style="color:var(--green-d);" data-bind="alumnos_breakeven" data-fmt="dec2"></span> salimos gratis — y de ahí, nos quedamos buscando subir su matrícula.</div>
   </div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
   <div class="slide-num">A1</div>
@@ -1123,6 +1129,7 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
       <input type="hidden" data-f="moneda">
     </div>
     <div class="efield"><label>Descuento mensual <span style="font-weight:400;color:var(--dim);">(siempre en MXN; 0 = sin descuento)</span></label><input data-f="descuento" type="number" min="0" step="500"></div>
+    <div class="efield"><label>Link de la propuesta <span style="font-weight:400;color:var(--dim);">(vacío = sin botón; NUNCA hay uno por default — solo el de este cliente)</span></label><input data-f="link_propuesta" type="text" placeholder="https://…"></div>
     <div class="efield"><label>Caso de éxito <span style="font-weight:400;color:var(--dim);">(Auto lo elige según su perfil)</span></label>
       <select data-f="caso_id" id="casoSelect" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:9px 11px;font-size:13.5px;font-family:inherit;color:#1a1a1a;background:#fafbff;">
         <option value="auto">Auto</option>
@@ -1184,6 +1191,7 @@ let DATA = {
   imagen_escala:"auto",
   notas_llamada_1:"Es de oportunidad, y formas de crecimiento, pero necesito cerrar brechas.",
   caso_id:"auto",
+  link_propuesta:"",
 };
 
 /* ===== Biblioteca de casos de éxito reales (SuperLeads) ===== */
@@ -1348,6 +1356,15 @@ function renderData(){
 
   // CTA de activación (anexo A3): el botón principal es el de la moneda elegida.
   const usdSel = DATA.moneda === 'usd';
+  const cronM = document.getElementById('ctaCronMxn'), cronU = document.getElementById('ctaCronUsd');
+  if(cronM && cronU){ cronM.style.display = usdSel ? 'none' : 'inline-flex'; cronU.style.display = usdSel ? 'inline-flex' : 'none'; }
+  // Link de la propuesta: solo existe si se capturó — jamás un default.
+  const lp = document.getElementById('linkPropuesta');
+  if(lp){
+    const url = (DATA.link_propuesta || '').trim();
+    if(url){ lp.href = url; lp.style.display = 'inline-flex'; }
+    else { lp.removeAttribute('href'); lp.style.display = 'none'; }
+  }
   const ctaM = document.getElementById('btnCtaMxn'), ctaU = document.getElementById('btnCtaUsd');
   if(ctaM && ctaU){
     ctaM.className = usdSel ? 'btn-activar-sec' : 'btn-activar';
