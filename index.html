@@ -68,6 +68,9 @@ h2{font-size:28px;font-weight:700;letter-spacing:-.4px;line-height:1.2;margin:0 
 .chip.rojo{background:rgba(214,69,69,.1);color:#a52d2d;border:1px solid rgba(214,69,69,.35);}
 .chip.azul{background:rgba(0,57,200,.08);color:var(--blue);border:1px solid rgba(0,57,200,.3);}
 .chipSel{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;}
+/* Columna de lectura fija: dimensionada a la etiqueta más ancha para que nada se mueva al cambiarla */
+.tabla-vitales td:last-child, .tabla-vitales th:last-child{width:300px;min-width:300px;}
+.tabla-vitales td:nth-child(2), .tabla-vitales th:nth-child(2){width:160px;}
 .efield.hl{box-shadow:0 0 0 2px var(--green-d);background:rgba(86,239,159,.07);border-radius:10px;padding:8px;margin-left:-8px;margin-right:-8px;transition:box-shadow .2s;}
 
 table.semaforo{width:100%;border-collapse:collapse;font-size:17px;}
@@ -351,7 +354,7 @@ Los Signos Vitales comparan sus métricas contra los rangos sanos de la industri
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El diagnóstico</div></div>
   <h1>Los Signos Vitales</h1>
   <div class="sub">de <span data-bind="colegio"></span></div>
-  <table class="semaforo" style="margin-top:14px;">
+  <table class="semaforo tabla-vitales" style="margin-top:14px;">
     <tr><th>Métrica</th><th>Valor</th><th>Lectura</th></tr>
     <tr><td>Tasa de conversión (lead → alumno)</td><td class="val" data-bind="tasa_conversion" data-fmt="pct2"></td><td style="position:relative;"><span class="chip" data-chip="tasa_conversion"></span><select class="chipSel no-print" data-chipsel="tasa_conversion"><option value="auto">Auto (recomendado)</option><option value="verde">🟢 Sano</option><option value="amarillo">🟡 Atención</option><option value="rojo">🔴 Urgente</option><option value="azul">🔵 Capacidad disponible</option></select></td></tr>
     <tr><td>Tasa cita → alumno</td><td class="val" data-bind="tasa_cita_alumno" data-fmt="pct0"></td><td style="position:relative;"><span class="chip" data-chip="tasa_cita_alumno"></span><select class="chipSel no-print" data-chipsel="tasa_cita_alumno"><option value="auto">Auto (recomendado)</option><option value="verde">🟢 Sano</option><option value="amarillo">🟡 Atención</option><option value="rojo">🔴 Urgente</option><option value="azul">🔵 Capacidad disponible</option></select></td></tr>
