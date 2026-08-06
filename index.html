@@ -48,8 +48,8 @@ h2{font-size:28px;font-weight:700;letter-spacing:-.4px;line-height:1.2;margin:0 
 .slide-brand{position:absolute;bottom:9px;left:64px;display:flex;align-items:center;text-decoration:none;opacity:.92;transition:opacity .15s;z-index:5;}
 .slide-brand:hover{opacity:1;}
 .slide-brand img{height:30px;display:block;}
-/* En láminas claras el logo (blanco) se invierte a oscuro conservando el verde */
-.light .slide-brand img, .soft .slide-brand img{filter:invert(1) hue-rotate(180deg);}
+/* En láminas claras se usa la variante oficial oscura del logo (texto navy, verde de marca intacto) */
+.light .slide-brand img, .soft .slide-brand img{content:url("assets_deck_instituto_frontera/logo-superleads-oscuro.svg");}
 .logo{height:26px;}
 .sub{font-size:17px;font-weight:600;color:var(--blue);margin:-4px 0 6px;}
 .dark .sub,.blue .sub{color:var(--green);}
@@ -67,6 +67,7 @@ h2{font-size:28px;font-weight:700;letter-spacing:-.4px;line-height:1.2;margin:0 
 .chip.amarillo{background:rgba(232,163,61,.14);color:#8a5c10;border:1px solid rgba(232,163,61,.4);}
 .chip.rojo{background:rgba(214,69,69,.1);color:#a52d2d;border:1px solid rgba(214,69,69,.35);}
 .chip.azul{background:rgba(0,57,200,.08);color:var(--blue);border:1px solid rgba(0,57,200,.3);}
+.chipSel{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;}
 
 table.semaforo{width:100%;border-collapse:collapse;font-size:17px;}
 table.semaforo th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--dim);font-weight:700;padding:0 0 10px;border-bottom:1px solid var(--border);}
@@ -339,23 +340,28 @@ Cinco paradas, siempre en el mismo orden — este mismo mapa reaparece a la mita
 
 <!-- ============ 03 SEMAFORO ============ -->
 <section class="slide light" data-notes="## En una frase
-El semáforo compara sus métricas contra los rangos sanos de la industria educativa.
+Los Signos Vitales comparan sus métricas contra los rangos sanos de la industria educativa.
 ## Referencias de la industria
 * Tasa cita a alumno sana: 60% o más.
 * Conversión lead a alumno sana: 5% o más.
 * Enero, julio y agosto son los meses tope de inscripción — la campaña fuerte va un mes antes.
->> Lo que no se mide no se mejora. Este semáforo existe para medir.">
+>> Sus métricas son tan buenas como el sistema con el que operan: al mejorar el sistema, mejoran las métricas.
+* Cada etiqueta trae la recomendación automática y puede ajustarse durante la conversación, con un clic sobre ella.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El diagnóstico</div></div>
-  <h1>El semáforo</h1>
+  <h1>Los Signos Vitales</h1>
   <div class="sub">de <span data-bind="colegio"></span></div>
   <table class="semaforo" style="margin-top:14px;">
     <tr><th>Métrica</th><th>Valor</th><th>Lectura</th></tr>
-    <tr><td>Tasa de conversión (lead → alumno)</td><td class="val" data-bind="tasa_conversion" data-fmt="pct2"></td><td><span class="chip" data-chip="tasa_conversion"></span></td></tr>
-    <tr><td>Tasa cita → alumno</td><td class="val" data-bind="tasa_cita_alumno" data-fmt="pct0"></td><td><span class="chip" data-chip="tasa_cita_alumno"></span></td></tr>
-    <tr><td>Ocupación instalada</td><td class="val" data-bind="ocupacion" data-fmt="pct0"></td><td><span class="chip" data-chip="ocupacion"></span></td></tr>
-    <tr><td>ROAS (retorno sobre inversión publicitaria)</td><td class="val" data-bind="roas" data-fmt="x1"></td><td><span class="chip" data-chip="roas"></span></td></tr>
-    <tr><td>% de alumnos por referido</td><td class="val" data-bind="pct_referidos" data-fmt="pct0"></td><td><span class="chip" data-chip="pct_referidos"></span></td></tr>
+    <tr><td>Tasa de conversión (lead → alumno)</td><td class="val" data-bind="tasa_conversion" data-fmt="pct2"></td><td style="position:relative;"><span class="chip" data-chip="tasa_conversion"></span><select class="chipSel no-print" data-chipsel="tasa_conversion"><option value="auto">Auto (recomendado)</option><option value="verde">🟢 Sano</option><option value="amarillo">🟡 Atención</option><option value="rojo">🔴 Urgente</option><option value="azul">🔵 Capacidad disponible</option></select></td></tr>
+    <tr><td>Tasa cita → alumno</td><td class="val" data-bind="tasa_cita_alumno" data-fmt="pct0"></td><td style="position:relative;"><span class="chip" data-chip="tasa_cita_alumno"></span><select class="chipSel no-print" data-chipsel="tasa_cita_alumno"><option value="auto">Auto (recomendado)</option><option value="verde">🟢 Sano</option><option value="amarillo">🟡 Atención</option><option value="rojo">🔴 Urgente</option><option value="azul">🔵 Capacidad disponible</option></select></td></tr>
+    <tr><td>Ocupación instalada</td><td class="val" data-bind="ocupacion" data-fmt="pct0"></td><td style="position:relative;"><span class="chip" data-chip="ocupacion"></span><select class="chipSel no-print" data-chipsel="ocupacion"><option value="auto">Auto (recomendado)</option><option value="verde">🟢 Sano</option><option value="amarillo">🟡 Atención</option><option value="rojo">🔴 Urgente</option><option value="azul">🔵 Capacidad disponible</option></select></td></tr>
+    <tr><td>ROAS (retorno sobre inversión publicitaria)</td><td class="val" data-bind="roas" data-fmt="x1"></td><td style="position:relative;"><span class="chip" data-chip="roas"></span><select class="chipSel no-print" data-chipsel="roas"><option value="auto">Auto (recomendado)</option><option value="verde">🟢 Sano</option><option value="amarillo">🟡 Atención</option><option value="rojo">🔴 Urgente</option><option value="azul">🔵 Capacidad disponible</option></select></td></tr>
+    <tr><td>% de alumnos por referido</td><td class="val" data-bind="pct_referidos" data-fmt="pct0"></td><td style="position:relative;"><span class="chip" data-chip="pct_referidos"></span><select class="chipSel no-print" data-chipsel="pct_referidos"><option value="auto">Auto (recomendado)</option><option value="verde">🟢 Sano</option><option value="amarillo">🟡 Atención</option><option value="rojo">🔴 Urgente</option><option value="azul">🔵 Capacidad disponible</option></select></td></tr>
   </table>
+  <div style="margin-top:26px;border:1.5px solid var(--border);background:var(--blue-softer);border-radius:14px;padding:16px 30px;max-width:900px;margin-left:auto;margin-right:auto;text-align:center;">
+    <div style="font-size:10.5px;letter-spacing:3px;color:var(--green-d);font-weight:800;text-transform:uppercase;margin-bottom:7px;">La conclusión</div>
+    <div style="font-size:16.5px;font-weight:700;color:var(--navy-deep);line-height:1.55;">Sus métricas son tan buenas como el sistema de inscripciones con el que operan.<br><span style="font-weight:600;color:var(--muted);">Ya están operando un sistema — aunque no lo sepan. Al mejorar el sistema, mejoran las métricas.</span></div>
+  </div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
   <div class="slide-num">03</div>
 </section>
@@ -457,14 +463,15 @@ Cada silla vacía cuesta el valor de vida completo del alumno que no se sentó a
 
 <!-- ============ 09 DOS CAMINOS ============ -->
 <section class="slide light" data-notes="## En una frase
-Estar lleno es matemático: leads por tasa de conversión. Hay dos formas de mover ese resultado.
+Estar lleno es matemático: leads por tasa de conversión. Hay dos caminos para lograr la meta.
+>> El dato que mueve todo es su tasa de conversión de hoy — cada décima extra son alumnos.
 ## Los caminos
 * Camino 1: más presupuesto en marketing — más leads con la misma tasa.
 * Camino 2: mejorar la tasa de conversión — el mismo resultado con la mitad de leads.
 ## Para conversar
 * El orden recomendado: primero la tasa, después el volumen. Los dos caminos se suman.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El diagnóstico</div></div>
-  <h1>Los dos caminos</h1>
+  <h1>Los dos caminos para lograr la meta</h1>
   <div class="fill center" style="gap:0;">
     <div style="border:2px solid var(--green-d);background:var(--blue-softer);border-radius:16px;padding:12px 44px;text-align:center;">
       <div class="stat-hero" style="font-size:50px;"><span data-bind="lugares_vacios" data-fmt="num"></span></div>
@@ -497,7 +504,11 @@ Estar lleno es matemático: leads por tasa de conversión. Hay dos formas de mov
       </div>
     </div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+    <div style="margin-top:16px;border:1.5px solid var(--border);background:var(--blue-softer);border-radius:14px;padding:13px 30px;max-width:760px;margin-left:auto;margin-right:auto;text-align:center;">
+    <div style="font-size:10.5px;letter-spacing:3px;color:var(--green-d);font-weight:800;text-transform:uppercase;margin-bottom:5px;">El dato que mueve todo</div>
+    <div style="font-size:16.5px;font-weight:700;color:var(--navy-deep);">Su tasa de conversión hoy: <span style="font-size:20px;color:var(--green-d);" data-bind="tasa_conversion" data-fmt="pct2"></span> — cada décima extra son alumnos.</div>
+  </div>
+<a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
   <div class="slide-num">09</div>
 </section>
 
@@ -1449,6 +1460,7 @@ let DATA = {
   moneda:"mxn",
   comercial:"ricardo",
   notas_slide:{},
+  semaforo_override:{},
   sedes:1,
   antiguedad_anios:30,
   leads_dia:30,
@@ -1621,12 +1633,16 @@ function renderData(){
   });
   const casoSlideSel = document.getElementById('casoSlideSelect');
   if(casoSlideSel) casoSlideSel.value = DATA.caso_id || 'auto';
+  const CHIP_MANUAL = {verde:{cls:'verde',text:'🟢 SANO'}, amarillo:{cls:'amarillo',text:'🟡 ATENCIÓN'}, rojo:{cls:'rojo',text:'🔴 URGENTE'}, azul:{cls:'azul',text:'🔵 CAPACIDAD DISPONIBLE'}};
   document.querySelectorAll('[data-chip]').forEach(el=>{
     const key = el.dataset.chip;
-    const val = c[key];
-    const t = tierChip(key, val);
+    const ov = (DATA.semaforo_override && DATA.semaforo_override[key]) || 'auto';
+    const t = (ov !== 'auto' && CHIP_MANUAL[ov]) ? CHIP_MANUAL[ov] : tierChip(key, c[key]);
     el.className = 'chip '+t.cls;
     el.textContent = t.text;
+  });
+  document.querySelectorAll('.chipSel').forEach(sel=>{
+    sel.value = (DATA.semaforo_override && DATA.semaforo_override[sel.dataset.chipsel]) || 'auto';
   });
   // Slide "Su inversión": menú de 3 paquetes siempre visible, se marca el propuesto.
   const TXT_PAQUETE = {
@@ -1691,6 +1707,15 @@ function autoScaleImage(tasa){
 document.addEventListener('DOMContentLoaded', ()=>{
   scaleDots().forEach(dot=>{
     dot.addEventListener('click', (e)=>{ e.stopPropagation(); scaleManual=true; showScale(+dot.dataset.goto); });
+  });
+  document.querySelectorAll('.chipSel').forEach(sel=>{
+    sel.addEventListener('click', e=> e.stopPropagation());
+    sel.addEventListener('change', e=>{
+      if(!DATA.semaforo_override || typeof DATA.semaforo_override !== 'object') DATA.semaforo_override = {};
+      if(e.target.value === 'auto') delete DATA.semaforo_override[sel.dataset.chipsel];
+      else DATA.semaforo_override[sel.dataset.chipsel] = e.target.value;
+      renderData(); saveData();
+    });
   });
   const casoSlideSel = document.getElementById('casoSlideSelect');
   if(casoSlideSel) casoSlideSel.addEventListener('click', e=> e.stopPropagation());
