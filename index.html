@@ -777,34 +777,16 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 22 INVERSION ============ -->
-<section class="slide light" data-notes="Aquí está todo el menú sin trucos, y les proponemos el paquete marcado. TÉCNICA del ancla: leer los tres números en orden — anual (ciclo de 10 meses), mensual, y AL DÍA. La perspectiva cambia todo: somos un servicio único, no hay contra qué compararnos, y no queremos que nos comparen — queremos que vean la eficiencia. Después, girar la conversación al pie de la lámina: su capacidad disponible y el ingreso extra posible al año. Enfoquémonos en crecer lo que ya tienen, no en lo que costamos. SI DICEN caro: el proyecto no se justifica por lo que cuesta, sino por lo que cuesta no hacerlo.">
+<section class="slide light" data-notes="La tabla muestra exactamente lo que estamos cotizando — ni un producto más: aquí no buscamos upsell, buscamos cerrar y pasar al siguiente punto. Números limpios. TÉCNICA del ancla: leer los tres números en orden — anual (ciclo de 10 meses), mensual, y AL DÍA. La perspectiva cambia todo: somos un servicio único, no hay contra qué compararnos, y no queremos que nos comparen — queremos que vean la eficiencia. Después, girar la conversación al pie de la lámina: su capacidad disponible y el ingreso extra posible al año. Enfoquémonos en crecer lo que ya tienen, no en lo que costamos. SI DICEN caro: el proyecto no se justifica por lo que cuesta, sino por lo que cuesta no hacerlo.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">La inversión</div></div>
   <h1>Su inversión</h1>
   <table class="semaforo" style="margin-top:8px;">
     <tr><th>Producto</th><th>Detalle</th><th>Precio</th></tr>
     <tr><td>Implementación y capacitación</td><td class="small">Migración, embudo configurado, capacitación completa del equipo</td><td class="val" style="font-size:19px;color:var(--green-d);">$0<span style="font-size:12px;color:var(--dim);font-weight:600;"> · antes <span data-bind="valor_implementacion" data-fmt="mxn"></span></span></td></tr>
     <tr><td>CRM SuperLeads</td><td class="small">Usuarios y prospectos ilimitados, agente IA, embudo configurado</td><td class="val" style="font-size:19px;" data-bind="precio_crm" data-fmt="mxnmes"></td></tr>
-    <tr><td>Dirección Estratégica</td><td class="small">Departamento dedicado, metodología, acompañamiento quincenal</td><td class="val" style="font-size:19px;" data-bind="precio_estrategia" data-fmt="mxnmes"></td></tr>
-    <tr><td>Atracción Inteligente</td><td class="small">Generación de demanda calificada — leads que sí convierten</td><td class="val" style="font-size:19px;" data-bind="precio_atraccion" data-fmt="mxnmes"></td></tr>
+    <tr id="rowDE"><td>Dirección Estratégica</td><td class="small">Departamento dedicado, metodología, acompañamiento quincenal</td><td class="val" style="font-size:19px;" data-bind="precio_estrategia" data-fmt="mxnmes"></td></tr>
+    <tr id="rowAI"><td>Atracción Inteligente</td><td class="small">Generación de demanda calificada — leads que sí convierten</td><td class="val" style="font-size:19px;" data-bind="precio_atraccion" data-fmt="mxnmes"></td></tr>
   </table>
-
-  <div style="display:flex;gap:12px;margin-top:16px;">
-    <div id="pkgBase" class="pkg-card">
-      <div class="pkg-t">Base</div>
-      <div class="pkg-p" data-bind="precio_base" data-fmt="mxnmes"></div>
-      <div class="pkg-d">Solo tecnología</div>
-    </div>
-    <div id="pkgEstrategia" class="pkg-card">
-      <div class="pkg-t">+ Dirección Estratégica</div>
-      <div class="pkg-p" data-bind="precio_con_estrategia" data-fmt="mxnmes"></div>
-      <div class="pkg-d">Tecnología + acompañamiento</div>
-    </div>
-    <div id="pkgTodo" class="pkg-card">
-      <div class="pkg-t">+ Atracción Inteligente</div>
-      <div class="pkg-p" data-bind="precio_todo" data-fmt="mxnmes"></div>
-      <div class="pkg-d">Todo incluido</div>
-    </div>
-  </div>
 
   <div class="body-txt" id="txtPaquete" style="font-size:14.5px;margin-top:14px;max-width:900px;font-weight:600;color:var(--navy);"></div>
   <div id="descuentoNote" style="display:none;font-size:12px;color:var(--dim);font-weight:600;margin-top:4px;">Incluye descuento acordado de <span data-bind="descuento" data-fmt="mxnmes"></span> sobre el paquete propuesto.</div>
@@ -827,7 +809,7 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
       <div style="font-size:25px;font-weight:800;color:var(--navy-deep);line-height:1.2;"><span data-bind="precio_diario" data-fmt="mxn"></span><span style="font-size:12px;font-weight:700;color:var(--dim);"> /día</span></div>
     </div>
   </div>
-  <div style="margin-top:12px;font-size:14px;font-weight:600;color:var(--navy);max-width:1100px;">🎯 La conversación correcta no es lo que cuesta el sistema — es su capacidad disponible: <b data-bind="lugares_vacios" data-fmt="num"></b> lugares, un ingreso extra posible de <b style="color:var(--green-d);"><span data-bind="ingreso_extra_anual" data-fmt="mxn"></span></b> al año solo con la mejora conservadora. Enfoquémonos en crecer eso.</div>
+  <div style="margin-top:14px;font-size:15.5px;font-weight:600;color:var(--navy);max-width:1120px;line-height:1.55;">🎯 La conversación correcta no es lo que cuesta el sistema — es esto: <b style="font-size:17px;color:var(--navy-deep);"><span data-bind="lugares_vacios" data-fmt="num"></span> lugares disponibles</b>, una tasa de conversión de <b style="font-size:17px;color:var(--navy-deep);" data-bind="tasa_conversion" data-fmt="pct2"></b> por mejorar, y un ingreso extra posible de <b style="font-size:18px;color:var(--green-d);text-decoration:underline;text-underline-offset:3px;"><span data-bind="ingreso_extra_anual" data-fmt="mxn"></span> al año</b>. Ese dinero es real — se alcanza contratando tecnología. Enfoquémonos en crecer eso.</div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
   <div class="slide-num">24</div>
 </section>
@@ -890,9 +872,10 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
     <div class="fc-step" style="flex:0 0 118px;padding:12px 8px;"><span style="font-size:24px;margin-bottom:2px;">✉️</span>Email</div>
     <div class="fc-step" style="flex:0 0 118px;padding:12px 8px;"><span style="font-size:24px;margin-bottom:2px;">📞</span>Llamada</div>
     <div class="fc-step" style="flex:0 0 118px;padding:12px 8px;"><span style="font-size:24px;margin-bottom:2px;">📩</span>SMS</div>
-    <div class="fc-step" style="flex:0 0 118px;padding:12px 8px;"><span style="font-size:24px;margin-bottom:2px;">📣</span>Ads</div>
+    <div class="fc-step" style="flex:0 0 118px;padding:12px 8px;"><span style="font-size:24px;margin-bottom:2px;">💭</span>Messenger</div>
+    <div class="fc-step" style="flex:0 0 118px;padding:12px 8px;"><span style="font-size:24px;margin-bottom:2px;">📸</span>Instagram DM</div>
   </div>
-  <div style="text-align:center;font-size:20px;color:var(--dim);margin:4px 0;line-height:1;">↓&nbsp;&nbsp;↓&nbsp;&nbsp;↓&nbsp;&nbsp;↓&nbsp;&nbsp;↓</div>
+  <div style="text-align:center;font-size:20px;color:var(--dim);margin:4px 0;line-height:1;">↓&nbsp;&nbsp;↓&nbsp;&nbsp;↓&nbsp;&nbsp;↓&nbsp;&nbsp;↓&nbsp;&nbsp;↓</div>
   <div style="max-width:860px;margin:0 auto;width:100%;">
     <div style="display:flex;justify-content:space-between;align-items:center;font-size:13.5px;font-weight:800;color:var(--navy-deep);margin-bottom:7px;">
       <span>💰 Saldo de comunicación — un solo pozo, todos los canales</span>
@@ -1331,11 +1314,11 @@ function renderData(){
     estrategia: 'Una sola decisión, dos gastos fijos y predecibles — lo variable vive solo en comunicación.',
     todo: 'Todo incluido: tecnología, acompañamiento estratégico y generación de demanda — un solo equipo operando su rueda completa.',
   };
-  const pkgIds = {base:'pkgBase', estrategia:'pkgEstrategia', todo:'pkgTodo'};
-  Object.entries(pkgIds).forEach(([paq, id])=>{
-    const el = document.getElementById(id);
-    if(el) el.classList.toggle('selected', c.paquete===paq);
-  });
+  // La tabla muestra solo los productos incluidos en el paquete cotizado — números limpios, sin upsell.
+  const rowDE = document.getElementById('rowDE');
+  if(rowDE) rowDE.style.display = (c.paquete!=='base' && c.precio_estrategia>0) ? '' : 'none';
+  const rowAI = document.getElementById('rowAI');
+  if(rowAI) rowAI.style.display = (c.paquete==='todo' && c.precio_atraccion>0) ? '' : 'none';
   const txtPaq = document.getElementById('txtPaquete');
   if(txtPaq) txtPaq.textContent = TXT_PAQUETE[c.paquete] || TXT_PAQUETE.estrategia;
 
