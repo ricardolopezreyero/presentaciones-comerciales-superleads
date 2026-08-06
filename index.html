@@ -1474,7 +1474,7 @@ const PRECIOS = {
   academia1:{crm:6000, de:0, ai:6000, label:'Academia (1 unidad)'},
   academiaAll:{crm:25000, de:0, ai:10000, label:'Academia (todas)'},
   maternal:{crm:5000, de:4000, ai:4000, label:'Maternal'},
-  k12:{crm:12000, de:6000, ai:6000, label:'K12'},
+  k12:{crm:10000, crm_paquete:9000, de:5000, ai:6000, label:'K12'},
   grupo:{crm:25000, de:10000, ai:10000, label:'Grupo / Universidad'},
 };
 /* Tres paquetes por segmento, cumulativos: base (CRM) → + estrategia → + atracción inteligente (todo) */
@@ -1579,13 +1579,16 @@ function calc(d){
   const usd = d.moneda === 'usd';
   const fx = usd ? TIPO_CAMBIO : 1;
   const precio = PRECIOS[d.segmento] || PRECIOS.k12;
-  const precio_crm = usd ? usdNice(precio.crm) : precio.crm;
+  const paquete = PAQUETES.includes(d.paquete) ? d.paquete : 'estrategia';
+  // El CRM puede tener precio preferente dentro de paquete (crm_paquete) — hoy aplica en K12
+  const crm_solo_mxn = precio.crm;
+  const crm_paq_mxn = precio.crm_paquete || precio.crm;
+  const precio_crm = usd ? usdNice(paquete==='base' ? crm_solo_mxn : crm_paq_mxn) : (paquete==='base' ? crm_solo_mxn : crm_paq_mxn);
   const precio_estrategia = usd ? usdNice(precio.de) : precio.de;
   const precio_atraccion = usd ? usdNice(precio.ai) : precio.ai;
-  const precio_base = precio_crm;
-  const precio_con_estrategia = precio_crm + precio_estrategia;
-  const precio_todo = precio_crm + precio_estrategia + precio_atraccion;
-  const paquete = PAQUETES.includes(d.paquete) ? d.paquete : 'estrategia';
+  const precio_base = usd ? usdNice(crm_solo_mxn) : crm_solo_mxn;
+  const precio_con_estrategia = (usd ? usdNice(crm_paq_mxn) : crm_paq_mxn) + precio_estrategia;
+  const precio_todo = precio_con_estrategia + precio_atraccion;
   const precio_lista = paquete==='base' ? precio_base : paquete==='todo' ? precio_todo : precio_con_estrategia;
   const descuento = Math.round(Math.max(0, +d.descuento || 0) / fx); // el descuento se captura siempre en MXN
   const precio_total = Math.max(0, precio_lista - descuento);
