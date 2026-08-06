@@ -684,14 +684,25 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 </section>
 
 <!-- ============ 19 CASO ============ -->
-<section class="slide soft" data-notes="Ya tenemos un colegio en Tijuana, aparte, sabemos del tema. Subió 15% rapidísimo de alumnos, y luego subió 15% de costo — se volvió mucho más rentable. Y ya le dije: deja de optimizar admisiones, ahora ponte a expandirte.">
+<section class="slide soft" data-notes="Casos reales de colegios SuperLeads. El que se muestra se elige automáticamente según el perfil del prospecto, pero se puede cambiar manualmente con el selector.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Prueba</div></div>
-  <h1>Caso real</h1>
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
+    <h1>Caso real</h1>
+    <select id="casoSlideSelect" class="no-print" style="margin-top:4px;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:12.5px;font-weight:700;color:var(--navy-deep);background:#fff;cursor:pointer;">
+      <option value="auto">Auto (según su perfil)</option>
+      <option value="cuenca">Universidad Católica de Cuenca</option>
+      <option value="swiss">Swiss Academy</option>
+      <option value="pilar">Colegio del Pilar</option>
+      <option value="alamos">Colegio Álamos Cancún</option>
+      <option value="harkness">Prepa Harkness</option>
+    </select>
+  </div>
   <div class="fill center">
-    <div class="card" style="max-width:760px;padding:44px;">
-      <div style="font-size:28px;font-weight:800;color:var(--navy);margin-bottom:16px;" data-bind="caso_nombre"></div>
-      <div class="quotebar" style="font-size:22px;">«<span data-bind="caso_quote"></span>»</div>
-      <div style="font-size:15px;color:var(--muted);margin-top:18px;">— Ricardo López Reyero, sobre un colegio SuperLeads en Tijuana</div>
+    <div class="card" style="max-width:780px;padding:40px 44px;">
+      <div style="font-size:26px;font-weight:800;color:var(--navy);margin-bottom:10px;" data-bind="caso_nombre"></div>
+      <div style="font-size:18px;font-weight:800;color:var(--blue);margin-bottom:16px;" data-bind="caso_resultado"></div>
+      <div class="quotebar" style="font-size:18px;">«<span data-bind="caso_quote"></span>»</div>
+      <div style="font-size:14px;color:var(--muted);margin-top:18px;">— Ricardo López Reyero, SuperLeads</div>
     </div>
   </div>
   <div class="slide-num">21</div>
@@ -999,8 +1010,16 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
       <input type="hidden" data-f="herramienta_actual">
     </div>
     <div class="efield"><label>Cita en portada (nota de llamada)</label><textarea data-f="notas_llamada_1"></textarea></div>
-    <div class="efield"><label>Caso — nombre del colegio</label><input data-f="caso_nombre"></div>
-    <div class="efield"><label>Caso — cita textual</label><textarea data-f="caso_quote"></textarea></div>
+    <div class="efield"><label>Caso de éxito <span style="font-weight:400;color:var(--dim);">(Auto lo elige según su perfil)</span></label>
+      <select data-f="caso_id" id="casoSelect" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:9px 11px;font-size:13.5px;font-family:inherit;color:#1a1a1a;background:#fafbff;">
+        <option value="auto">Auto</option>
+        <option value="cuenca">Universidad Católica de Cuenca</option>
+        <option value="swiss">Swiss Academy</option>
+        <option value="pilar">Colegio del Pilar</option>
+        <option value="alamos">Colegio Álamos Cancún</option>
+        <option value="harkness">Prepa Harkness</option>
+      </select>
+    </div>
     <button type="submit" class="eSaveBtn">Actualizar presentación</button>
   </form>
 </div>
@@ -1049,9 +1068,25 @@ let DATA = {
   descuento:0,
   imagen_escala:"auto",
   notas_llamada_1:"Es de oportunidad, y formas de crecimiento, pero necesito cerrar brechas.",
-  caso_nombre:"Swiss Academy",
-  caso_quote:"Subió 15% rapidísimo de alumnos, y luego subió 15% de costo — se volvió mucho más rentable.",
+  caso_id:"auto",
 };
+
+/* ===== Biblioteca de casos de éxito reales (SuperLeads) ===== */
+const CASOS = [
+  {key:'cuenca', nombre:'Universidad Católica de Cuenca', resultado:'Del 3% al 4.52% de conversión en menos de dos meses.', quote:'Su proceso operaba sin sistema — los prospectos entraban, pero nadie los acompañaba hasta la inscripción. Instalamos el sistema y, en dos meses, su conversión creció 50%. Más alumnos, con los mismos leads.', segs:['grupo','grupoSoloCrm']},
+  {key:'swiss', nombre:'Swiss Academy', resultado:'De un proceso fragmentado a 10.64% de conversión.', quote:'Sin control ni visibilidad real del embudo — cada ciclo era una apuesta. Lo estructuramos, y su tasa de inscripción llegó a 10.64%.', segs:['k12','k12SoloCrm']},
+  {key:'pilar', nombre:'Colegio del Pilar', resultado:'16% de inscripción, con una sola persona atendiendo citas.', quote:'El equipo era pequeño, y el sistema que lo respaldaba, casi inexistente. Hoy tienen 16% de inscripción en su último periodo.', segs:['maternal','academia1']},
+  {key:'alamos', nombre:'Colegio Álamos Cancún', resultado:'Control total del embudo, con un objetivo claro: llenar al 100%.', quote:'Pasaron de admisiones reactivas a un proceso con seguimiento real, etapa por etapa, hasta la inscripción.', segs:[]},
+  {key:'harkness', nombre:'Prepa Harkness', resultado:'La mayor generación de alumnos en toda su historia.', quote:'Con el mismo equipo y el mismo presupuesto de marketing, lograron su récord histórico de inscripciones.', segs:['academiaAll']},
+];
+function pickCasoAuto(seg){
+  const found = CASOS.find(c=> c.segs.includes(seg));
+  return found ? found.key : 'swiss';
+}
+function resolveCaso(d){
+  const id = (d.caso_id && d.caso_id!=='auto') ? d.caso_id : pickCasoAuto(d.segmento);
+  return CASOS.find(c=>c.key===id) || CASOS[1];
+}
 
 function mxn(n){ return '$'+Math.round(n).toLocaleString('es-MX'); }
 function numf(n){ return Math.round(n).toLocaleString('es-MX'); }
@@ -1084,7 +1119,9 @@ function calc(d){
   const leads_meta_2b = Math.round(lugares_vacios / (tasa_objetivo/100));
   const leads_extra_2b = Math.max(0, leads_meta_2b - leads_anio);
   const perdida_pct = Math.round(100 - d.tasa_conversion);
-  return Object.assign({}, d, {precio_crm, precio_estrategia, estrategia_incluida, precio_lista, descuento, precio_total, leads_anio, ocupacion, lugares_vacios, ltv, hueco_total, roas, alumnos_por_decimal, pesos_por_decimal, alumnos_breakeven, alumnos_extra, ingreso_extra_anual, estrellitas_est, valor_estrellitas, leads_adicionales_camino1, tasa_objetivo, leads_meta_2b, leads_extra_2b, perdida_pct});
+  const casoObj = resolveCaso(d);
+  const caso_nombre = casoObj.nombre, caso_resultado = casoObj.resultado, caso_quote = casoObj.quote;
+  return Object.assign({}, d, {precio_crm, precio_estrategia, estrategia_incluida, precio_lista, descuento, precio_total, leads_anio, ocupacion, lugares_vacios, ltv, hueco_total, roas, alumnos_por_decimal, pesos_por_decimal, alumnos_breakeven, alumnos_extra, ingreso_extra_anual, estrellitas_est, valor_estrellitas, leads_adicionales_camino1, tasa_objetivo, leads_meta_2b, leads_extra_2b, perdida_pct, caso_nombre, caso_resultado, caso_quote});
 }
 
 function fmtVal(v, fmt){
@@ -1128,6 +1165,8 @@ function renderData(){
     if(!(key in c)) return;
     el.textContent = fmtVal(c[key], el.dataset.fmt);
   });
+  const casoSlideSel = document.getElementById('casoSlideSelect');
+  if(casoSlideSel) casoSlideSel.value = DATA.caso_id || 'auto';
   document.querySelectorAll('[data-chip]').forEach(el=>{
     const key = el.dataset.chip;
     const val = c[key];
@@ -1180,6 +1219,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
   scaleDots().forEach(dot=>{
     dot.addEventListener('click', (e)=>{ e.stopPropagation(); scaleManual=true; showScale(+dot.dataset.goto); });
   });
+  const casoSlideSel = document.getElementById('casoSlideSelect');
+  if(casoSlideSel) casoSlideSel.addEventListener('click', e=> e.stopPropagation());
+  if(casoSlideSel) casoSlideSel.addEventListener('change', e=>{ DATA.caso_id = e.target.value; renderData(); saveData(); });
 });
 
 /* ===================== SLIDES NAV ===================== */
