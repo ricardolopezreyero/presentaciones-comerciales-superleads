@@ -68,6 +68,7 @@ h2{font-size:28px;font-weight:700;letter-spacing:-.4px;line-height:1.2;margin:0 
 .chip.rojo{background:rgba(214,69,69,.1);color:#a52d2d;border:1px solid rgba(214,69,69,.35);}
 .chip.azul{background:rgba(0,57,200,.08);color:var(--blue);border:1px solid rgba(0,57,200,.3);}
 .chipSel{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;}
+.efield.hl{box-shadow:0 0 0 2px var(--green-d);background:rgba(86,239,159,.07);border-radius:10px;padding:8px;margin-left:-8px;margin-right:-8px;transition:box-shadow .2s;}
 
 table.semaforo{width:100%;border-collapse:collapse;font-size:17px;}
 table.semaforo th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--dim);font-weight:700;padding:0 0 10px;border-bottom:1px solid var(--border);}
@@ -1362,7 +1363,7 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
       <div class="efield"><label>Meses de permanencia</label><input data-f="meses_permanencia" type="text" inputmode="decimal" class="numfld"></div>
     </div>
     <div class="efield"><label>Costo por alumno (ads)</label><input data-f="costo_por_alumno" type="text" inputmode="decimal" class="numfld"></div>
-    <div class="efield">
+    <div class="efield" id="mejoraField">
       <label>Mejora conservadora de conversión</label>
       <div style="display:flex;align-items:center;gap:10px;background:#fafbff;border:1px solid var(--border);border-radius:8px;padding:6px 10px;">
         <button type="button" id="mejMinus" title="Bajar la mejora de conversión" style="width:30px;height:30px;border-radius:7px;border:1px solid var(--border);background:#fff;color:var(--navy);font-size:16px;font-weight:800;cursor:pointer;">−</button>
@@ -1747,6 +1748,7 @@ function render(){
   counter.textContent = (idx+1)+' / '+total;
   renderNotes(slides[idx].dataset.notes);
   if(notesEditor) notesEditor.innerHTML = (DATA.notas_slide && DATA.notas_slide[idx]) || '';
+  if(typeof highlightRelevantFields === 'function' && editPanel.classList.contains('open')) highlightRelevantFields();
   window.scrollTo(0,0);
 }
 function escN(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -1885,10 +1887,51 @@ document.addEventListener('DOMContentLoaded', ()=>{
     p.addEventListener('click', ()=>{ p.classList.toggle('active'); syncToolField(); });
   });
 });
+/* Panel consciente del contexto: qué campos alimentan la lámina actual */
+const HL_MAP = [
+  ['Signos Vitales', ['tasa_conversion','tasa_cita_alumno','pct_referidos','matricula_actual','capacidad_instalada','costo_por_alumno']],
+  ['embudo de admisión', ['leads_dia','tasa_conversion']],
+  ['pierde el prospecto', ['leads_dia','tasa_conversion']],
+  ['vale un decimal', ['leads_dia','colegiatura_mensual','meses_permanencia']],
+  ['silla vacía', ['matricula_actual','capacidad_instalada','colegiatura_mensual','meses_permanencia']],
+  ['dos caminos', ['tasa_conversion','#mejoraField','leads_dia']],
+  ['Radar de Inscripción', ['leads_dia','colegiatura_mensual']],
+  ['generador de referidos', ['pct_referidos','antiguedad_anios']],
+  ['Torre de Control', ['leads_dia','tasa_conversion']],
+  ['hacen hoy vs', ['herramienta_actual','personas_admisiones','leads_dia']],
+  ['Caso real', ['caso_id','segmento']],
+  ['Su inversión', ['segmento','paquete','moneda','descuento']],
+  ['Inversión asimétrica', ['colegiatura_mensual','paquete','descuento']],
+  ['Costos variables', ['moneda']],
+  ['funciona el saldo', ['moneda']],
+  ['¿Qué sigue?', ['link_propuesta','moneda']],
+  ['Preguntas antes de activar', ['moneda','link_propuesta']],
+  ['Instituto', ['colegio','prospecto_nombre','prospecto_2_nombre','ciudad','fecha_presentacion']],
+];
+function highlightRelevantFields(){
+  document.querySelectorAll('#editForm .efield.hl').forEach(el=> el.classList.remove('hl'));
+  if(!editPanel.classList.contains('open')) return;
+  const h1 = slides[idx].querySelector('h1');
+  const titulo = h1 ? h1.textContent : (idx===0 ? 'Instituto' : '');
+  const entry = HL_MAP.find(([k])=> titulo.includes(k)) || (idx===0 ? HL_MAP[HL_MAP.length-1] : null);
+  if(!entry) return;
+  let primero = null;
+  entry[1].forEach(key=>{
+    let ef = null;
+    if(key.startsWith('#')) ef = document.querySelector(key);
+    else{
+      const inp = document.querySelector('#editForm [data-f="'+key+'"]');
+      if(inp) ef = inp.closest('.efield');
+    }
+    if(ef){ ef.classList.add('hl'); if(!primero) primero = ef; }
+  });
+  if(primero) setTimeout(()=> primero.scrollIntoView({block:'center', behavior:'smooth'}), 120);
+}
 document.getElementById('btnEdit').onclick = ()=>{
   notesPanel.classList.remove('open');
   populateForm();
   editPanel.classList.toggle('open');
+  highlightRelevantFields();
 };
 document.getElementById('editForm').addEventListener('submit', (e)=>{
   e.preventDefault();
@@ -1911,7 +1954,7 @@ window.addEventListener('keydown', (e)=>{
   if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){ e.preventDefault(); next(); }
   else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); prev(); }
   else if(e.key==='n'||e.key==='N'){ editPanel.classList.remove('open'); notesPanel.classList.toggle('open'); }
-  else if(e.key==='e'||e.key==='E'){ notesPanel.classList.remove('open'); populateForm(); editPanel.classList.toggle('open'); }
+  else if(e.key==='e'||e.key==='E'){ notesPanel.classList.remove('open'); populateForm(); editPanel.classList.toggle('open'); highlightRelevantFields(); }
   else if(e.key==='f'||e.key==='F'){ document.getElementById('btnFs').click(); }
   else if(e.key==='Escape'){ notesPanel.classList.remove('open'); editPanel.classList.remove('open'); }
 });
