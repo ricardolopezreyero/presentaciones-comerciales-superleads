@@ -758,18 +758,36 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 <section class="slide light" data-notes="Cada ciclo se repite lo mismo: leads sin contestar, prospectos perdidos, equipo saturado, decisiones sin datos, gasto sin medición y alumnos que se van. No es un problema de esfuerzo — es de sistema. SI DICEN que ya tienen CRM: perfecto, ya resolvieron dónde guardar datos. ¿Pueden ver en un clic en cuánto tiempo se contesta el primer mensaje y en qué etapa exacta se enfrían las familias? Si no, no es sistema: es caos con login.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
   <h1>Lo que hacen hoy vs. lo que necesitan</h1>
-  <div class="grid2" style="flex:1;margin-top:14px;">
-    <div class="card">
-      <h3 style="color:var(--muted);">Hoy</h3>
-      <div class="step-row"><div class="body-txt" style="font-size:18px;"><span data-bind="herramienta_actual"></span> para seguir <span data-bind="leads_anio" data-fmt="num"></span> prospectos al año</div></div>
-      <div class="step-row"><div class="body-txt" style="font-size:18px;"><span data-bind="personas_admisiones"></span> personas de admisiones, sin sistema de puntaje</div></div>
-      <div class="step-row"><div class="body-txt" style="font-size:18px;">Decisiones por intuición, sin medir con claridad</div></div>
+  <div style="display:flex;gap:20px;flex:1;margin-top:14px;">
+    <div style="flex:1;display:flex;flex-direction:column;gap:12px;">
+      <h3 style="color:var(--muted);margin:0 0 2px 4px;">Hoy</h3>
+      <div class="card" style="flex:1;display:flex;align-items:center;gap:16px;padding:18px 22px;">
+        <span style="font-size:34px;flex:0 0 auto;">📊</span>
+        <div class="body-txt" style="font-size:18.5px;font-weight:600;"><span data-bind="herramienta_actual"></span> para seguir <b data-bind="leads_anio" data-fmt="num"></b> prospectos al año</div>
+      </div>
+      <div class="card" style="flex:1;display:flex;align-items:center;gap:16px;padding:18px 22px;">
+        <span style="font-size:34px;flex:0 0 auto;">🙋</span>
+        <div class="body-txt" style="font-size:18.5px;font-weight:600;"><b data-bind="personas_admisiones"></b> personas de admisiones, sin sistema de puntaje</div>
+      </div>
+      <div class="card" style="flex:1;display:flex;align-items:center;gap:16px;padding:18px 22px;">
+        <span style="font-size:34px;flex:0 0 auto;">🎲</span>
+        <div class="body-txt" style="font-size:18.5px;font-weight:600;">Decisiones por intuición, sin medir con claridad</div>
+      </div>
     </div>
-    <div class="card" style="border-color:var(--green-d);">
-      <h3 style="color:var(--green-d);">Lo que necesitan</h3>
-      <div class="step-row"><div class="body-txt" style="font-size:18px;">Tecnología especializada en admisiones educativas</div></div>
-      <div class="step-row"><div class="body-txt" style="font-size:18px;">Procesos medibles, replicables y con dueño</div></div>
-      <div class="step-row"><div class="body-txt" style="font-size:18px;">Un socio que opera la rueda con ustedes</div></div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:12px;">
+      <h3 style="color:var(--green-d);margin:0 0 2px 4px;">Lo que necesitan</h3>
+      <div class="card" style="flex:1;display:flex;align-items:center;gap:16px;padding:18px 22px;border-color:var(--green-d);background:rgba(86,239,159,.05);">
+        <span style="font-size:34px;flex:0 0 auto;">⚙️</span>
+        <div class="body-txt" style="font-size:18.5px;font-weight:600;">Tecnología especializada en admisiones educativas</div>
+      </div>
+      <div class="card" style="flex:1;display:flex;align-items:center;gap:16px;padding:18px 22px;border-color:var(--green-d);background:rgba(86,239,159,.05);">
+        <span style="font-size:34px;flex:0 0 auto;">📈</span>
+        <div class="body-txt" style="font-size:18.5px;font-weight:600;">Procesos medibles, replicables y con dueño</div>
+      </div>
+      <div class="card" style="flex:1;display:flex;align-items:center;gap:16px;padding:18px 22px;border-color:var(--green-d);background:rgba(86,239,159,.05);">
+        <span style="font-size:34px;flex:0 0 auto;">🤝</span>
+        <div class="body-txt" style="font-size:18.5px;font-weight:600;">Un socio que opera la rueda con ustedes</div>
+      </div>
     </div>
   </div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
