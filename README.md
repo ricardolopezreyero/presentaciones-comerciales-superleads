@@ -1,25 +1,34 @@
 # Presentaciones Comerciales SuperLeads
 
-Presentaciones comerciales de SuperLeads en HTML autocontenido (sin build, sin dependencias externas para funcionar).
+Presentación comercial del **Sistema de Inscripciones SuperLeads** en HTML autocontenido — sin build, sin dependencias externas. Se abre en cualquier navegador, funciona sin conexión y se personaliza por prospecto en minutos.
 
-## Presentaciones
+## 🔗 Ver la presentación en vivo
 
-- **`index.html`** — Presentación del Sistema (Instituto Frontera AC / plantilla base). 33 láminas, panel de edición de datos del prospecto, precios por segmento (Academia, Maternal, K12, Grupo/Universidad), cálculos automáticos de breakeven y ROAS.
+| | Link |
+|---|---|
+| **Dominio oficial** | https://presentaciones-comerciales.superleads.mx/ |
+| **GitHub Pages** | https://ricardolopezreyero.github.io/presentaciones-comerciales-superleads/ |
 
-## Cómo funciona
+Cada commit a `main` se publica automáticamente en ambos links (~1 minuto).
 
-- **Editar datos**: botón "✏️ DATOS" (o tecla `E`) abre el panel de edición. Los cambios se guardan automáticamente en el navegador (localStorage) para la próxima vez que se abra en el mismo equipo.
-- **Descargar HTML**: botón "⬇ HTML" genera un archivo `.html` independiente con los datos actuales ya incrustados — se puede enviar o archivar sin perder la personalización.
-- **Descargar PDF**: botón "⬇ PDF" abre el diálogo de impresión del navegador ya configurado en landscape 1280×720 con los colores de marca forzados (`print-color-adjust: exact`). Elegir "Guardar como PDF".
-- **Notas del orador**: tecla `N`.
-- **Pantalla completa**: tecla `F`.
+## ⚡ Lo más importante
 
-## Publicar una nueva presentación
+- **36 láminas** con la lógica de conversión completa: Rayos X → Sistema → Herramientas → Precios → Cierre.
+- **Panel DATOS (tecla E)**: se personaliza todo por prospecto — colegio, contactos, métricas, segmento y paquete. Los cálculos (breakeven, ROAS, ingreso extra, valor del decimal) se recalculan en vivo. El panel es consciente del contexto: resalta los campos de la lámina actual.
+- **Bimoneda MXN / USD**: todo se captura en pesos; al elegir dólares la presentación completa se convierte sola (TC $18, redondeo ligero hacia arriba). Formato mexicano: `3.95` · `12,345` · `1'234,567`.
+- **Precios por segmento**: Academia (1 / todas), Maternal, K12, Grupo/Universidad — con paquetes Base, + Dirección Estratégica y + Atracción Inteligente. La lámina de inversión muestra solo lo cotizado, con ancla anual / mensual / diario.
+- **Notas (tecla N)**: guía de lectura con formato por lámina + editor de notas de la llamada (negritas, listas) que se guarda solo y viaja dentro del HTML exportado.
+- **Etiquetas ajustables** en Los Signos Vitales, caso de éxito auto-seleccionado por perfil, comercial que presenta seleccionable (Ricardo / Víctor).
+- **Exportar**: botón **PDF** (36 páginas, logo clicable a superleads.mx en todas) y botón **HTML** (archivo autocontenido con los datos del prospecto incrustados, listo para enviar).
+- **Logo SuperLeads en el 100% de las láminas**, con link a https://superleads.mx — también en el PDF.
 
-1. Duplicar `index.html` con un nombre descriptivo (ej. `nombre-colegio.html`).
-2. Editar el objeto `DATA` al inicio del `<script>` con los datos del prospecto.
-3. Subir el archivo a este repo — Cloudflare Pages lo publica automáticamente en `presentaciones-comerciales.superleads.mx/nombre-colegio.html`.
+## 📁 Estructura
 
-## Dominio
+```
+index.html                        → la presentación (todo vive aquí)
+assets_deck_instituto_frontera/   → imágenes de las láminas y variantes del logo
+```
 
-`presentaciones-comerciales.superleads.mx` (Cloudflare Pages)
+## 🔄 Cómo se actualiza
+
+Editar `index.html` y hacer commit a `main`. Los datos capturados por cada comercial viven en su navegador (localStorage) y en los HTML que exporta — nunca en el repo.
