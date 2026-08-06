@@ -1012,7 +1012,7 @@ La tabla muestra exactamente lo que se está cotizando — ni un producto más. 
     <tr><th>Producto</th><th>Detalle</th><th>Precio</th></tr>
     <tr><td>Implementación y capacitación</td><td class="small">Migración, embudo configurado, capacitación completa del equipo</td><td class="val" style="font-size:19px;color:var(--green-d);">$0<span style="font-size:12px;color:var(--dim);font-weight:600;"> · antes <span data-bind="valor_implementacion" data-fmt="mxn"></span></span></td></tr>
     <tr><td>CRM SuperLeads</td><td class="small">Usuarios y prospectos ilimitados, agente IA, embudo configurado</td><td class="val" style="font-size:19px;" data-bind="precio_crm" data-fmt="mxnmes"></td></tr>
-    <tr id="rowDE"><td>Dirección Estratégica</td><td class="small">Departamento dedicado, metodología, acompañamiento quincenal</td><td class="val" style="font-size:19px;" data-bind="precio_estrategia" data-fmt="mxnmes"></td></tr>
+    <tr id="rowDE"><td>Dirección Estratégica</td><td class="small">Departamento dedicado, metodología, acompañamiento cercano</td><td class="val" style="font-size:19px;" data-bind="precio_estrategia" data-fmt="mxnmes"></td></tr>
     <tr id="rowAI"><td>Atracción Inteligente</td><td class="small">Generación de demanda calificada — leads que sí convierten</td><td class="val" style="font-size:19px;" data-bind="precio_atraccion" data-fmt="mxnmes"></td></tr>
   </table>
 
@@ -1778,7 +1778,7 @@ function prev(){ if(idx>0){ idx--; render(); } }
 
 document.getElementById('btnNext').onclick = next;
 document.getElementById('btnPrev').onclick = prev;
-document.getElementById('notesBtn').onclick = ()=>{ editPanel.classList.remove('open'); notesPanel.classList.toggle('open'); };
+document.getElementById('notesBtn').onclick = ()=>{ notesPanel.classList.toggle('open'); };
 /* Stepper de mejora de conversión: ajusta en vivo y recalcula toda la presentación */
 function ajustarMejora(delta){
   DATA.mejora_conservadora = Math.max(0.5, Math.round((DATA.mejora_conservadora + delta)*10)/10);
@@ -1928,7 +1928,6 @@ function highlightRelevantFields(){
   if(primero) setTimeout(()=> primero.scrollIntoView({block:'center', behavior:'smooth'}), 120);
 }
 document.getElementById('btnEdit').onclick = ()=>{
-  notesPanel.classList.remove('open');
   populateForm();
   editPanel.classList.toggle('open');
   highlightRelevantFields();
@@ -1953,8 +1952,8 @@ window.addEventListener('keydown', (e)=>{
   if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT'||(e.target && e.target.isContentEditable)) return;
   if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){ e.preventDefault(); next(); }
   else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); prev(); }
-  else if(e.key==='n'||e.key==='N'){ editPanel.classList.remove('open'); notesPanel.classList.toggle('open'); }
-  else if(e.key==='e'||e.key==='E'){ notesPanel.classList.remove('open'); populateForm(); editPanel.classList.toggle('open'); highlightRelevantFields(); }
+  else if(e.key==='n'||e.key==='N'){ notesPanel.classList.toggle('open'); }
+  else if(e.key==='e'||e.key==='E'){ populateForm(); editPanel.classList.toggle('open'); highlightRelevantFields(); }
   else if(e.key==='f'||e.key==='F'){ document.getElementById('btnFs').click(); }
   else if(e.key==='Escape'){ notesPanel.classList.remove('open'); editPanel.classList.remove('open'); }
 });
