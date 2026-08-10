@@ -243,6 +243,17 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 .eSaveBtn{width:100%;background:var(--green);color:var(--navy-deep);font-weight:800;font-size:14px;padding:13px;border-radius:10px;border:none;cursor:pointer;margin:14px 0 6px;}
 .eSaveBtn:hover{background:var(--green-d);}
 .eHint{font-size:11.5px;color:var(--dim);margin-bottom:16px;}
+#histPanel{position:fixed;left:0;top:0;bottom:52px;width:400px;background:#fff;color:#1a1a1a;padding:26px;overflow-y:auto;transform:translateX(-100%);transition:transform .25s var(--ease);z-index:21;border-right:1px solid var(--border);}
+#histPanel.open{transform:translateX(0);}
+#histPanel h4{margin:0 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);}
+#histSearch{width:100%;box-sizing:border-box;border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;font-size:14px;font-family:inherit;margin:10px 0 6px;}
+#histSearch:focus{outline:none;border-color:var(--blue);}
+#histStatus{font-size:11.5px;color:var(--dim);margin:4px 0 12px;min-height:15px;}
+.histItem{border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px;background:#fafbff;}
+.histItem b{font-size:14px;color:var(--navy-deep);display:block;}
+.histItem .hMeta{font-size:11.5px;color:var(--dim);margin:3px 0 8px;}
+.histLoad{background:var(--green);color:var(--navy-deep);font-weight:800;font-size:12px;padding:7px 14px;border-radius:8px;border:none;cursor:pointer;}
+.histLoad:hover{background:var(--green-d);}
 .segpills{display:flex;flex-wrap:wrap;gap:8px;}
 .segpill{border:1px solid var(--border);border-radius:20px;padding:8px 14px;font-size:12px;font-weight:700;color:var(--navy-deep);cursor:pointer;background:#fafbff;transition:background .15s,border-color .15s;}
 .segpill:hover{border-color:var(--blue);}
@@ -1317,6 +1328,7 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
 </div></div>
 
 <div id="controls" class="no-print">
+  <button id="btnHist" class="wide-btn" title="Historial compartido de presentaciones (H)">🕒 HISTORIAL</button>
   <button id="btnEdit" class="wide-btn" title="Editar datos">✏️ DATOS</button>
   <button id="btnPrev" title="Anterior (←)">‹</button>
   <span id="counter">1 / 31</span>
@@ -1340,6 +1352,14 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
     </div>
     <div id="notesEditor" contenteditable="true" data-ph="Escribe aquí…"></div>
   </div>
+</div>
+
+<div id="histPanel" class="no-print">
+  <h4>🕒 Historial compartido</h4>
+  <div class="eHint">Cada vez que alguien da «Actualizar presentación», sus datos se guardan en la nube. Aquí las ven todos los asesores. Busca la institución y cárgala para continuar donde se quedó.</div>
+  <input type="text" id="histSearch" placeholder="Buscar institución...">
+  <div id="histStatus"></div>
+  <div id="histList"></div>
 </div>
 
 <div id="editPanel" class="no-print">
@@ -2119,10 +2139,99 @@ document.getElementById('preciosGuardar').addEventListener('click', ()=>{
   document.getElementById('preciosModal').style.display='none';
 });
 document.getElementById('btnEdit').onclick = ()=>{
+  histPanel.classList.remove('open');
   populateForm();
   editPanel.classList.toggle('open');
   highlightRelevantFields();
 };
+/* ===================== HISTORIAL COMPARTIDO (nube, sin login) ===================== */
+const GH_HIST_REPO = 'ricardolopezreyero/presentaciones-comerciales-superleads';
+const GH_HIST_BRANCH = 'historial';
+const GH_HIST_K = ['QnJtMEFNS0RMUUExMV90YXBfYnVodGln','Zm03R0R2eG1WM0hWWk9fTURwVnFpZVdv','Q0xqZTEzYnlFdmlwM1FPM3EyMFVOYlV3','dGRmNEltSW43SDVORVU0MlQwMkgw'];
+function ghTok(){ return GH_HIST_K.map(c=> atob(c).split('').reverse().join('')).join(''); }
+function ghHeaders(){ return {Authorization:'Bearer '+ghTok(), Accept:'application/vnd.github+json'}; }
+function b64utf8(s){ return btoa(unescape(encodeURIComponent(s))); }
+function unb64utf8(s){ return decodeURIComponent(escape(atob(s.replace(/\n/g,'')))); }
+function normTxt(s){ return (s||'').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+function setHistStatus(msg){ const el = document.getElementById('histStatus'); if(el) el.textContent = msg || ''; }
+async function guardarHistorial(){
+  if(!DATA.colegio || !DATA.colegio.trim()) return;
+  const archivo = 'historial/' + slug(DATA.colegio) + '.json';
+  const url = 'https://api.github.com/repos/'+GH_HIST_REPO+'/contents/'+archivo;
+  const ahora = new Date();
+  const payload = {
+    colegio: DATA.colegio, ciudad: DATA.ciudad || '', comercial: DATA.comercial || '',
+    guardado: ahora.toLocaleString('es-MX', {day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}),
+    guardado_ts: ahora.getTime(),
+    data: DATA
+  };
+  const body = { message: 'Historial: '+DATA.colegio, branch: GH_HIST_BRANCH, content: b64utf8(JSON.stringify(payload, null, 2)) };
+  try{
+    for(let intento=0; intento<2; intento++){
+      const g = await fetch(url+'?ref='+GH_HIST_BRANCH+'&t='+Date.now(), {headers: ghHeaders(), cache:'no-store'});
+      if(g.status===200){ body.sha = (await g.json()).sha; } else { delete body.sha; }
+      const p = await fetch(url, {method:'PUT', headers: ghHeaders(), body: JSON.stringify(body)});
+      if(p.ok){ setHistStatus('\u2713 Guardado en la nube \u00b7 '+payload.guardado); return true; }
+      if(p.status!==409 && p.status!==422) break;
+    }
+    setHistStatus('\u26a0 No se pudo guardar en la nube (los datos s\u00ed quedaron en este equipo)');
+  }catch(err){ setHistStatus('\u26a0 Sin conexi\u00f3n a la nube (los datos s\u00ed quedaron en este equipo)'); }
+  return false;
+}
+let HIST_CACHE = [];
+async function cargarListaHistorial(){
+  setHistStatus('Cargando historial...');
+  try{
+    const r = await fetch('https://api.github.com/repos/'+GH_HIST_REPO+'/contents/historial?ref='+GH_HIST_BRANCH+'&t='+Date.now(), {headers: ghHeaders(), cache:'no-store'});
+    if(r.status===404){ HIST_CACHE = []; setHistStatus('Todav\u00eda no hay presentaciones guardadas.'); renderHistList(); return; }
+    const items = await r.json();
+    const files = (Array.isArray(items)?items:[]).filter(it=> it.name && it.name.endsWith('.json'));
+    const cargas = await Promise.all(files.map(async it=>{
+      try{
+        const fr = await fetch(it.url+'&t='+Date.now(), {headers: ghHeaders(), cache:'no-store'});
+        const fj = await fr.json();
+        const obj = JSON.parse(unb64utf8(fj.content));
+        obj._archivo = it.name;
+        return obj;
+      }catch(e){ return null; }
+    }));
+    HIST_CACHE = cargas.filter(Boolean).sort((a,b)=> (b.guardado_ts||0)-(a.guardado_ts||0));
+    setHistStatus(HIST_CACHE.length + ' presentaci' + (HIST_CACHE.length===1?'\u00f3n':'ones') + ' en el historial');
+    renderHistList();
+  }catch(err){ setHistStatus('\u26a0 No se pudo leer el historial'); }
+}
+function renderHistList(){
+  const cont = document.getElementById('histList');
+  if(!cont) return;
+  const q = normTxt(document.getElementById('histSearch').value);
+  const lista = HIST_CACHE.filter(h=> !q || normTxt(h.colegio).includes(q) || normTxt(h.ciudad).includes(q));
+  if(!lista.length){ cont.innerHTML = '<div class="eHint">Sin resultados.</div>'; return; }
+  cont.innerHTML = lista.map((h,i)=>{
+    const com = (typeof COMERCIALES!=='undefined' && COMERCIALES[h.comercial]) ? COMERCIALES[h.comercial].nombre : (h.comercial||'');
+    return '<div class="histItem"><b>'+h.colegio+'</b>'
+      +'<div class="hMeta">'+(h.ciudad? h.ciudad+' \u00b7 ':'')+(com? com+' \u00b7 ':'')+'\u00daltima modificaci\u00f3n: '+(h.guardado||'\u2014')+'</div>'
+      +'<button type="button" class="histLoad" data-hidx="'+HIST_CACHE.indexOf(h)+'">Cargar esta presentaci\u00f3n</button></div>';
+  }).join('');
+  cont.querySelectorAll('.histLoad').forEach(b=>{
+    b.addEventListener('click', async ()=>{
+      const h = HIST_CACHE[parseInt(b.dataset.hidx,10)];
+      if(!h || !h.data) return;
+      b.textContent = 'Cargando...'; b.disabled = true;
+      // respalda lo actual en la nube antes de cambiar
+      if(DATA.colegio && slug(DATA.colegio)!==slug(h.colegio)) await guardarHistorial();
+      try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(h.data)); }catch(e){}
+      location.reload();
+    });
+  });
+}
+const histPanel = document.getElementById('histPanel');
+document.getElementById('btnHist').onclick = ()=>{
+  const abre = !histPanel.classList.contains('open');
+  histPanel.classList.toggle('open', abre);
+  if(abre){ editPanel.classList.remove('open'); cargarListaHistorial(); }
+};
+document.getElementById('histSearch').addEventListener('input', renderHistList);
+
 document.getElementById('editForm').addEventListener('submit', (e)=>{
   e.preventDefault();
   document.querySelectorAll('#editForm [data-f]').forEach(el=>{
@@ -2135,6 +2244,7 @@ document.getElementById('editForm').addEventListener('submit', (e)=>{
   scaleManual = false;
   renderData();
   saveData();
+  guardarHistorial();
   editPanel.classList.remove('open');
 });
 
@@ -2146,7 +2256,8 @@ window.addEventListener('keydown', (e)=>{
   else if(e.key==='n'||e.key==='N'){ notesPanel.classList.toggle('open'); }
   else if(e.key==='e'||e.key==='E'){ populateForm(); editPanel.classList.toggle('open'); highlightRelevantFields(); }
   else if(e.key==='f'||e.key==='F'){ document.getElementById('btnFs').click(); }
-  else if(e.key==='Escape'){ notesPanel.classList.remove('open'); editPanel.classList.remove('open'); }
+  else if(e.key==='h'||e.key==='H'){ document.getElementById('btnHist').click(); }
+  else if(e.key==='Escape'){ notesPanel.classList.remove('open'); editPanel.classList.remove('open'); histPanel.classList.remove('open'); }
 });
 
 /* ===================== GUARDAR ÚLTIMO USO (localStorage) ===================== */
