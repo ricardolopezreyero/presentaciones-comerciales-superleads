@@ -72,6 +72,7 @@ h2{font-size:28px;font-weight:700;letter-spacing:-.4px;line-height:1.2;margin:0 
 .tabla-vitales td:last-child, .tabla-vitales th:last-child{width:300px;min-width:300px;}
 .tabla-vitales td:nth-child(2), .tabla-vitales th:nth-child(2){width:160px;}
 .efield.hl{box-shadow:0 0 0 2px var(--green-d);background:rgba(86,239,159,.07);border-radius:10px;padding:8px;margin-left:-8px;margin-right:-8px;transition:box-shadow .2s;}
+.slide.prod-off{display:none !important;}
 
 table.semaforo{width:100%;border-collapse:collapse;font-size:17px;}
 table.semaforo th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--dim);font-weight:700;padding:0 0 10px;border-bottom:1px solid var(--border);}
@@ -265,6 +266,7 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
   #stage{position:static;display:block;height:auto;background:#fff;overflow:visible;}
   .slide-frame{display:contents;}
   .slide{display:flex !important;position:relative;width:1280px;height:720px;page-break-after:always;box-shadow:none;transform:none !important;}
+  .slide.prod-off{display:none !important;}
 }
 </style>
 </head>
@@ -717,101 +719,6 @@ Punto de ubicación: ya vimos su Rayos X y por qué existe SuperLeads; ahora vie
   <div class="slide-num">14b</div>
 </section>
 
-<!-- ============ 13 ESTRELLITA (rediseño: puntaje + top prospectos) ============ -->
-<section class="slide dark" data-notes="## En una frase
-El Radar de Inscripción detecta, por probabilidad y estadística, quién está listo para inscribirse hoy.
-## Cómo funciona
-* Cada acción del prospecto suma o resta puntos: mensajes, citas, visitas, silencios.
-* Los del tope del radar tienen máximo puntaje y aún no se inscriben: solo falta acompañarlos a terminar.
-* Un clic selecciona a todos y sale un WhatsApp.
->> Esa lista es demanda ya pagada, esperando una llamada.">
-  <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
-  <h1>El Radar de Inscripción</h1>
-  <div class="sub" style="color:#9fb3d9;">Análisis de probabilidad de inscripción, en tiempo real</div>
-  <div style="display:flex;gap:52px;flex:1;min-height:0;align-items:center;margin-top:4px;">
-    <div style="flex:1;display:flex;flex-direction:column;gap:20px;">
-      <div style="font-size:21px;font-weight:800;color:#fff;line-height:1.35;">Nos dedicamos a una sola cosa: <span style="color:var(--green);">inscribir más alumnos.</span></div>
-      <div style="display:flex;gap:14px;align-items:flex-start;">
-        <div style="flex-shrink:0;width:30px;height:30px;border-radius:50%;background:rgba(86,239,159,.15);border:1.5px solid var(--green-d);color:var(--green);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;">1</div>
-        <div class="body-txt" style="font-size:15.5px;color:#dfe8ff;"><b style="color:#fff;">Cada acción suma o resta puntos.</b> Todo lo que pasa en el sistema — mensajes, citas, visitas, silencios — mueve el puntaje de cada prospecto.</div>
-      </div>
-      <div style="display:flex;gap:14px;align-items:flex-start;">
-        <div style="flex-shrink:0;width:30px;height:30px;border-radius:50%;background:rgba(86,239,159,.15);border:1.5px solid var(--green-d);color:var(--green);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;">2</div>
-        <div class="body-txt" style="font-size:15.5px;color:#dfe8ff;"><b style="color:#fff;">Probabilidad y estadística.</b> El nivel de detalle es tan intenso que sabemos qué prospectos tienen más probabilidad de inscribirse — y de monetizar.</div>
-      </div>
-      <div style="display:flex;gap:14px;align-items:flex-start;">
-        <div style="flex-shrink:0;width:30px;height:30px;border-radius:50%;background:rgba(86,239,159,.15);border:1.5px solid var(--green-d);color:var(--green);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;">3</div>
-        <div class="body-txt" style="font-size:15.5px;color:#dfe8ff;"><b style="color:#fff;">Los top, listos para ti.</b> Te ponemos arriba a los que están deseosos de que les marques y les ayudes a terminar su inscripción.</div>
-      </div>
-      <div style="font-size:16px;font-weight:700;color:var(--green);border-left:3px solid var(--green);padding-left:14px;">Tener acceso a esta información cambia la perspectiva.</div>
-    </div>
-    <div style="flex:0 0 460px;display:flex;flex-direction:column;gap:14px;">
-      <div style="background:#fff;border-radius:16px;padding:18px 20px;box-shadow:0 20px 50px rgba(0,0,0,.35);">
-        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e8edf6;padding-bottom:10px;">
-          <div style="font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#5A6B8C;">Top prospectos de hoy</div>
-          <div style="font-size:18px;">⭐</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #f0f3f9;">
-          <div style="font-size:17px;">⭐</div>
-          <div style="flex:1;"><div style="font-weight:800;color:#001240;font-size:15px;">Familia Hernández</div><div style="font-size:12.5px;color:#5A6B8C;">Visita hecha · quiere cerrar ya</div></div>
-          <div style="font-weight:800;color:#13B36E;font-size:15px;">97 pts</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #f0f3f9;">
-          <div style="font-size:17px;">⭐</div>
-          <div style="flex:1;"><div style="font-weight:800;color:#001240;font-size:15px;">Familia Robles</div><div style="font-size:12.5px;color:#5A6B8C;">Cita agendada · alta intención</div></div>
-          <div style="font-weight:800;color:#13B36E;font-size:15px;">93 pts</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px;padding:11px 0;">
-          <div style="font-size:17px;">⭐</div>
-          <div style="flex:1;"><div style="font-weight:800;color:#001240;font-size:15px;">Familia Paredes</div><div style="font-size:12.5px;color:#5A6B8C;">Documentación casi completa</div></div>
-          <div style="font-weight:800;color:#13B36E;font-size:15px;">89 pts</div>
-        </div>
-      </div>
-      <div style="display:flex;gap:14px;">
-        <div style="flex:1;background:rgba(86,239,159,.08);border:1.5px solid rgba(86,239,159,.3);border-radius:14px;padding:14px 16px;text-align:center;">
-          <div class="stat-hero" style="font-size:34px;">⭐ <span data-bind="estrellitas_est"></span></div>
-          <div class="stat-label" style="font-size:12px;margin-top:2px;">con máximo puntaje hoy</div>
-        </div>
-        <div style="flex:1;background:rgba(86,239,159,.08);border:1.5px solid rgba(86,239,159,.3);border-radius:14px;padding:14px 16px;text-align:center;">
-          <div class="stat-hero green" style="font-size:26px;line-height:34px;" data-bind="valor_estrellitas" data-fmt="mxn"></div>
-          <div class="stat-label" style="font-size:12px;margin-top:2px;">en valor de vida, esperando una llamada</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
-  <div class="slide-num">15</div>
-</section>
-
-<!-- ============ 14 GENERADOR DE REFERIDOS (moved to núcleo, native mockup) ============ -->
-<section class="slide soft" data-notes="## En una frase
-Cada persona de su comunidad recibe un link único, estático y eterno, que trae referidos automáticamente.
-## Datos clave
-* La familia satisfecha que recomienda reduce el costo de adquisición y trae leads de mejor calidad.
-* Referencia sana: una de cada tres inscripciones nuevas por referido.
-* El reconocimiento puede ser con dinero o con estatus — cada institución lo decide.">
-  <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
-  <h1>El generador de referidos</h1>
-  <div class="fill" style="flex-direction:row;gap:36px;align-items:center;justify-content:center;">
-    <div class="refcard">
-      <h3>Genera tu link de referidos</h3>
-      <p>Escribe tu nombre y dale en <b>Generar link</b>. Se crea tu URL con <code>referido_por</code> automáticamente.</p>
-      <div class="reflabel">Nombre:</div>
-      <div class="refinput">👤&nbsp; Ej. <span data-bind="prospecto_nombre"></span></div>
-      <div class="refbtn">🚀 Generar link</div>
-      <div class="reflabel">Tu link</div>
-      <div class="refout">Aquí aparecerá tu link…</div>
-      <div class="refcopy">📋 Copiar</div>
-    </div>
-    <div style="max-width:300px;">
-      <div class="chip rojo" style="font-size:15px;padding:9px 18px;margin-bottom:16px;">🔴 Hoy: solo <span data-bind="pct_referidos" data-fmt="pct0"></span> llega por referido</div>
-      <div class="body-txt" style="font-size:17px;"><span data-bind="antiguedad_anios"></span> años de historia y una bolsa de referidos sin explotar. Cada persona genera un link único, estático y eterno — pagable con dinero o con estatus.</div>
-    </div>
-  </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
-  <div class="slide-num">16</div>
-</section>
-
 <!-- ============ 15 WHATSAPP UN PESO ============ -->
 <section class="slide light" data-notes="## En una frase
 Un mensaje bien puesto puede regresar una colegiatura completa — por eso cada mensaje se audita y se mejora.
@@ -938,6 +845,101 @@ La Máquina de Atracción es el músculo del producto de Atracción Inteligente:
   <div style="margin-top:12px;font-size:18.5px;font-weight:800;color:var(--navy-deep);">Todos sus alumnos, en algún punto, no sabían que ustedes existían. Hacer ruido de forma estructurada es lo que hoy les trae <span style="color:var(--green-d);"><span data-bind="leads_anio" data-fmt="num"></span> prospectos al año</span>.</div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
   <div class="slide-num">23</div>
+</section>
+
+<!-- ============ 13 ESTRELLITA (rediseño: puntaje + top prospectos) ============ -->
+<section class="slide dark" data-toggle="radar" data-notes="## En una frase
+El Radar de Inscripción detecta, por probabilidad y estadística, quién está listo para inscribirse hoy.
+## Cómo funciona
+* Cada acción del prospecto suma o resta puntos: mensajes, citas, visitas, silencios.
+* Los del tope del radar tienen máximo puntaje y aún no se inscriben: solo falta acompañarlos a terminar.
+* Un clic selecciona a todos y sale un WhatsApp.
+>> Esa lista es demanda ya pagada, esperando una llamada.">
+  <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
+  <h1>El Radar de Inscripción</h1>
+  <div class="sub" style="color:#9fb3d9;">Análisis de probabilidad de inscripción, en tiempo real</div>
+  <div style="display:flex;gap:52px;flex:1;min-height:0;align-items:center;margin-top:4px;">
+    <div style="flex:1;display:flex;flex-direction:column;gap:20px;">
+      <div style="font-size:21px;font-weight:800;color:#fff;line-height:1.35;">Nos dedicamos a una sola cosa: <span style="color:var(--green);">inscribir más alumnos.</span></div>
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="flex-shrink:0;width:30px;height:30px;border-radius:50%;background:rgba(86,239,159,.15);border:1.5px solid var(--green-d);color:var(--green);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;">1</div>
+        <div class="body-txt" style="font-size:15.5px;color:#dfe8ff;"><b style="color:#fff;">Cada acción suma o resta puntos.</b> Todo lo que pasa en el sistema — mensajes, citas, visitas, silencios — mueve el puntaje de cada prospecto.</div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="flex-shrink:0;width:30px;height:30px;border-radius:50%;background:rgba(86,239,159,.15);border:1.5px solid var(--green-d);color:var(--green);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;">2</div>
+        <div class="body-txt" style="font-size:15.5px;color:#dfe8ff;"><b style="color:#fff;">Probabilidad y estadística.</b> El nivel de detalle es tan intenso que sabemos qué prospectos tienen más probabilidad de inscribirse — y de monetizar.</div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="flex-shrink:0;width:30px;height:30px;border-radius:50%;background:rgba(86,239,159,.15);border:1.5px solid var(--green-d);color:var(--green);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;">3</div>
+        <div class="body-txt" style="font-size:15.5px;color:#dfe8ff;"><b style="color:#fff;">Los top, listos para ti.</b> Te ponemos arriba a los que están deseosos de que les marques y les ayudes a terminar su inscripción.</div>
+      </div>
+      <div style="font-size:16px;font-weight:700;color:var(--green);border-left:3px solid var(--green);padding-left:14px;">Tener acceso a esta información cambia la perspectiva.</div>
+    </div>
+    <div style="flex:0 0 460px;display:flex;flex-direction:column;gap:14px;">
+      <div style="background:#fff;border-radius:16px;padding:18px 20px;box-shadow:0 20px 50px rgba(0,0,0,.35);">
+        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e8edf6;padding-bottom:10px;">
+          <div style="font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#5A6B8C;">Top prospectos de hoy</div>
+          <div style="font-size:18px;">⭐</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #f0f3f9;">
+          <div style="font-size:17px;">⭐</div>
+          <div style="flex:1;"><div style="font-weight:800;color:#001240;font-size:15px;">Familia Hernández</div><div style="font-size:12.5px;color:#5A6B8C;">Visita hecha · quiere cerrar ya</div></div>
+          <div style="font-weight:800;color:#13B36E;font-size:15px;">97 pts</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #f0f3f9;">
+          <div style="font-size:17px;">⭐</div>
+          <div style="flex:1;"><div style="font-weight:800;color:#001240;font-size:15px;">Familia Robles</div><div style="font-size:12.5px;color:#5A6B8C;">Cita agendada · alta intención</div></div>
+          <div style="font-weight:800;color:#13B36E;font-size:15px;">93 pts</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 0;">
+          <div style="font-size:17px;">⭐</div>
+          <div style="flex:1;"><div style="font-weight:800;color:#001240;font-size:15px;">Familia Paredes</div><div style="font-size:12.5px;color:#5A6B8C;">Documentación casi completa</div></div>
+          <div style="font-weight:800;color:#13B36E;font-size:15px;">89 pts</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;">
+        <div style="flex:1;background:rgba(86,239,159,.08);border:1.5px solid rgba(86,239,159,.3);border-radius:14px;padding:14px 16px;text-align:center;">
+          <div class="stat-hero" style="font-size:34px;">⭐ <span data-bind="estrellitas_est"></span></div>
+          <div class="stat-label" style="font-size:12px;margin-top:2px;">con máximo puntaje hoy</div>
+        </div>
+        <div style="flex:1;background:rgba(86,239,159,.08);border:1.5px solid rgba(86,239,159,.3);border-radius:14px;padding:14px 16px;text-align:center;">
+          <div class="stat-hero green" style="font-size:26px;line-height:34px;" data-bind="valor_estrellitas" data-fmt="mxn"></div>
+          <div class="stat-label" style="font-size:12px;margin-top:2px;">en valor de vida, esperando una llamada</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <div class="slide-num">15</div>
+</section>
+
+<!-- ============ 14 GENERADOR DE REFERIDOS (moved to núcleo, native mockup) ============ -->
+<section class="slide soft" data-toggle="referidos" data-notes="## En una frase
+Cada persona de su comunidad recibe un link único, estático y eterno, que trae referidos automáticamente.
+## Datos clave
+* La familia satisfecha que recomienda reduce el costo de adquisición y trae leads de mejor calidad.
+* Referencia sana: una de cada tres inscripciones nuevas por referido.
+* El reconocimiento puede ser con dinero o con estatus — cada institución lo decide.">
+  <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
+  <h1>El generador de referidos</h1>
+  <div class="fill" style="flex-direction:row;gap:36px;align-items:center;justify-content:center;">
+    <div class="refcard">
+      <h3>Genera tu link de referidos</h3>
+      <p>Escribe tu nombre y dale en <b>Generar link</b>. Se crea tu URL con <code>referido_por</code> automáticamente.</p>
+      <div class="reflabel">Nombre:</div>
+      <div class="refinput">👤&nbsp; Ej. <span data-bind="prospecto_nombre"></span></div>
+      <div class="refbtn">🚀 Generar link</div>
+      <div class="reflabel">Tu link</div>
+      <div class="refout">Aquí aparecerá tu link…</div>
+      <div class="refcopy">📋 Copiar</div>
+    </div>
+    <div style="max-width:300px;">
+      <div class="chip rojo" style="font-size:15px;padding:9px 18px;margin-bottom:16px;">🔴 Hoy: solo <span data-bind="pct_referidos" data-fmt="pct0"></span> llega por referido</div>
+      <div class="body-txt" style="font-size:17px;"><span data-bind="antiguedad_anios"></span> años de historia y una bolsa de referidos sin explotar. Cada persona genera un link único, estático y eterno — pagable con dinero o con estatus.</div>
+    </div>
+  </div>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <div class="slide-num">16</div>
 </section>
 
 <!-- ============ 19 CASO ============ -->
@@ -1374,10 +1376,10 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
     <div class="efield"><label>Imagen de la lámina de escala <span style="font-weight:400;color:var(--dim);">(Auto la elige según la tasa de arriba)</span></label>
       <div class="segpills" id="escalaPills">
         <div class="segpill" data-esc="auto">Auto</div>
-        <div class="segpill" data-esc="salon">🏢 Sala de juntas</div>
-        <div class="segpill" data-esc="autobus">🚌 Autobús</div>
-        <div class="segpill" data-esc="cine">🎬 Cine</div>
-        <div class="segpill" data-esc="auditorio">🎓 Auditorio</div>
+        <div class="segpill" data-esc="salon">🏢 Sala de juntas · ≥3.5%</div>
+        <div class="segpill" data-esc="autobus">🚌 Autobús · 1.5–3.5%</div>
+        <div class="segpill" data-esc="cine">🎬 Cine · 0.75–1.5%</div>
+        <div class="segpill" data-esc="auditorio">🎓 Auditorio · <0.75%</div>
       </div>
       <input type="hidden" data-f="imagen_escala">
     </div>
@@ -1439,7 +1441,7 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
       </div>
       <input type="hidden" data-f="segmento">
     </div>
-    <div class="efield"><label>Paquete propuesto — precio <span style="font-weight:400;color:var(--dim);">(los 3 precios se muestran siempre)</span></label>
+    <div class="efield"><label>Paquete propuesto — precio <span id="btnPrecios" title="Configurar precios de lista" style="cursor:pointer;margin-left:4px;">✏️</span> <span style="font-weight:400;color:var(--dim);">(los 3 precios se muestran siempre)</span></label>
       <div class="segpills" id="paquetePills">
         <div class="segpill" data-paq="base">Base (CRM)</div>
         <div class="segpill" data-paq="estrategia">+ Dirección Estratégica</div>
@@ -1460,7 +1462,29 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
       </select>
     </div>
     <button type="submit" class="eSaveBtn">Actualizar presentación</button>
+
+    <h4 style="margin-top:26px;border-top:1px solid var(--border);padding-top:20px;">Productos SuperLeads</h4>
+    <div class="eHint" style="margin-top:-10px;">Láminas de producto que se pueden prender y apagar. La configuración se guarda sola — lo apagado no aparece ni en pantalla ni en el PDF.</div>
+    <div id="productosToggles" style="display:flex;flex-direction:column;gap:9px;margin-top:6px;"></div>
   </form>
+</div>
+
+<div id="preciosModal" class="no-print" style="display:none;position:fixed;inset:0;background:rgba(4,10,26,.62);z-index:80;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:16px;padding:26px 30px;width:760px;max-width:94vw;max-height:88vh;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.4);">
+    <h3 style="margin:0 0 4px;font-size:20px;color:var(--navy-deep);">✏️ Configuración de precios <span style="font-size:13px;font-weight:600;color:var(--dim);">(MXN — USD se deriva solo)</span></h3>
+    <div style="font-size:12.5px;color:var(--dim);font-weight:600;margin-bottom:14px;">Los cambios se guardan en este navegador y viajan en el HTML exportado. Los precios de fábrica no se tocan.</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13.5px;">
+      <tr style="text-align:left;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;">
+        <th style="padding:8px 6px;">Segmento</th><th style="padding:8px 6px;">CRM solo</th><th style="padding:8px 6px;">CRM en paquete</th><th style="padding:8px 6px;">Dir. Estratégica</th><th style="padding:8px 6px;">Atracción Int.</th>
+      </tr>
+      <tbody id="preciosGrid"></tbody>
+    </table>
+    <div style="display:flex;gap:10px;margin-top:18px;">
+      <button type="button" id="preciosGuardar" style="flex:1;background:var(--green);color:var(--navy-deep);font-weight:800;font-size:14px;padding:12px;border-radius:10px;border:none;cursor:pointer;">Guardar precios</button>
+      <button type="button" id="preciosReset" style="background:#fff;color:var(--navy);font-weight:700;font-size:13px;padding:12px 16px;border-radius:10px;border:1.5px solid var(--border);cursor:pointer;">Restaurar de fábrica</button>
+      <button type="button" id="preciosCerrar" style="background:#fff;color:var(--dim);font-weight:700;font-size:13px;padding:12px 16px;border-radius:10px;border:1.5px solid var(--border);cursor:pointer;">Cerrar</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1500,6 +1524,8 @@ let DATA = {
   comercial:"ricardo",
   notas_slide:{},
   semaforo_override:{},
+  precios_override:{},
+  productos_off:{radar:true, referidos:true},
   sedes:1,
   antiguedad_anios:30,
   leads_dia:30,
@@ -1578,7 +1604,7 @@ function numf(n){ return mxNum(n); }
 function calc(d){
   const usd = d.moneda === 'usd';
   const fx = usd ? TIPO_CAMBIO : 1;
-  const precio = PRECIOS[d.segmento] || PRECIOS.k12;
+  const precio = Object.assign({}, PRECIOS[d.segmento] || PRECIOS.k12, (d.precios_override && d.precios_override[d.segmento]) || {});
   const paquete = PAQUETES.includes(d.paquete) ? d.paquete : 'estrategia';
   // El CRM puede tener precio preferente dentro de paquete (crm_paquete) — hoy aplica en K12
   const crm_solo_mxn = precio.crm;
@@ -1792,7 +1818,8 @@ window.addEventListener('resize', fitStage);
 
 function render(){
   slides.forEach((s,i)=> s.classList.toggle('active', i===idx));
-  counter.textContent = (idx+1)+' / '+total;
+  const encendidas = slides.filter(s=>!slideOff(s));
+  counter.textContent = (encendidas.indexOf(slides[idx])+1)+' / '+encendidas.length;
   renderNotes(slides[idx].dataset.notes);
   if(notesEditor) notesEditor.innerHTML = (DATA.notas_slide && DATA.notas_slide[idx]) || '';
   if(typeof highlightRelevantFields === 'function' && editPanel.classList.contains('open')) highlightRelevantFields();
@@ -1820,8 +1847,44 @@ if(notesEditor){
     b.addEventListener('mousedown', e=>{ e.preventDefault(); notesEditor.focus(); document.execCommand(b.dataset.cmd, false, null); });
   });
 }
-function next(){ if(idx<total-1){ idx++; render(); } }
-function prev(){ if(idx>0){ idx--; render(); } }
+/* ===== Productos prendibles/apagables ===== */
+const PRODUCTOS_TOGGLE = [
+  {key:'radar', label:'⭐ El Radar de Inscripción'},
+  {key:'referidos', label:'🔗 El generador de referidos'},
+];
+function slideOff(s){
+  const k = s.dataset.toggle;
+  return !!(k && DATA.productos_off && DATA.productos_off[k]);
+}
+function applyToggles(){
+  slides.forEach(s=> s.classList.toggle('prod-off', slideOff(s)));
+  if(slideOff(slides[idx])){
+    let n = idx;
+    for(let i=idx+1;i<total;i++){ if(!slideOff(slides[i])){ n=i; break; } }
+    if(n===idx){ for(let i=idx-1;i>=0;i--){ if(!slideOff(slides[i])){ n=i; break; } } }
+    idx = n;
+  }
+}
+function renderProductosToggles(){
+  const cont = document.getElementById('productosToggles');
+  if(!cont) return;
+  cont.innerHTML = PRODUCTOS_TOGGLE.map(pr=>{
+    const on = !(DATA.productos_off && DATA.productos_off[pr.key]);
+    return '<label style="display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:700;color:var(--navy-deep);cursor:pointer;background:'+(on?'rgba(86,239,159,.09)':'#fafbff')+';border:1.5px solid '+(on?'var(--green-d)':'var(--border)')+';border-radius:10px;padding:10px 14px;">'
+      +'<input type="checkbox" data-prod="'+pr.key+'" '+(on?'checked':'')+' style="width:16px;height:16px;accent-color:#13B36E;">'
+      + pr.label + '<span style="margin-left:auto;font-size:11px;font-weight:700;color:'+(on?'var(--green-d)':'var(--dim)')+';">'+(on?'PRENDIDA':'APAGADA')+'</span></label>';
+  }).join('');
+  cont.querySelectorAll('input[data-prod]').forEach(chk=>{
+    chk.addEventListener('change', ()=>{
+      if(!DATA.productos_off || typeof DATA.productos_off !== 'object') DATA.productos_off = {};
+      if(chk.checked) delete DATA.productos_off[chk.dataset.prod];
+      else DATA.productos_off[chk.dataset.prod] = true;
+      applyToggles(); saveData(); renderProductosToggles(); render();
+    });
+  });
+}
+function next(){ let i=idx+1; while(i<total && slideOff(slides[i])) i++; if(i<total){ idx=i; render(); } }
+function prev(){ let i=idx-1; while(i>=0 && slideOff(slides[i])) i--; if(i>=0){ idx=i; render(); } }
 
 document.getElementById('btnNext').onclick = next;
 document.getElementById('btnPrev').onclick = prev;
@@ -1975,6 +2038,39 @@ function highlightRelevantFields(){
   });
   if(primero) setTimeout(()=> primero.scrollIntoView({block:'center', behavior:'smooth'}), 120);
 }
+/* ===== Modal de configuración de precios ===== */
+function preciosVigentes(seg){
+  return Object.assign({}, PRECIOS[seg], (DATA.precios_override && DATA.precios_override[seg]) || {});
+}
+function abrirPreciosModal(){
+  const grid = document.getElementById('preciosGrid');
+  grid.innerHTML = Object.keys(PRECIOS).map(seg=>{
+    const v = preciosVigentes(seg);
+    const inp = (campo, val)=> '<td style="padding:6px;"><input data-pseg="'+seg+'" data-pcampo="'+campo+'" type="text" inputmode="numeric" value="'+val+'" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:13.5px;font-family:inherit;background:#fafbff;"></td>';
+    return '<tr style="border-top:.5px solid var(--border);"><td style="padding:8px 6px;font-weight:700;color:var(--navy-deep);">'+PRECIOS[seg].label+'</td>'
+      + inp('crm', v.crm) + inp('crm_paquete', v.crm_paquete !== undefined ? v.crm_paquete : v.crm) + inp('de', v.de) + inp('ai', v.ai) + '</tr>';
+  }).join('');
+  document.getElementById('preciosModal').style.display = 'flex';
+}
+document.getElementById('btnPrecios').addEventListener('click', abrirPreciosModal);
+document.getElementById('preciosCerrar').addEventListener('click', ()=>{ document.getElementById('preciosModal').style.display='none'; });
+document.getElementById('preciosReset').addEventListener('click', ()=>{
+  DATA.precios_override = {};
+  saveData(); renderData(); abrirPreciosModal();
+});
+document.getElementById('preciosGuardar').addEventListener('click', ()=>{
+  const ov = {};
+  document.querySelectorAll('#preciosGrid input[data-pseg]').forEach(inp=>{
+    const seg = inp.dataset.pseg, campo = inp.dataset.pcampo;
+    const val = parseFloat(String(inp.value).replace(/[',\s]/g,''));
+    if(isNaN(val)) return;
+    const def = PRECIOS[seg][campo] !== undefined ? PRECIOS[seg][campo] : (campo==='crm_paquete' ? PRECIOS[seg].crm : undefined);
+    if(val !== def){ if(!ov[seg]) ov[seg] = {}; ov[seg][campo] = val; }
+  });
+  DATA.precios_override = ov;
+  saveData(); renderData();
+  document.getElementById('preciosModal').style.display='none';
+});
 document.getElementById('btnEdit').onclick = ()=>{
   populateForm();
   editPanel.classList.toggle('open');
@@ -2057,6 +2153,8 @@ document.getElementById('btnPdf').onclick = ()=>{
 };
 
 fitStage();
+applyToggles();
+renderProductosToggles();
 renderData();
 setSegPill(DATA.segmento);
 setPaquetePill(DATA.paquete || 'estrategia');
