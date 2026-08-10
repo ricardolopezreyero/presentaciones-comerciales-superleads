@@ -103,6 +103,23 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 .fbul b{color:var(--navy-deep);}
 .fbul-i{font-size:17px;line-height:1.35;flex:0 0 auto;}
 .fbul.oculto{display:none;}
+.noCard{position:relative;display:flex;flex-direction:column;border:1.5px solid rgba(86,239,159,.30);background:linear-gradient(160deg,rgba(86,239,159,.10),rgba(255,255,255,.02));border-radius:20px;padding:34px 28px 30px;overflow:hidden;}
+.noCard::after{content:"";position:absolute;right:-60px;top:-60px;width:150px;height:150px;border-radius:50%;background:rgba(86,239,159,.07);}
+.noCard .noX{width:52px;height:52px;border-radius:50%;background:var(--green);color:#03301c;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;line-height:1;margin-bottom:20px;box-shadow:0 10px 26px rgba(86,239,159,.28);}
+.noCard .noNum{position:absolute;right:22px;top:20px;font-size:13px;font-weight:800;letter-spacing:2px;color:rgba(255,255,255,.22);}
+.noCard h3{margin:0 0 12px;font-size:23px;line-height:1.25;font-weight:800;color:#fff;letter-spacing:-.3px;}
+.noCard p{margin:0;font-size:15.5px;line-height:1.6;font-weight:600;color:#a9bce0;}
+.camCard{display:flex;flex-direction:column;gap:0;}
+.camTasa{display:flex;align-items:center;justify-content:center;gap:12px;padding:10px 0 12px;border-bottom:1px dashed var(--border);}
+.camTasa .t{font-size:23px;font-weight:800;color:var(--navy-deep);line-height:1;}
+.camTasa .flecha{font-size:17px;color:var(--dim);font-weight:800;}
+.camTasa .nota{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--dim);}
+.camCuerpo{display:flex;align-items:center;gap:20px;padding-top:16px;flex:1;}
+.camGrande{flex:0 0 auto;text-align:left;}
+.camGrande .n{font-size:44px;font-weight:800;line-height:1;letter-spacing:-1px;}
+.camGrande .l{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--dim);margin-top:4px;}
+.camDetalle{flex:1;font-size:14.5px;line-height:1.5;color:var(--muted);font-weight:600;border-left:1px solid var(--border);padding-left:20px;}
+.camDetalle b{color:var(--navy-deep);}
 #aviso{position:fixed;left:50%;bottom:76px;transform:translateX(-50%) translateY(14px);z-index:95;background:#0d1730;color:#fff;border:1.5px solid var(--green-d);border-radius:99px;padding:11px 26px;font-size:14px;font-weight:800;letter-spacing:.3px;box-shadow:0 16px 44px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;}
 #aviso.on{opacity:1;transform:translateX(-50%) translateY(0);}
 .infoDot{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;border:1.5px solid var(--dim);color:var(--dim);font-size:11px;font-weight:800;font-style:normal;line-height:1;margin-right:9px;cursor:help;vertical-align:middle;position:relative;top:-1px;flex:0 0 auto;}
@@ -569,34 +586,43 @@ Estar lleno es matemático: leads por tasa de conversión. Hay dos caminos para 
     </div>
     <div class="branch-arrow">↓</div>
     <div class="grid2" style="width:100%;max-width:980px;align-items:stretch;">
-      <div class="card">
-        <h3 style="color:var(--muted);">Camino 1 · Más volumen</h3>
-        <div class="stat-hero" style="font-size:42px;margin:8px 0;">+<span data-bind="leads_adicionales_camino1" data-fmt="num"></span></div>
-        <div class="body-txt" style="font-size:15.5px;">prospectos adicionales al año, a la misma tasa de conversión de hoy.</div>
-      </div>
-      <div class="card" style="border-color:var(--green-d);">
-        <h3 style="color:var(--green-d);">Camino 2 · Mejor conversión</h3>
-        <div class="stat-hero green" style="font-size:42px;margin:8px 0;">+<span data-bind="alumnos_extra" data-fmt="num"></span></div>
-        <div class="body-txt" style="font-size:15.5px;">alumnos al año, con solo <span data-bind="mejora_conservadora"></span> puntos más de conversión — misma inversión.</div>
-        <div style="border-top:1px dashed var(--border);margin-top:12px;padding-top:10px;">
-          <div style="font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--green-d);">Camino 2B · Para lograr la meta completa</div>
-          <div style="display:flex;gap:22px;margin-top:8px;">
-            <div style="flex:1;">
-              <div class="stat-hero green" style="font-size:25px;"><span data-bind="tasa_objetivo" data-fmt="pct2"></span></div>
-              <div class="stat-label" style="font-size:12px;margin-top:2px;">tasa de conversión</div>
-            </div>
-            <div style="flex:1;">
-              <div class="stat-hero green" style="font-size:25px;">+<span data-bind="leads_extra_2b" data-fmt="num"></span></div>
-              <div class="stat-label" style="font-size:12px;margin-top:2px;">prospectos extra al año · <span data-bind="leads_meta_2b" data-fmt="num"></span> en total</div>
-            </div>
+      <div class="card camCard">
+        <h3 style="color:var(--muted);margin-bottom:2px;">Camino 1 · Más volumen</h3>
+        <div class="camTasa">
+          <span class="t" data-bind="tasa_conversion" data-fmt="pct2"></span>
+          <span class="flecha">→</span>
+          <span class="t" data-bind="tasa_conversion" data-fmt="pct2"></span>
+          <span class="nota">sin cambio</span>
+        </div>
+        <div class="camCuerpo">
+          <div class="camGrande">
+            <div class="n" style="color:var(--navy-deep);">+<span data-bind="leads_adicionales_camino1" data-fmt="num"></span></div>
+            <div class="l">prospectos extra al año</div>
           </div>
+          <div class="camDetalle">Mismo proceso, misma tasa: la meta solo se alcanza <b>comprando muchísimo más tráfico</b>. Cada prospecto extra cuesta dinero.</div>
+        </div>
+      </div>
+      <div class="card camCard" style="border-color:var(--green-d);">
+        <h3 style="color:var(--green-d);margin-bottom:2px;">Camino 2 · Mejor conversión</h3>
+        <div class="camTasa" style="border-color:rgba(19,179,110,.35);">
+          <span class="t" data-bind="tasa_conversion" data-fmt="pct2"></span>
+          <span class="flecha" style="color:var(--green-d);">→</span>
+          <span class="t" style="color:var(--green-d);" data-bind="tasa_objetivo" data-fmt="pct2"></span>
+          <span class="nota" style="color:var(--green-d);">+<span data-bind="mejora_conservadora"></span> pts</span>
+        </div>
+        <div class="camCuerpo">
+          <div class="camGrande">
+            <div class="n" style="color:var(--green-d);">+<span data-bind="leads_extra_2b" data-fmt="num"></span></div>
+            <div class="l" style="color:var(--green-d);">prospectos extra al año</div>
+          </div>
+          <div class="camDetalle">Con esa tasa, <b>+<span data-bind="alumnos_extra" data-fmt="num"></span> alumnos</b> salen de los prospectos que ya tienen — sin gastar un peso más. El resto se cubre con <b><span data-bind="leads_meta_2b" data-fmt="num"></span> prospectos en total</b>.</div>
         </div>
       </div>
     </div>
   </div>
     <div style="margin-top:16px;border:1.5px solid var(--border);background:var(--blue-softer);border-radius:14px;padding:13px 30px;max-width:760px;margin-left:auto;margin-right:auto;text-align:center;">
     <div style="font-size:10.5px;letter-spacing:3px;color:var(--green-d);font-weight:800;text-transform:uppercase;margin-bottom:5px;">El dato que mueve todo</div>
-    <div style="font-size:16.5px;font-weight:700;color:var(--navy-deep);">Su tasa de conversión hoy: <span style="font-size:20px;color:var(--green-d);" data-bind="tasa_conversion" data-fmt="pct2"></span> — cada décima extra son alumnos.</div>
+    <div style="font-size:16.5px;font-weight:700;color:var(--navy-deep);">La misma meta: por el camino 1, <b><span data-bind="leads_adicionales_camino1" data-fmt="num"></span></b> prospectos extra. Por el camino 2, <b style="color:var(--green-d);"><span data-bind="leads_extra_2b" data-fmt="num"></span></b>. <span style="color:var(--muted);font-weight:600;">Cada décima de conversión son alumnos.</span></div>
   </div>
 <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">09</div>
@@ -1342,12 +1368,28 @@ Honestidad primero: no prometemos alumnos garantizados — prometemos llevarlos 
 * No venimos a reemplazar a su equipo: les damos sistema y capacitación para que su equipo crezca.
 * La responsabilidad del resultado es compartida.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Honestidad</div></div>
-  <h1>Lo que no les vamos a pedir</h1>
-  <div class="fill" style="justify-content:center;gap:20px;">
-    <div class="step-row"><div class="num-badge">✕</div><div><div class="t">No les prometemos alumnos garantizados</div><div class="d">Los llevamos matemáticamente a lo máximo que sabemos — nunca más arriba de eso.</div></div></div>
-    <div class="step-row"><div class="num-badge">✕</div><div><div class="t">No sobrevendemos</div><div class="d">Si algo no aplica para ustedes, se los decimos de frente.</div></div></div>
-    <div class="step-row"><div class="num-badge">✕</div><div><div class="t">No somos una agencia que solo vende servicios</div><div class="d">Operamos el sistema con ustedes — la responsabilidad del resultado es compartida.</div></div></div>
-    <div class="step-row"><div class="num-badge">✕</div><div><div class="t">No venimos a reemplazar a su equipo</div><div class="d">Primero les damos el sistema y la capacitación — con eso, es el equipo que ya tienen el que va a crecer.</div></div></div>
+  <h1>Lo que no vamos a hacer</h1>
+  <div class="fill" style="justify-content:center;">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px;width:100%;align-items:stretch;">
+      <div class="noCard">
+        <div class="noX">✕</div>
+        <div class="noNum">01</div>
+        <h3>No prometemos<br>alumnos garantizados</h3>
+        <p>Los llevamos matemáticamente a lo máximo que su sistema puede dar — y ni una promesa más arriba de eso.</p>
+      </div>
+      <div class="noCard">
+        <div class="noX">✕</div>
+        <div class="noNum">02</div>
+        <h3>No somos una agencia<br>que vende servicios</h3>
+        <p>Una agencia responde por el costo del lead. Nosotros operamos el sistema con ustedes y respondemos por la conversión.</p>
+      </div>
+      <div class="noCard">
+        <div class="noX">✕</div>
+        <div class="noNum">03</div>
+        <h3>No venimos a<br>reemplazar a su equipo</h3>
+        <p>Primero el sistema y la capacitación. Con eso, es el equipo que ya tienen el que crece — no uno nuevo.</p>
+      </div>
+    </div>
   </div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">29</div>
