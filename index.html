@@ -103,6 +103,10 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 .fbul b{color:var(--navy-deep);}
 .fbul-i{font-size:17px;line-height:1.35;flex:0 0 auto;}
 .fbul.oculto{display:none;}
+.invBox{border:1.5px solid var(--border);background:#fafbff;border-radius:16px;padding:16px 20px;display:flex;flex-direction:column;justify-content:center;}
+.invIco{font-size:20px;line-height:1;margin-bottom:7px;}
+.invN{font-size:31px;font-weight:800;color:var(--navy-deep);line-height:1.05;letter-spacing:-.5px;}
+.invL{font-size:13px;font-weight:800;color:var(--dim);margin-top:5px;line-height:1.35;}
 .rm-plazo{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--green);background:rgba(86,239,159,.12);border:1px solid rgba(86,239,159,.32);border-radius:99px;padding:4px 13px;margin:12px 0 8px;}
 .noCard{position:relative;display:flex;flex-direction:column;border:1.5px solid rgba(86,239,159,.30);background:linear-gradient(160deg,rgba(86,239,159,.10),rgba(255,255,255,.02));border-radius:20px;padding:34px 28px 30px;overflow:hidden;}
 .noCard::after{content:"";position:absolute;right:-60px;top:-60px;width:150px;height:150px;border-radius:50%;background:rgba(86,239,159,.07);}
@@ -1195,7 +1199,7 @@ La tabla muestra exactamente lo que se está cotizando — ni un producto más. 
 ## Para conversar
 >> La conversación importante no es lo que cuesta el sistema: es la capacidad disponible y el ingreso extra posible al año.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">La inversión</div></div>
-  <h1>Su inversión</h1>
+  <h1>Su inversión — y lo que puede producir</h1>
   <table class="semaforo" style="margin-top:8px;">
     <tr><th>Producto</th><th>Detalle</th><th><span class="px-off">Precio</span></th></tr>
     <tr><td>Implementación y capacitación</td><td class="small">Migración, embudo configurado, capacitación completa del equipo</td><td class="val" style="font-size:19px;color:var(--green-d);"><span class="px-off">$0<span style="font-size:12px;color:var(--dim);font-weight:600;"> · antes <span data-bind="valor_implementacion" data-fmt="mxn"></span></span></span></td></tr>
@@ -1209,8 +1213,9 @@ La tabla muestra exactamente lo que se está cotizando — ni un producto más. 
 
   <div style="display:flex;gap:12px;margin-top:12px;align-items:stretch;">
     <div style="flex:1;border:1px solid var(--border);border-radius:14px;padding:12px 18px;background:#fff;display:flex;flex-direction:column;justify-content:center;">
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--dim);">Anual · ciclo de 10 meses</div>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--dim);">El año completo</div>
       <div style="font-size:25px;font-weight:800;color:var(--muted);line-height:1.2;"><span data-bind="precio_anual" data-fmt="mxn"></span><span class="px-off" style="font-size:12px;font-weight:700;opacity:.7;"> + IVA</span></div>
+      <div class="px-off" style="font-size:11.5px;font-weight:800;color:var(--green-d);margin-top:3px;line-height:1.35;">12 meses de servicio · se pagan 10<br><span style="color:var(--dim);font-weight:700;">los 2 de vacaciones no se cobran</span></div>
     </div>
     <div style="flex:1.35;border:2px solid var(--green-d);background:var(--blue-softer);border-radius:14px;padding:12px 18px;display:flex;flex-direction:column;justify-content:center;align-items:center;">
       <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--green-d);">Mensual</div>
@@ -1225,8 +1230,29 @@ La tabla muestra exactamente lo que se está cotizando — ni un producto más. 
       <div style="font-size:25px;font-weight:800;color:var(--navy-deep);line-height:1.2;"><span data-bind="precio_diario" data-fmt="mxn"></span><span class="px-off" style="font-size:12px;font-weight:700;color:var(--dim);"> /día</span></div>
     </div>
   </div>
-  <div class="px-off" style="margin-top:14px;font-size:15.5px;font-weight:600;color:var(--navy);max-width:1120px;line-height:1.55;">🎯 La conversación correcta no es lo que cuesta el sistema — es esto: <b style="font-size:17px;color:var(--navy-deep);"><span data-bind="lugares_vacios" data-fmt="num"></span> lugares disponibles</b>, una tasa de conversión de <b style="font-size:17px;color:var(--navy-deep);" data-bind="tasa_conversion" data-fmt="pct2"></b> por mejorar, y un ingreso extra posible de <b style="font-size:18px;color:var(--green-d);text-decoration:underline;text-underline-offset:3px;"><span data-bind="ingreso_extra_anual" data-fmt="mxn"></span> al año</b>. Ese dinero es real — se alcanza contratando tecnología. Enfoquémonos en crecer eso.</div>
-  <div class="px-solo" style="display:none;margin-top:14px;font-size:15.5px;font-weight:600;color:var(--navy);max-width:1120px;line-height:1.55;">🎯 La conversación correcta no es lo que cuesta el sistema — es esto: <b style="font-size:17px;color:var(--navy-deep);">los lugares que hoy están disponibles</b> y <b style="font-size:17px;color:var(--navy-deep);">la tasa de conversión que se puede mejorar</b>. Ahí está el ingreso que no se está capturando — y es real. Enfoquémonos en crecer eso.</div>
+  <div style="margin-top:18px;display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:14px;align-items:stretch;">
+    <div class="invBox">
+      <div class="invIco">🪑</div>
+      <div class="invN"><span data-bind="lugares_vacios" data-fmt="num"></span></div>
+      <div class="invL">lugares disponibles hoy</div>
+    </div>
+    <div class="invBox">
+      <div class="invIco">📈</div>
+      <div class="invN"><span data-bind="tasa_conversion" data-fmt="pct2"></span></div>
+      <div class="invL">tasa de conversión por mejorar</div>
+    </div>
+    <div class="invBox px-off" style="border-color:var(--green-d);background:rgba(86,239,159,.09);">
+      <div class="invIco">💰</div>
+      <div class="invN" style="color:var(--green-d);"><span data-bind="ingreso_extra_anual" data-fmt="mxn"></span></div>
+      <div class="invL" style="color:var(--green-d);">de ingreso extra posible al año</div>
+    </div>
+    <div class="invBox px-solo" style="display:none;border-color:var(--green-d);background:rgba(86,239,159,.09);">
+      <div class="invIco">💰</div>
+      <div class="invN" style="color:var(--green-d);font-size:23px;line-height:1.3;">El ingreso que hoy<br>no se está capturando</div>
+      <div class="invL" style="color:var(--green-d);">y que ya está dentro de su capacidad</div>
+    </div>
+  </div>
+  <div style="margin-top:14px;font-size:17px;font-weight:700;color:var(--navy-deep);text-align:center;line-height:1.5;">🎯 La conversación correcta no es lo que cuesta el sistema — es esto. <span style="color:var(--muted);font-weight:600;">Ese dinero es real y ya está dentro de su capacidad instalada: se alcanza con sistema. Enfoquémonos en crecer eso.</span></div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">24</div>
 </section>
