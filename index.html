@@ -103,6 +103,13 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 .fbul b{color:var(--navy-deep);}
 .fbul-i{font-size:17px;line-height:1.35;flex:0 0 auto;}
 .fbul.oculto{display:none;}
+#aviso{position:fixed;left:50%;bottom:76px;transform:translateX(-50%) translateY(14px);z-index:95;background:#0d1730;color:#fff;border:1.5px solid var(--green-d);border-radius:99px;padding:11px 26px;font-size:14px;font-weight:800;letter-spacing:.3px;box-shadow:0 16px 44px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;}
+#aviso.on{opacity:1;transform:translateX(-50%) translateY(0);}
+.infoDot{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;border:1.5px solid var(--dim);color:var(--dim);font-size:11px;font-weight:800;font-style:normal;line-height:1;margin-right:9px;cursor:help;vertical-align:middle;position:relative;top:-1px;flex:0 0 auto;}
+.infoDot:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-softer);}
+.infoTip{position:fixed;z-index:90;max-width:400px;background:#0d1730;color:#e8eeff;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px 17px;font-size:13.5px;line-height:1.55;font-weight:500;box-shadow:0 18px 50px rgba(0,0,0,.45);pointer-events:none;opacity:0;transition:opacity .12s;}
+.infoTip.on{opacity:1;}
+@media print{.infoDot{display:none !important;} .infoTip{display:none !important;}}
 body.sin-precios .px-off{display:none !important;}
 body.sin-precios .px-blank{visibility:hidden;}
 .imgwrap.cover img{object-fit:cover;}
@@ -300,21 +307,22 @@ SuperLeads instala y opera sistemas de inscripciones premium para colegios y uni
 * Precios claros y el siguiente paso.
 >> Todo lo que verán está calculado con los datos reales de su institución.">
   <div class="fill center" style="gap:20px;">
-    <img class="logo" src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" style="height:34px;">
+    <img class="logo" src="assets_deck_instituto_frontera/logo-superleads.svg" style="height:82px;margin-bottom:4px;">
     <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Presentación del Sistema</div></div>
     <h1 style="font-size:58px;max-width:920px;" data-bind="colegio">Instituto Frontera AC</h1>
     <div class="body-txt" style="text-align:center;font-size:19px;">
-      <span data-bind="prospecto_nombre"></span> · <span data-bind="prospecto_cargo"></span>
-      &nbsp;·&nbsp; <span data-bind="prospecto_2_nombre"></span> · <span data-bind="prospecto_2_cargo"></span><br>
+      <span id="portadaAsistentes"></span><br>
       <span data-bind="ciudad"></span>, <span data-bind="pais"></span> &nbsp;·&nbsp; <span data-bind="fecha_presentacion"></span>
     </div>
     <div style="margin-top:24px;border:1.5px solid rgba(255,255,255,.28);background:rgba(255,255,255,.045);border-radius:14px;padding:16px 36px;max-width:840px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.25);">
       <div style="font-size:10.5px;letter-spacing:3px;color:var(--green);font-weight:800;text-transform:uppercase;margin-bottom:7px;">Qué hacemos</div>
       <div style="font-size:15.5px;font-weight:600;color:#dfe8ff;line-height:1.55;">Instalación y mantenimiento de sistemas de inscripciones <span style="color:var(--green);font-weight:800;">premium</span><br>para colegios y universidades privadas en LATAM.</div>
     </div>
+    <div style="margin-top:26px;text-align:center;">
+      <div style="font-size:10.5px;letter-spacing:3px;color:var(--green);font-weight:800;text-transform:uppercase;margin-bottom:6px;">Presenta</div>
+      <div style="font-size:22px;font-weight:800;color:#fff;line-height:1.35;" data-bind="comercial_firma"></div>
+    </div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
-  <div class="slide-num"><span data-bind="comercial_firma"></span></div>
 </section>
 
 <!-- ============ 02 AGENDA ============ -->
@@ -357,7 +365,7 @@ Cinco paradas, siempre en el mismo orden — este mismo mapa reaparece a la mita
       </div>
     </div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">02</div>
 </section>
 
@@ -375,17 +383,17 @@ Los Signos Vitales comparan sus métricas contra los rangos sanos de la industri
   <div class="sub">de <span data-bind="colegio"></span></div>
   <table class="semaforo tabla-vitales" style="margin-top:14px;">
     <tr><th>Métrica</th><th>Valor</th><th>Lectura</th></tr>
-    <tr><td>Tasa de conversión (lead → alumno)</td><td class="val" data-bind="tasa_conversion" data-fmt="pct2"></td><td style="position:relative;"><span class="chip" data-chip="tasa_conversion"></span><select class="chipSel no-print" data-chipsel="tasa_conversion"><option value="auto">Auto (recomendado)</option><option value="verde">🟢 Sano</option><option value="amarillo">🟡 Atención</option><option value="rojo">🔴 Urgente</option><option value="azul">🔵 Capacidad disponible</option></select></td></tr>
-    <tr><td>Tasa cita → alumno</td><td class="val" data-bind="tasa_cita_alumno" data-fmt="pct0"></td><td style="position:relative;"><span class="chip" data-chip="tasa_cita_alumno"></span><select class="chipSel no-print" data-chipsel="tasa_cita_alumno"><option value="auto">Auto (recomendado)</option><option value="verde">🟢 Sano</option><option value="amarillo">🟡 Atención</option><option value="rojo">🔴 Urgente</option><option value="azul">🔵 Capacidad disponible</option></select></td></tr>
-    <tr><td>Ocupación instalada</td><td class="val" data-bind="ocupacion" data-fmt="pct0"></td><td style="position:relative;"><span class="chip" data-chip="ocupacion"></span><select class="chipSel no-print" data-chipsel="ocupacion"><option value="auto">Auto (recomendado)</option><option value="verde">🟢 Sano</option><option value="amarillo">🟡 Atención</option><option value="rojo">🔴 Urgente</option><option value="azul">🔵 Capacidad disponible</option></select></td></tr>
-    <tr><td>ROAS (retorno sobre inversión publicitaria)</td><td class="val" data-bind="roas" data-fmt="x1"></td><td style="position:relative;"><span class="chip" data-chip="roas"></span><select class="chipSel no-print" data-chipsel="roas"><option value="auto">Auto (recomendado)</option><option value="verde">🟢 Sano</option><option value="amarillo">🟡 Atención</option><option value="rojo">🔴 Urgente</option><option value="azul">🔵 Capacidad disponible</option></select></td></tr>
-    <tr><td>% de alumnos por referido</td><td class="val" data-bind="pct_referidos" data-fmt="pct0"></td><td style="position:relative;"><span class="chip" data-chip="pct_referidos"></span><select class="chipSel no-print" data-chipsel="pct_referidos"><option value="auto">Auto (recomendado)</option><option value="verde">🟢 Sano</option><option value="amarillo">🟡 Atención</option><option value="rojo">🔴 Urgente</option><option value="azul">🔵 Capacidad disponible</option></select></td></tr>
+    <tr><td><i class="infoDot no-print" data-tip="De cada 100 prospectos que levantan la mano, cuántos terminan inscritos. Es el termómetro del sistema completo: si está baja, no falta publicidad — falta proceso. Sana en educación privada: 5% o más. Cada décima que sube vale dinero real, porque multiplica sobre TODOS los prospectos del año, sin gastar un peso más en anuncios.">i</i>Tasa de conversión (lead → alumno)</td><td class="val" data-bind="tasa_conversion" data-fmt="pct2"></td><td style="position:relative;"><span class="chip" data-chip="tasa_conversion"></span><select class="chipSel no-print" data-chipsel="tasa_conversion"><option value="auto">Auto (recomendado)</option><option value="verde">🟢 Sano</option><option value="amarillo">🟡 Atención</option><option value="rojo">🔴 Urgente</option><option value="azul">🔵 Capacidad disponible</option></select></td></tr>
+    <tr><td><i class="infoDot no-print" data-tip="De cada 100 familias que sí llegan a la cita, cuántas se inscriben. Mide qué tan bien cierra el equipo cara a cara. Sana: 60% o más. Si está alta pero hay pocos alumnos, el problema no es el equipo — es que llegan pocas citas. Si está baja, el trabajo es entrenamiento y manejo de objeciones.">i</i>Tasa cita → alumno</td><td class="val" data-bind="tasa_cita_alumno" data-fmt="pct0"></td><td style="position:relative;"><span class="chip" data-chip="tasa_cita_alumno"></span><select class="chipSel no-print" data-chipsel="tasa_cita_alumno"><option value="auto">Auto (recomendado)</option><option value="verde">🟢 Sano</option><option value="amarillo">🟡 Atención</option><option value="rojo">🔴 Urgente</option><option value="azul">🔵 Capacidad disponible</option></select></td></tr>
+    <tr><td><i class="infoDot no-print" data-tip="Qué parte de los lugares que la institución puede atender están ocupados hoy. Los lugares vacíos ya tienen costo: el maestro, el aula y la luz se pagan igual. Por eso cada lugar que se llena es margen casi puro — no cuesta lo mismo que el primero.">i</i>Ocupación instalada</td><td class="val" data-bind="ocupacion" data-fmt="pct0"></td><td style="position:relative;"><span class="chip" data-chip="ocupacion"></span><select class="chipSel no-print" data-chipsel="ocupacion"><option value="auto">Auto (recomendado)</option><option value="verde">🟢 Sano</option><option value="amarillo">🟡 Atención</option><option value="rojo">🔴 Urgente</option><option value="azul">🔵 Capacidad disponible</option></select></td></tr>
+    <tr><td><i class="infoDot no-print" data-tip="Por cada peso que cuesta traer a un alumno nuevo, cuántos pesos deja ese alumno durante toda su estancia. Es la métrica que decide si conviene invertir en atracción: arriba de 3 ya es negocio, y en educación suele ser altísima porque un alumno se queda años. Si nunca se ha medido, casi siempre se está invirtiendo de menos.">i</i>Ratio educativo de inscripciones (LTV ÷ CAA)</td><td class="val" data-bind="roas" data-fmt="x1"></td><td style="position:relative;"><span class="chip" data-chip="roas"></span><select class="chipSel no-print" data-chipsel="roas"><option value="auto">Auto (recomendado)</option><option value="verde">🟢 Sano</option><option value="amarillo">🟡 Atención</option><option value="rojo">🔴 Urgente</option><option value="azul">🔵 Capacidad disponible</option></select></td></tr>
+    <tr><td><i class="infoDot no-print" data-tip="Qué parte de las inscripciones nuevas llegan recomendadas por la comunidad. Es la métrica más honesta de satisfacción: nadie recomienda un colegio que no le gusta. Sana: una de cada tres. Además son los alumnos más baratos de conseguir y los que más se quedan.">i</i>% de alumnos por referido</td><td class="val" data-bind="pct_referidos" data-fmt="pct0"></td><td style="position:relative;"><span class="chip" data-chip="pct_referidos"></span><select class="chipSel no-print" data-chipsel="pct_referidos"><option value="auto">Auto (recomendado)</option><option value="verde">🟢 Sano</option><option value="amarillo">🟡 Atención</option><option value="rojo">🔴 Urgente</option><option value="azul">🔵 Capacidad disponible</option></select></td></tr>
   </table>
   <div style="margin-top:26px;border:1.5px solid var(--border);background:var(--blue-softer);border-radius:14px;padding:16px 30px;max-width:900px;margin-left:auto;margin-right:auto;text-align:center;">
     <div style="font-size:10.5px;letter-spacing:3px;color:var(--green-d);font-weight:800;text-transform:uppercase;margin-bottom:7px;">La conclusión</div>
     <div style="font-size:16.5px;font-weight:700;color:var(--navy-deep);line-height:1.55;">Sus métricas son tan buenas como el sistema de inscripciones con el que operan.<br><span style="font-weight:600;color:var(--muted);">Ya están operando un sistema — aunque no lo sepan. Al mejorar el sistema, mejoran las métricas.</span></div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">03</div>
 </section>
 
@@ -403,7 +411,7 @@ Ocho pasos separan un anuncio de un alumno inscrito — y cada flecha es una fug
     <div class="imgwrap" style="height:100%;"><img src="assets_deck_instituto_frontera/l04-embudo.png"></div>
   </div>
   <div class="caption">Ocho pasos separan un anuncio de un alumno inscrito. Hoy, <span data-bind="perdida_pct" data-fmt="raw"></span> de cada 100 se pierden en el camino.</div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">04</div>
 </section>
 
@@ -420,7 +428,7 @@ Su institución atrae muy bien; la turbulencia aparece después, entre el inter�
     <div class="imgwrap" style="height:100%;"><img src="assets_deck_instituto_frontera/l04-turbulencia.png"></div>
   </div>
   <div class="caption">Ustedes son buenísimos atrayendo. La turbulencia vive en «Formación del lead» y «Formación del alumno» — ahí entra SuperLeads.</div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">05</div>
 </section>
 
@@ -444,7 +452,7 @@ La imagen hace físico el porcentaje: de una sala de juntas llena de interesados
       <div class="scale-dot" data-goto="3" title="Auditorio"></div>
     </div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">06</div>
 </section>
 
@@ -477,7 +485,7 @@ Cada punto de tasa de conversión son alumnos extra al año — con los mismos p
       <div style="font-size:13.5px;font-weight:700;color:var(--muted);margin-top:10px;">Por eso SuperLeads va con todo: hasta una décima de punto es mucho dinero para un colegio.</div>
     </div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">07</div>
 </section>
 
@@ -497,7 +505,7 @@ Cada silla vacía cuesta el valor de vida completo del alumno que no se sentó a
     <div class="stat-hero green" style="font-size:clamp(38px,5.5vw,64px);margin-top:24px;" data-bind="hueco_total" data-fmt="mxn"></div>
     <div class="stat-label" style="text-align:center;max-width:820px;">es el valor que le faltaría al colegio el día que decidieran venderlo — la matrícula es la valuación.</div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">08</div>
 </section>
 
@@ -516,7 +524,7 @@ La capacidad extra posible: los lugares que ya están instalados y hoy no genera
     <div class="stat-hero green" style="font-size:clamp(38px,5.5vw,64px);margin-top:24px;" data-bind="ocupacion" data-fmt="pct0"></div>
     <div class="stat-label" style="text-align:center;max-width:780px;">de uso de capacidad — esa cifra dicta qué tan holgados están económicamente.</div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">08b</div>
 </section>
 
@@ -567,7 +575,7 @@ Estar lleno es matemático: leads por tasa de conversión. Hay dos caminos para 
     <div style="font-size:10.5px;letter-spacing:3px;color:var(--green-d);font-weight:800;text-transform:uppercase;margin-bottom:5px;">El dato que mueve todo</div>
     <div style="font-size:16.5px;font-weight:700;color:var(--navy-deep);">Su tasa de conversión hoy: <span style="font-size:20px;color:var(--green-d);" data-bind="tasa_conversion" data-fmt="pct2"></span> — cada décima extra son alumnos.</div>
   </div>
-<a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+<a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">09</div>
 </section>
 
@@ -578,14 +586,14 @@ Ningún alumno debería perder la oportunidad de estudiar en el colegio correcto
 >> Darle poder a los colegios y universidades para que inscriban fácilmente a millones de estudiantes.
 * Para cumplir la misión educativa, la institución primero tiene que ser rentable.">
   <div class="fill center" style="gap:0;">
-    <img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" style="height:42px;margin-bottom:38px;" alt="SuperLeads">
+    <img src="assets_deck_instituto_frontera/logo-superleads.svg" style="height:42px;margin-bottom:38px;" alt="SuperLeads">
     <div class="eyebrow" style="justify-content:center;"><div class="ew-dot"></div><div class="ew-t">Por qué existimos</div></div>
     <div style="text-align:center;max-width:900px;font-size:25px;line-height:1.55;font-weight:500;color:#dfe8ff;margin-top:16px;">Creemos que ningún alumno debería perder la oportunidad de estudiar en el colegio correcto por culpa de un mal proceso de admisión — y que los colegios deben ser rentables para poder cumplir su misión educativa.</div>
     <div style="width:56px;height:2px;background:var(--green);margin:34px 0;"></div>
     <div class="eyebrow" style="justify-content:center;"><div class="ew-dot"></div><div class="ew-t">Propósito SuperLeads</div></div>
     <div style="text-align:center;max-width:880px;font-size:34px;line-height:1.3;font-weight:800;letter-spacing:-.5px;color:#fff;margin-top:16px;">Darle poder a los colegios y universidades para que inscriban fácilmente a millones de estudiantes.</div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">10</div>
 </section>
 
@@ -601,7 +609,7 @@ La misma persona, con mejor herramienta, recorre más kilómetros — no es más
   <div class="fill" style="margin-top:6px;">
     <div class="imgwrap" style="height:100%;"><img src="assets_deck_instituto_frontera/l09-herramienta.png"></div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">11</div>
 </section>
 
@@ -640,7 +648,7 @@ El CRM es solo la tecnología — a propósito el círculo más chico. Encima va
     </div>
   </div>
   <div style="margin-top:6px;font-size:16px;font-weight:700;color:var(--navy-deep);">💡 Con SuperLeads no contratan la tecnología — contratan a la empresa que tiene la tecnología y se especializa en inscripciones.</div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">13</div>
 </section>
 
@@ -691,7 +699,7 @@ Cada colegio de la red alimenta el mismo loop: lo que funciona en uno, llega a t
     <div style="display:flex;align-items:baseline;gap:8px;background:var(--blue-softer);border:1px solid var(--border);border-radius:12px;padding:10px 20px;"><span style="font-size:24px;font-weight:800;color:var(--navy-deep);">1M+</span><span style="font-size:13.5px;font-weight:600;color:var(--dim);">prospectos al año en la red</span></div>
     <div style="display:flex;align-items:baseline;gap:8px;background:var(--blue-softer);border:1px solid var(--border);border-radius:12px;padding:10px 20px;"><span style="font-size:24px;font-weight:800;color:var(--navy-deep);">5</span><span style="font-size:13.5px;font-weight:600;color:var(--dim);">países de habla hispana</span></div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">14</div>
 </section>
 
@@ -732,7 +740,7 @@ Punto de ubicación: ya vimos su Rayos X y por qué existe SuperLeads; ahora vie
       </div>
     </div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">14b</div>
 </section>
 
@@ -751,7 +759,7 @@ Un mensaje bien puesto puede regresar una colegiatura completa — por eso cada 
     <div class="imgwrap"><img src="assets_deck_instituto_frontera/l13-whatsapp-3-zoom.png" style="object-fit:contain;"></div>
   </div>
   <div class="callout" style="margin-top:14px;"><b>📌 Ojo:</b> si el papá les escribe primero, no cuenta como conversación nueva — platican todo lo necesario sin costo extra. Solo cuenta cuando SuperLeads abre con una plantilla.</div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">17</div>
 </section>
 
@@ -767,7 +775,7 @@ Constanza es la inteligencia artificial de SuperLeads, optimizada para una sola 
   <div class="fill" style="flex-direction:row;gap:56px;align-items:center;justify-content:center;">
     <div style="text-align:center;">
       <div style="position:relative;width:280px;height:280px;margin:0 auto;">
-        <img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69c9492a9dbb4283e9ea6550.png" alt="Constanza" style="width:280px;height:280px;border-radius:50%;object-fit:cover;object-position:center top;border:4px solid var(--green);box-shadow:0 24px 60px rgba(0,0,0,.45);">
+        <img src="assets_deck_instituto_frontera/constanza.png" alt="Constanza" style="width:280px;height:280px;border-radius:50%;object-fit:cover;object-position:center top;border:4px solid var(--green);box-shadow:0 24px 60px rgba(0,0,0,.45);">
         <div style="position:absolute;bottom:2px;right:-18px;background:var(--green);color:var(--navy-deep);font-weight:800;font-size:17px;padding:8px 16px;border-radius:999px;box-shadow:0 10px 26px rgba(86,239,159,.35);">24/7/365</div>
       </div>
       <div style="margin-top:20px;font-size:23px;font-weight:800;color:#fff;">Constanza</div>
@@ -780,7 +788,7 @@ Constanza es la inteligencia artificial de SuperLeads, optimizada para una sola 
       <div class="cbub in">¡Con gusto! Le comparto tres opciones para agendar su visita:<br>a) Lun 9:00 AM &nbsp; b) Lun 12:00 PM &nbsp; c) Mar 9:00 AM<br>Solo escriba la letra.</div>
     </div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">18</div>
 </section>
 
@@ -798,7 +806,7 @@ Desde la Torre de Control se dirige la operación: nada aterriza sin que se vea 
   <div class="fill" style="margin-top:6px;">
     <div class="imgwrap" style="height:100%;"><img src="assets_deck_instituto_frontera/l16-mosaico-5.png" style="background:#001240;"></div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">19</div>
 </section>
 
@@ -813,7 +821,7 @@ Un colegio real operando hoy: alumnos por etapa, moviéndose con automatizacione
   <h1>El CRM: sus alumnos en orden</h1>
   <div class="fill" style="margin-top:6px;"><div class="imgwrap" style="height:100%;"><img src="assets_deck_instituto_frontera/l16-mosaico-2.png"></div></div>
   <div style="margin-top:12px;font-size:18.5px;font-weight:800;color:var(--navy-deep);">Sus <span style="color:var(--green-d);"><span data-bind="matricula_actual" data-fmt="num"></span> alumnos</span> y cada prospecto nuevo, en perfecto orden — moviéndose con automatizaciones, secuencias y metodología.</div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">20</div>
 </section>
 
@@ -829,7 +837,7 @@ La Academia SuperLeads vive dentro del mismo sistema: cursos con lo mínimo que 
   <div class="sub">La capacitación vive dentro del mismo sistema</div>
   <div class="fill" style="margin-top:6px;"><div class="imgwrap" style="height:100%;"><img src="assets_deck_instituto_frontera/l16-mosaico-4.png"></div></div>
   <div style="margin-top:12px;font-size:18.5px;font-weight:800;color:var(--navy-deep);">Lo mínimo que su equipo de admisiones — hoy <span style="color:var(--green-d);"><span data-bind="personas_admisiones"></span> personas</span> — necesita dominar: el sistema y la forma de inscribir.</div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">21</div>
 </section>
 
@@ -844,7 +852,7 @@ Antes de ser alumnos, son citas — y este calendario se llena solo: Constanza a
   <h1>El calendario que se llena solo</h1>
   <div class="fill" style="margin-top:6px;"><div class="imgwrap" style="height:100%;"><img src="assets_deck_instituto_frontera/l16-mosaico-1.png"></div></div>
   <div style="margin-top:12px;font-size:18.5px;font-weight:800;color:var(--navy-deep);">Antes de ser alumnos, son citas — y hoy <span style="color:var(--green-d);"><span data-bind="tasa_cita_alumno" data-fmt="pct0"></span> de sus citas</span> termina en inscripción. Un calendario lleno precede a una matrícula llena.</div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">22</div>
 </section>
 
@@ -860,7 +868,7 @@ La Máquina de Atracción es el músculo del producto de Atracción Inteligente:
   <div class="sub">El marketing, estructurado — el músculo detrás de Atracción Inteligente</div>
   <div class="fill" style="margin-top:6px;"><div class="imgwrap" style="height:100%;"><img src="assets_deck_instituto_frontera/l16-mosaico-3.png"></div></div>
   <div style="margin-top:12px;font-size:18.5px;font-weight:800;color:var(--navy-deep);">Todos sus alumnos, en algún punto, no sabían que ustedes existían. Hacer ruido de forma estructurada es lo que hoy les trae <span style="color:var(--green-d);"><span data-bind="leads_anio" data-fmt="num"></span> prospectos al año</span>.</div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">23</div>
 </section>
 
@@ -926,7 +934,7 @@ El Radar de Inscripción detecta, por probabilidad y estadística, quién está 
       </div>
     </div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">15</div>
 </section>
 
@@ -955,7 +963,7 @@ Cada persona de su comunidad recibe un link único, estático y eterno, que trae
       <div class="body-txt" style="font-size:17px;"><span data-bind="antiguedad_anios"></span> años de historia y una bolsa de referidos sin explotar. Cada persona genera un link único, estático y eterno — pagable con dinero o con estatus.</div>
     </div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">16</div>
 </section>
 
@@ -972,7 +980,7 @@ El sistema se conecta con las herramientas que la institución ya usa — y si a
   <h1>Se conecta con lo que ya usan</h1>
   <div class="fill" style="margin-top:6px;"><div class="imgwrap" style="height:100%;"><img src="assets_deck_instituto_frontera/integraciones.png"></div></div>
   <div style="margin-top:12px;font-size:18.5px;font-weight:800;color:var(--navy-deep);">Su calendario, su correo, sus redes, sus anuncios y sus pagos entran al mismo lugar. <span style="color:var(--green-d);">Y si su sistema no está en la lista, se lo integramos a la medida.</span></div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">23</div>
 </section>
 
@@ -1000,7 +1008,7 @@ El formulario de admisiones no es un formulario de contacto: es el primer paso d
       </ul>
     </div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">24</div>
 </section>
 
@@ -1028,7 +1036,7 @@ El formulario de admisiones no es un formulario de contacto: es el primer paso d
       </ul>
     </div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">25</div>
 </section>
 
@@ -1060,7 +1068,7 @@ Casos reales de la red SuperLeads — el que se muestra se elige según el perfi
       <div style="font-size:14px;color:var(--muted);margin-top:18px;">— Ricardo López Reyero, SuperLeads</div>
     </div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">21</div>
 </section>
 
@@ -1078,7 +1086,7 @@ Sabemos lo mínimo que necesita un sistema de inscripciones para funcionar — y
     <div class="imgwrap" style="height:100%;"><img src="assets_deck_instituto_frontera/l18-proceso-medida.jpeg"></div>
   </div>
   <div class="caption">Sabemos lo mínimo que tiene que tener un sistema de inscripciones para funcionar — y se lo implementamos en tiempo récord, porque su tiempo son alumnos.</div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">22</div>
 </section>
 
@@ -1123,7 +1131,7 @@ No es un problema de esfuerzo — es de sistema: el mismo ciclo se repite hasta 
       </div>
     </div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">23</div>
 </section>
 
@@ -1169,7 +1177,7 @@ La tabla muestra exactamente lo que se está cotizando — ni un producto más. 
   </div>
   <div class="px-off" style="margin-top:14px;font-size:15.5px;font-weight:600;color:var(--navy);max-width:1120px;line-height:1.55;">🎯 La conversación correcta no es lo que cuesta el sistema — es esto: <b style="font-size:17px;color:var(--navy-deep);"><span data-bind="lugares_vacios" data-fmt="num"></span> lugares disponibles</b>, una tasa de conversión de <b style="font-size:17px;color:var(--navy-deep);" data-bind="tasa_conversion" data-fmt="pct2"></b> por mejorar, y un ingreso extra posible de <b style="font-size:18px;color:var(--green-d);text-decoration:underline;text-underline-offset:3px;"><span data-bind="ingreso_extra_anual" data-fmt="mxn"></span> al año</b>. Ese dinero es real — se alcanza contratando tecnología. Enfoquémonos en crecer eso.</div>
   <div class="px-solo" style="display:none;margin-top:14px;font-size:15.5px;font-weight:600;color:var(--navy);max-width:1120px;line-height:1.55;">🎯 La conversación correcta no es lo que cuesta el sistema — es esto: <b style="font-size:17px;color:var(--navy-deep);">los lugares que hoy están disponibles</b> y <b style="font-size:17px;color:var(--navy-deep);">la tasa de conversión que se puede mejorar</b>. Ahí está el ingreso que no se está capturando — y es real. Enfoquémonos en crecer eso.</div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">24</div>
 </section>
 
@@ -1214,7 +1222,7 @@ La inversión es asimétrica: el costo es conocido y acotado; el crecimiento es 
     <div class="quotebar" style="max-width:580px;text-align:left;">«Ustedes saben exactamente cuánto voy a ganar yo. Yo no sé cuánto van a ganar ustedes — y la única forma de saberlo es entrando.»</div>
     <div style="font-size:14.5px;font-weight:700;color:#9fb3d9;max-width:560px;text-align:left;">Riesgo conocido y acotado · crecimiento abierto — tecnología y metodología para incrementar su matrícula.</div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">25</div>
 </section>
 
@@ -1238,7 +1246,7 @@ Los costos variables son centavos con retorno en miles — no se ahorran: se efi
     <tr><td>🤖 IA conversacional (Constanza)</td><td class="val" style="font-size:19px;"><span data-bind="costo_constanza" data-fmt="mxn2"></span><span class="px-off">/mes</span></td></tr>
   </table>
   <div class="callout" style="margin-top:12px;"><b>📌 Ojo:</b> si el papá o el alumno escribe primero, no es «conversación nueva» — solo cuenta cuando SuperLeads abre con plantilla. Mientras dure el intercambio, no hay costo extra por mensaje.</div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">26</div>
 </section>
 
@@ -1281,7 +1289,7 @@ Un solo saldo de comunicación para todos los canales: WhatsApp, correo, llamada
     </div>
   </div>
   <div class="body-txt" style="margin-top:10px;font-size:16px;">No es ahorrar comunicación — es usar ese recurso donde más mejora la probabilidad de inscripción.</div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">27</div>
 </section>
 
@@ -1299,7 +1307,7 @@ De la firma a operar: cambios visibles desde la semana 2, momentos fuertes en la
     <div class="imgwrap" style="height:100%;"><img src="assets_deck_instituto_frontera/l24-seissemanas-v2.png"></div>
   </div>
   <div class="caption">Semana 5–6: los primeros «aha moments» — y ya no hay vuelta atrás.</div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">28</div>
 </section>
 
@@ -1318,7 +1326,7 @@ Honestidad primero: no prometemos alumnos garantizados — prometemos llevarlos 
     <div class="step-row"><div class="num-badge">✕</div><div><div class="t">No somos una agencia que solo vende servicios</div><div class="d">Operamos el sistema con ustedes — la responsabilidad del resultado es compartida.</div></div></div>
     <div class="step-row"><div class="num-badge">✕</div><div><div class="t">No venimos a reemplazar a su equipo</div><div class="d">Primero les damos el sistema y la capacitación — con eso, es el equipo que ya tienen el que va a crecer.</div></div></div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">29</div>
 </section>
 
@@ -1339,7 +1347,7 @@ La presentación y la propuesta llegan por WhatsApp y correo, para revisarlas co
     </div>
   </div>
   <div class="quotebar" style="margin-top:16px;">«Las inscripciones no fallan por esfuerzo, fallan por sistema.»</div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">30</div>
 </section>
 
@@ -1365,7 +1373,7 @@ Cuando la decisión es sí, lo que sigue es simple — y en este orden.
       <div style="margin-top:10px;"><a href="https://drive.google.com/file/d/1DAAcw3Y5zoEqhKd9VDLaO8SQ3pgN8FJN/view" target="_blank" rel="noopener" class="btn-activar-sec" style="font-size:13.5px;padding:9px 18px;">📋 Formato de alta de cuenta</a></div></div></div>
     <div class="px-off" style="margin-top:6px;padding:14px 20px;border-left:3px solid var(--green-d);background:rgba(86,239,159,.06);border-radius:0 12px 12px 0;font-size:16.5px;font-weight:700;color:var(--navy-deep);">⭐ Al alumno <span style="color:var(--green-d);" data-bind="alumnos_breakeven" data-fmt="dec2"></span> salimos gratis — y de ahí, nos quedamos buscando subir su matrícula.</div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">A1</div>
 </section>
 
@@ -1386,7 +1394,7 @@ Las seis preguntas que más se repiten antes de activar, respondidas por escrito
     <div class="card" style="padding:20px 24px;display:flex;flex-direction:column;justify-content:center;"><h3 style="font-size:18px;margin-bottom:6px;">🙋 ¿Y si no tenemos equipo de admisiones armado?</h3><div class="body-txt" style="font-size:15.5px;">Les ayudamos a construir el perfil de contratación y a capacitar rápido a quien entre.</div></div>
     <div class="card" style="padding:20px 24px;display:flex;flex-direction:column;justify-content:center;"><h3 style="font-size:18px;margin-bottom:6px;">🧩 ¿Qué pasa si algo no lo tienen resuelto?</h3><div class="body-txt" style="font-size:15.5px;">Si lo necesitan y no lo tenemos, se los hacemos. Punto.</div></div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">A3</div>
 </section>
 
@@ -1398,7 +1406,7 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
 * Riesgo conocido y acotado; crecimiento abierto.
 * Un solo botón: activar la cuenta en su moneda, y empezamos.">
   <div class="fill center" style="gap:0;">
-    <a href="https://superleads.mx" target="_blank" rel="noopener" style="display:block;"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" style="height:52px;" alt="SuperLeads"></a>
+    <a href="https://superleads.mx" target="_blank" rel="noopener" style="display:block;"><img src="assets_deck_instituto_frontera/logo-superleads.svg" style="height:52px;" alt="SuperLeads"></a>
     <div style="width:56px;height:2px;background:var(--green);margin:30px 0;"></div>
     <div style="text-align:center;max-width:960px;font-size:33px;line-height:1.4;font-weight:800;letter-spacing:-.4px;color:#fff;">Ustedes tienen a <span style="color:var(--green);" data-bind="colegio"></span>.<br>Nosotros somos un sistema de inscripciones exclusivamente para la educación privada.</div>
     <div style="text-align:center;font-size:22px;font-weight:600;color:#9fb3d9;margin-top:22px;">Hace sentido juntarnos — y ver cuántos alumnos extra pudiéramos generar.</div>
@@ -1407,7 +1415,7 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
       <a id="btnCierreUsd" href="https://superleads.mx/activa-tu-cuenta-usd" target="_blank" rel="noopener" class="btn-activar" style="font-size:19px;padding:17px 38px;display:none;">🚀 Activar la cuenta de <span data-bind="colegio"></span></a>
     </div>
   </div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="https://assets.cdn.filesafe.space/E6Gh1sE1RnPtadmL7wmG/media/69cde95a69eb1fa3e7917e1d.svg" alt="SuperLeads"></a>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num"><span data-bind="comercial_firma"></span></div>
 </section>
 
@@ -1422,8 +1430,11 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
   <button id="notesBtn" class="wide-btn" title="Notas del orador (N)">NOTAS</button>
   <button id="btnPdf" class="wide-btn" title="Descargar PDF">⬇ PDF</button>
   <button id="btnHtml" class="wide-btn" title="Descargar HTML con estos datos">⬇ HTML</button>
+  <button id="btnPng" class="wide-btn" title="Descargar esta lámina como imagen PNG">⬇ PNG</button>
   <button id="btnFs" title="Pantalla completa (F)">⛶</button>
 </div>
+
+<div id="aviso" class="no-print"></div>
 
 <div id="notesPanel" class="no-print">
   <h4>Notas de la lámina</h4>
@@ -1453,7 +1464,7 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
   <div class="eHint">Cambia lo que necesites y dale «Actualizar presentación». Los títulos de las láminas no cambian — solo los datos.</div>
   <div class="eHint" style="margin-top:-10px;">Estos datos se guardan automáticamente en este navegador. Un prospecto puede llenar esta sección solo, sin ayuda de un comercial.</div>
   <form id="editForm">
-    <div class="efield"><label>Colegio</label><input data-f="colegio"></div>
+    <div class="efield"><label>Colegio</label><div style="position:relative;"><input data-f="colegio"><div id="colegioSug" style="display:none;position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:30;background:#fff;border:1.5px solid var(--border);border-radius:10px;box-shadow:0 14px 40px rgba(0,0,0,.14);max-height:230px;overflow:auto;"></div></div><div id="colegioAviso" style="display:none;font-size:12px;font-weight:700;margin-top:6px;line-height:1.45;"></div></div>
     <div class="erow2">
       <div class="efield"><label>Contacto 1 · nombre</label><input data-f="prospecto_nombre"></div>
       <div class="efield"><label>Cargo</label><input data-f="prospecto_cargo"></div>
@@ -1884,6 +1895,7 @@ function renderData(){
   }
 
   autoScaleImage(c.tasa_conversion);
+  renderAsistentes();
   aplicarSinPrecios();
 }
 
@@ -2033,6 +2045,39 @@ function autoProductos(){
   const tools = (DATA.herramienta_actual || '').toLowerCase();
   set('integraciones', CRM_TOOLS.some(t=> tools.includes(t)));
 }
+/* La portada solo muestra los separadores que hacen falta: sin persona, sin puntos. */
+/* Tooltips de apoyo al comercial: solo en pantalla, nunca en la presentación impresa. */
+(function(){
+  const tip = document.createElement('div');
+  tip.className = 'infoTip no-print';
+  document.addEventListener('DOMContentLoaded', ()=> document.body.appendChild(tip));
+  if(document.body) document.body.appendChild(tip);
+  const mostrar = (dot)=>{
+    tip.textContent = dot.dataset.tip || '';
+    tip.classList.add('on');
+    const r = dot.getBoundingClientRect();
+    tip.style.left = Math.min(Math.max(12, r.left), window.innerWidth - 420) + 'px';
+    tip.style.top = (r.bottom + 10) + 'px';
+    const t = tip.getBoundingClientRect();
+    if(t.bottom > window.innerHeight - 12) tip.style.top = Math.max(12, r.top - t.height - 10) + 'px';
+  };
+  document.addEventListener('mouseover', e=>{
+    const dot = e.target.closest && e.target.closest('.infoDot');
+    if(dot) mostrar(dot);
+  });
+  document.addEventListener('mouseout', e=>{
+    if(e.target.closest && e.target.closest('.infoDot')) tip.classList.remove('on');
+  });
+})();
+function renderAsistentes(){
+  const el = document.getElementById('portadaAsistentes');
+  if(!el) return;
+  const persona = (n, c)=> [ (DATA[n]||'').trim(), (DATA[c]||'').trim() ].filter(Boolean).join(' · ');
+  const linea = [ persona('prospecto_nombre','prospecto_cargo'), persona('prospecto_2_nombre','prospecto_2_cargo') ]
+    .filter(Boolean).join('\u00a0 · \u00a0');
+  el.textContent = linea;
+  el.parentNode.querySelectorAll('br').forEach(br=>{ br.style.display = linea ? '' : 'none'; });
+}
 /* ===== MODO SIN PRECIOS: la presentación completa, sin una sola cifra de dinero ===== */
 const CAMPOS_PRECIO = ['valor_implementacion','precio_crm','precio_estrategia','precio_atraccion',
   'precio_lista','precio_total','precio_anual','precio_diario','descuento','ingreso_extra_anual',
@@ -2115,8 +2160,28 @@ function sinSalto(fn){
   fn();
   if(editPanel) editPanel.scrollTop = y;
 }
-function next(){ let i=idx+1; while(i<total && slideOff(slides[i])) i++; if(i<total){ idx=i; render(); } }
-function prev(){ let i=idx-1; while(i>=0 && slideOff(slides[i])) i--; if(i>=0){ idx=i; render(); } }
+let avisoTimer = null;
+function avisar(msg){
+  const el = document.getElementById('aviso');
+  if(!el) return;
+  el.textContent = msg;
+  el.classList.add('on');
+  clearTimeout(avisoTimer);
+  avisoTimer = setTimeout(()=> el.classList.remove('on'), 2200);
+}
+function primeraEncendida(){ for(let i=0;i<total;i++){ if(!slideOff(slides[i])) return i; } return 0; }
+function ultimaEncendida(){ for(let i=total-1;i>=0;i--){ if(!slideOff(slides[i])) return i; } return total-1; }
+function next(){
+  let i=idx+1; while(i<total && slideOff(slides[i])) i++;
+  if(i<total){ idx=i; render(); return; }
+  idx = primeraEncendida(); render();          // se acabó: vuelve al principio
+  avisar('\u21ba Volviendo a empezar');
+}
+function prev(){
+  let i=idx-1; while(i>=0 && slideOff(slides[i])) i--;
+  if(i>=0){ idx=i; render(); return; }
+  idx = ultimaEncendida(); render();           // hacia atrás desde la primera: a la última, en silencio
+}
 
 document.getElementById('btnNext').onclick = next;
 document.getElementById('btnPrev').onclick = prev;
@@ -2444,6 +2509,63 @@ function renderHistList(){
     });
   });
 }
+/* ===== El nombre del colegio no se repite: se busca mientras se escribe ===== */
+let histCargadoUnaVez = false;
+async function asegurarHistorial(){
+  if(histCargadoUnaVez) return;
+  histCargadoUnaVez = true;
+  try{ await cargarListaHistorial(); }catch(e){}
+}
+function colegioRegistrado(nombre){
+  const s = slug(nombre);
+  if(!s || s === slug(DATA.colegio)) return null;   // el que ya trae abierto no cuenta como duplicado
+  return HIST_CACHE.find(h=> slug(h.colegio) === s) || null;
+}
+function renderColegioSug(){
+  const inp = document.querySelector('#editForm [data-f="colegio"]');
+  const caja = document.getElementById('colegioSug');
+  const aviso = document.getElementById('colegioAviso');
+  if(!inp || !caja) return;
+  const q = normTxt(inp.value);
+  const lista = q.length < 2 ? [] : HIST_CACHE.filter(h=> normTxt(h.colegio).includes(q)).slice(0, 6);
+  if(!lista.length){ caja.style.display = 'none'; caja.innerHTML = ''; }
+  else{
+    caja.innerHTML = lista.map(h=>
+      '<div class="colSug" data-col="'+encodeURIComponent(h.colegio)+'" style="padding:10px 13px;cursor:pointer;border-bottom:.5px solid var(--border);">'
+      +'<b style="font-size:13.5px;color:var(--navy-deep);">'+h.colegio+'</b>'
+      +'<div style="font-size:11px;color:var(--dim);font-weight:600;">'+(h.ciudad? h.ciudad+' \u00b7 ':'')+'\u00daltima modificaci\u00f3n: '+(h.guardado||'\u2014')+'</div></div>').join('');
+    caja.style.display = 'block';
+    caja.querySelectorAll('.colSug').forEach(el=>{
+      el.addEventListener('mousedown', async (e)=>{
+        e.preventDefault();
+        const nombre = decodeURIComponent(el.dataset.col);
+        const h = HIST_CACHE.find(x=> x.colegio === nombre);
+        if(!h || !h.data) return;
+        if(DATA.colegio && slug(DATA.colegio) !== slug(h.colegio)) await guardarHistorial();
+        try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(h.data)); }catch(err){}
+        location.reload();
+      });
+    });
+  }
+  const dup = colegioRegistrado(inp.value);
+  if(dup){
+    aviso.style.display = 'block';
+    aviso.style.color = '#c2410c';
+    aviso.innerHTML = '\u26a0 <b>'+dup.colegio+'</b> ya existe en el historial ('+(dup.guardado||'')+'). Ábrelo desde la lista de arriba en lugar de crearlo otra vez.';
+    inp.style.borderColor = '#f59e0b';
+  }else{
+    aviso.style.display = 'none';
+    inp.style.borderColor = '';
+  }
+}
+(function(){
+  const inp = document.querySelector('#editForm [data-f="colegio"]');
+  if(!inp) return;
+  inp.setAttribute('autocomplete','off');
+  inp.addEventListener('focus', async ()=>{ await asegurarHistorial(); renderColegioSug(); });
+  inp.addEventListener('input', renderColegioSug);
+  inp.addEventListener('blur', ()=> setTimeout(()=>{ const c = document.getElementById('colegioSug'); if(c) c.style.display='none'; }, 160));
+})();
 const histPanel = document.getElementById('histPanel');
 document.getElementById('btnHist').onclick = ()=>{
   const abre = !histPanel.classList.contains('open');
@@ -2454,6 +2576,13 @@ document.getElementById('histSearch').addEventListener('input', renderHistList);
 
 document.getElementById('editForm').addEventListener('submit', (e)=>{
   e.preventDefault();
+  const campoColegio = document.querySelector('#editForm [data-f="colegio"]');
+  const yaExiste = campoColegio ? colegioRegistrado(campoColegio.value) : null;
+  if(yaExiste){
+    alert('«' + yaExiste.colegio + '» ya está en el historial (última modificación: ' + (yaExiste.guardado||'—') + ').\n\nAbre esa presentación desde el buscador del campo Colegio o desde 🕒 HISTORIAL, en vez de crear una copia con el mismo nombre.');
+    campoColegio.focus();
+    return;
+  }
   document.querySelectorAll('#editForm [data-f]').forEach(el=>{
     const k = el.dataset.f;
     let v = el.value;
@@ -2524,6 +2653,84 @@ document.getElementById('btnHtml').onclick = ()=>{
   downloadBlob(html, 'SuperLeads_Presentacion_' + slug(DATA.colegio) + '.html', 'text/html;charset=utf-8');
 };
 
+/* ===================== DESCARGAR LA LÁMINA ACTUAL COMO PNG ===================== */
+function cargarHtml2Canvas(){
+  if(window.html2canvas) return Promise.resolve();
+  // Primero la copia local (funciona sin internet); si no está, se busca en la red.
+  const fuentes = ['assets_deck_instituto_frontera/html2canvas.min.js',
+                   'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'];
+  const intentar = (i)=> new Promise((ok, fail)=>{
+    if(i >= fuentes.length){ fail(new Error('no se pudo cargar el generador de imagen')); return; }
+    const s = document.createElement('script');
+    s.src = fuentes[i];
+    s.onload = ()=> window.html2canvas ? ok() : intentar(i+1).then(ok, fail);
+    s.onerror = ()=> intentar(i+1).then(ok, fail);
+    document.head.appendChild(s);
+  });
+  return intentar(0);
+}
+function selloFecha(){
+  const d = new Date(), p = n=> String(n).padStart(2,'0');
+  return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'_'+p(d.getHours())+p(d.getMinutes());
+}
+function nombreLamina(){
+  const s = slides[idx];
+  const h = s.querySelector('h1');
+  let t = h ? h.textContent.trim() : (s.querySelector('.ew-t') ? s.querySelector('.ew-t').textContent.trim() : 'lamina');
+  return slug(t).slice(0, 48);
+}
+function numeroLaminaVisible(){
+  const encendidas = slides.filter(x=>!slideOff(x));
+  return String(encendidas.indexOf(slides[idx]) + 1).padStart(2,'0');
+}
+document.getElementById('btnPng').onclick = async ()=>{
+  const btn = document.getElementById('btnPng');
+  const txtPrevio = btn.textContent;
+  btn.textContent = '⏳ PNG'; btn.disabled = true;
+  const slide = slides[idx];
+  let jaula = null;
+  try{
+    await cargarHtml2Canvas();
+    // Se clona la lámina en un lienzo fijo de 1280x720, sin el escalado de pantalla:
+    // así el PNG sale idéntico a como se ve en la presentación.
+    jaula = document.createElement('div');
+    jaula.style.cssText = 'position:fixed;left:0;top:0;width:1280px;height:720px;overflow:hidden;z-index:-1;opacity:0;pointer-events:none;';
+    const copia = slide.cloneNode(true);
+    copia.style.cssText += ';position:relative;left:0;top:0;margin:0;transform:none;opacity:1;width:1280px;height:720px;box-shadow:none;display:flex;';
+    copia.classList.add('active'); copia.classList.remove('prod-off');
+    // El logo del rincón se reconstruye a mano en la copia: así siempre sale completo y con la
+    // versión correcta (clara u oscura) según el fondo de la lámina.
+    const oscuro = copia.classList.contains('light') || copia.classList.contains('soft');
+    const LOGO_SHOT = oscuro ? 'assets_deck_instituto_frontera/logo-superleads-oscuro.svg'
+                             : 'assets_deck_instituto_frontera/logo-superleads.svg';
+    await new Promise(res=>{ const pre = new Image(); pre.onload = res; pre.onerror = res; pre.src = LOGO_SHOT; });
+    copia.querySelectorAll('.slide-brand').forEach(a=> a.remove());
+    const marca = document.createElement('img');
+    marca.src = LOGO_SHOT;
+    marca.style.cssText = 'position:absolute;left:64px;bottom:9px;height:30px;width:auto;z-index:5;';
+    copia.appendChild(marca);
+    jaula.appendChild(copia);
+    document.body.appendChild(jaula);
+    await new Promise(r=> setTimeout(r, 220));
+    const canvas = await html2canvas(copia, {
+      backgroundColor: null, scale: 2, useCORS: true, allowTaint: true,
+      width: 1280, height: 720, windowWidth: 1280, windowHeight: 720,
+      scrollX: 0, scrollY: 0, x: 0, y: 0, logging: false
+    });
+    const nombre = 'SuperLeads_Presentacion_' + slug(DATA.colegio) + '_' + numeroLaminaVisible() + '_' + nombreLamina() + '_' + selloFecha() + '.png';
+    await new Promise(res=>{
+      canvas.toBlob(b=>{
+        if(b) downloadBlob(b, nombre, 'image/png');
+        else { const a = document.createElement('a'); a.href = canvas.toDataURL('image/png'); a.download = nombre; document.body.appendChild(a); a.click(); a.remove(); }
+        res();
+      }, 'image/png');
+    });
+  }catch(err){
+    alert('No se pudo generar el PNG: ' + (err && err.message ? err.message : 'error desconocido') + '. Revisa la conexión e inténtalo de nuevo.');
+  }
+  if(jaula && jaula.parentNode) jaula.parentNode.removeChild(jaula);
+  btn.textContent = txtPrevio; btn.disabled = false;
+};
 document.getElementById('btnPdf').onclick = ()=>{
   // El PDF toma su nombre del título del documento: lo cambiamos justo antes
   // de imprimir para que se llame igual que la descarga de HTML.
