@@ -103,6 +103,9 @@ table.semaforo td.small{font-size:14px;font-weight:500;color:var(--muted);max-wi
 .fbul b{color:var(--navy-deep);}
 .fbul-i{font-size:17px;line-height:1.35;flex:0 0 auto;}
 .fbul.oculto{display:none;}
+.cstPt{display:flex;gap:11px;align-items:flex-start;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);border-radius:12px;padding:11px 14px;font-size:13px;line-height:1.5;color:#a9bce0;font-weight:600;}
+.cstPt b{color:#fff;}
+.cstIco{font-size:17px;line-height:1.3;flex:0 0 auto;}
 .invBox{border:1.5px solid var(--border);background:#fafbff;border-radius:16px;padding:16px 20px;display:flex;flex-direction:column;justify-content:center;}
 .invIco{font-size:20px;line-height:1;margin-bottom:7px;}
 .invN{font-size:31px;font-weight:800;color:var(--navy-deep);line-height:1.05;letter-spacing:-.5px;}
@@ -826,20 +829,28 @@ Constanza es la inteligencia artificial de SuperLeads, optimizada para una sola 
 * Siempre ofrece dos horarios concretos y manda recordatorios 24 h y 2 h antes de la cita.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
   <h1>Constanza contesta a las 11pm</h1>
-  <div class="fill" style="flex-direction:row;gap:56px;align-items:center;justify-content:center;">
+  <div class="fill" style="flex-direction:row;gap:34px;align-items:center;justify-content:center;">
     <div style="text-align:center;">
       <div style="position:relative;width:280px;height:280px;margin:0 auto;">
         <img src="assets_deck_instituto_frontera/constanza.png" alt="Constanza" style="width:280px;height:280px;border-radius:50%;object-fit:cover;object-position:center top;border:4px solid var(--green);box-shadow:0 24px 60px rgba(0,0,0,.45);">
         <div style="position:absolute;bottom:2px;right:-18px;background:var(--green);color:var(--navy-deep);font-weight:800;font-size:17px;padding:8px 16px;border-radius:999px;box-shadow:0 10px 26px rgba(86,239,159,.35);">24/7/365</div>
       </div>
       <div style="margin-top:20px;font-size:23px;font-weight:800;color:#fff;">Constanza</div>
-      <div class="stat-label" style="max-width:300px;margin-top:4px;">la agente IA generadora de citas #1 — agenda mientras ustedes duermen.</div>
+      <div class="stat-label" style="max-width:310px;margin-top:4px;">la agente IA <b style="color:var(--green);">generadora de citas educativas #1</b> — agenda mientras ustedes duermen.</div>
+      <div style="max-width:310px;margin:12px auto 0;border:1px solid rgba(86,239,159,.35);background:rgba(86,239,159,.08);border-radius:12px;padding:10px 14px;font-size:13px;font-weight:700;color:#dfe8ff;line-height:1.5;">No sirve para vender de todo: <b style="color:var(--green);">solo sabe de admisiones</b>. Por eso convierte más que una IA genérica.</div>
     </div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
     <div class="chatmock">
       <div class="ctime out">11:47 pm</div>
       <div class="cbub out">Hola, buenas noches 🙏 ¿tienen espacio en 3ro de primaria?</div>
       <div class="ctime in">Constanza · 11:47 pm</div>
       <div class="cbub in">¡Con gusto! Le comparto tres opciones para agendar su visita:<br>a) Lun 9:00 AM &nbsp; b) Lun 12:00 PM &nbsp; c) Mar 9:00 AM<br>Solo escriba la letra.</div>
+    </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:11px;max-width:330px;">
+      <div class="cstPt"><div class="cstIco">⏱️</div><div><b>Siempre activa.</b> Contesta en segundos a las 11 de la noche, en domingo y en vacaciones — cuando el papá por fin tiene tiempo de escribir.</div></div>
+      <div class="cstPt"><div class="cstIco">📐</div><div><b>Siempre con la metodología.</b> Dice lo correcto en el momento correcto, con el guion probado en toda la red — nunca improvisa ni promete de más.</div></div>
+      <div class="cstPt"><div class="cstIco">🎯</div><div><b>Siempre pendiente del proceso.</b> Da seguimiento, recuerda la cita y no suelta a la familia hasta que quede inscrita o diga que no.</div></div>
     </div>
   </div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
