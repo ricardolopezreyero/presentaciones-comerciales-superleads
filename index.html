@@ -518,11 +518,34 @@ La capacidad extra posible: los lugares que ya están instalados y hoy no genera
 * Cada punto de uso de capacidad que suba es ingreso casi directo a utilidad.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El diagnóstico</div></div>
   <h1>La capacidad extra posible</h1>
-  <div class="fill center">
-    <div class="stat-hero" data-bind="lugares_vacios" data-fmt="num"></div>
-    <div class="stat-label" style="text-align:center;margin-top:4px;">lugares disponibles hoy, de <span data-bind="capacidad_instalada" data-fmt="num"></span> instalados.</div>
-    <div class="stat-hero green" style="font-size:clamp(38px,5.5vw,64px);margin-top:24px;" data-bind="ocupacion" data-fmt="pct0"></div>
-    <div class="stat-label" style="text-align:center;max-width:780px;">de uso de capacidad — esa cifra dicta qué tan holgados están económicamente.</div>
+  <div class="fill" style="flex-direction:row;align-items:center;justify-content:center;gap:64px;">
+    <svg id="donaCap" viewBox="0 0 240 240" style="width:330px;height:330px;flex:0 0 auto;" aria-hidden="true">
+      <circle cx="120" cy="120" r="96" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="26"/>
+      <circle id="donaAro" cx="120" cy="120" r="96" fill="none" stroke="#56EF9F" stroke-width="26" stroke-linecap="round"
+              stroke-dasharray="0 603" transform="rotate(-90 120 120)" style="transition:stroke-dasharray .5s var(--ease);"/>
+      <text id="donaPct" x="120" y="115" text-anchor="middle" fill="#fff" font-size="46" font-weight="800" font-family="inherit">0%</text>
+      <text id="donaSub" x="120" y="142" text-anchor="middle" fill="#8fa3cc" font-size="12.5" font-weight="700" font-family="inherit" letter-spacing="1.4">USO DE CAPACIDAD</text>
+    </svg>
+    <div style="display:flex;flex-direction:column;gap:16px;max-width:560px;">
+      <div class="capRow" style="display:flex;align-items:baseline;gap:14px;">
+        <span style="width:13px;height:13px;border-radius:50%;background:#56EF9F;flex:0 0 auto;position:relative;top:-2px;"></span>
+        <div><span style="font-size:36px;font-weight:800;color:#fff;line-height:1.1;" data-bind="matricula_actual" data-fmt="num"></span>
+        <span style="font-size:17px;font-weight:700;color:#dfe8ff;"> alumnos inscritos hoy</span></div>
+      </div>
+      <div class="capRow" id="capRowLibres" style="display:flex;align-items:baseline;gap:14px;">
+        <span style="width:13px;height:13px;border-radius:50%;background:rgba(255,255,255,.22);flex:0 0 auto;position:relative;top:-2px;"></span>
+        <div><span style="font-size:36px;font-weight:800;color:#fff;line-height:1.1;" data-bind="lugares_vacios" data-fmt="num"></span>
+        <span style="font-size:17px;font-weight:700;color:#9fb3d9;"> lugares disponibles, ya construidos y pagados</span></div>
+      </div>
+      <div class="capRow" id="capRowEspera" style="display:none;align-items:baseline;gap:14px;">
+        <span style="width:13px;height:13px;border-radius:50%;background:#FFC24B;flex:0 0 auto;position:relative;top:-2px;"></span>
+        <div><span style="font-size:36px;font-weight:800;color:#FFC24B;line-height:1.1;" data-bind="lista_espera" data-fmt="num"></span>
+        <span style="font-size:17px;font-weight:700;color:#dfe8ff;"> familias en lista de espera</span></div>
+      </div>
+      <div style="height:1px;background:rgba(255,255,255,.12);margin:2px 0;"></div>
+      <div id="capLectura" style="font-size:16.5px;font-weight:700;color:#dfe8ff;line-height:1.6;"></div>
+      <div style="font-size:13px;font-weight:700;color:#7d90b8;">Capacidad instalada: <span data-bind="capacidad_instalada" data-fmt="num"></span> lugares</div>
+    </div>
   </div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">08b</div>
@@ -1507,6 +1530,7 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
     <div class="erow2">
       <div class="efield"><label>Matrícula actual</label><input data-f="matricula_actual" type="text" inputmode="decimal" class="numfld"></div>
       <div class="efield"><label>Capacidad instalada</label><input data-f="capacidad_instalada" type="text" inputmode="decimal" class="numfld"></div>
+      <div class="efield"><label>Lista de espera <span style="font-weight:400;color:var(--dim);">(0 si no hay)</span></label><input data-f="lista_espera" type="text" inputmode="decimal" class="numfld"></div>
     </div>
     <div class="efield"><label>Moneda <span style="font-weight:400;color:var(--dim);">(todo se captura en MXN; USD se convierte solo — TC $18, ligeramente redondeado hacia arriba)</span></label>
       <div class="segpills" id="monedaPills">
@@ -1668,6 +1692,7 @@ let DATA = {
   tasa_cita_alumno:40,
   matricula_actual:433,
   capacidad_instalada:1400,
+  lista_espera:0,
   colegiatura_mensual:2100,
   meses_permanencia:24,
   costo_por_alumno:3380,
@@ -1896,6 +1921,7 @@ function renderData(){
 
   autoScaleImage(c.tasa_conversion);
   renderAsistentes();
+  renderCapacidad();
   aplicarSinPrecios();
 }
 
@@ -2069,6 +2095,39 @@ function autoProductos(){
     if(e.target.closest && e.target.closest('.infoDot')) tip.classList.remove('on');
   });
 })();
+/* La dona de capacidad: el mismo dato, contado de forma amable — y con el caso de lista de espera. */
+function renderCapacidad(){
+  const aro = document.getElementById('donaAro');
+  if(!aro) return;
+  const d = calc(DATA);
+  const LARGO = 2 * Math.PI * 96;             // perímetro del aro
+  const espera = Math.max(0, Number(DATA.lista_espera) || 0);
+  const lleno = d.ocupacion >= 99.5 || espera > 0;
+  const pct = Math.max(0, Math.min(100, d.ocupacion));
+  const usado = LARGO * (lleno ? 1 : pct/100);
+  aro.setAttribute('stroke-dasharray', usado.toFixed(1) + ' ' + (LARGO - usado).toFixed(1));
+  aro.setAttribute('stroke', lleno ? '#FFC24B' : '#56EF9F');
+  document.getElementById('donaPct').textContent = mxNum(Math.round(pct), 0) + '%';
+  document.getElementById('donaSub').textContent = lleno ? 'CAPACIDAD LLENA' : 'USO DE CAPACIDAD';
+  document.getElementById('donaPct').setAttribute('fill', lleno ? '#FFC24B' : '#fff');
+
+  const filaLibres = document.getElementById('capRowLibres');
+  const filaEspera = document.getElementById('capRowEspera');
+  const lectura = document.getElementById('capLectura');
+  if(espera > 0){
+    // Caso raro pero real: no sobran lugares, sobra demanda.
+    filaLibres.style.display = d.lugares_vacios > 0 ? 'flex' : 'none';
+    filaEspera.style.display = 'flex';
+    lectura.innerHTML = 'Aquí el problema no es llenar lugares: es que <b style="color:#FFC24B;">hay demanda esperando afuera</b>. '
+      + 'Con lista de espera, el sistema sirve para tres cosas distintas: <b>no perder</b> a esas familias mientras esperan, '
+      + '<b>elegir</b> a las que mejor encajan con la institución, y <b>sostener el precio</b> — porque cuando hay fila, el descuento deja de ser necesario.';
+  }else{
+    filaLibres.style.display = 'flex';
+    filaEspera.style.display = 'none';
+    lectura.innerHTML = 'Esos lugares ya están construidos, pagados y con maestro asignado: <b style="color:#56EF9F;">cada uno que se llena es margen casi puro</b>. '
+      + 'El uso de capacidad dicta qué tan holgada está la operación — subirlo no cuesta obra, cuesta sistema.';
+  }
+}
 function renderAsistentes(){
   const el = document.getElementById('portadaAsistentes');
   if(!el) return;
@@ -2301,7 +2360,7 @@ const HL_MAP = [
   ['pierde el prospecto', ['leads_dia','tasa_conversion']],
   ['vale un decimal', ['leads_dia','colegiatura_mensual','meses_permanencia']],
   ['silla vacía', ['colegiatura_mensual','meses_permanencia','matricula_actual','capacidad_instalada']],
-  ['capacidad extra', ['matricula_actual','capacidad_instalada']],
+  ['capacidad extra', ['matricula_actual','capacidad_instalada','lista_espera']],
   ['dos caminos', ['tasa_conversion','#mejoraField','leads_dia']],
   ['Radar de Inscripción', ['leads_dia','colegiatura_mensual']],
   ['generador de referidos', ['pct_referidos','antiguedad_anios']],
