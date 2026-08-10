@@ -720,7 +720,7 @@ Punto de ubicación: ya vimos su Rayos X y por qué existe SuperLeads; ahora vie
 </section>
 
 <!-- ============ 15 WHATSAPP UN PESO ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-toggle="whatsapp" data-notes="## En una frase
 Un mensaje bien puesto puede regresar una colegiatura completa — por eso cada mensaje se audita y se mejora.
 ## Cómo se trabaja
 * Contacto por varios medios: cada familia contesta distinto (WhatsApp, llamada, correo).
@@ -739,7 +739,7 @@ Un mensaje bien puesto puede regresar una colegiatura completa — por eso cada 
 </section>
 
 <!-- ============ 16 CONSTANZA ============ -->
-<section class="slide dark" data-notes="## En una frase
+<section class="slide dark" data-toggle="constanza" data-notes="## En una frase
 Constanza es la inteligencia artificial de SuperLeads, optimizada para una sola cosa: generar citas.
 ## Cómo trabaja
 * 24 horas, 365 días — muchos leads llegan a las 11 de la noche.
@@ -768,7 +768,7 @@ Constanza es la inteligencia artificial de SuperLeads, optimizada para una sola 
 </section>
 
 <!-- ============ 17 TIEMPO REAL ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-toggle="torre" data-notes="## En una frase
 Desde la Torre de Control se dirige la operación: nada aterriza sin que se vea venir.
 ## Los tres números que mandan
 * Prospectos nuevos: qué tan abierta está la llave.
@@ -786,7 +786,7 @@ Desde la Torre de Control se dirige la operación: nada aterriza sin que se vea 
 </section>
 
 <!-- ============ 18a COLEGIO OPERANDO: CRM ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-toggle="crm" data-notes="## En una frase
 Un colegio real operando hoy: alumnos por etapa, moviéndose con automatizaciones y metodología.
 ## La base sana
 * Todos los leads en un solo lugar, con dueño claro por prospecto.
@@ -801,7 +801,7 @@ Un colegio real operando hoy: alumnos por etapa, moviéndose con automatizacione
 </section>
 
 <!-- ============ 18b COLEGIO OPERANDO: CAPACITACION ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-toggle="academia" data-notes="## En una frase
 La Academia SuperLeads vive dentro del mismo sistema: cursos con lo mínimo que el equipo necesita dominar.
 ## Por qué importa
 * El estándar vive en el sistema, no en la memoria de una persona.
@@ -817,7 +817,7 @@ La Academia SuperLeads vive dentro del mismo sistema: cursos con lo mínimo que 
 </section>
 
 <!-- ============ 18c COLEGIO OPERANDO: CALENDARIO ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-toggle="calendario" data-notes="## En una frase
 Antes de ser alumnos, son citas — y este calendario se llena solo: Constanza agenda, el sistema confirma y recuerda.
 ## Datos clave
 * Referencia sana de asistencia a citas: 70%.
@@ -832,7 +832,7 @@ Antes de ser alumnos, son citas — y este calendario se llena solo: Constanza a
 </section>
 
 <!-- ============ 18d COLEGIO OPERANDO: MARKETING ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-toggle="maquina" data-notes="## En una frase
 La Máquina de Atracción es el músculo del producto de Atracción Inteligente: llenar la parte alta del embudo.
 ## Cómo se opera
 * Presupuesto constante todo el año, no solo en temporada.
@@ -943,7 +943,7 @@ Cada persona de su comunidad recibe un link único, estático y eterno, que trae
 </section>
 
 <!-- ============ 19 CASO ============ -->
-<section class="slide soft" data-notes="## En una frase
+<section class="slide soft" id="anchorCaso" data-notes="## En una frase
 Casos reales de la red SuperLeads — el que se muestra se elige según el perfil de su institución.
 ## Resultados de la red
 * Universidad Católica de Cuenca: de 3 a 4.52% de conversión en dos meses.
@@ -1525,7 +1525,8 @@ let DATA = {
   notas_slide:{},
   semaforo_override:{},
   precios_override:{},
-  productos_off:{radar:true, referidos:true},
+  productos_off:{radar:true, referidos:true, academia:true},
+  productos_orden:[],
   sedes:1,
   antiguedad_anios:30,
   leads_dia:30,
@@ -1797,7 +1798,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 });
 
 /* ===================== SLIDES NAV ===================== */
-const slides = Array.from(document.querySelectorAll('.slide'));
+let slides = Array.from(document.querySelectorAll('.slide'));
 const total = slides.length;
 let idx = 0;
 const counter = document.getElementById('counter');
@@ -1847,11 +1848,45 @@ if(notesEditor){
     b.addEventListener('mousedown', e=>{ e.preventDefault(); notesEditor.focus(); document.execCommand(b.dataset.cmd, false, null); });
   });
 }
-/* ===== Productos prendibles/apagables ===== */
+/* ===== Productos prendibles/apagables y reordenables ===== */
 const PRODUCTOS_TOGGLE = [
-  {key:'radar', label:'⭐ El Radar de Inscripción'},
-  {key:'referidos', label:'🔗 El generador de referidos'},
+  {key:'whatsapp',   label:'💬 De WhatsApp a alumno'},
+  {key:'constanza',  label:'🤖 Constanza'},
+  {key:'torre',      label:'🗼 La Torre de Control'},
+  {key:'crm',        label:'🗂️ El CRM: sus alumnos en orden'},
+  {key:'academia',   label:'🎓 Academia SuperLeads'},
+  {key:'calendario', label:'📅 El calendario que se llena solo'},
+  {key:'maquina',    label:'🧲 La Máquina de Atracción'},
+  {key:'radar',      label:'⭐ El Radar de Inscripción'},
+  {key:'referidos',  label:'🔗 El generador de referidos'},
 ];
+function ordenProductos(){
+  const keys = PRODUCTOS_TOGGLE.map(p=>p.key);
+  const guardado = Array.isArray(DATA.productos_orden) ? DATA.productos_orden.filter(k=>keys.includes(k)) : [];
+  // orden guardado primero, luego cualquier producto nuevo que no estaba en el orden
+  return guardado.concat(keys.filter(k=>!guardado.includes(k)));
+}
+function aplicarOrden(){
+  const anchor = document.getElementById('anchorCaso');
+  if(!anchor) return;
+  const cur = slides[idx];
+  ordenProductos().forEach(k=>{
+    const sec = document.querySelector('.slide[data-toggle="'+k+'"]');
+    if(sec) anchor.parentNode.insertBefore(sec, anchor);
+  });
+  slides = Array.from(document.querySelectorAll('.slide'));
+  const ni = slides.indexOf(cur);
+  if(ni >= 0) idx = ni;
+}
+function moverProducto(key, dir){
+  const orden = ordenProductos();
+  const i = orden.indexOf(key);
+  const j = i + dir;
+  if(i < 0 || j < 0 || j >= orden.length) return;
+  orden.splice(i,1); orden.splice(j,0,key);
+  DATA.productos_orden = orden;
+  aplicarOrden(); applyToggles(); saveData(); renderProductosToggles(); render();
+}
 function slideOff(s){
   const k = s.dataset.toggle;
   return !!(k && DATA.productos_off && DATA.productos_off[k]);
@@ -1868,11 +1903,20 @@ function applyToggles(){
 function renderProductosToggles(){
   const cont = document.getElementById('productosToggles');
   if(!cont) return;
-  cont.innerHTML = PRODUCTOS_TOGGLE.map(pr=>{
+  const orden = ordenProductos();
+  const arrowSt = 'width:26px;height:26px;border:1px solid var(--border);border-radius:7px;background:#fff;color:var(--navy-deep);font-size:12px;cursor:pointer;line-height:1;padding:0;';
+  cont.innerHTML = orden.map((k,i)=>{
+    const pr = PRODUCTOS_TOGGLE.find(p=>p.key===k);
+    if(!pr) return '';
     const on = !(DATA.productos_off && DATA.productos_off[pr.key]);
-    return '<label style="display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:700;color:var(--navy-deep);cursor:pointer;background:'+(on?'rgba(86,239,159,.09)':'#fafbff')+';border:1.5px solid '+(on?'var(--green-d)':'var(--border)')+';border-radius:10px;padding:10px 14px;">'
+    return '<div style="display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:700;color:var(--navy-deep);background:'+(on?'rgba(86,239,159,.09)':'#fafbff')+';border:1.5px solid '+(on?'var(--green-d)':'var(--border)')+';border-radius:10px;padding:8px 12px;">'
+      +'<span style="display:flex;flex-direction:column;gap:3px;">'
+        +'<button type="button" data-mv="-1" data-k="'+pr.key+'" '+(i===0?'disabled style="'+arrowSt+'opacity:.25;cursor:default;"':'style="'+arrowSt+'"')+'>\u25b2</button>'
+        +'<button type="button" data-mv="1" data-k="'+pr.key+'" '+(i===orden.length-1?'disabled style="'+arrowSt+'opacity:.25;cursor:default;"':'style="'+arrowSt+'"')+'>\u25bc</button>'
+      +'</span>'
+      +'<label style="display:flex;align-items:center;gap:10px;flex:1;cursor:pointer;">'
       +'<input type="checkbox" data-prod="'+pr.key+'" '+(on?'checked':'')+' style="width:16px;height:16px;accent-color:#13B36E;">'
-      + pr.label + '<span style="margin-left:auto;font-size:11px;font-weight:700;color:'+(on?'var(--green-d)':'var(--dim)')+';">'+(on?'PRENDIDA':'APAGADA')+'</span></label>';
+      + pr.label + '<span style="margin-left:auto;font-size:11px;font-weight:700;color:'+(on?'var(--green-d)':'var(--dim)')+';">'+(on?'PRENDIDA':'APAGADA')+'</span></label></div>';
   }).join('');
   cont.querySelectorAll('input[data-prod]').forEach(chk=>{
     chk.addEventListener('change', ()=>{
@@ -1881,6 +1925,9 @@ function renderProductosToggles(){
       else DATA.productos_off[chk.dataset.prod] = true;
       applyToggles(); saveData(); renderProductosToggles(); render();
     });
+  });
+  cont.querySelectorAll('button[data-mv]').forEach(b=>{
+    b.addEventListener('click', ()=> moverProducto(b.dataset.k, parseInt(b.dataset.mv,10)));
   });
 }
 function next(){ let i=idx+1; while(i<total && slideOff(slides[i])) i++; if(i<total){ idx=i; render(); } }
@@ -2153,6 +2200,7 @@ document.getElementById('btnPdf').onclick = ()=>{
 };
 
 fitStage();
+aplicarOrden();
 applyToggles();
 renderProductosToggles();
 renderData();
