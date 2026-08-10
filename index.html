@@ -403,9 +403,17 @@ Los Signos Vitales comparan sus métricas contra los rangos sanos de la industri
 * Enero, julio y agosto son los meses tope de inscripción — la campaña fuerte va un mes antes.
 >> Sus métricas son tan buenas como el sistema con el que operan: al mejorar el sistema, mejoran las métricas.
 * Cada etiqueta trae la recomendación automática y puede ajustarse durante la conversación, con un clic sobre ella.">
-  <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El diagnóstico</div></div>
-  <h1>Los Signos Vitales</h1>
-  <div class="sub">de <span data-bind="colegio"></span></div>
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:30px;">
+    <div>
+      <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El diagnóstico</div></div>
+      <h1>Los Signos Vitales</h1>
+      <div style="margin-top:6px;font-size:12.5px;font-weight:700;color:var(--dim);letter-spacing:.3px;">🕒 Levantados el <span id="selloVitales">—</span></div>
+    </div>
+    <div style="flex:0 0 auto;max-width:440px;border:1.5px solid var(--border);background:var(--blue-softer);border-radius:14px;padding:12px 24px;text-align:right;">
+      <div style="font-size:10px;letter-spacing:2.5px;color:var(--dim);font-weight:800;text-transform:uppercase;margin-bottom:3px;">Institución</div>
+      <div style="font-size:30px;font-weight:800;color:var(--navy-deep);line-height:1.15;letter-spacing:-.5px;" data-bind="colegio"></div>
+    </div>
+  </div>
   <table class="semaforo tabla-vitales" style="margin-top:14px;">
     <tr><th>Métrica</th><th>Valor</th><th>Lectura</th></tr>
     <tr><td><i class="infoDot no-print" data-tip="De cada 100 prospectos que levantan la mano, cuántos terminan inscritos. Es el termómetro del sistema completo: si está baja, no falta publicidad — falta proceso. Sana en educación privada: 5% o más. Cada décima que sube vale dinero real, porque multiplica sobre TODOS los prospectos del año, sin gastar un peso más en anuncios.">i</i>Tasa de conversión (lead → alumno)</td><td class="val" data-bind="tasa_conversion" data-fmt="pct2"></td><td style="position:relative;"><span class="chip" data-chip="tasa_conversion"></span><select class="chipSel no-print" data-chipsel="tasa_conversion"><option value="auto">Auto (recomendado)</option><option value="verde">🟢 Sano</option><option value="amarillo">🟡 Atención</option><option value="rojo">🔴 Urgente</option><option value="azul">🔵 Capacidad disponible</option></select></td></tr>
@@ -1809,6 +1817,7 @@ let DATA = {
   productos_orden:[],
   productos_manual:{},
   sin_precios:false,
+  sello_captura:"",
   sedes:1,
   antiguedad_anios:30,
   leads_dia:30,
@@ -2045,6 +2054,7 @@ function renderData(){
 
   autoScaleImage(c.tasa_conversion);
   renderAsistentes();
+  renderSello();
   renderCapacidad();
   aplicarSinPrecios();
 }
@@ -2251,6 +2261,15 @@ function renderCapacidad(){
     lectura.innerHTML = 'Esos lugares ya están construidos, pagados y con maestro asignado: <b style="color:#56EF9F;">cada uno que se llena es margen casi puro</b>. '
       + 'El uso de capacidad dicta qué tan holgada está la operación — subirlo no cuesta obra, cuesta sistema.';
   }
+}
+function selloAhora(){
+  const d = new Date(), p = n=> String(n).padStart(2,'0');
+  return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds());
+}
+/* Sello de cuándo se capturaron los datos: indexa la presentación en el tiempo. */
+function renderSello(){
+  const el = document.getElementById('selloVitales');
+  if(el) el.textContent = DATA.sello_captura || '—';
 }
 function renderAsistentes(){
   const el = document.getElementById('portadaAsistentes');
@@ -2468,6 +2487,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const inp = document.querySelector('#editForm [data-f="fecha_presentacion"]');
     if(inp) inp.value = texto;
     DATA.fecha_presentacion = texto;
+    DATA.sello_captura = selloAhora();
     renderData(); saveData();
   });
   document.querySelectorAll('#escalaPills .segpill').forEach(p=>{
@@ -2774,6 +2794,7 @@ document.getElementById('editForm').addEventListener('submit', (e)=>{
     DATA[k] = v;
   });
   scaleManual = false;
+  DATA.sello_captura = selloAhora();   // queda registrado cuándo se capturó esta información
   aplicarOrden();
   applyToggles();
   renderProductosToggles();
