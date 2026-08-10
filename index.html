@@ -1491,8 +1491,14 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
 
 <div id="preciosModal" class="no-print" style="display:none;position:fixed;inset:0;background:rgba(4,10,26,.62);z-index:80;align-items:center;justify-content:center;">
   <div style="background:#fff;border-radius:16px;padding:26px 30px;width:760px;max-width:94vw;max-height:88vh;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.4);">
-    <h3 style="margin:0 0 4px;font-size:20px;color:var(--navy-deep);">✏️ Configuración de precios <span style="font-size:13px;font-weight:600;color:var(--dim);">(MXN — USD se deriva solo)</span></h3>
-    <div style="font-size:12.5px;color:var(--dim);font-weight:600;margin-bottom:14px;">Los cambios se guardan en este navegador y viajan en el HTML exportado. Los precios de fábrica no se tocan.</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;">
+      <h3 style="margin:0 0 4px;font-size:20px;color:var(--navy-deep);">✏️ Configuración de precios</h3>
+      <div style="display:flex;gap:6px;" id="preciosMonedaPills">
+        <button type="button" data-pmon="mxn" style="border:1.5px solid var(--border);background:#fafbff;color:var(--navy-deep);font-weight:800;font-size:12.5px;padding:8px 14px;border-radius:99px;cursor:pointer;font-family:inherit;">Pesos (MXN)</button>
+        <button type="button" data-pmon="usd" style="border:1.5px solid var(--border);background:#fafbff;color:var(--navy-deep);font-weight:800;font-size:12.5px;padding:8px 14px;border-radius:99px;cursor:pointer;font-family:inherit;">Dólares (USD)</button>
+      </div>
+    </div>
+    <div id="preciosModalNota" style="font-size:12.5px;color:var(--dim);font-weight:600;margin-bottom:14px;"></div>
     <table style="width:100%;border-collapse:collapse;font-size:13.5px;">
       <tr style="text-align:left;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;">
         <th style="padding:8px 6px;">Segmento</th><th style="padding:8px 6px;">CRM solo</th><th style="padding:8px 6px;">CRM en paquete</th><th style="padding:8px 6px;">Dir. Estratégica</th><th style="padding:8px 6px;">Atracción Int.</th>
@@ -2109,16 +2115,54 @@ function highlightRelevantFields(){
 function preciosVigentes(seg){
   return Object.assign({}, PRECIOS[seg], (DATA.precios_override && DATA.precios_override[seg]) || {});
 }
+function precioMoneda(){ return (DATA.moneda==='usd') ? 'usd' : 'mxn'; }
+function fmtPrecioVal(mxn){
+  const v = (precioMoneda()==='usd') ? usdNice(mxn) : mxn;
+  return mxNum(v, (v % 1 !== 0) ? 2 : 0);
+}
+function pintarPreciosMoneda(){
+  const mon = precioMoneda();
+  document.querySelectorAll('#preciosMonedaPills button').forEach(b=>{
+    const act = b.dataset.pmon===mon;
+    b.style.background = act ? 'var(--green)' : '#fafbff';
+    b.style.borderColor = act ? 'var(--green-d)' : 'var(--border)';
+  });
+  const nota = document.getElementById('preciosModalNota');
+  if(nota) nota.textContent = (mon==='usd')
+    ? 'Precios mostrados en d\u00f3lares (USD, TC $'+TIPO_CAMBIO+') \u2014 al guardar se convierten a MXN, que es la moneda base. El cambio de moneda aplica a toda la presentaci\u00f3n.'
+    : 'Precios en pesos (MXN) \u2014 el USD se deriva solo. Los cambios viajan en el HTML exportado; los precios de f\u00e1brica no se tocan.';
+}
 function abrirPreciosModal(){
   const grid = document.getElementById('preciosGrid');
+  const pref = (precioMoneda()==='usd') ? 'US$' : '$';
   grid.innerHTML = Object.keys(PRECIOS).map(seg=>{
     const v = preciosVigentes(seg);
-    const inp = (campo, val)=> '<td style="padding:6px;"><input data-pseg="'+seg+'" data-pcampo="'+campo+'" type="text" inputmode="numeric" value="'+val+'" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:13.5px;font-family:inherit;background:#fafbff;"></td>';
+    const inp = (campo, mxnVal)=>{
+      const shown = fmtPrecioVal(mxnVal);
+      return '<td style="padding:6px;"><div style="display:flex;align-items:center;gap:4px;border:1px solid var(--border);border-radius:8px;background:#fafbff;padding:0 0 0 9px;"><span style="font-size:11.5px;font-weight:700;color:var(--muted);">'+pref+'</span>'
+        +'<input data-pseg="'+seg+'" data-pcampo="'+campo+'" data-init="'+shown+'" type="text" inputmode="numeric" value="'+shown+'" style="width:100%;border:none;background:transparent;padding:8px 10px 8px 0;font-size:13.5px;font-family:inherit;outline:none;"></div></td>';
+    };
     return '<tr style="border-top:.5px solid var(--border);"><td style="padding:8px 6px;font-weight:700;color:var(--navy-deep);">'+PRECIOS[seg].label+'</td>'
       + inp('crm', v.crm) + inp('crm_paquete', v.crm_paquete !== undefined ? v.crm_paquete : v.crm) + inp('de', v.de) + inp('ai', v.ai) + '</tr>';
   }).join('');
+  grid.querySelectorAll('input[data-pseg]').forEach(el=>{
+    el.addEventListener('blur', ()=>{
+      const n = parseFloat(String(el.value).replace(/[',\s]/g,''));
+      if(!isNaN(n)) el.value = mxNum(n, (n % 1 !== 0) ? 2 : 0);
+    });
+  });
+  pintarPreciosMoneda();
   document.getElementById('preciosModal').style.display = 'flex';
 }
+document.querySelectorAll('#preciosMonedaPills button').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    if(precioMoneda()===b.dataset.pmon) return;
+    DATA.moneda = b.dataset.pmon;
+    setMonedaPill(DATA.moneda);
+    renderData(); saveData(); guardarHistorial();
+    abrirPreciosModal();
+  });
+});
 document.getElementById('btnPrecios').addEventListener('click', abrirPreciosModal);
 document.getElementById('preciosCerrar').addEventListener('click', ()=>{ document.getElementById('preciosModal').style.display='none'; });
 document.getElementById('preciosReset').addEventListener('click', ()=>{
@@ -2126,16 +2170,21 @@ document.getElementById('preciosReset').addEventListener('click', ()=>{
   saveData(); renderData(); abrirPreciosModal();
 });
 document.getElementById('preciosGuardar').addEventListener('click', ()=>{
-  const ov = {};
+  const usd = precioMoneda()==='usd';
+  const ov = Object.assign({}, DATA.precios_override || {});
   document.querySelectorAll('#preciosGrid input[data-pseg]').forEach(inp=>{
+    if(inp.value === inp.dataset.init) return; // sin cambios: no tocar (evita redondeos fantasma en USD)
     const seg = inp.dataset.pseg, campo = inp.dataset.pcampo;
-    const val = parseFloat(String(inp.value).replace(/[',\s]/g,''));
+    let val = parseFloat(String(inp.value).replace(/[',\s]/g,''));
     if(isNaN(val)) return;
+    if(usd) val = Math.round(val * TIPO_CAMBIO);
     const def = PRECIOS[seg][campo] !== undefined ? PRECIOS[seg][campo] : (campo==='crm_paquete' ? PRECIOS[seg].crm : undefined);
-    if(val !== def){ if(!ov[seg]) ov[seg] = {}; ov[seg][campo] = val; }
+    if(!ov[seg]) ov[seg] = {};
+    if(val !== def) ov[seg][campo] = val; else delete ov[seg][campo];
+    if(!Object.keys(ov[seg]).length) delete ov[seg];
   });
   DATA.precios_override = ov;
-  saveData(); renderData();
+  saveData(); renderData(); guardarHistorial();
   document.getElementById('preciosModal').style.display='none';
 });
 document.getElementById('btnEdit').onclick = ()=>{
