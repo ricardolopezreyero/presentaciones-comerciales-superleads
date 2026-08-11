@@ -2635,7 +2635,7 @@ document.getElementById('btnEdit').onclick = ()=>{
 /* ===================== HISTORIAL COMPARTIDO (nube, sin login) ===================== */
 const GH_HIST_REPO = 'ricardolopezreyero/presentaciones-comerciales-superleads';
 const GH_HIST_BRANCH = 'historial';
-const GH_HIST_K = ['QnJtMEFNS0RMUUExMV90YXBfYnVodGln','Zm03R0R2eG1WM0hWWk9fTURwVnFpZVdv','Q0xqZTEzYnlFdmlwM1FPM3EyMFVOYlV3','dGRmNEltSW43SDVORVU0MlQwMkgw'];
+const GH_HIST_K = ['Y3BvMEFNS0RMUUExMV90YXBfYnVodGln','NVlpcEk4d2V6Tk1DSEJfME1haGtxUXRS','ZkhXOHVGdGxURjhUc3czUGxYZ0dwUndu','VmIxc3RTQ3FaSFM2TFJZRmpuSm1J'];
 function ghTok(){ return GH_HIST_K.map(c=> atob(c).split('').reverse().join('')).join(''); }
 function ghHeaders(){ return {Authorization:'Bearer '+ghTok(), Accept:'application/vnd.github+json'}; }
 function b64utf8(s){ return btoa(unescape(encodeURIComponent(s))); }
@@ -2667,26 +2667,55 @@ async function guardarHistorial(){
   return false;
 }
 let HIST_CACHE = [];
+let HIST_CARGA_EN_CURSO = null;
+function pausa(ms){ return new Promise(res=> setTimeout(res, ms)); }
 async function cargarListaHistorial(){
-  setHistStatus('Cargando historial...');
-  try{
-    const r = await fetch('https://api.github.com/repos/'+GH_HIST_REPO+'/contents/historial?ref='+GH_HIST_BRANCH+'&t='+Date.now(), {headers: ghHeaders(), cache:'no-store'});
-    if(r.status===404){ HIST_CACHE = []; setHistStatus('Todav\u00eda no hay presentaciones guardadas.'); renderHistList(); return; }
-    const items = await r.json();
-    const files = (Array.isArray(items)?items:[]).filter(it=> it.name && it.name.endsWith('.json'));
-    const cargas = await Promise.all(files.map(async it=>{
-      try{
-        const fr = await fetch(it.url+'&t='+Date.now(), {headers: ghHeaders(), cache:'no-store'});
-        const fj = await fr.json();
-        const obj = JSON.parse(unb64utf8(fj.content));
-        obj._archivo = it.name;
-        return obj;
-      }catch(e){ return null; }
-    }));
-    HIST_CACHE = cargas.filter(Boolean).sort((a,b)=> (b.guardado_ts||0)-(a.guardado_ts||0));
-    setHistStatus(HIST_CACHE.length + ' presentaci' + (HIST_CACHE.length===1?'\u00f3n':'ones') + ' en el historial');
-    renderHistList();
-  }catch(err){ setHistStatus('\u26a0 No se pudo leer el historial'); }
+  if(HIST_CARGA_EN_CURSO) return HIST_CARGA_EN_CURSO;
+  HIST_CARGA_EN_CURSO = (async ()=>{
+    setHistStatus('Cargando historial...');
+    try{
+      let r, intentoDir = 0;
+      while(true){
+        r = await fetch('https://api.github.com/repos/'+GH_HIST_REPO+'/contents/historial?ref='+GH_HIST_BRANCH+'&t='+Date.now(), {headers: ghHeaders(), cache:'no-store'});
+        if(r.status===404){ HIST_CACHE = []; setHistStatus('Todav\u00eda no hay presentaciones guardadas.'); renderHistList(); return; }
+        if(r.ok) break;
+        intentoDir++;
+        if(intentoDir>=3){
+          let detalle = r.status;
+          try{ const j = await r.json(); if(j && j.message) detalle = r.status+' \u2014 '+j.message; }catch(e){}
+          throw new Error('No se pudo listar el historial ('+detalle+')');
+        }
+        await pausa(600 * intentoDir);
+      }
+      const items = await r.json();
+      if(!Array.isArray(items)) throw new Error('Respuesta inesperada de GitHub al listar el historial');
+      const files = items.filter(it=> it.name && it.name.endsWith('.json'));
+      const cargas = [];
+      const fallidos = [];
+      for(const it of files){
+        let obj = null;
+        for(let intento=0; intento<2 && !obj; intento++){
+          try{
+            const fr = await fetch(it.url+'&t='+Date.now(), {headers: ghHeaders(), cache:'no-store'});
+            if(!fr.ok){ if(intento===0){ await pausa(500); continue; } throw new Error('HTTP '+fr.status); }
+            const fj = await fr.json();
+            obj = JSON.parse(unb64utf8(fj.content));
+            obj._archivo = it.name;
+          }catch(e){ if(intento===1){ console.warn('Historial: no se pudo leer', it.name, e); fallidos.push(it.name); } }
+        }
+        if(obj) cargas.push(obj);
+      }
+      HIST_CACHE = cargas.filter(Boolean).sort((a,b)=> (b.guardado_ts||0)-(a.guardado_ts||0));
+      let msg = HIST_CACHE.length + ' presentaci' + (HIST_CACHE.length===1?'\u00f3n':'ones') + ' en el historial';
+      if(fallidos.length) msg += ' (\u26a0 '+fallidos.length+' no se pudieron leer)';
+      setHistStatus(msg);
+      renderHistList();
+    }catch(err){
+      console.warn('Historial: error al cargar', err);
+      setHistStatus('\u26a0 No se pudo leer el historial \u2014 '+(err && err.message ? err.message : 'reintenta en unos segundos'));
+    }
+  })();
+  try{ await HIST_CARGA_EN_CURSO; } finally { HIST_CARGA_EN_CURSO = null; }
 }
 function renderHistList(){
   const cont = document.getElementById('histList');
