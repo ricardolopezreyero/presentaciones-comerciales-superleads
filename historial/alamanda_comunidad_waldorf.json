@@ -1,0 +1,72 @@
+{
+  "colegio": "Alamanda Comunidad Waldorf",
+  "ciudad": "Tijuana",
+  "comercial": "ricardo",
+  "guardado": "11 ago 2026, 04:14 p.m.",
+  "guardado_ts": 1786486466585,
+  "data": {
+    "colegio": "Alamanda Comunidad Waldorf",
+    "prospecto_nombre": "Raquel Puga",
+    "prospecto_cargo": "Dirección",
+    "prospecto_2_nombre": "María José Cárdenas",
+    "prospecto_2_cargo": "Dirección",
+    "ciudad": "Tijuana",
+    "pais": "México",
+    "fecha_presentacion": "11 de agosto de 2026",
+    "segmento": "maternal",
+    "paquete": "estrategia",
+    "moneda": "mxn",
+    "comercial": "ricardo",
+    "notas_slide": {},
+    "semaforo_override": {
+      "roas": "amarillo"
+    },
+    "precios_override": {},
+    "productos_off": {
+      "radar": true,
+      "referidos": true,
+      "academia": true,
+      "form_uni": true,
+      "integraciones": true,
+      "maquina": true
+    },
+    "productos_orden": [
+      "torre",
+      "crm",
+      "whatsapp",
+      "constanza",
+      "calendario",
+      "form_k12",
+      "academia",
+      "maquina",
+      "radar",
+      "form_uni",
+      "referidos",
+      "integraciones"
+    ],
+    "productos_manual": {
+      "integraciones": true,
+      "maquina": true
+    },
+    "sin_precios": false,
+    "sello_captura": "2026-08-11 16:14:26",
+    "antiguedad_anios": 10,
+    "leads_dia": 4,
+    "tasa_conversion": 0.55,
+    "tasa_cita_alumno": 20,
+    "matricula_actual": 50,
+    "capacidad_instalada": 150,
+    "lista_espera": 0,
+    "colegiatura_mensual": 4800,
+    "meses_permanencia": 60,
+    "costo_por_alumno": 8900,
+    "pct_referidos": 5,
+    "personas_admisiones": 2,
+    "herramienta_actual": "WhatsApp",
+    "mejora_conservadora": 2,
+    "descuento": 0,
+    "imagen_escala": "auditorio",
+    "caso_id": "pilar",
+    "link_propuesta": ""
+  }
+}
