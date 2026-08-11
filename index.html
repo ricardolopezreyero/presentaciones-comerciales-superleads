@@ -7,6 +7,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
 <style>
+/* =====================================================================================
+   ESTILOS — mapa rápido
+   =====================================================================================
+   :root              Paleta y tokens de diseño (colores de marca, easing).
+   #stage / .slide     El lienzo fijo de 1280x720 y los 4 fondos de lámina (dark/blue/light/soft).
+   Tipografía          .eyebrow, h1/h2, .body-txt, .stat-hero — la escala tipográfica común.
+   .chip / semáforo     Los pills de estado (verde/amarillo/rojo/azul) y su tabla.
+   Componentes propios  .card, .pkg-card, .invBox, .camCard, .noCard, etc. — un bloque de
+                        estilos por cada patrón visual reutilizado en varias láminas.
+   #controls            Barra inferior fija (◀ ▶, pantalla completa, descargas, HISTORIAL, DATOS).
+   #notesPanel          Panel de notas del comercial (lateral derecho).
+   #editPanel           Panel «Editar datos» (DATOS) — formulario completo del prospecto y la propuesta.
+   #histPanel           Panel «Historial» — buscador y lista de presentaciones guardadas en la nube.
+   @media print          Reglas exclusivas para exportar a PDF (oculta controles, fuerza saltos de página).
+   body.sin-precios      Oculta toda cifra de dinero cuando el modo «Presentar sin precios» está activo.
+   ===================================================================================== */
 :root{
   --green:#56EF9F; --green-d:#2BC878;
   --navy-deep:#001240; --navy-mid:#001a5e; --navy:#002582;
@@ -1724,6 +1740,11 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
       </div>
       <input type="hidden" data-f="paquete">
     </div>
+    <label id="sinPreciosBox" style="display:flex;align-items:center;gap:11px;font-size:13.5px;font-weight:700;color:var(--navy-deep);cursor:pointer;border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;background:#fafbff;margin-bottom:16px;">
+      <span style="font-size:18px;">👁️</span>
+      <input type="checkbox" id="sinPreciosChk" style="width:16px;height:16px;accent-color:#13B36E;">
+      <span>Presentar sin precios<span style="display:block;font-size:11.5px;font-weight:600;color:var(--dim);margin-top:2px;">Para auditorio: se ven los productos y la estructura, pero ninguna cifra de dinero. Vive aquí porque es una variante de cómo se presenta el precio, no un modo aparte.</span></span>
+    </label>
     <div class="efield"><label>Descuento mensual <span style="font-weight:400;color:var(--dim);">(siempre en MXN; 0 = sin descuento)</span></label><input data-f="descuento" type="text" inputmode="decimal" class="numfld"></div>
     <div class="efield"><label>Link de la propuesta <span style="font-weight:400;color:var(--dim);">(vacío = sin botón; NUNCA hay uno por default — solo el de este cliente)</span></label><input data-f="link_propuesta" type="text" placeholder="https://…"></div>
     <div class="efield"><label>Caso de éxito <span style="font-weight:400;color:var(--dim);">(Auto lo elige según su perfil)</span></label>
@@ -1741,13 +1762,6 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
     <h4 style="margin-top:26px;border-top:1px solid var(--border);padding-top:20px;">Productos SuperLeads</h4>
     <div class="eHint" style="margin-top:-10px;">Láminas de producto que se pueden prender y apagar. La configuración se guarda sola — lo apagado no aparece ni en pantalla ni en el PDF.</div>
     <div id="productosToggles" style="display:flex;flex-direction:column;gap:9px;margin-top:6px;"></div>
-
-    <h4 style="margin-top:26px;border-top:1px solid var(--border);padding-top:20px;">Modo de presentación</h4>
-    <label id="sinPreciosBox" style="display:flex;align-items:center;gap:11px;font-size:13.5px;font-weight:700;color:var(--navy-deep);cursor:pointer;border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;background:#fafbff;">
-      <span style="font-size:18px;">👁️</span>
-      <input type="checkbox" id="sinPreciosChk" style="width:16px;height:16px;accent-color:#13B36E;">
-      <span>Presentar sin precios<span style="display:block;font-size:11.5px;font-weight:600;color:var(--dim);margin-top:2px;">Para auditorio: se ven los productos y la estructura, pero ninguna cifra de dinero.</span></span>
-    </label>
   </form>
 </div>
 
@@ -1776,6 +1790,47 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
 </div>
 
 <script>
+/* =====================================================================================
+   SUPERLEADS · PRESENTACIÓN COMERCIAL — mapa del archivo
+   =====================================================================================
+   Este es un documento HTML autocontenido: una sola lámina de diapositivas, un único
+   <script>, sin build ni dependencias externas obligatorias (todo lo que necesita para
+   funcionar viaja embebido; html2canvas es la única librería opcional, para el botón PNG).
+   Se abre directo en el navegador, se edita en vivo desde el panel de datos, y desde ahí
+   mismo se descarga como HTML (con los datos ya incrustados), como PDF o como PNG.
+
+   Orden de este <script>, de arriba hacia abajo:
+     1. DATA MODEL           — PRECIOS, PAQUETES, COMERCIALES, el objeto DATA (todo lo
+                                editable de la presentación) y CASOS (casos de éxito).
+     2. CÁLCULO Y FORMATO    — calc() deriva TODAS las cifras mostradas a partir de DATA
+                                (una sola fuente de verdad); money()/mxNum()/fmtVal() dan
+                                formato; TIPO_CAMBIO gobierna la conversión MXN↔USD.
+     3. SEMÁFORO             — tierChip() clasifica cada métrica en verde/amarillo/rojo/azul.
+     4. renderData()         — pinta todos los [data-bind] de la lámina activa con calc().
+     5. SLIDES NAV           — next()/prev()/render(), navegación circular entre láminas.
+     6. PRODUCTOS TOGGLE     — PRODUCTOS_TOGGLE, prender/apagar/reordenar láminas de producto,
+                                con reglas automáticas (autoProductos) que el asesor puede
+                                sobrescribir a mano.
+     7. CAPACIDAD / SELLO    — la dona de capacidad instalada y el sello de fecha de captura.
+     8. MODO SIN PRECIOS     — aplicarSinPrecios(): oculta toda cifra de dinero para
+                                presentar frente a auditorio.
+     9. EDIT PANEL           — el panel «Editar datos» (DATOS): populateForm(), los
+                                selectores tipo pill, y el modal de configuración de precios.
+    10. HISTORIAL COMPARTIDO — guardarHistorial()/cargarListaHistorial(): la nube compartida
+                                entre los 5 asesores, sin login (ver el comentario de esa
+                                sección para el detalle completo del diseño y sus límites).
+    11. GUARDAR ÚLTIMO USO   — localStorage: recuerda la última presentación abierta en
+                                este navegador (independiente del historial compartido).
+    12. EXPORTAR HTML/PNG    — botones de descarga: HTML con los datos ya incrustados,
+                                y PNG de la lámina actual vía html2canvas.
+    13. ARRANQUE             — al final del archivo: la secuencia de inicialización real.
+
+   Convención de datos: TODO lo editable vive en el objeto DATA (abajo). Nada se calcula
+   dos veces en dos lugares distintos — cualquier cifra que se vea en una lámina sale de
+   calc(DATA) y se pinta a través de [data-bind]/[data-fmt] en el HTML. Si un número se ve
+   mal en una lámina, el primer lugar a revisar es calc(), no la lámina misma.
+   ===================================================================================== */
+
 /* Fuente HTML original — capturada al cargar, antes de cualquier cambio del usuario.
    Se usa para armar el archivo descargable con los datos actuales ya incrustados. */
 const ORIGINAL_HTML_SOURCE = document.documentElement.outerHTML;
@@ -1818,7 +1873,6 @@ let DATA = {
   productos_manual:{},
   sin_precios:false,
   sello_captura:"",
-  sedes:1,
   antiguedad_anios:30,
   leads_dia:30,
   tasa_conversion:3.95,
@@ -1894,6 +1948,9 @@ function mxNum(n, maxDec){
 }
 function numf(n){ return mxNum(n); }
 
+/* La única función que deriva cifras a partir de DATA. Todo lo que se ve en cualquier
+   lámina (precios, tasas, montos) sale de aquí — nunca se recalcula dos veces en dos
+   sitios. Devuelve una copia de d con todos los campos calculados añadidos encima. */
 function calc(d){
   const usd = d.moneda === 'usd';
   const fx = usd ? TIPO_CAMBIO : 1;
@@ -1956,6 +2013,8 @@ function calc(d){
   return Object.assign({}, d, {precio_crm, precio_estrategia, precio_atraccion, precio_base, precio_con_estrategia, precio_todo, paquete, precio_lista, descuento, precio_total, precio_anual, precio_diario, leads_anio, ocupacion, lugares_vacios, ltv, hueco_total, roas, alumnos_por_decimal, pesos_por_decimal, decimal_paso_txt, alumnos_paso, valor_paso, alumnos_breakeven, alumnos_extra, ingreso_extra_anual, estrellitas_est, valor_estrellitas, leads_adicionales_camino1, tasa_objetivo, leads_meta_2b, leads_extra_2b, perdida_pct, caso_nombre, caso_resultado, caso_quote, valor_implementacion, cuota_apertura, costo_wa, costo_correo, costo_llamada, costo_webhook, costo_constanza, comercial_firma});
 }
 
+/* Da formato a un valor calculado según su data-fmt (mxn, pct0, x1, etc.) para pintarlo
+   en un [data-bind]. */
 function fmtVal(v, fmt){
   if(v===undefined||v===null) return '';
   switch(fmt){
@@ -1974,6 +2033,8 @@ function fmtVal(v, fmt){
 }
 
 /* semaforo thresholds */
+/* Clasifica una métrica del semáforo en verde/amarillo/rojo/azul según umbrales fijos
+   por métrica. El asesor puede sobrescribir el resultado a mano (DATA.semaforo_override). */
 function tierChip(metric, v){
   let cls='verde', label='SANO';
   if(metric==='tasa_conversion'){
@@ -1991,6 +2052,9 @@ function tierChip(metric, v){
   return {cls, text: icon+' '+label};
 }
 
+/* Repinta la presentación completa a partir de DATA: recalcula (calc), actualiza todos
+   los [data-bind]/[data-chip], y dispara los sub-renders (dona, sello, sin-precios, etc.).
+   Se llama después de cualquier cambio a DATA. */
 function renderData(){
   const c = calc(DATA);
   document.querySelectorAll('[data-bind]').forEach(el=>{
@@ -2104,6 +2168,8 @@ const notesPanel = document.getElementById('notesPanel');
 const editPanel = document.getElementById('editPanel');
 const frame = document.getElementById('frame');
 
+/* Escala el lienzo fijo de 1280x720 para que quepa en la ventana sin deformarse,
+   sin importar el tamaño real de pantalla. */
 function fitStage(){
   const controlsH = 52, margin = 20;
   const availW = window.innerWidth - margin*2;
@@ -2113,6 +2179,8 @@ function fitStage(){
 }
 window.addEventListener('resize', fitStage);
 
+/* Muestra la lámina activa (idx) y oculta el resto; actualiza el contador y las notas
+   del comercial para esa lámina. No recalcula DATA — para eso está renderData(). */
 function render(){
   slides.forEach((s,i)=> s.classList.toggle('active', i===idx));
   const encendidas = slides.filter(s=>!slideOff(s));
@@ -2301,6 +2369,8 @@ function aplicarVinetasCondicionales(){
     li.classList.toggle('oculto', !!(DATA.productos_off && DATA.productos_off[k]));
   });
 }
+/* Aplica las reglas automáticas de producto, las viñetas condicionales, y esconde las
+   láminas apagadas — moviendo la lámina activa a la siguiente encendida si hace falta. */
 function applyToggles(){
   autoProductos();
   aplicarVinetasCondicionales();
@@ -2312,6 +2382,8 @@ function applyToggles(){
     idx = n;
   }
 }
+/* Dibuja la lista de productos prendibles/apagables/reordenables dentro del panel de
+   datos, preservando scroll y foco (ver sinSalto). */
 function renderProductosToggles(){
   const cont = document.getElementById('productosToggles');
   if(!cont) return;
@@ -2448,6 +2520,8 @@ function fmtNumFld(el){
   const v = parseNumFld(el.value);
   el.value = Number.isInteger(v) ? mxNum(v) : mxNum(v, 2);
 }
+/* Llena el panel «Editar datos» con los valores actuales de DATA — lo opuesto al
+   submit del formulario, que lee el panel y escribe de vuelta a DATA. */
 function populateForm(){
   document.querySelectorAll('#editForm [data-f]').forEach(el=>{
     const k = el.dataset.f;
@@ -2519,6 +2593,8 @@ const HL_MAP = [
   ['Preguntas antes de activar', ['moneda','link_propuesta']],
   ['Instituto', ['colegio','prospecto_nombre','prospecto_2_nombre','ciudad','fecha_presentacion']],
 ];
+/* Resalta, dentro del panel «Editar datos», los campos que alimentan la lámina que se
+   está viendo — así el comercial sabe qué tocar sin tener que adivinar. */
 function highlightRelevantFields(){
   document.querySelectorAll('#editForm .efield.hl').forEach(el=> el.classList.remove('hl'));
   if(!editPanel.classList.contains('open')) return;
@@ -2641,6 +2717,9 @@ function ghHeaders(){ return {Authorization:'Bearer '+ghTok(), Accept:'applicati
 function b64utf8(s){ return btoa(unescape(encodeURIComponent(s))); }
 function unb64utf8(s){ return decodeURIComponent(escape(atob(s.replace(/\n/g,'')))); }
 function normTxt(s){ return (s||'').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+/* Escapa HTML antes de insertarlo con innerHTML — los datos del historial vienen de otros
+   asesores y no se deben tratar como marcado de confianza. */
+function escapeHtml(s){ return (s===undefined||s===null) ? '' : String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function setHistStatus(msg){ const el = document.getElementById('histStatus'); if(el) el.textContent = msg || ''; }
 async function guardarHistorial(){
   if(!DATA.colegio || !DATA.colegio.trim()) return;
@@ -2725,8 +2804,9 @@ function renderHistList(){
   if(!lista.length){ cont.innerHTML = '<div class="eHint">Sin resultados.</div>'; return; }
   cont.innerHTML = lista.map((h,i)=>{
     const com = (typeof COMERCIALES!=='undefined' && COMERCIALES[h.comercial]) ? COMERCIALES[h.comercial].nombre : (h.comercial||'');
-    return '<div class="histItem"><b>'+h.colegio+'</b>'
-      +'<div class="hMeta">'+(h.ciudad? h.ciudad+' \u00b7 ':'')+(com? com+' \u00b7 ':'')+'\u00daltima modificaci\u00f3n: '+(h.guardado||'\u2014')+'</div>'
+    const colegio = escapeHtml(h.colegio), ciudad = escapeHtml(h.ciudad), comN = escapeHtml(com), fecha = escapeHtml(h.guardado||'\u2014');
+    return '<div class="histItem"><b>'+colegio+'</b>'
+      +'<div class="hMeta">'+(ciudad? ciudad+' \u00b7 ':'')+(comN? comN+' \u00b7 ':'')+'\u00daltima modificaci\u00f3n: '+fecha+'</div>'
       +'<button type="button" class="histLoad" data-hidx="'+HIST_CACHE.indexOf(h)+'">Cargar esta presentaci\u00f3n</button></div>';
   }).join('');
   cont.querySelectorAll('.histLoad').forEach(b=>{
@@ -2762,10 +2842,12 @@ function renderColegioSug(){
   const lista = q.length < 2 ? [] : HIST_CACHE.filter(h=> normTxt(h.colegio).includes(q)).slice(0, 6);
   if(!lista.length){ caja.style.display = 'none'; caja.innerHTML = ''; }
   else{
-    caja.innerHTML = lista.map(h=>
-      '<div class="colSug" data-col="'+encodeURIComponent(h.colegio)+'" style="padding:10px 13px;cursor:pointer;border-bottom:.5px solid var(--border);">'
-      +'<b style="font-size:13.5px;color:var(--navy-deep);">'+h.colegio+'</b>'
-      +'<div style="font-size:11px;color:var(--dim);font-weight:600;">'+(h.ciudad? h.ciudad+' \u00b7 ':'')+'\u00daltima modificaci\u00f3n: '+(h.guardado||'\u2014')+'</div></div>').join('');
+    caja.innerHTML = lista.map(h=>{
+      const colegio = escapeHtml(h.colegio), ciudad = escapeHtml(h.ciudad), fecha = escapeHtml(h.guardado||'\u2014');
+      return '<div class="colSug" data-col="'+encodeURIComponent(h.colegio)+'" style="padding:10px 13px;cursor:pointer;border-bottom:.5px solid var(--border);">'
+      +'<b style="font-size:13.5px;color:var(--navy-deep);">'+colegio+'</b>'
+      +'<div style="font-size:11px;color:var(--dim);font-weight:600;">'+(ciudad? ciudad+' \u00b7 ':'')+'\u00daltima modificaci\u00f3n: '+fecha+'</div></div>';
+    }).join('');
     caja.style.display = 'block';
     caja.querySelectorAll('.colSug').forEach(el=>{
       el.addEventListener('mousedown', async (e)=>{
@@ -2783,7 +2865,7 @@ function renderColegioSug(){
   if(dup){
     aviso.style.display = 'block';
     aviso.style.color = '#c2410c';
-    aviso.innerHTML = '\u26a0 <b>'+dup.colegio+'</b> ya existe en el historial ('+(dup.guardado||'')+'). Ábrelo desde la lista de arriba en lugar de crearlo otra vez.';
+    aviso.innerHTML = '\u26a0 <b>'+escapeHtml(dup.colegio)+'</b> ya existe en el historial ('+escapeHtml(dup.guardado||'')+'). Ábrelo desde la lista de arriba en lugar de crearlo otra vez.';
     inp.style.borderColor = '#f59e0b';
   }else{
     aviso.style.display = 'none';
