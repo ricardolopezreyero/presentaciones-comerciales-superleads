@@ -339,7 +339,14 @@ body.sin-precios .px-blank{visibility:hidden;}
 .erow2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .eSaveBtn{width:100%;background:var(--green);color:var(--navy-deep);font-weight:800;font-size:14px;padding:13px;border-radius:10px;border:none;cursor:pointer;margin:14px 0 6px;}
 .eSaveBtn:hover{background:var(--green-d);}
+.eBtnSecundario{background:#fff !important;color:var(--navy-deep) !important;border:1.5px solid var(--border) !important;}
+.eBtnSecundario:hover{background:var(--blue-softer) !important;}
 .eHint{font-size:11.5px;color:var(--dim);margin-bottom:16px;}
+@keyframes slgiro{to{transform:rotate(360deg);}}
+#cargaOverlay{position:fixed;inset:0;background:#0b1220;color:#fff;z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;}
+#cargaOverlay.on{display:flex;}
+#cargaOverlay .spin{width:44px;height:44px;border:4px solid rgba(255,255,255,.25);border-top-color:#13B36E;border-radius:50%;animation:slgiro .8s linear infinite;}
+#cargaOverlay span{font-size:14px;font-weight:700;letter-spacing:.3px;}
 #histPanel{position:fixed;left:0;top:0;bottom:52px;width:400px;background:#fff;color:#1a1a1a;padding:26px;overflow-y:auto;transform:translateX(-100%);transition:transform .25s var(--ease);z-index:21;border-right:1px solid var(--border);}
 #histPanel.open{transform:translateX(0);}
 #histPanel h4{margin:0 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);}
@@ -379,6 +386,8 @@ body.sin-precios .px-blank{visibility:hidden;}
 </style>
 </head>
 <body>
+
+<div id="cargaOverlay"><div class="spin"></div><span>Cargando presentación…</span></div>
 
 <div id="stage"><div class="slide-frame" id="frame">
 
@@ -1721,7 +1730,14 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
   <div class="eHint">Cambia lo que necesites y dale «Actualizar presentación». Los títulos de las láminas no cambian — solo los datos.</div>
   <div class="eHint" style="margin-top:-10px;">Estos datos se guardan automáticamente en este navegador. Un prospecto puede llenar esta sección solo, sin ayuda de un comercial.</div>
   <form id="editForm">
-    <div class="efield"><label>Colegio</label><div style="position:relative;"><input data-f="colegio"><div id="colegioSug" style="display:none;position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:30;background:#fff;border:1.5px solid var(--border);border-radius:10px;box-shadow:0 14px 40px rgba(0,0,0,.14);max-height:230px;overflow:auto;"></div></div><div id="colegioAviso" style="display:none;font-size:12px;font-weight:700;margin-top:6px;line-height:1.45;"></div></div>
+    <div class="efield"><label>Colegio</label><div style="position:relative;"><input data-f="colegio"><div id="colegioSug" style="display:none;position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:30;background:#fff;border:1.5px solid var(--border);border-radius:10px;box-shadow:0 14px 40px rgba(0,0,0,.14);max-height:230px;overflow:auto;"></div></div><div id="colegioAviso" style="display:none;font-size:12px;font-weight:700;margin-top:6px;line-height:1.45;"></div>
+      <div id="urlPresentBox" style="margin-top:8px;display:flex;align-items:center;gap:8px;background:#fafbff;border:1px solid var(--border);border-radius:8px;padding:8px 10px;">
+        <span style="font-size:11.5px;font-weight:700;color:var(--dim);white-space:nowrap;">🔗 URL</span>
+        <span id="urlPresentTxt" style="font-size:11.5px;font-weight:700;color:var(--navy-deep);flex:1;overflow-wrap:anywhere;line-height:1.4;"></span>
+        <button type="button" id="btnCopiarUrl" title="Copiar enlace de esta presentación" style="flex-shrink:0;width:28px;height:28px;border-radius:7px;border:1px solid var(--border);background:#fff;cursor:pointer;font-size:13px;">📋</button>
+      </div>
+      <div class="eHint" style="margin:6px 0 0;">Este enlace siempre abre este mismo conjunto de datos — compártelo con otro comercial para que continúe donde se quedó. Si cambias el nombre del colegio y guardas, el enlace se actualiza y el anterior deja de funcionar.</div>
+    </div>
     <div class="erow2">
       <div class="efield"><label>Contacto 1 · nombre</label><input data-f="prospecto_nombre"></div>
       <div class="efield"><label>Cargo</label><input data-f="prospecto_cargo"></div>
@@ -1843,7 +1859,10 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
         <option value="harkness">Prepa Harkness</option>
       </select>
     </div>
-    <button type="submit" class="eSaveBtn">Actualizar presentación</button>
+    <div style="display:flex;gap:10px;">
+      <button type="submit" class="eSaveBtn" style="flex:1.3;">Actualizar presentación</button>
+      <button type="button" id="btnNuevaPresentacion" class="eSaveBtn eBtnSecundario" style="flex:1;" title="Empieza un conjunto de datos nuevo, con su propio enlace">🆕 Nueva presentación</button>
+    </div>
 
     <h4 style="margin-top:26px;border-top:1px solid var(--border);padding-top:20px;">Productos SuperLeads</h4>
     <div class="eHint" style="margin-top:-10px;">Láminas de producto que se pueden prender y apagar. La configuración se guarda sola — lo apagado no aparece ni en pantalla ni en el PDF.</div>
@@ -1978,6 +1997,11 @@ let DATA = {
   caso_id:"auto",
   link_propuesta:"",
 };
+
+/* Copia congelada de DATA tal como llega en el archivo, antes de cargar nada de localStorage
+   ni de la nube. Es la plantilla que usa «🆕 Nueva presentación» para arrancar un conjunto de
+   datos en blanco sin perder el comercial ni la moneda que se tenían seleccionados. */
+const DATA_SEMILLA = JSON.parse(JSON.stringify(DATA));
 
 /* ===== Biblioteca de casos de éxito reales (SuperLeads) ===== */
 const CASOS = [
@@ -2904,6 +2928,7 @@ function populateForm(){
   setComercialPill(DATA.comercial || 'ricardo');
   setEscalaPill(DATA.imagen_escala || 'auto');
   setToolPills(DATA.herramienta_actual);
+  actualizarCajaUrl();
 }
 document.addEventListener('DOMContentLoaded', ()=>{
   document.querySelectorAll('#segPills .segpill').forEach(p=>{
@@ -3090,9 +3115,55 @@ function normTxt(s){ return (s||'').toString().toLowerCase().normalize('NFD').re
    asesores y no se deben tratar como marcado de confianza. */
 function escapeHtml(s){ return (s===undefined||s===null) ? '' : String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function setHistStatus(msg){ const el = document.getElementById('histStatus'); if(el) el.textContent = msg || ''; }
+
+/* ===== URL propia por presentaci\u00f3n =====
+   Cada conjunto de datos (cada colegio) vive en la nube bajo su propio slug:
+   presentaciones-comerciales.superleads.mx/<slug-del-colegio>. `ultimoSlugGuardado`
+   guarda con qu\u00e9 slug qued\u00f3 ese conjunto de datos la \u00faltima vez que se guard\u00f3 con \u00e9xito
+   en la nube \u2014 es la identidad \u00abreal\u00bb del registro, independiente de lo que el usuario
+   est\u00e9 escribiendo ahora mismo en el campo Colegio (que se puede corregir en pleno
+   proceso comercial sin que eso cree, por accidente, un registro duplicado). Se guarda
+   tambi\u00e9n en localStorage para sobrevivir a un refresh de la p\u00e1gina en la ruta ra\u00edz. */
+const DOMINIO_PRESENTACIONES = 'presentaciones-comerciales.superleads.mx';
+const SLUG_KEY = 'sl_ultimo_slug_guardado';
+let ultimoSlugGuardado = null;
+function leerUltimoSlugGuardado(){ try{ return localStorage.getItem(SLUG_KEY) || null; }catch(e){ return null; } }
+function guardarUltimoSlugGuardado(s){ try{ if(s) localStorage.setItem(SLUG_KEY, s); else localStorage.removeItem(SLUG_KEY); }catch(e){} }
+function urlPresentacion(colegioStr){ return 'https://' + DOMINIO_PRESENTACIONES + '/' + slug(colegioStr); }
+/* Refresca la cajita de URL bajo el campo Colegio con lo que se guardar\u00eda ahora mismo. */
+function actualizarCajaUrl(){
+  const inp = document.querySelector('#editForm [data-f="colegio"]');
+  const txt = document.getElementById('urlPresentTxt');
+  if(!txt) return;
+  const nombre = (inp && inp.value) || DATA.colegio || '';
+  txt.textContent = nombre.trim() ? urlPresentacion(nombre) : '\u2014';
+}
+document.getElementById('btnCopiarUrl').addEventListener('click', ()=>{
+  const inp = document.querySelector('#editForm [data-f="colegio"]');
+  const nombre = ((inp && inp.value) || DATA.colegio || '').trim();
+  if(!nombre) return;
+  const enlace = urlPresentacion(nombre);
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(enlace).then(()=> avisar('\ud83d\udd17 Enlace copiado')).catch(()=> avisar('No se pudo copiar el enlace'));
+  }else{ avisar('No se pudo copiar el enlace'); }
+});
+/* Borra el archivo de un slug anterior en la nube \u2014 se usa cuando renombrar el colegio
+   hace que el registro se guarde bajo un slug nuevo, para no dejar un hu\u00e9rfano suelto. */
+async function ghEliminarArchivo(slugViejo){
+  if(!slugViejo) return;
+  const archivo = 'historial/' + slugViejo + '.json';
+  const url = 'https://api.github.com/repos/'+GH_HIST_REPO+'/contents/'+archivo;
+  try{
+    const g = await fetch(url+'?ref='+GH_HIST_BRANCH+'&t='+Date.now(), {headers: ghHeaders(), cache:'no-store'});
+    if(g.status !== 200) return; // ya no existe \u2014 nada que borrar
+    const sha = (await g.json()).sha;
+    await fetch(url, {method:'DELETE', headers: ghHeaders(), body: JSON.stringify({message:'Historial: renombrado, se elimina '+slugViejo, branch: GH_HIST_BRANCH, sha})});
+  }catch(err){ console.warn('Historial: no se pudo eliminar el archivo anterior', slugViejo, err); }
+}
 async function guardarHistorial(){
-  if(!DATA.colegio || !DATA.colegio.trim()) return;
-  const archivo = 'historial/' + slug(DATA.colegio) + '.json';
+  if(!DATA.colegio || !DATA.colegio.trim()) return false;
+  const nuevoSlug = slug(DATA.colegio);
+  const archivo = 'historial/' + nuevoSlug + '.json';
   const url = 'https://api.github.com/repos/'+GH_HIST_REPO+'/contents/'+archivo;
   const ahora = new Date();
   const payload = {
@@ -3107,7 +3178,17 @@ async function guardarHistorial(){
       const g = await fetch(url+'?ref='+GH_HIST_BRANCH+'&t='+Date.now(), {headers: ghHeaders(), cache:'no-store'});
       if(g.status===200){ body.sha = (await g.json()).sha; } else { delete body.sha; }
       const p = await fetch(url, {method:'PUT', headers: ghHeaders(), body: JSON.stringify(body)});
-      if(p.ok){ setHistStatus('\u2713 Guardado en la nube \u00b7 '+payload.guardado); return true; }
+      if(p.ok){
+        setHistStatus('\u2713 Guardado en la nube \u00b7 '+payload.guardado);
+        // Si el nombre del colegio cambi\u00f3 desde el \u00faltimo guardado, el archivo con el
+        // slug anterior queda hu\u00e9rfano en la nube \u2014 se elimina para no duplicar el registro.
+        if(ultimoSlugGuardado && ultimoSlugGuardado !== nuevoSlug) await ghEliminarArchivo(ultimoSlugGuardado);
+        ultimoSlugGuardado = nuevoSlug;
+        guardarUltimoSlugGuardado(nuevoSlug);
+        try{ history.replaceState(null, '', '/' + nuevoSlug); }catch(e){}
+        actualizarCajaUrl();
+        return true;
+      }
       if(p.status!==409 && p.status!==422) break;
     }
     setHistStatus('\u26a0 No se pudo guardar en la nube (los datos s\u00ed quedaron en este equipo)');
@@ -3183,10 +3264,10 @@ function renderHistList(){
       const h = HIST_CACHE[parseInt(b.dataset.hidx,10)];
       if(!h || !h.data) return;
       b.textContent = 'Cargando...'; b.disabled = true;
-      // respalda lo actual en la nube antes de cambiar
-      if(DATA.colegio && slug(DATA.colegio)!==slug(h.colegio)) await guardarHistorial();
-      try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(h.data)); }catch(e){}
-      location.reload();
+      const slugDestino = slug(h.colegio);
+      // respalda lo actual en la nube antes de salir de esta presentación
+      if(ultimoSlugGuardado && ultimoSlugGuardado !== slugDestino) await guardarHistorial();
+      location.href = '/' + slugDestino;
     });
   });
 }
@@ -3199,7 +3280,7 @@ async function asegurarHistorial(){
 }
 function colegioRegistrado(nombre){
   const s = slug(nombre);
-  if(!s || s === slug(DATA.colegio)) return null;   // el que ya trae abierto no cuenta como duplicado
+  if(!s || s === ultimoSlugGuardado) return null;   // el registro que ya se guardó como este no cuenta como duplicado
   return HIST_CACHE.find(h=> slug(h.colegio) === s) || null;
 }
 function renderColegioSug(){
@@ -3224,9 +3305,9 @@ function renderColegioSug(){
         const nombre = decodeURIComponent(el.dataset.col);
         const h = HIST_CACHE.find(x=> x.colegio === nombre);
         if(!h || !h.data) return;
-        if(DATA.colegio && slug(DATA.colegio) !== slug(h.colegio)) await guardarHistorial();
-        try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(h.data)); }catch(err){}
-        location.reload();
+        const slugDestino = slug(nombre);
+        if(ultimoSlugGuardado && ultimoSlugGuardado !== slugDestino) await guardarHistorial();
+        location.href = '/' + slugDestino;
       });
     });
   }
@@ -3246,7 +3327,7 @@ function renderColegioSug(){
   if(!inp) return;
   inp.setAttribute('autocomplete','off');
   inp.addEventListener('focus', async ()=>{ await asegurarHistorial(); renderColegioSug(); });
-  inp.addEventListener('input', renderColegioSug);
+  inp.addEventListener('input', ()=>{ renderColegioSug(); actualizarCajaUrl(); });
   inp.addEventListener('blur', ()=> setTimeout(()=>{ const c = document.getElementById('colegioSug'); if(c) c.style.display='none'; }, 160));
 })();
 const histPanel = document.getElementById('histPanel');
@@ -3285,6 +3366,39 @@ document.getElementById('editForm').addEventListener('submit', (e)=>{
   editPanel.classList.remove('open');
 });
 
+/* «🆕 Nueva presentación»: arranca un conjunto de datos en blanco (a partir de DATA_SEMILLA),
+   conservando el comercial y la moneda que ya se tenían seleccionados, y sin heredar el slug
+   ni la URL del registro que estaba abierto — así el siguiente «Actualizar presentación» crea
+   un registro nuevo en la nube, en vez de sobrescribir el anterior. */
+document.getElementById('btnNuevaPresentacion').addEventListener('click', ()=>{
+  if(!confirm('¿Empezar una nueva presentación?\n\nSe perderá lo que no se haya guardado con «Actualizar presentación» en el registro actual.')) return;
+  const comercialActual = DATA.comercial, monedaActual = DATA.moneda;
+  DATA = JSON.parse(JSON.stringify(DATA_SEMILLA));
+  DATA.comercial = comercialActual || DATA.comercial;
+  DATA.moneda = monedaActual || DATA.moneda;
+  scaleManual = false;
+  ultimoSlugGuardado = null;
+  guardarUltimoSlugGuardado(null);
+  try{ history.replaceState(null, '', '/'); }catch(e){}
+  aplicarOrden();
+  applyToggles();
+  renderProductosToggles();
+  pintarSinPrecios();
+  render();
+  renderData();
+  saveData();
+  setSegPill(DATA.segmento);
+  setPaquetePill(DATA.paquete || 'estrategia');
+  setMonedaPill(DATA.moneda || 'mxn');
+  setComercialPill(DATA.comercial || 'ricardo');
+  setEscalaPill(DATA.imagen_escala || 'auto');
+  populateForm();
+  renderColegioSug();
+  setHistStatus('');
+  highlightRelevantFields();
+  avisar('🆕 Presentación nueva — completa los datos y guarda');
+});
+
 window.addEventListener('keydown', (e)=>{
   const tag = (e.target && e.target.tagName) || '';
   if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT'||(e.target && e.target.isContentEditable)) return;
@@ -3310,7 +3424,8 @@ function loadSavedData(){
 function saveData(){
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA)); }catch(err){ /* almacenamiento no disponible */ }
 }
-loadSavedData();
+/* Nota: loadSavedData() ya no se llama aquí a secas — la decide inicializar(), al final del
+   archivo, según si la URL trae o no el slug de una presentación (ver ARRANQUE). */
 
 /* ===================== DESCARGAR HTML CON LOS DATOS ACTUALES ===================== */
 function slug(s){
@@ -3426,18 +3541,77 @@ document.getElementById('btnPdf').onclick = ()=>{
   window.print();
 };
 
-fitStage();
-aplicarOrden();
-applyToggles();
-renderProductosToggles();
-pintarSinPrecios();
-renderData();
-setSegPill(DATA.segmento);
-setPaquetePill(DATA.paquete || 'estrategia');
-setMonedaPill(DATA.moneda || 'mxn');
-setComercialPill(DATA.comercial || 'ricardo');
-setEscalaPill(DATA.imagen_escala || 'auto');
-render();
+/* ===================== ARRANQUE ===================== */
+/* La URL decide qué presentación se abre: si trae un slug (p.ej. /instituto_frontera_ac),
+   ese registro se busca directo en la nube antes de pintar nada — así compartir el enlace
+   basta para que otro comercial abra exactamente esos datos. Si la ruta es la raíz, o el
+   slug no existe en la nube (o no hay conexión), se cae al comportamiento de siempre: lo
+   último guardado en este navegador (loadSavedData) y la URL vuelve a «/». El overlay evita
+   que se alcance a ver un parpadeo con datos viejos mientras se resuelve la búsqueda. */
+function mostrarCargaOverlay(on){
+  const el = document.getElementById('cargaOverlay');
+  if(el) el.classList.toggle('on', !!on);
+}
+async function cargarPorSlugDesdeNube(rutaSlug){
+  const archivo = 'historial/' + rutaSlug + '.json';
+  const url = 'https://api.github.com/repos/'+GH_HIST_REPO+'/contents/'+archivo+'?ref='+GH_HIST_BRANCH+'&t='+Date.now();
+  const r = await fetch(url, {headers: ghHeaders(), cache:'no-store'});
+  if(r.status === 404) return null;
+  if(!r.ok) throw new Error('HTTP ' + r.status);
+  const fj = await r.json();
+  const obj = JSON.parse(unb64utf8(fj.content));
+  if(!obj || typeof obj.data !== 'object') throw new Error('archivo de historial con formato inesperado');
+  return obj;
+}
+async function inicializar(){
+  // Un slug real (el que genera slug()) nunca lleva punto — así que una ruta con punto
+  // es un nombre de archivo (p. ej. abrir el HTML exportado en local con file://, o el
+  // propio archivo servido tal cual) y no un slug de presentación: se ignora.
+  let rutaSlug = location.pathname.replace(/^\/+|\/+$/g,'');
+  if(rutaSlug.includes('.')) rutaSlug = '';
+  let cargadoDeNube = false;
+  let motivoFallback = null; // 'no_encontrado' | 'error'
+  if(rutaSlug){
+    mostrarCargaOverlay(true);
+    try{
+      const obj = await cargarPorSlugDesdeNube(rutaSlug);
+      if(obj){
+        Object.assign(DATA, obj.data);
+        ultimoSlugGuardado = rutaSlug;
+        guardarUltimoSlugGuardado(rutaSlug);
+        saveData();
+        cargadoDeNube = true;
+      }else{
+        motivoFallback = 'no_encontrado';
+      }
+    }catch(err){
+      console.warn('Inicializar: no se pudo cargar por URL', err);
+      motivoFallback = 'error';
+    }
+    mostrarCargaOverlay(false);
+  }
+  if(!cargadoDeNube){
+    loadSavedData();
+    ultimoSlugGuardado = leerUltimoSlugGuardado();
+    if(rutaSlug){ try{ history.replaceState(null, '', '/'); }catch(e){} }
+  }
+  fitStage();
+  aplicarOrden();
+  applyToggles();
+  renderProductosToggles();
+  pintarSinPrecios();
+  renderData();
+  setSegPill(DATA.segmento);
+  setPaquetePill(DATA.paquete || 'estrategia');
+  setMonedaPill(DATA.moneda || 'mxn');
+  setComercialPill(DATA.comercial || 'ricardo');
+  setEscalaPill(DATA.imagen_escala || 'auto');
+  actualizarCajaUrl();
+  render();
+  if(motivoFallback === 'no_encontrado') avisar('No se encontró ese enlace en el historial — se abrió con lo último guardado en este equipo');
+  else if(motivoFallback === 'error') avisar('No se pudo conectar con la nube — se abrió con lo último guardado en este equipo');
+}
+inicializar();
 </script>
 
 </body>
