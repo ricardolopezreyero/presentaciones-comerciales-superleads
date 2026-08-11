@@ -3104,7 +3104,7 @@ document.getElementById('btnEdit').onclick = ()=>{
 };
 /* ===================== HISTORIAL COMPARTIDO (nube, sin login) ===================== */
 const GH_HIST_REPO = 'ricardolopezreyero/presentaciones-comerciales-superleads';
-const GH_HIST_BRANCH = 'historial';
+const GH_HIST_BRANCH = 'main';
 const GH_HIST_K = ['Y3BvMEFNS0RMUUExMV90YXBfYnVodGln','NVlpcEk4d2V6Tk1DSEJfME1haGtxUXRS','ZkhXOHVGdGxURjhUc3czUGxYZ0dwUndu','VmIxc3RTQ3FaSFM2TFJZRmpuSm1J'];
 function ghTok(){ return GH_HIST_K.map(c=> atob(c).split('').reverse().join('')).join(''); }
 function ghHeaders(){ return {Authorization:'Bearer '+ghTok(), Accept:'application/vnd.github+json'}; }
