@@ -268,6 +268,15 @@ body.sin-precios .px-blank{visibility:hidden;}
 #counter{color:#fff;font-size:13px;font-weight:700;min-width:64px;text-align:center;}
 .wide-btn{width:auto !important;padding:0 14px;font-size:12px !important;font-weight:700;letter-spacing:.5px;}
 
+/* ===== SALTO RÁPIDO DE LÁMINA (doble ‹ o doble ›) =====
+   Franja que aparece pegada arriba de #controls, con un botón por cada lámina encendida,
+   acomodados con flex-wrap para siempre caber en el ancho disponible sin desbordar. */
+#jumpGrid{position:fixed;left:0;right:0;bottom:52px;display:none;flex-wrap:wrap;align-content:flex-end;justify-content:center;gap:6px;padding:10px 18px;max-height:40vh;overflow-y:auto;background:rgba(0,18,64,.97);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,.1);box-shadow:0 -10px 30px rgba(0,0,0,.3);z-index:31;}
+#jumpGrid.open{display:flex;}
+.jgBtn{min-width:36px;height:32px;padding:0 8px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit;line-height:1;}
+.jgBtn:hover{background:rgba(255,255,255,.16);}
+.jgBtn.active{background:var(--green);color:var(--navy-deep);border-color:var(--green);}
+
 /* ===== NOTES PANEL =====
    Ancho ajustable (arrastrando #notesResizeHandle) y tamaño de letra ajustable
    (botones A-/A+) — ambos se guardan en localStorage y son una preferencia del
@@ -1614,6 +1623,10 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
 
 </div></div>
 
+<!-- Salto rápido: doble clic en ‹ o › (o doble flecha del teclado) en menos de 2s abre esto
+     en vez de seguir avanzando. Un clic en un número salta directo a esa lámina. -->
+<div id="jumpGrid" class="no-print" title="Salto rápido de lámina"></div>
+
 <div id="controls" class="no-print">
   <button id="btnHist" class="wide-btn" title="Historial compartido de presentaciones (H)">🕒 HISTORIAL</button>
   <button id="btnEdit" class="wide-btn" title="Editar datos">✏️ DATOS</button>
@@ -2657,8 +2670,54 @@ function prev(){
   idx = ultimaEncendida(); render();           // hacia atrás desde la primera: a la última, en silencio
 }
 
-document.getElementById('btnNext').onclick = next;
-document.getElementById('btnPrev').onclick = prev;
+/* ===== Salto rápido de lámina: doble ‹ o doble › en menos de 2s =====
+   Un solo clic navega como siempre. Un segundo clic en la MISMA dirección, dentro de
+   NAV_DOBLE_MS, no avanza otra lámina más — en vez de eso abre una fila de botones (uno
+   por cada lámina encendida) para saltar directo con un solo clic adicional. */
+function indicesEncendidos(){
+  const out = [];
+  for(let i=0;i<total;i++){ if(!slideOff(slides[i])) out.push(i); }
+  return out;
+}
+let saltoRapidoTimer = null;
+function ocultarSaltoRapido(){
+  const cont = document.getElementById('jumpGrid');
+  if(cont) cont.classList.remove('open');
+  clearTimeout(saltoRapidoTimer);
+}
+function mostrarSaltoRapido(){
+  const cont = document.getElementById('jumpGrid');
+  if(!cont) return;
+  const enc = indicesEncendidos();
+  const posActual = enc.indexOf(idx);
+  cont.innerHTML = enc.map((slideIdx, pos)=>
+    '<button type="button" data-idx="'+slideIdx+'" class="jgBtn'+(pos===posActual?' active':'')+'">'+(pos+1)+'</button>'
+  ).join('');
+  cont.querySelectorAll('button[data-idx]').forEach(b=>{
+    b.addEventListener('click', ()=>{ idx = parseInt(b.dataset.idx, 10); render(); ocultarSaltoRapido(); });
+  });
+  cont.classList.add('open');
+  clearTimeout(saltoRapidoTimer);
+  saltoRapidoTimer = setTimeout(ocultarSaltoRapido, 6000); // se cierra sola si no se usa
+}
+const NAV_DOBLE_MS = 2000;
+let navDobleDir = null, navDobleTs = 0;
+function navClick(dir){
+  const grid = document.getElementById('jumpGrid');
+  const abierto = grid && grid.classList.contains('open');
+  const ahora = Date.now();
+  if(!abierto && navDobleDir === dir && (ahora - navDobleTs) < NAV_DOBLE_MS){
+    navDobleDir = null;
+    mostrarSaltoRapido();
+    return;
+  }
+  ocultarSaltoRapido();
+  navDobleDir = dir; navDobleTs = ahora;
+  if(dir === 1) next(); else prev();
+}
+
+document.getElementById('btnNext').onclick = ()=> navClick(1);
+document.getElementById('btnPrev').onclick = ()=> navClick(-1);
 document.getElementById('notesBtn').onclick = ()=>{ notesPanel.classList.toggle('open'); };
 /* Stepper de mejora de conversión: ajusta en vivo y recalcula toda la presentación */
 function ajustarMejora(delta){
@@ -3119,13 +3178,13 @@ document.getElementById('editForm').addEventListener('submit', (e)=>{
 window.addEventListener('keydown', (e)=>{
   const tag = (e.target && e.target.tagName) || '';
   if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT'||(e.target && e.target.isContentEditable)) return;
-  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){ e.preventDefault(); next(); }
-  else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); prev(); }
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){ e.preventDefault(); navClick(1); }
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); navClick(-1); }
   else if(e.key==='n'||e.key==='N'){ notesPanel.classList.toggle('open'); }
   else if(e.key==='e'||e.key==='E'){ populateForm(); editPanel.classList.toggle('open'); highlightRelevantFields(); }
   else if(e.key==='f'||e.key==='F'){ document.getElementById('btnFs').click(); }
   else if(e.key==='h'||e.key==='H'){ document.getElementById('btnHist').click(); }
-  else if(e.key==='Escape'){ notesPanel.classList.remove('open'); editPanel.classList.remove('open'); histPanel.classList.remove('open'); }
+  else if(e.key==='Escape'){ notesPanel.classList.remove('open'); editPanel.classList.remove('open'); histPanel.classList.remove('open'); ocultarSaltoRapido(); }
 });
 
 /* ===================== GUARDAR ÚLTIMO USO (localStorage) ===================== */
