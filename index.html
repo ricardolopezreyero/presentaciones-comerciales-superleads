@@ -268,22 +268,44 @@ body.sin-precios .px-blank{visibility:hidden;}
 #counter{color:#fff;font-size:13px;font-weight:700;min-width:64px;text-align:center;}
 .wide-btn{width:auto !important;padding:0 14px;font-size:12px !important;font-weight:700;letter-spacing:.5px;}
 
-/* ===== NOTES PANEL ===== */
+/* ===== NOTES PANEL =====
+   Ancho ajustable (arrastrando #notesResizeHandle) y tamaño de letra ajustable
+   (botones A-/A+) — ambos se guardan en localStorage y son una preferencia del
+   navegador, no del prospecto, así que viven fuera de DATA. El tamaño se aplica
+   vía la variable --notesz, con un valor de respaldo igual al tamaño original. */
 #notesPanel{position:fixed;right:0;top:0;bottom:52px;width:360px;background:#0d1730;color:#fff;padding:26px;overflow-y:auto;transform:translateX(100%);transition:transform .25s var(--ease);z-index:20;border-left:1px solid rgba(255,255,255,.08);}
 #notesPanel.open{transform:translateX(0);}
 #notesPanel h4{margin:0 0 4px;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--green);}
-#notesPanel p{font-size:14.5px;line-height:1.65;color:#dfe8ff;white-space:pre-line;}
+#notesPanel p{font-size:var(--notesz,14.5px);line-height:1.65;color:#dfe8ff;white-space:pre-line;}
+/* Tirador de redimensionar: franja invisible pegada al borde izquierdo del panel */
+#notesResizeHandle{position:absolute;left:-3px;top:0;bottom:0;width:9px;cursor:col-resize;z-index:5;}
+#notesResizeHandle:hover,#notesResizeHandle.dragging{background:rgba(86,239,159,.35);}
+#notesZoom button{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;font-weight:800;font-size:11px;padding:3px 9px;border-radius:6px;cursor:pointer;font-family:inherit;}
+#notesZoom button:hover{background:rgba(255,255,255,.18);}
 #notesBody .nh{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:var(--green);font-weight:800;margin:18px 0 6px;}
 #notesBody .nh:first-child{margin-top:6px;}
-#notesBody .np{font-size:14.5px;line-height:1.6;color:#dfe8ff;margin:0 0 8px;}
-#notesBody .nb{font-size:14px;line-height:1.55;color:#c9d6f2;margin:0 0 7px;padding-left:16px;position:relative;}
+#notesBody .np{font-size:var(--notesz,14.5px);line-height:1.6;color:#dfe8ff;margin:0 0 8px;}
+#notesBody .nb{font-size:var(--notesz,14px);line-height:1.55;color:#c9d6f2;margin:0 0 7px;padding-left:16px;position:relative;}
 #notesBody .nb::before{content:'▸';position:absolute;left:0;color:var(--green);font-weight:800;}
-#notesBody .nq{font-size:14px;line-height:1.55;color:#dfe8ff;font-weight:600;border-left:3px solid var(--green);background:rgba(86,239,159,.07);padding:9px 12px;border-radius:0 8px 8px 0;margin:4px 0 10px;}
-#notesEditor{min-height:120px;border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:11px 13px;font-size:14px;line-height:1.6;color:#fff;background:rgba(255,255,255,.045);outline:none;}
+#notesBody .nq{font-size:var(--notesz,14px);line-height:1.55;color:#dfe8ff;font-weight:600;border-left:3px solid var(--green);background:rgba(86,239,159,.07);padding:9px 12px;border-radius:0 8px 8px 0;margin:4px 0 10px;}
+#notesEditor{min-height:120px;border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:11px 13px;font-size:var(--notesz,14px);line-height:1.6;color:#fff;background:rgba(255,255,255,.045);outline:none;}
 #notesEditor:focus{border-color:var(--green);}
 #notesEditor:empty::before{content:attr(data-ph);color:#5c78ab;}
 #notesEditor b,#notesEditor strong{font-weight:800;color:#ffd76a;}
 #notesEditor ul{margin:4px 0;padding-left:20px;}
+.ntBtn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;font-weight:800;font-size:13px;padding:4px 12px;border-radius:7px;cursor:pointer;font-family:inherit;}
+.ntBtn:hover{background:rgba(255,255,255,.16);}
+/* Etiquetas rápidas: cada una lleva su color en --tagc, insertado inline al declarar el botón */
+.ntTag{background:rgba(255,255,255,.04);border:1px solid var(--tagc);color:var(--tagc);font-weight:800;font-size:11.5px;padding:5px 10px;border-radius:99px;cursor:pointer;font-family:inherit;white-space:nowrap;}
+.ntTag:hover{background:var(--tagc);color:#0d1730;}
+#notesGuardado{font-size:11px;font-weight:800;color:var(--green);opacity:0;transition:opacity .3s;white-space:nowrap;}
+#notesGuardado.on{opacity:1;}
+/* Resumen «ver todas las notas»: una tarjeta por lámina que sí tiene notas */
+.notaResumenItem{border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:10px 12px;margin-bottom:10px;background:rgba(255,255,255,.03);}
+.nrTitulo{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;font-weight:800;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px;}
+.nrCuerpo{font-size:var(--notesz,14px);line-height:1.55;color:#dfe8ff;}
+.nrCuerpo b,.nrCuerpo strong{font-weight:800;color:#ffd76a;}
+.nrCuerpo ul{margin:4px 0;padding-left:18px;}
 
 /* ===== EDIT PANEL ===== */
 #editPanel{position:fixed;left:0;top:0;bottom:52px;width:400px;background:#fff;color:#1a1a1a;padding:26px;overflow-y:auto;transform:translateX(-100%);transition:transform .25s var(--ease);z-index:20;border-right:1px solid var(--border);}
@@ -1608,17 +1630,45 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
 <div id="aviso" class="no-print"></div>
 
 <div id="notesPanel" class="no-print">
-  <h4>Notas de la lámina</h4>
+  <div id="notesResizeHandle" title="Arrastra para cambiar el ancho del panel · doble clic para restablecer"></div>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+    <h4 style="margin:0;">Notas de la lámina</h4>
+    <div id="notesZoom" title="Tamaño de la letra">
+      <button type="button" data-tz="down" title="Letra más chica">A−</button>
+      <button type="button" data-tz="up" title="Letra más grande">A+</button>
+    </div>
+  </div>
   <div id="notesBody"></div>
   <div style="margin-top:24px;border-top:1px solid rgba(255,255,255,.14);padding-top:16px;">
-    <h4 style="color:#ffd76a;">✏️ Notas de la llamada</h4>
-    <div style="font-size:11.5px;color:#5c78ab;font-weight:600;margin-bottom:8px;">Todo lo que se escriba aquí se guarda solo, por lámina, y queda dentro del HTML que se descargue.</div>
-    <div id="noteTools" style="display:flex;gap:6px;margin-bottom:8px;">
-      <button type="button" data-cmd="bold" title="Negrita" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;font-weight:800;font-size:13px;padding:4px 12px;border-radius:7px;cursor:pointer;">B</button>
-      <button type="button" data-cmd="italic" title="Cursiva" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;font-style:italic;font-size:13px;padding:4px 12px;border-radius:7px;cursor:pointer;">I</button>
-      <button type="button" data-cmd="insertUnorderedList" title="Lista" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;padding:4px 12px;border-radius:7px;cursor:pointer;">• Lista</button>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+      <h4 style="color:#ffd76a;margin:0;">✏️ Notas de la llamada</h4>
+      <div style="display:flex;align-items:center;gap:9px;">
+        <span id="notesGuardado">✓ Guardado</span>
+        <button type="button" id="btnVerTodo" class="ntBtn" title="Ver y copiar las notas de todas las láminas" style="font-size:11px;padding:5px 10px;">📋 Ver todo</button>
+      </div>
     </div>
-    <div id="notesEditor" contenteditable="true" data-ph="Escribe aquí…"></div>
+    <div style="font-size:11.5px;color:#5c78ab;font-weight:600;margin:6px 0 8px;">Todo lo que se escriba aquí se guarda solo, por lámina, y queda dentro del HTML que se descargue.</div>
+
+    <div id="notesEditorWrap">
+      <div id="noteTools" style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;">
+        <button type="button" data-cmd="bold" title="Negrita" class="ntBtn">B</button>
+        <button type="button" data-cmd="italic" title="Cursiva" class="ntBtn" style="font-style:italic;">I</button>
+        <button type="button" data-cmd="insertUnorderedList" title="Lista" class="ntBtn">• Lista</button>
+        <button type="button" id="btnNotaHora" title="Marca la hora en la que se dijo esto" class="ntBtn">🕐 Hora</button>
+      </div>
+      <div id="noteTags" style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;" title="Etiqueta rápida: inserta la marca y sigue escribiendo justo después">
+        <button type="button" data-tag="interes" class="ntTag" style="--tagc:#56EF9F;">🎯 Interés</button>
+        <button type="button" data-tag="objecion" class="ntTag" style="--tagc:#E8A33D;">📌 Objeción</button>
+        <button type="button" data-tag="presupuesto" class="ntTag" style="--tagc:#2A89FB;">💰 Presupuesto</button>
+        <button type="button" data-tag="compromiso" class="ntTag" style="--tagc:#D64545;">✅ Compromiso</button>
+      </div>
+      <div id="notesEditor" contenteditable="true" data-ph="Escribe aquí lo que te va platicando…"></div>
+    </div>
+
+    <div id="notasResumen" style="display:none;">
+      <button type="button" id="btnCopiarTodo" class="eSaveBtn" style="margin-top:0;">📄 Copiar todas las notas</button>
+      <div id="notasResumenLista" style="margin-top:14px;"></div>
+    </div>
   </div>
 </div>
 
@@ -2201,17 +2251,167 @@ function renderNotes(txt){
     return '<p class="np">'+escN(l)+'</p>';
   }).join('');
 }
+let notesGuardadoTimer = null;
+/* Parpadeo breve de «✓ Guardado» junto al título — confirma que la nota ya quedó
+   en DATA sin interrumpir al comercial con el toast global de abajo. */
+function flashNotasGuardado(){
+  const el = document.getElementById('notesGuardado');
+  if(!el) return;
+  el.classList.add('on');
+  clearTimeout(notesGuardadoTimer);
+  notesGuardadoTimer = setTimeout(()=> el.classList.remove('on'), 1400);
+}
 if(notesEditor){
   notesEditor.addEventListener('input', ()=>{
     if(!DATA.notas_slide || typeof DATA.notas_slide !== 'object') DATA.notas_slide = {};
     const clean = notesEditor.innerHTML.replace(/<\/?script[^>]*>/gi,'');
     if(clean.trim()) DATA.notas_slide[idx] = clean; else delete DATA.notas_slide[idx];
     saveData();
+    flashNotasGuardado();
   });
-  document.querySelectorAll('#noteTools button').forEach(b=>{
+  document.querySelectorAll('#noteTools button[data-cmd]').forEach(b=>{
     b.addEventListener('mousedown', e=>{ e.preventDefault(); notesEditor.focus(); document.execCommand(b.dataset.cmd, false, null); });
   });
 }
+
+/* ===== Notas: ancho ajustable arrastrando el borde, tamaño de letra con A-/A+ =====
+   Ambas son preferencias del navegador de quien presenta, no datos del prospecto:
+   se guardan aparte en localStorage y nunca viajan dentro de DATA ni del historial. */
+const NOTES_ANCHO_KEY = 'sl_notas_ancho';
+const NOTES_ANCHO_DEFAULT = 360, NOTES_ANCHO_MIN = 320, NOTES_ANCHO_MAX = 640;
+function aplicarAnchoNotas(px){
+  const w = Math.max(NOTES_ANCHO_MIN, Math.min(NOTES_ANCHO_MAX, Math.round(px)));
+  notesPanel.style.width = w + 'px';
+  return w;
+}
+(function(){
+  const guardado = parseInt(localStorage.getItem(NOTES_ANCHO_KEY), 10);
+  aplicarAnchoNotas(isNaN(guardado) ? NOTES_ANCHO_DEFAULT : guardado);
+})();
+(function(){
+  const handle = document.getElementById('notesResizeHandle');
+  if(!handle) return;
+  let arrastrando = false, anchoInicial = 0, xInicial = 0;
+  handle.addEventListener('mousedown', (e)=>{
+    arrastrando = true; xInicial = e.clientX; anchoInicial = notesPanel.getBoundingClientRect().width;
+    handle.classList.add('dragging');
+    document.body.style.userSelect = 'none';
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove', (e)=>{
+    if(!arrastrando) return;
+    // el panel cuelga del borde derecho de la pantalla: arrastrar hacia la izquierda lo agranda
+    const w = aplicarAnchoNotas(anchoInicial + (xInicial - e.clientX));
+    localStorage.setItem(NOTES_ANCHO_KEY, w);
+  });
+  window.addEventListener('mouseup', ()=>{
+    if(!arrastrando) return;
+    arrastrando = false;
+    handle.classList.remove('dragging');
+    document.body.style.userSelect = '';
+  });
+  handle.addEventListener('dblclick', ()=>{
+    const w = aplicarAnchoNotas(NOTES_ANCHO_DEFAULT);
+    localStorage.setItem(NOTES_ANCHO_KEY, w);
+  });
+})();
+const NOTES_TAM_KEY = 'sl_notas_tamano';
+const NOTES_TAMANOS = {s:13, m:14.5, l:17};   // tres pasos, en px
+function aplicarTamanoNotas(nivel){
+  notesPanel.style.setProperty('--notesz', (NOTES_TAMANOS[nivel] || NOTES_TAMANOS.m) + 'px');
+}
+let notesTamActual = localStorage.getItem(NOTES_TAM_KEY) || 'm';
+if(!NOTES_TAMANOS[notesTamActual]) notesTamActual = 'm';
+aplicarTamanoNotas(notesTamActual);
+document.querySelectorAll('#notesZoom button[data-tz]').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    const orden = ['s','m','l'];
+    let i = orden.indexOf(notesTamActual);
+    i = (b.dataset.tz==='up') ? Math.min(orden.length-1, i+1) : Math.max(0, i-1);
+    notesTamActual = orden[i];
+    aplicarTamanoNotas(notesTamActual);
+    localStorage.setItem(NOTES_TAM_KEY, notesTamActual);
+  });
+});
+
+/* ===== Notas: etiquetas rápidas y marca de hora =====
+   Insertan una marca corta en negrita justo en el cursor y dejan al comercial
+   seguir escribiendo después — pensado para no perder el hilo de la llamada. */
+const NOTE_TAG_LABELS = {interes:'🎯 Interés', objecion:'📌 Objeción', presupuesto:'💰 Presupuesto', compromiso:'✅ Compromiso'};
+function insertarEnNotas(html){
+  if(!notesEditor) return;
+  notesEditor.focus();
+  document.execCommand('insertHTML', false, html);
+  notesEditor.dispatchEvent(new Event('input'));
+}
+document.querySelectorAll('#noteTags .ntTag[data-tag]').forEach(b=>{
+  b.addEventListener('mousedown', e=>{
+    e.preventDefault();
+    const color = getComputedStyle(b).getPropertyValue('--tagc').trim() || '#56EF9F';
+    const label = NOTE_TAG_LABELS[b.dataset.tag] || b.textContent.trim();
+    insertarEnNotas('<b style="color:'+color+';">'+label+':</b>&nbsp;');
+  });
+});
+const btnNotaHora = document.getElementById('btnNotaHora');
+if(btnNotaHora){
+  btnNotaHora.addEventListener('mousedown', e=>{
+    e.preventDefault();
+    const hora = new Date().toLocaleTimeString('es-MX', {hour:'2-digit', minute:'2-digit'});
+    insertarEnNotas('<span style="color:#5c78ab;font-weight:700;">['+hora+']</span>&nbsp;');
+  });
+}
+
+/* ===== Notas: «Ver todo» — resumen de las notas de la llamada de TODAS las láminas =====
+   Útil para repasar o copiar antes de colgar, sin tener que pasar lámina por lámina. */
+function textoPlanoNotas(html){
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html || '';
+  return tmp.textContent.trim();
+}
+function tituloLamina(i){
+  const h1 = slides[i] && slides[i].querySelector('h1');
+  return (h1 ? h1.textContent.trim() : '') || ('Lámina ' + (i+1));
+}
+function notasConTexto(){
+  return slides.map((s,i)=> ({i, titulo: tituloLamina(i), html: (DATA.notas_slide && DATA.notas_slide[i]) || ''}))
+    .filter(n=> textoPlanoNotas(n.html).length > 0);
+}
+function renderNotasResumen(){
+  const cont = document.getElementById('notasResumenLista');
+  if(!cont) return;
+  const notas = notasConTexto();
+  if(!notas.length){ cont.innerHTML = '<p class="np">Todavía no hay notas en ninguna lámina.</p>'; return; }
+  cont.innerHTML = notas.map(n=>
+    '<div class="notaResumenItem"><div class="nrTitulo"><span>'+(n.i+1)+'. '+escN(n.titulo)+'</span>'
+    + '<button type="button" data-goto="'+n.i+'" class="ntBtn" style="padding:2px 9px;font-size:10.5px;">Ir →</button></div>'
+    + '<div class="nrCuerpo">'+n.html+'</div></div>'
+  ).join('');
+  cont.querySelectorAll('button[data-goto]').forEach(b=>{
+    b.addEventListener('click', ()=>{ idx = parseInt(b.dataset.goto, 10); render(); });
+  });
+}
+let verTodoNotasActivo = false;
+function toggleVerTodoNotas(mostrar){
+  verTodoNotasActivo = mostrar;
+  document.getElementById('notesEditorWrap').style.display = mostrar ? 'none' : '';
+  document.getElementById('notasResumen').style.display = mostrar ? '' : 'none';
+  document.getElementById('btnVerTodo').textContent = mostrar ? '✏️ Volver a editar' : '📋 Ver todo';
+  if(mostrar) renderNotasResumen();
+}
+const btnVerTodo = document.getElementById('btnVerTodo');
+if(btnVerTodo) btnVerTodo.addEventListener('click', ()=> toggleVerTodoNotas(!verTodoNotasActivo));
+const btnCopiarTodo = document.getElementById('btnCopiarTodo');
+if(btnCopiarTodo) btnCopiarTodo.addEventListener('click', async ()=>{
+  const notas = notasConTexto();
+  const txt = notas.map(n=> (n.i+1)+'. '+n.titulo+'\n'+textoPlanoNotas(n.html)).join('\n\n');
+  const previo = btnCopiarTodo.textContent;
+  try{
+    await navigator.clipboard.writeText(txt || '(sin notas todavía)');
+    btnCopiarTodo.textContent = '✓ Copiado al portapapeles';
+  }catch(e){ btnCopiarTodo.textContent = '⚠ No se pudo copiar'; }
+  setTimeout(()=> btnCopiarTodo.textContent = previo, 1800);
+});
+
 /* ===== Productos prendibles/apagables y reordenables ===== */
 const PRODUCTOS_TOGGLE = [
   {key:'whatsapp',   label:'💬 De WhatsApp a alumno'},
