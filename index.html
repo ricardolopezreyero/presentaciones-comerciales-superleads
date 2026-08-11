@@ -269,17 +269,25 @@ body.sin-precios .px-blank{visibility:hidden;}
 .wide-btn{width:auto !important;padding:0 14px;font-size:12px !important;font-weight:700;letter-spacing:.5px;}
 
 /* ===== ÍNDICE DE LÁMINAS (modal) =====
-   Cuadrícula responsiva: cada tarjeta es su número + su título, tantas por fila como quepan
-   en el ancho disponible (auto-fill), para que 30+ láminas sigan siendo fáciles de escanear. */
+   Ancho generoso a propósito — pensado para pantallas de 15" sin sentirse apretado.
+   Cuadrícula responsiva (auto-fill): tantas tarjetas por fila como quepan, cada una
+   centrada (símbolo de sección + número + título) para escanear rápido. La leyenda de
+   arriba explica cada símbolo y, al hacer clic, salta directo a la primera lámina de esa
+   sección dentro de la cuadrícula. */
 #indiceModal{display:none;position:fixed;inset:0;background:rgba(4,10,26,.72);z-index:85;align-items:center;justify-content:center;}
 #indiceModal.open{display:flex;}
-#indiceModalBox{background:#0d1730;border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:24px 26px;width:920px;max-width:92vw;max-height:82vh;overflow:auto;box-shadow:0 30px 90px rgba(0,0,0,.5);}
-#indiceGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:11px;margin-top:18px;}
-.idxCard{border:1.5px solid rgba(255,255,255,.14);border-radius:12px;padding:13px 12px;background:rgba(255,255,255,.03);cursor:pointer;text-align:left;color:#fff;font-family:inherit;transition:border-color .15s,background .15s;}
+#indiceModalBox{background:#0d1730;border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:26px 30px;width:1200px;max-width:95vw;max-height:90vh;overflow:auto;box-shadow:0 30px 90px rgba(0,0,0,.5);}
+#indiceLeyenda{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);}
+.idxLeyItem{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);color:#dfe8ff;font-size:12px;font-weight:700;padding:6px 13px;border-radius:99px;cursor:pointer;font-family:inherit;transition:border-color .15s,background .15s;}
+.idxLeyItem:hover,.idxLeyItem.flash{border-color:var(--green);background:rgba(86,239,159,.12);}
+#indiceGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(126px,1fr));gap:10px;margin-top:16px;}
+.idxCard{display:flex;flex-direction:column;align-items:center;border:1.5px solid rgba(255,255,255,.14);border-radius:12px;padding:14px 10px;background:rgba(255,255,255,.03);cursor:pointer;text-align:center;color:#fff;font-family:inherit;transition:border-color .15s,background .15s;}
 .idxCard:hover{border-color:var(--green);background:rgba(86,239,159,.08);}
 .idxCard.active{border-color:var(--green);background:rgba(86,239,159,.14);}
-.idxNum{font-size:21px;font-weight:800;color:var(--green);line-height:1;margin-bottom:7px;}
-.idxT{font-size:12px;font-weight:700;line-height:1.35;color:#dfe8ff;}
+.idxCard.flash{border-color:var(--green);background:rgba(86,239,159,.22);}
+.idxIco{font-size:16px;line-height:1;margin-bottom:6px;}
+.idxNum{font-size:20px;font-weight:800;color:var(--green);line-height:1;margin-bottom:7px;}
+.idxT{font-size:11.5px;font-weight:700;line-height:1.32;color:#dfe8ff;}
 
 /* ===== NOTES PANEL =====
    Ancho ajustable (arrastrando #notesResizeHandle) y tamaño de letra ajustable
@@ -375,7 +383,7 @@ body.sin-precios .px-blank{visibility:hidden;}
 <div id="stage"><div class="slide-frame" id="frame">
 
 <!-- ============ 01 PORTADA ============ -->
-<section class="slide dark active" data-notes="## En una frase
+<section class="slide dark active" data-cat="apertura" data-notes="## En una frase
 SuperLeads instala y opera sistemas de inscripciones premium para colegios y universidades privadas en LATAM.
 ## La sesión de hoy
 * Repaso exprés de sus números, con sus propios datos.
@@ -402,7 +410,7 @@ SuperLeads instala y opera sistemas de inscripciones premium para colegios y uni
 </section>
 
 <!-- ============ 02 AGENDA ============ -->
-<section class="slide dark" data-notes="## En una frase
+<section class="slide dark" data-cat="apertura" data-notes="## En una frase
 Cinco paradas, siempre en el mismo orden — este mismo mapa reaparece a la mitad para ver el avance.
 ## Las paradas
 * El Rayos X: dónde están parados hoy, con sus números.
@@ -446,7 +454,7 @@ Cinco paradas, siempre en el mismo orden — este mismo mapa reaparece a la mita
 </section>
 
 <!-- ============ 03 SEMAFORO ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-cat="diagnostico" data-notes="## En una frase
 Los Signos Vitales comparan sus métricas contra los rangos sanos de la industria educativa.
 ## Referencias de la industria
 * Tasa cita a alumno sana: 60% o más.
@@ -482,7 +490,7 @@ Los Signos Vitales comparan sus métricas contra los rangos sanos de la industri
 </section>
 
 <!-- ============ 04 SU EMBUDO ============ -->
-<section class="slide dark" data-notes="## En una frase
+<section class="slide dark" data-cat="diagnostico" data-notes="## En una frase
 Ocho pasos separan un anuncio de un alumno inscrito — y cada flecha es una fuga posible.
 ## Datos clave
 * La fuga más cara casi nunca está en atraer: está entre el lead y la cita.
@@ -500,7 +508,7 @@ Ocho pasos separan un anuncio de un alumno inscrito — y cada flecha es una fug
 </section>
 
 <!-- ============ 05 DONDE SE PIERDE ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-cat="diagnostico" data-notes="## En una frase
 Su institución atrae muy bien; la turbulencia aparece después, entre el interés y la inscripción.
 ## Por qué pasa
 * El prospecto entra y no hay un camino claro de qué sigue en cada paso.
@@ -517,7 +525,7 @@ Su institución atrae muy bien; la turbulencia aparece después, entre el inter�
 </section>
 
 <!-- ============ 06 ESCALA ============ -->
-<section class="slide dark" data-notes="## En una frase
+<section class="slide dark" data-cat="diagnostico" data-notes="## En una frase
 La imagen hace físico el porcentaje: de una sala de juntas llena de interesados, cuántos terminan inscritos.
 ## Cómo leerla
 * Cada silla es una familia que levantó la mano.
@@ -541,7 +549,7 @@ La imagen hace físico el porcentaje: de una sala de juntas llena de interesados
 </section>
 
 <!-- ============ 08a VALOR DE LA SILLA VACIA ============ -->
-<section class="slide dark" data-notes="## En una frase
+<section class="slide dark" data-cat="diagnostico" data-notes="## En una frase
 Cada silla vacía cuesta el valor de vida completo del alumno que no se sentó ahí.
 ## Datos clave
 * Valor de vida = colegiatura mensual × meses de permanencia — calculado con sus datos.
@@ -561,7 +569,7 @@ Cada silla vacía cuesta el valor de vida completo del alumno que no se sentó a
 </section>
 
 <!-- ============ 08b CAPACIDAD EXTRA POSIBLE ============ -->
-<section class="slide dark" data-notes="## En una frase
+<section class="slide dark" data-cat="diagnostico" data-notes="## En una frase
 La capacidad extra posible: los lugares que ya están instalados y hoy no generan ingreso.
 ## Datos clave
 * El uso de capacidad dicta qué tan holgada está la operación económicamente.
@@ -603,7 +611,7 @@ La capacidad extra posible: los lugares que ya están instalados y hoy no genera
 </section>
 
 <!-- ============ 07 DECIMAL ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-cat="diagnostico" data-notes="## En una frase
 Cada punto de tasa de conversión son alumnos extra al año — con los mismos prospectos que ya generan.
 ## La matemática, sin magia
 * Prospectos al año × puntos extra de conversión = alumnos nuevos × valor de vida = el número de la lámina.
@@ -636,7 +644,7 @@ Cada punto de tasa de conversión son alumnos extra al año — con los mismos p
 </section>
 
 <!-- ============ 09 DOS CAMINOS ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-cat="diagnostico" data-notes="## En una frase
 Estar lleno es matemático: leads por tasa de conversión. Hay dos caminos para lograr la meta.
 >> El dato que mueve todo es su tasa de conversión de hoy — cada décima extra son alumnos.
 ## Los caminos
@@ -696,7 +704,7 @@ Estar lleno es matemático: leads por tasa de conversión. Hay dos caminos para 
 </section>
 
 <!-- ============ POR QUÉ EXISTIMOS ============ -->
-<section class="slide dark" data-notes="## Nuestra creencia
+<section class="slide dark" data-cat="sistema" data-notes="## Nuestra creencia
 Ningún alumno debería perder la oportunidad de estudiar en el colegio correcto por culpa de un mal proceso de admisión.
 ## Nuestro propósito
 >> Darle poder a los colegios y universidades para que inscriban fácilmente a millones de estudiantes.
@@ -714,7 +722,7 @@ Ningún alumno debería perder la oportunidad de estudiar en el colegio correcto
 </section>
 
 <!-- ============ 10 HERRAMIENTA ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-cat="sistema" data-notes="## En una frase
 La misma persona, con mejor herramienta, recorre más kilómetros — no es más lista, es más eficiente.
 ## La prueba
 * Prepa Harkness logró la mayor generación de alumnos de su historia.
@@ -730,7 +738,7 @@ La misma persona, con mejor herramienta, recorre más kilómetros — no es más
 </section>
 
 <!-- ============ 12 SISTEMA (native rebuild, bigger) ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-cat="sistema" data-notes="## En una frase
 El CRM es solo la tecnología — a propósito el círculo más chico. Encima va la metodología, y encima el sistema completo.
 ## Principios
 * Las inscripciones fallan por falta de sistema, no por falta de esfuerzo.
@@ -769,7 +777,7 @@ El CRM es solo la tecnología — a propósito el círculo más chico. Encima va
 </section>
 
 <!-- ============ RED DE CONOCIMIENTO ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-cat="sistema" data-notes="## En una frase
 Cada colegio de la red alimenta el mismo loop: lo que funciona en uno, llega a todos.
 ## La red hoy
 * Más de 70 colegios operando y más de un millón de prospectos al año.
@@ -820,7 +828,7 @@ Cada colegio de la red alimenta el mismo loop: lo que funciona en uno, llega a t
 </section>
 
 <!-- ============ TRANSICION: DONDE VAMOS ============ -->
-<section class="slide dark" data-notes="## En una frase
+<section class="slide dark" data-cat="sistema" data-notes="## En una frase
 Punto de ubicación: ya vimos su Rayos X y por qué existe SuperLeads; ahora vienen las herramientas, luego precios y conclusión.
 ## Por qué este alto
 * Saber en qué parte del camino vamos da orden y baja la ansiedad.
@@ -1171,7 +1179,7 @@ El formulario de admisiones no es un formulario de contacto: es el primer paso d
 </section>
 
 <!-- ============ 19 CASO ============ -->
-<section class="slide soft" id="anchorCaso" data-notes="## En una frase
+<section class="slide soft" data-cat="caso" id="anchorCaso" data-notes="## En una frase
 Casos reales de la red SuperLeads — el que se muestra se elige según el perfil de su institución.
 ## Resultados de la red
 * Universidad Católica de Cuenca: de 3 a 4.52% de conversión en dos meses.
@@ -1203,7 +1211,7 @@ Casos reales de la red SuperLeads — el que se muestra se elige según el perfi
 </section>
 
 <!-- ============ 20 PROCESO A SU MEDIDA ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-cat="caso" data-notes="## En una frase
 Sabemos lo mínimo que necesita un sistema de inscripciones para funcionar — y se implementa en tiempo récord.
 ## El arranque
 * Kickoff en máximo 5 días hábiles después de la firma.
@@ -1221,7 +1229,7 @@ Sabemos lo mínimo que necesita un sistema de inscripciones para funcionar — y
 </section>
 
 <!-- ============ 21 HOY VS NECESITAN ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-cat="caso" data-notes="## En una frase
 No es un problema de esfuerzo — es de sistema: el mismo ciclo se repite hasta que algo cambia de fondo.
 ## El contraste
 * Hoy: herramientas genéricas, decisiones por intuición, equipo saturado.
@@ -1266,7 +1274,7 @@ No es un problema de esfuerzo — es de sistema: el mismo ciclo se repite hasta 
 </section>
 
 <!-- ============ 22 INVERSION ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-cat="inversion" data-notes="## En una frase
 La tabla muestra exactamente lo que se está cotizando — ni un producto más. Números limpios.
 ## Cómo leer los tres números
 * Anual: el ciclo escolar completo de 10 meses.
@@ -1334,7 +1342,7 @@ La tabla muestra exactamente lo que se está cotizando — ni un producto más. 
 </section>
 
 <!-- ============ 23 SALIMOS GRATIS ============ -->
-<section class="slide dark" data-notes="## En una frase
+<section class="slide dark" data-cat="inversion" data-notes="## En una frase
 La inversión es asimétrica: el costo es conocido y acotado; el crecimiento es abierto.
 ## Cómo leerla
 * El número del bloque es todo el riesgo: esos alumnos extra cubren la inversión completa.
@@ -1379,7 +1387,7 @@ La inversión es asimétrica: el costo es conocido y acotado; el crecimiento es 
 </section>
 
 <!-- ============ 24 COSTOS VARIABLES ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-cat="inversion" data-notes="## En una frase
 Los costos variables son centavos con retorno en miles — no se ahorran: se eficientan.
 ## Para dimensionar
 * Un WhatsApp cuesta un peso; una colegiatura vale miles.
@@ -1404,7 +1412,7 @@ Los costos variables son centavos con retorno en miles — no se ahorran: se efi
 </section>
 
 <!-- ============ 25 SALDO ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-cat="inversion" data-notes="## En una frase
 Un solo saldo de comunicación para todos los canales: WhatsApp, correo, llamada, SMS, Messenger e Instagram.
 ## Cómo se comporta
 * El gasto fijo se mantiene planito mes a mes.
@@ -1478,7 +1486,7 @@ Un solo saldo de comunicación para todos los canales: WhatsApp, correo, llamada
 </section>
 
 <!-- ============ 26 SEIS SEMANAS ============ -->
-<section class="slide light" data-notes="## En una frase
+<section class="slide light" data-cat="cierre" data-notes="## En una frase
 De la firma a operar: cambios visibles desde la semana 2, momentos fuertes en la 5 y 6.
 ## La línea de tiempo
 * Semana 1: entrevista. Semana 2: personalización.
@@ -1496,7 +1504,7 @@ De la firma a operar: cambios visibles desde la semana 2, momentos fuertes en la
 </section>
 
 <!-- ============ 27 LO QUE NO VAMOS A PEDIR ============ -->
-<section class="slide dark" data-notes="## En una frase
+<section class="slide dark" data-cat="cierre" data-notes="## En una frase
 Honestidad primero: no prometemos alumnos garantizados — prometemos llevarlos matemáticamente a lo máximo que sabemos.
 ## Lo que sí es distinto
 * No somos una agencia: la agencia responde por costo por lead; nosotros por conversión de lead a inscrito.
@@ -1531,7 +1539,7 @@ Honestidad primero: no prometemos alumnos garantizados — prometemos llevarlos 
 </section>
 
 <!-- ============ 28 LO QUE SIGUE (roadmap) ============ -->
-<section class="slide dark" data-notes="## En una frase
+<section class="slide dark" data-cat="cierre" data-notes="## En una frase
 La presentación y la propuesta llegan por WhatsApp y correo, para revisarlas con calma y con su contador.
 ## El acuerdo
 * Se revisa en equipo, con todos los que deciden.
@@ -1555,7 +1563,7 @@ La presentación y la propuesta llegan por WhatsApp y correo, para revisarlas co
 </section>
 
 <!-- ============ ANEXO A1 CRONOGRAMA DE PAGO ============ -->
-<section class="slide soft anexo" data-notes="## En una frase
+<section class="slide soft anexo" data-cat="cierre" data-notes="## En una frase
 Cuando la decisión es sí, lo que sigue es simple — y en este orden.
 ## Los tres pasos
 * Crear la cuenta SuperLeads: dos clics, con el botón de su moneda.
@@ -1581,7 +1589,7 @@ Cuando la decisión es sí, lo que sigue es simple — y en este orden.
 </section>
 
 <!-- ============ ANEXO A3 FAQ ============ -->
-<section class="slide soft anexo" data-notes="## En una frase
+<section class="slide soft anexo" data-cat="cierre" data-notes="## En una frase
 Las seis preguntas que más se repiten antes de activar, respondidas por escrito.
 ## Las dos más importantes
 * Ya tengo CRM: guardar datos no es sistema — sistema es velocidad de respuesta y visibilidad de cada etapa.
@@ -1602,7 +1610,7 @@ Las seis preguntas que más se repiten antes de activar, respondidas por escrito
 </section>
 
 <!-- ============ 37 CIERRE ============ -->
-<section class="slide dark" data-notes="## En una frase
+<section class="slide dark" data-cat="cierre" data-notes="## En una frase
 Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclusivo para educación privada.
 ## El acuerdo propuesto
 * Probar y medir: ver cuántos alumnos extra se pueden generar juntos.
@@ -1636,6 +1644,7 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
       <button type="button" id="btnIndiceCerrar" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:12.5px;padding:8px 16px;border-radius:8px;cursor:pointer;font-family:inherit;">Cerrar</button>
     </div>
     <div style="font-size:12px;color:#8ea3d6;font-weight:600;margin-top:6px;">Clic en cualquiera para ir directo. También se abre dejando ‹ o › (o la flecha del teclado) presionado un momento.</div>
+    <div id="indiceLeyenda"></div>
     <div id="indiceGrid"></div>
   </div>
 </div>
@@ -2418,12 +2427,22 @@ function renderNotasResumen(){
   });
 }
 let verTodoNotasActivo = false;
+let anchoNotasAntesDeVerTodo = null;
 function toggleVerTodoNotas(mostrar){
   verTodoNotasActivo = mostrar;
   document.getElementById('notesEditorWrap').style.display = mostrar ? 'none' : '';
   document.getElementById('notasResumen').style.display = mostrar ? '' : 'none';
   document.getElementById('btnVerTodo').textContent = mostrar ? '✏️ Volver a editar' : '📋 Ver todo';
-  if(mostrar) renderNotasResumen();
+  // «Ver todo» necesita más aire que una sola nota: se ensancha al máximo mientras dura,
+  // sin tocar el ancho guardado — al volver a editar, el panel regresa a como estaba.
+  if(mostrar){
+    anchoNotasAntesDeVerTodo = notesPanel.getBoundingClientRect().width;
+    aplicarAnchoNotas(NOTES_ANCHO_MAX);
+    renderNotasResumen();
+  }else if(anchoNotasAntesDeVerTodo !== null){
+    aplicarAnchoNotas(anchoNotasAntesDeVerTodo);
+    anchoNotasAntesDeVerTodo = null;
+  }
 }
 const btnVerTodo = document.getElementById('btnVerTodo');
 if(btnVerTodo) btnVerTodo.addEventListener('click', ()=> toggleVerTodoNotas(!verTodoNotasActivo));
@@ -2694,17 +2713,63 @@ function indicesEncendidos(){
   for(let i=0;i<total;i++){ if(!slideOff(slides[i])) out.push(i); }
   return out;
 }
+/* Cada lámina cae en una de estas 7 secciones — las de producto se detectan solas
+   (data-toggle), el resto viene marcado a mano en el HTML con data-cat. El símbolo de
+   cada una es lo que se ve en la esquina de la tarjeta y en la leyenda del modal. */
+const CATEGORIAS = {
+  apertura:    {icono:'🎬', label:'Apertura'},
+  diagnostico: {icono:'🔍', label:'Diagnóstico'},
+  sistema:     {icono:'🧩', label:'El sistema'},
+  producto:    {icono:'🛠️', label:'Productos'},
+  caso:        {icono:'📈', label:'Caso y proceso'},
+  inversion:   {icono:'💰', label:'Inversión'},
+  cierre:      {icono:'🚀', label:'Cierre'},
+};
+function categoriaDe(slideIdx){
+  const s = slides[slideIdx];
+  if(s.dataset.toggle) return 'producto';
+  return (s.dataset.cat && CATEGORIAS[s.dataset.cat]) ? s.dataset.cat : 'cierre';
+}
 function renderIndiceGrid(){
   const cont = document.getElementById('indiceGrid');
+  const ley = document.getElementById('indiceLeyenda');
   if(!cont) return;
   const enc = indicesEncendidos();
-  cont.innerHTML = enc.map((slideIdx, pos)=>
-    '<button type="button" class="idxCard'+(slideIdx===idx?' active':'')+'" data-idx="'+slideIdx+'">'
-    + '<div class="idxNum">'+(pos+1)+'</div><div class="idxT">'+escN(tituloLamina(slideIdx))+'</div></button>'
-  ).join('');
+  const presentes = new Set(enc.map(categoriaDe));
+  if(ley){
+    ley.innerHTML = Object.keys(CATEGORIAS).filter(k=> presentes.has(k)).map(k=>
+      '<button type="button" class="idxLeyItem" data-goto-cat="'+k+'">'+CATEGORIAS[k].icono+' '+CATEGORIAS[k].label+'</button>'
+    ).join('');
+    ley.querySelectorAll('[data-goto-cat]').forEach(b=>{
+      b.addEventListener('click', ()=> saltarACategoria(b.dataset.gotoCat));
+    });
+  }
+  cont.innerHTML = enc.map((slideIdx, pos)=>{
+    const cat = categoriaDe(slideIdx);
+    return '<button type="button" class="idxCard" data-idx="'+slideIdx+'" data-cat="'+cat+'">'
+      + '<div class="idxIco">'+CATEGORIAS[cat].icono+'</div>'
+      + '<div class="idxNum">'+(pos+1)+'</div><div class="idxT">'+escN(tituloLamina(slideIdx))+'</div></button>';
+  }).join('');
   cont.querySelectorAll('.idxCard').forEach(b=>{
+    b.classList.toggle('active', b.dataset.idx === String(idx));
     b.addEventListener('click', ()=>{ idx = parseInt(b.dataset.idx, 10); render(); cerrarIndice(); });
   });
+}
+/* Clic en la leyenda: lleva la vista (sin cambiar de lámina) a la primera tarjeta de esa
+   sección, y la resalta un instante — para ubicarla de un vistazo entre 30+ láminas. */
+function saltarACategoria(cat){
+  const cont = document.getElementById('indiceGrid');
+  if(!cont) return;
+  const primera = cont.querySelector('.idxCard[data-cat="'+cat+'"]');
+  if(!primera) return;
+  primera.scrollIntoView({block:'center', behavior:'smooth'});
+  cont.querySelectorAll('.idxCard[data-cat="'+cat+'"]').forEach(c=> c.classList.add('flash'));
+  const chip = document.querySelector('.idxLeyItem[data-goto-cat="'+cat+'"]');
+  if(chip) chip.classList.add('flash');
+  setTimeout(()=>{
+    cont.querySelectorAll('.idxCard.flash').forEach(c=> c.classList.remove('flash'));
+    if(chip) chip.classList.remove('flash');
+  }, 1100);
 }
 function abrirIndice(){
   renderIndiceGrid();
