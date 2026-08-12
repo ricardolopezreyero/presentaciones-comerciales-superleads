@@ -17,6 +17,8 @@
    Componentes propios  .card, .pkg-card, .invBox, .camCard, .noCard, etc. — un bloque de
                         estilos por cada patrón visual reutilizado en varias láminas.
    #controls            Barra inferior fija (◀ ▶, pantalla completa, descargas, HISTORIAL, DATOS).
+   #homeScreen          Pantalla de selección al entrar por «/» — lista de presentaciones +
+                        «Nueva presentación»; oculta #stage/#controls vía body.modo-home.
    #notesPanel          Panel de notas del comercial (lateral derecho).
    #editPanel           Panel «Editar datos» (DATOS) — formulario completo del prospecto y la propuesta.
    #histPanel           Panel «Historial» — buscador y lista de presentaciones guardadas en la nube.
@@ -347,6 +349,26 @@ body.sin-precios .px-blank{visibility:hidden;}
 #cargaOverlay.on{display:flex;}
 #cargaOverlay .spin{width:44px;height:44px;border:4px solid rgba(255,255,255,.25);border-top-color:#13B36E;border-radius:50%;animation:slgiro .8s linear infinite;}
 #cargaOverlay span{font-size:14px;font-weight:700;letter-spacing:.3px;}
+/* ===== Home (pantalla de selección de presentación) ===== */
+#homeScreen{position:fixed;inset:0;background:#0a0e1a;z-index:15;overflow-y:auto;display:none;}
+#homeScreen.on{display:block;}
+body.modo-home #stage,body.modo-home #controls{display:none;}
+#homeInner{max-width:920px;margin:0 auto;padding:64px 24px 90px;}
+#homeHead{text-align:center;margin-bottom:36px;}
+#homeLogo{height:32px;margin-bottom:24px;}
+#homeHead h1{color:#fff;font-size:30px;font-weight:800;margin:0 0 10px;}
+#homeHead p{color:rgba(255,255,255,.6);font-size:14.5px;margin:0;}
+#homeActions{display:flex;gap:12px;margin-bottom:22px;flex-wrap:wrap;}
+#btnHomeNueva{background:var(--green);color:var(--navy-deep);font-weight:800;font-size:14px;padding:0 22px;height:46px;border-radius:10px;border:none;cursor:pointer;white-space:nowrap;}
+#btnHomeNueva:hover{background:var(--green-d);}
+#homeSearch{flex:1;min-width:220px;height:46px;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;padding:0 16px;font-size:14px;font-family:inherit;}
+#homeSearch::placeholder{color:rgba(255,255,255,.4);}
+#homeStatus{color:rgba(255,255,255,.55);font-size:12.5px;margin-bottom:16px;min-height:16px;}
+#homeList{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+.homeCard{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:16px 18px;cursor:pointer;transition:background .15s,border-color .15s;}
+.homeCard:hover{background:rgba(255,255,255,.09);border-color:var(--green);}
+.homeCard b{color:#fff;font-size:14.5px;display:block;margin-bottom:6px;}
+.homeCard .hMeta{color:rgba(255,255,255,.55);font-size:11.5px;font-weight:600;}
 #histPanel{position:fixed;left:0;top:0;bottom:52px;width:400px;background:#fff;color:#1a1a1a;padding:26px;overflow-y:auto;transform:translateX(-100%);transition:transform .25s var(--ease);z-index:21;border-right:1px solid var(--border);}
 #histPanel.open{transform:translateX(0);}
 #histPanel h4{margin:0 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);}
@@ -388,6 +410,26 @@ body.sin-precios .px-blank{visibility:hidden;}
 <body>
 
 <div id="cargaOverlay"><div class="spin"></div><span>Cargando presentación…</span></div>
+
+<!-- ===== Home: pantalla de selección al entrar por la raíz (sin slug en la URL) =====
+     Lista todas las presentaciones guardadas en la nube para abrir una, o arrancar una
+     nueva. La barra de controles de abajo (HISTORIAL/DATOS/ÍNDICE/‹›/NOTAS/PDF/HTML/PNG)
+     solo tiene sentido dentro de una presentación — aquí se oculta (ver body.modo-home). -->
+<div id="homeScreen" class="no-print">
+  <div id="homeInner">
+    <div id="homeHead">
+      <img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads" id="homeLogo">
+      <h1>Presentaciones comerciales</h1>
+      <p>Elige una presentación para continuar donde se quedó, o empieza una nueva.</p>
+    </div>
+    <div id="homeActions">
+      <button type="button" id="btnHomeNueva">🆕 Nueva presentación</button>
+      <input type="text" id="homeSearch" placeholder="Buscar institución o ciudad...">
+    </div>
+    <div id="homeStatus"></div>
+    <div id="homeList"></div>
+  </div>
+</div>
 
 <div id="stage"><div class="slide-frame" id="frame">
 
@@ -1924,11 +1966,13 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
     10. HISTORIAL COMPARTIDO — guardarHistorial()/cargarListaHistorial(): la nube compartida
                                 entre los 5 asesores, sin login (ver el comentario de esa
                                 sección para el detalle completo del diseño y sus límites).
-    11. GUARDAR ÚLTIMO USO   — localStorage: recuerda la última presentación abierta en
-                                este navegador (independiente del historial compartido).
+    11. GUARDAR ÚLTIMO USO   — localStorage: respaldo local mientras se edita, independiente
+                                del historial compartido (ya no decide qué se ve en la raíz).
     12. EXPORTAR HTML/PNG    — botones de descarga: HTML con los datos ya incrustados,
                                 y PNG de la lámina actual vía html2canvas.
-    13. ARRANQUE             — al final del archivo: la secuencia de inicialización real.
+    13. ARRANQUE             — al final del archivo: Home (mostrarHome/renderHomeList, la
+                                pantalla de selección al entrar por «/») y la secuencia real
+                                de inicialización, incluida la carga por URL de un slug.
 
    Convención de datos: TODO lo editable vive en el objeto DATA (abajo). Nada se calcula
    dos veces en dos lugares distintos — cualquier cifra que se vea en una lámina sale de
@@ -3369,9 +3413,9 @@ document.getElementById('editForm').addEventListener('submit', (e)=>{
 /* «🆕 Nueva presentación»: arranca un conjunto de datos en blanco (a partir de DATA_SEMILLA),
    conservando el comercial y la moneda que ya se tenían seleccionados, y sin heredar el slug
    ni la URL del registro que estaba abierto — así el siguiente «Actualizar presentación» crea
-   un registro nuevo en la nube, en vez de sobrescribir el anterior. */
-document.getElementById('btnNuevaPresentacion').addEventListener('click', ()=>{
-  if(!confirm('¿Empezar una nueva presentación?\n\nSe perderá lo que no se haya guardado con «Actualizar presentación» en el registro actual.')) return;
+   un registro nuevo en la nube, en vez de sobrescribir el anterior. Se usa tanto desde el botón
+   dentro de DATOS (ya con una presentación abierta) como desde la pantalla Home. */
+function nuevaPresentacionEnBlanco(){
   const comercialActual = DATA.comercial, monedaActual = DATA.moneda;
   DATA = JSON.parse(JSON.stringify(DATA_SEMILLA));
   DATA.comercial = comercialActual || DATA.comercial;
@@ -3397,6 +3441,10 @@ document.getElementById('btnNuevaPresentacion').addEventListener('click', ()=>{
   setHistStatus('');
   highlightRelevantFields();
   avisar('🆕 Presentación nueva — completa los datos y guarda');
+}
+document.getElementById('btnNuevaPresentacion').addEventListener('click', ()=>{
+  if(!confirm('¿Empezar una nueva presentación?\n\nSe perderá lo que no se haya guardado con «Actualizar presentación» en el registro actual.')) return;
+  nuevaPresentacionEnBlanco();
 });
 
 window.addEventListener('keydown', (e)=>{
@@ -3424,8 +3472,10 @@ function loadSavedData(){
 function saveData(){
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA)); }catch(err){ /* almacenamiento no disponible */ }
 }
-/* Nota: loadSavedData() ya no se llama aquí a secas — la decide inicializar(), al final del
-   archivo, según si la URL trae o no el slug de una presentación (ver ARRANQUE). */
+/* Nota: la raíz («/») ya no se auto-carga con loadSavedData() — ahí vive el Home (lista de
+   presentaciones + «Nueva presentación», ver ARRANQUE). loadSavedData() queda disponible para
+   quien la necesite (p. ej. recuperar un HTML exportado con datos ya incrustados), pero el
+   respaldo activo en cada edición sigue siendo saveData(), que sí se sigue llamando siempre. */
 
 /* ===================== DESCARGAR HTML CON LOS DATOS ACTUALES ===================== */
 function slug(s){
@@ -3563,6 +3613,51 @@ async function cargarPorSlugDesdeNube(rutaSlug){
   if(!obj || typeof obj.data !== 'object') throw new Error('archivo de historial con formato inesperado');
   return obj;
 }
+/* ===== Home: pantalla de selección al entrar por la raíz, o si el slug de la URL no existe.
+   Lista lo que haya en el historial compartido y ofrece «Nueva presentación» — la barra de
+   controles (HISTORIAL/DATOS/ÍNDICE/‹›/NOTAS/PDF/HTML/PNG) solo aplica dentro de una
+   presentación, así que se oculta mientras el Home está activo (ver body.modo-home en CSS). */
+function mostrarHome(){
+  document.body.classList.add('modo-home');
+  document.getElementById('homeScreen').classList.add('on');
+  renderHomeList();
+  cargarListaHistorial().then(renderHomeList);
+}
+function ocultarHome(){
+  document.body.classList.remove('modo-home');
+  document.getElementById('homeScreen').classList.remove('on');
+}
+function renderHomeList(){
+  const cont = document.getElementById('homeList');
+  if(!cont) return;
+  const statusEl = document.getElementById('homeStatus');
+  const histStatusEl = document.getElementById('histStatus');
+  if(statusEl) statusEl.textContent = histStatusEl ? histStatusEl.textContent : '';
+  const buscador = document.getElementById('homeSearch');
+  const q = normTxt(buscador ? buscador.value : '');
+  const lista = HIST_CACHE.filter(h=> !q || normTxt(h.colegio).includes(q) || normTxt(h.ciudad).includes(q));
+  if(!lista.length){
+    cont.innerHTML = HIST_CACHE.length
+      ? '<div style="color:rgba(255,255,255,.5);font-size:13px;">Sin resultados.</div>'
+      : '<div style="color:rgba(255,255,255,.5);font-size:13px;">Todavía no hay presentaciones guardadas — empieza una nueva.</div>';
+    return;
+  }
+  cont.innerHTML = lista.map(h=>{
+    const com = (typeof COMERCIALES!=='undefined' && COMERCIALES[h.comercial]) ? COMERCIALES[h.comercial].nombre : (h.comercial||'');
+    const colegio = escapeHtml(h.colegio), ciudad = escapeHtml(h.ciudad), comN = escapeHtml(com), fecha = escapeHtml(h.guardado||'—');
+    return '<div class="homeCard" data-slug="'+slug(h.colegio)+'"><b>'+colegio+'</b><div class="hMeta">'+(ciudad? ciudad+' · ':'')+(comN? comN+' · ':'')+'Última modificación: '+fecha+'</div></div>';
+  }).join('');
+  cont.querySelectorAll('.homeCard').forEach(el=>{
+    el.addEventListener('click', ()=>{ location.href = '/' + el.dataset.slug; });
+  });
+}
+document.getElementById('homeSearch').addEventListener('input', renderHomeList);
+document.getElementById('btnHomeNueva').addEventListener('click', ()=>{
+  ocultarHome();
+  editPanel.classList.add('open');
+  nuevaPresentacionEnBlanco();
+});
+
 async function inicializar(){
   // Un slug real (el que genera slug()) nunca lleva punto — así que una ruta con punto
   // es un nombre de archivo (p. ej. abrir el HTML exportado en local con file://, o el
@@ -3590,11 +3685,6 @@ async function inicializar(){
     }
     mostrarCargaOverlay(false);
   }
-  if(!cargadoDeNube){
-    loadSavedData();
-    ultimoSlugGuardado = leerUltimoSlugGuardado();
-    if(rutaSlug){ try{ history.replaceState(null, '', '/'); }catch(e){} }
-  }
   fitStage();
   aplicarOrden();
   applyToggles();
@@ -3608,8 +3698,14 @@ async function inicializar(){
   setEscalaPill(DATA.imagen_escala || 'auto');
   actualizarCajaUrl();
   render();
-  if(motivoFallback === 'no_encontrado') avisar('No se encontró ese enlace en el historial — se abrió con lo último guardado en este equipo');
-  else if(motivoFallback === 'error') avisar('No se pudo conectar con la nube — se abrió con lo último guardado en este equipo');
+  if(cargadoDeNube){
+    ocultarHome();
+  }else{
+    if(rutaSlug){ try{ history.replaceState(null, '', '/'); }catch(e){} }
+    if(motivoFallback === 'no_encontrado') avisar('No se encontró ese enlace en el historial');
+    else if(motivoFallback === 'error') avisar('No se pudo conectar con la nube — inténtalo de nuevo');
+    mostrarHome();
+  }
 }
 inicializar();
 </script>
