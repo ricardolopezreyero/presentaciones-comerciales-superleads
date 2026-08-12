@@ -3634,24 +3634,62 @@ function renderHomeList(){
   const histStatusEl = document.getElementById('histStatus');
   if(statusEl) statusEl.textContent = histStatusEl ? histStatusEl.textContent : '';
   const buscador = document.getElementById('homeSearch');
-  const q = normTxt(buscador ? buscador.value : '');
+  const crudo = (buscador ? buscador.value : '').trim();
+  const q = normTxt(crudo);
   const lista = HIST_CACHE.filter(h=> !q || normTxt(h.colegio).includes(q) || normTxt(h.ciudad).includes(q));
-  if(!lista.length){
-    cont.innerHTML = HIST_CACHE.length
-      ? '<div style="color:rgba(255,255,255,.5);font-size:13px;">Sin resultados.</div>'
-      : '<div style="color:rgba(255,255,255,.5);font-size:13px;">Todavía no hay presentaciones guardadas — empieza una nueva.</div>';
-    return;
+  /* Si lo escrito no coincide EXACTO con ningún colegio guardado, se ofrece crearlo ahí
+     mismo: una tarjeta con el nombre, su URL futura y un clic para arrancar — cero pasos
+     extra cuando la institución todavía no existe. */
+  const hayExacto = crudo && HIST_CACHE.some(h=> slug(h.colegio) === slug(crudo));
+  let html = '';
+  if(crudo && !hayExacto){
+    html += '<div class="homeCard homeCrear" data-nombre="'+encodeURIComponent(crudo)+'" style="border-color:var(--green);background:rgba(86,239,159,.08);">'
+      +'<b>➕ Crear «'+escapeHtml(crudo)+'»</b>'
+      +'<div class="hMeta" style="overflow-wrap:anywhere;">'+escapeHtml(urlPresentacion(crudo))+'</div>'
+      +'<div class="hMeta" style="margin-top:6px;color:var(--green);">Clic para empezar a llenar sus datos</div></div>';
   }
-  cont.innerHTML = lista.map(h=>{
+  html += lista.map(h=>{
     const com = (typeof COMERCIALES!=='undefined' && COMERCIALES[h.comercial]) ? COMERCIALES[h.comercial].nombre : (h.comercial||'');
     const colegio = escapeHtml(h.colegio), ciudad = escapeHtml(h.ciudad), comN = escapeHtml(com), fecha = escapeHtml(h.guardado||'—');
     return '<div class="homeCard" data-slug="'+slug(h.colegio)+'"><b>'+colegio+'</b><div class="hMeta">'+(ciudad? ciudad+' · ':'')+(comN? comN+' · ':'')+'Última modificación: '+fecha+'</div></div>';
   }).join('');
-  cont.querySelectorAll('.homeCard').forEach(el=>{
+  if(!html){
+    html = HIST_CACHE.length
+      ? '<div style="color:rgba(255,255,255,.5);font-size:13px;">Sin resultados.</div>'
+      : '<div style="color:rgba(255,255,255,.5);font-size:13px;">Todavía no hay presentaciones guardadas — empieza una nueva.</div>';
+  }
+  cont.innerHTML = html;
+  cont.querySelectorAll('.homeCard[data-slug]').forEach(el=>{
     el.addEventListener('click', ()=>{ location.href = '/' + el.dataset.slug; });
   });
+  const crearEl = cont.querySelector('.homeCrear');
+  if(crearEl) crearEl.addEventListener('click', ()=> crearDesdeHome(decodeURIComponent(crearEl.dataset.nombre)));
+}
+/* Crea una presentación nueva desde el Home con el nombre ya puesto: plantilla en blanco,
+   colegio prellenado, y el panel DATOS abierto listo para capturar. El registro en la nube
+   (y su URL definitiva) nace al primer «Actualizar presentación». */
+function crearDesdeHome(nombre){
+  ocultarHome();
+  editPanel.classList.add('open');
+  nuevaPresentacionEnBlanco();
+  DATA.colegio = nombre;
+  saveData();
+  renderData();
+  populateForm();
+  actualizarCajaUrl();
+  const inp = document.querySelector('#editForm [data-f="colegio"]');
+  if(inp){ try{ inp.focus(); }catch(e){} }
+  avisar('🆕 «'+nombre+'» — completa los datos y dale Actualizar presentación');
 }
 document.getElementById('homeSearch').addEventListener('input', renderHomeList);
+document.getElementById('homeSearch').addEventListener('keydown', (e)=>{
+  if(e.key !== 'Enter') return;
+  e.preventDefault();
+  const crearEl = document.querySelector('#homeList .homeCrear');
+  if(crearEl){ crearEl.click(); return; }
+  const primera = document.querySelector('#homeList .homeCard[data-slug]');
+  if(primera) primera.click();
+});
 document.getElementById('btnHomeNueva').addEventListener('click', ()=>{
   ocultarHome();
   editPanel.classList.add('open');
