@@ -2,8 +2,8 @@
   "colegio": "C. E. Espiritu Santo",
   "ciudad": "Guayaquil",
   "comercial": "ricardo",
-  "guardado": "12 ago 2026, 03:22 p.m.",
-  "guardado_ts": 1786569727319,
+  "guardado": "12 ago 2026, 04:28 p.m.",
+  "guardado_ts": 1786573690733,
   "data": {
     "colegio": "C. E. Espiritu Santo",
     "prospecto_nombre": "Ximena Martinez Toral",
@@ -25,7 +25,8 @@
       "referidos": true,
       "academia": true,
       "integraciones": true,
-      "form_uni": true
+      "form_uni": true,
+      "maquina": true
     },
     "productos_orden": [
       "torre",
@@ -44,10 +45,11 @@
     "productos_manual": {
       "form_uni": true,
       "form_k12": true,
-      "integraciones": true
+      "integraciones": true,
+      "maquina": true
     },
     "sin_precios": false,
-    "sello_captura": "2026-08-12 15:22:07",
+    "sello_captura": "2026-08-12 16:28:10",
     "antiguedad_anios": 70,
     "leads_dia": 7,
     "tasa_conversion": 12,
