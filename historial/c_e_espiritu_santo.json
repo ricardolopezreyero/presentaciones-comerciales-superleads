@@ -3,7 +3,7 @@
   "ciudad": "Guayaquil",
   "comercial": "ricardo",
   "guardado": "12 ago 2026, 03:22 p.m.",
-  "guardado_ts": 1786569723932,
+  "guardado_ts": 1786569727319,
   "data": {
     "colegio": "C. E. Espiritu Santo",
     "prospecto_nombre": "Ximena Martinez Toral",
@@ -47,7 +47,7 @@
       "integraciones": true
     },
     "sin_precios": false,
-    "sello_captura": "2026-08-12 15:15:38",
+    "sello_captura": "2026-08-12 15:22:07",
     "antiguedad_anios": 70,
     "leads_dia": 7,
     "tasa_conversion": 12,
