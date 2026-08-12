@@ -3,7 +3,7 @@
   "ciudad": "Ecatepec, Estado de México",
   "comercial": "ricardo",
   "guardado": "12 ago 2026, 12:39 p.m.",
-  "guardado_ts": 1786559948065,
+  "guardado_ts": 1786559962478,
   "data": {
     "colegio": "IBEME",
     "prospecto_nombre": "Norma Angélica Romero Ramón",
@@ -22,7 +22,11 @@
       "pct_referidos": "amarillo",
       "tasa_conversion": "rojo"
     },
-    "precios_override": {},
+    "precios_override": {
+      "grupo": {
+        "crm_paquete": 22000
+      }
+    },
     "productos_off": {
       "academia": true,
       "radar": true,
