@@ -1905,7 +1905,7 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
       <div class="efield"><label>Capacidad instalada</label><input data-f="capacidad_instalada" type="text" inputmode="decimal" class="numfld"></div>
       <div class="efield"><label>Lista de espera <span style="font-weight:400;color:var(--dim);">(0 si no hay)</span></label><input data-f="lista_espera" type="text" inputmode="decimal" class="numfld"></div>
     </div>
-    <div class="efield"><label>Moneda <span style="font-weight:400;color:var(--dim);">(todo se captura en MXN; USD se convierte solo — TC $18, ligeramente redondeado hacia arriba)</span></label>
+    <div class="efield"><label>Moneda <span style="font-weight:400;color:var(--dim);">(la colegiatura, el costo por alumno y el descuento se capturan en la moneda elegida; los precios SuperLeads se derivan solos — TC $18, ligeramente redondeado hacia arriba)</span></label>
       <div class="segpills" id="monedaPills">
         <div class="segpill" data-mon="mxn">Pesos (MXN)</div>
         <div class="segpill" data-mon="usd">Dólares (USD)</div>
@@ -1913,10 +1913,10 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
       <input type="hidden" data-f="moneda">
     </div>
     <div class="erow2">
-      <div class="efield"><label>Colegiatura mensual</label><input data-f="colegiatura_mensual" type="text" inputmode="decimal" class="numfld"></div>
+      <div class="efield"><label>Colegiatura mensual <span class="monCampo" style="font-weight:400;color:var(--dim);"></span></label><input data-f="colegiatura_mensual" type="text" inputmode="decimal" class="numfld"></div>
       <div class="efield"><label>Meses de permanencia</label><input data-f="meses_permanencia" type="text" inputmode="decimal" class="numfld"></div>
     </div>
-    <div class="efield"><label>Costo por alumno (ads)</label><input data-f="costo_por_alumno" type="text" inputmode="decimal" class="numfld"></div>
+    <div class="efield"><label>Costo por alumno (ads) <span class="monCampo" style="font-weight:400;color:var(--dim);"></span></label><input data-f="costo_por_alumno" type="text" inputmode="decimal" class="numfld"></div>
     <div class="efield" id="mejoraField">
       <label>Mejora conservadora de conversión</label>
       <div style="display:flex;align-items:center;gap:10px;background:#fafbff;border:1px solid var(--border);border-radius:8px;padding:6px 10px;">
@@ -1970,7 +1970,7 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
       <input type="checkbox" id="sinPreciosChk" style="width:16px;height:16px;accent-color:#13B36E;">
       <span>Presentar sin precios<span style="display:block;font-size:11.5px;font-weight:600;color:var(--dim);margin-top:2px;">Para auditorio: se ven los productos y la estructura, pero ninguna cifra de dinero. Vive aquí porque es una variante de cómo se presenta el precio, no un modo aparte.</span></span>
     </label>
-    <div class="efield"><label>Descuento mensual <span style="font-weight:400;color:var(--dim);">(siempre en MXN; 0 = sin descuento)</span></label><input data-f="descuento" type="text" inputmode="decimal" class="numfld"></div>
+    <div class="efield"><label>Descuento mensual <span class="monCampo" style="font-weight:400;color:var(--dim);"></span> <span style="font-weight:400;color:var(--dim);">(0 = sin descuento)</span></label><input data-f="descuento" type="text" inputmode="decimal" class="numfld"></div>
     <div class="efield"><label>Link de la propuesta <span style="font-weight:400;color:var(--dim);">(vacío = sin botón; NUNCA hay uno por default — solo el de este cliente)</span></label><input data-f="link_propuesta" type="text" placeholder="https://…"></div>
     <div class="efield"><label>Caso de éxito <span style="font-weight:400;color:var(--dim);">(Auto lo elige según su perfil)</span></label>
       <select data-f="caso_id" id="casoSelect" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:9px 11px;font-size:13.5px;font-family:inherit;color:#1a1a1a;background:#fafbff;">
@@ -2004,8 +2004,13 @@ Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclus
     </div>
     <div id="preciosModalNota" style="font-size:12.5px;color:var(--dim);font-weight:600;margin-bottom:14px;"></div>
     <table style="width:100%;border-collapse:collapse;font-size:13.5px;">
+      <tr style="text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;">
+        <th></th>
+        <th style="padding:8px 6px;color:var(--muted);">Suelto</th>
+        <th colspan="3" style="padding:8px 10px;color:var(--blue);background:var(--blue-softer);border-radius:10px 10px 0 0;border-left:3px solid var(--blue-mid);">📦 En paquete — una sola decisión</th>
+      </tr>
       <tr style="text-align:left;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;">
-        <th style="padding:8px 6px;">Segmento</th><th style="padding:8px 6px;">CRM solo</th><th style="padding:8px 6px;">CRM en paquete</th><th style="padding:8px 6px;">Dir. Estratégica</th><th style="padding:8px 6px;">Atracción Int.</th>
+        <th style="padding:8px 6px;">Segmento</th><th style="padding:8px 6px;">CRM solo</th><th style="padding:8px 6px;background:var(--blue-softer);border-left:3px solid var(--blue-mid);">CRM</th><th style="padding:8px 6px;background:var(--blue-softer);">Dir. Estratégica</th><th style="padding:8px 6px;background:var(--blue-softer);">Atracción Int.</th>
       </tr>
       <tbody id="preciosGrid"></tbody>
     </table>
@@ -3038,13 +3043,51 @@ function fmtNumFld(el){
   const v = parseNumFld(el.value);
   el.value = Number.isInteger(v) ? mxNum(v) : mxNum(v, 2);
 }
+/* ===== Campos de dinero del prospecto: se CAPTURAN en la moneda elegida =====
+   DATA los guarda SIEMPRE en MXN (la base canónica de todo el archivo), pero en el
+   formulario se escriben y se leen en la moneda de la presentación: si es USD, el
+   comercial teclea la colegiatura real en dólares (p. ej. 384) y el sistema guarda
+   384×18 = 6,912 MXN. Antes estos campos se interpretaban siempre como MXN, y en la
+   primera presentación en dólares eso rompió toda la matemática de retorno. */
+const CAMPOS_DINERO_PROSPECTO = ['colegiatura_mensual','costo_por_alumno','descuento'];
+function monedaDelFormulario(){
+  const inp = document.querySelector('#editForm [data-f="moneda"]');
+  return (inp && inp.value==='usd') ? 'usd' : 'mxn';
+}
+/* Actualiza las etiquetas «(USD)/(MXN)» junto a los campos de dinero del prospecto. */
+function pintarMonedaCampos(){
+  const usd = monedaDelFormulario()==='usd';
+  document.querySelectorAll('.monCampo').forEach(s=>{
+    s.textContent = usd ? 'en USD' : 'en MXN';
+    s.style.color = usd ? 'var(--green-d)' : '';
+    s.style.fontWeight = usd ? '800' : '';
+  });
+}
+/* Al cambiar la moneda con el formulario abierto, lo ya tecleado se convierte en vivo
+   para que el número siga significando lo mismo (384 USD ↔ 6,912 MXN). */
+function convertirCamposDineroForm(monPrev, monNueva){
+  if(monPrev === monNueva) return;
+  CAMPOS_DINERO_PROSPECTO.forEach(k=>{
+    const el = document.querySelector('#editForm [data-f="'+k+'"]');
+    if(!el) return;
+    const v = parseNumFld(el.value);
+    const nuevo = (monNueva==='usd') ? v / TIPO_CAMBIO : v * TIPO_CAMBIO;
+    el.value = Math.round(nuevo*100)/100;
+    fmtNumFld(el);
+  });
+  pintarMonedaCampos();
+}
 /* Llena el panel «Editar datos» con los valores actuales de DATA — lo opuesto al
    submit del formulario, que lee el panel y escribe de vuelta a DATA. */
 function populateForm(){
+  const usd = DATA.moneda === 'usd';
   document.querySelectorAll('#editForm [data-f]').forEach(el=>{
     const k = el.dataset.f;
     if(!(k in DATA)) return;
-    el.value = DATA[k];
+    let v = DATA[k];
+    // dinero del prospecto: DATA está en MXN; el formulario habla la moneda elegida
+    if(usd && CAMPOS_DINERO_PROSPECTO.includes(k)) v = Math.round((+v||0) / TIPO_CAMBIO * 100)/100;
+    el.value = v;
     if(el.classList && el.classList.contains('numfld')) fmtNumFld(el);
   });
   setSegPill(DATA.segmento);
@@ -3054,6 +3097,7 @@ function populateForm(){
   setEscalaPill(DATA.imagen_escala || 'auto');
   setToolPills(DATA.herramienta_actual);
   actualizarCajaUrl();
+  pintarMonedaCampos();
 }
 document.addEventListener('DOMContentLoaded', ()=>{
   document.querySelectorAll('#segPills .segpill').forEach(p=>{
@@ -3063,7 +3107,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
     p.addEventListener('click', ()=> setPaquetePill(p.dataset.paq));
   });
   document.querySelectorAll('#monedaPills .segpill').forEach(p=>{
-    p.addEventListener('click', ()=> setMonedaPill(p.dataset.mon));
+    p.addEventListener('click', ()=>{
+      const prev = monedaDelFormulario();
+      setMonedaPill(p.dataset.mon);
+      convertirCamposDineroForm(prev, p.dataset.mon); // lo tecleado sigue valiendo lo mismo
+    });
   });
   document.querySelectorAll('#comercialPills .segpill').forEach(p=>{
     p.addEventListener('click', ()=> setComercialPill(p.dataset.com));
@@ -3161,7 +3209,11 @@ function abrirPreciosModal(){
     const v = preciosVigentes(seg);
     const inp = (campo, mxnVal)=>{
       const shown = fmtPrecioVal(mxnVal);
-      return '<td style="padding:6px;"><div style="display:flex;align-items:center;gap:4px;border:1px solid var(--border);border-radius:8px;background:#fafbff;padding:0 0 0 9px;"><span style="font-size:11.5px;font-weight:700;color:var(--muted);">'+pref+'</span>'
+      // Las columnas «en paquete» van sombreadas en azul, para leerse como un bloque
+      // aparte del CRM suelto; la primera lleva el filo azul que abre el grupo.
+      const enPaquete = campo !== 'crm';
+      const tdEstilo = 'padding:6px;' + (enPaquete ? 'background:var(--blue-softer);' : '') + (campo==='crm_paquete' ? 'border-left:3px solid var(--blue-mid);' : '');
+      return '<td style="'+tdEstilo+'"><div style="display:flex;align-items:center;gap:4px;border:1px solid var(--border);border-radius:8px;background:#fff;padding:0 0 0 9px;"><span style="font-size:11.5px;font-weight:700;color:var(--muted);">'+pref+'</span>'
         +'<input data-pseg="'+seg+'" data-pcampo="'+campo+'" data-init="'+shown+'" type="text" inputmode="numeric" value="'+shown+'" style="width:100%;border:none;background:transparent;padding:8px 10px 8px 0;font-size:13.5px;font-family:inherit;outline:none;"></div></td>';
     };
     return '<tr style="border-top:.5px solid var(--border);"><td style="padding:8px 6px;font-weight:700;color:var(--navy-deep);">'+PRECIOS[seg].label+'</td>'
@@ -3178,9 +3230,11 @@ function abrirPreciosModal(){
 }
 document.querySelectorAll('#preciosMonedaPills button').forEach(b=>{
   b.addEventListener('click', ()=>{
-    if(precioMoneda()===b.dataset.pmon) return;
+    const prev = precioMoneda();
+    if(prev===b.dataset.pmon) return;
     DATA.moneda = b.dataset.pmon;
     setMonedaPill(DATA.moneda);
+    convertirCamposDineroForm(prev, DATA.moneda); // si DATOS está abierto, sus campos siguen valiendo lo mismo
     renderData(); saveData(); guardarHistorial();
     abrirPreciosModal();
   });
@@ -3472,11 +3526,14 @@ document.getElementById('editForm').addEventListener('submit', (e)=>{
     campoColegio.focus();
     return;
   }
+  const monForm = monedaDelFormulario();
   document.querySelectorAll('#editForm [data-f]').forEach(el=>{
     const k = el.dataset.f;
     let v = el.value;
     if(el.classList && el.classList.contains('numfld')) v = parseNumFld(v);
     else if(el.type==='number') v = parseFloat(v);
+    // dinero del prospecto tecleado en USD → se guarda en MXN (la base de todo el cálculo)
+    if(monForm==='usd' && CAMPOS_DINERO_PROSPECTO.includes(k)) v = Math.round((+v||0) * TIPO_CAMBIO * 100)/100;
     DATA[k] = v;
   });
   scaleManual = false;
