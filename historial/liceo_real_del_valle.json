@@ -2,8 +2,8 @@
   "colegio": "Liceo Real del Valle",
   "ciudad": "Tecamac, Edo de México",
   "comercial": "victor",
-  "guardado": "13 ago 2026, 12:24 p.m.",
-  "guardado_ts": 1786645459141,
+  "guardado": "13 ago 2026, 12:27 p.m.",
+  "guardado_ts": 1786645637512,
   "data": {
     "colegio": "Liceo Real del Valle",
     "prospecto_nombre": "Abel Pérez",
@@ -14,7 +14,7 @@
     "pais": "México",
     "fecha_presentacion": "13 de agosto de 2026 · 11:08 a.m.",
     "segmento": "k12",
-    "paquete": "estrategia",
+    "paquete": "todo",
     "moneda": "mxn",
     "comercial": "victor",
     "notas_slide": {},
@@ -32,7 +32,7 @@
       "maquina": true
     },
     "sin_precios": false,
-    "sello_captura": "2026-08-13 11:17:56",
+    "sello_captura": "2026-08-13 12:27:17",
     "antiguedad_anios": 0,
     "leads_dia": 4,
     "tasa_conversion": 4.8,
