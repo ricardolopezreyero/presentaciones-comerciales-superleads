@@ -2,8 +2,8 @@
   "colegio": "Colegio Saint Du Val de Mty",
   "ciudad": "San Nicolás de los Garza",
   "comercial": "ricardo",
-  "guardado": "17 ago 2026, 09:48 a.m.",
-  "guardado_ts": 1786981737820,
+  "guardado": "17 ago 2026, 09:49 a.m.",
+  "guardado_ts": 1786981758601,
   "data": {
     "colegio": "Colegio Saint Du Val de Mty",
     "prospecto_nombre": "Shanty Sandoval",
@@ -24,12 +24,30 @@
       "radar": true,
       "referidos": true,
       "academia": true,
-      "form_uni": true
+      "form_uni": true,
+      "integraciones": true,
+      "maquina": true
     },
-    "productos_orden": [],
-    "productos_manual": {},
+    "productos_orden": [
+      "whatsapp",
+      "constanza",
+      "torre",
+      "crm",
+      "calendario",
+      "form_k12",
+      "academia",
+      "maquina",
+      "radar",
+      "referidos",
+      "integraciones",
+      "form_uni"
+    ],
+    "productos_manual": {
+      "integraciones": true,
+      "maquina": true
+    },
     "sin_precios": false,
-    "sello_captura": "2026-08-17 09:48:57",
+    "sello_captura": "2026-08-17 09:49:18",
     "antiguedad_anios": 13,
     "leads_dia": 7.5,
     "tasa_conversion": 1.83,
