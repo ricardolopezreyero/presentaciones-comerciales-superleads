@@ -1502,7 +1502,7 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
     <div class="roadmap">
       <div class="rm-node"><div class="rm-dot">1</div><div class="rm-plazo">HOY</div><div class="rm-t">Les mando todo</div><div class="rm-d">Presentación y propuesta formal, por WhatsApp y por correo.</div></div>
       <div class="rm-node"><div class="rm-dot">2</div><div class="rm-plazo">+1 a 2 días</div><div class="rm-t">Lo leen con calma</div><div class="rm-d">Lo revisan con el contador y resolvemos cualquier duda que salga.</div></div>
-      <div class="rm-node"><div class="rm-dot">3</div><div class="rm-plazo">+3 días</div><div class="rm-t">Firman y arrancamos</div><div class="rm-d">Se abre la cuenta, entra el equipo al grupo y empieza la implementación.</div></div>
+      <div class="rm-node"><div class="rm-dot">3</div><div class="rm-plazo">+3 días</div><div class="rm-t">Deciden y arrancan</div><div class="rm-d">Se abre la cuenta, entra el equipo al grupo y empieza la implementación.</div></div>
     </div>
   </div>
     <div style="margin-top:18px;border:.5px solid var(--green-d);background:rgba(86,239,159,.08);border-radius:16px;padding:18px 34px;max-width:1080px;margin-left:auto;margin-right:auto;text-align:center;">
@@ -1523,9 +1523,9 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
         <a id="ctaCronMxn" href="https://superleads.mx/activa-tu-cuenta" target="_blank" rel="noopener" class="btn-activar" style="font-size:14.5px;padding:10px 20px;">Crear cuenta · MXN</a>
         <a id="ctaCronUsd" href="https://superleads.mx/activa-tu-cuenta-usd" target="_blank" rel="noopener" class="btn-activar" style="font-size:14.5px;padding:10px 20px;display:none;">Crear cuenta · USD</a>
       </div></div></div>
-    <div class="step-row"><div class="num-badge">2</div><div style="flex:1;"><div class="t">Firma de la propuesta</div><div class="d">El día que ustedes consideren óptimo. Factura en la moneda elegida — MXN (Afirme, 100% mexicana) o USD por link de pago.</div>
+    <div class="step-row" id="stepFirmaPropuesta"><div class="num-badge">2</div><div style="flex:1;"><div class="t">Firma de la propuesta</div><div class="d">El día que ustedes consideren óptimo. Factura en la moneda elegida — MXN (Afirme, 100% mexicana) o USD por link de pago.</div>
       <div style="margin-top:10px;"><a id="linkPropuesta" href="#" target="_blank" rel="noopener" class="btn-activar-sec" style="font-size:13.5px;padding:9px 18px;display:none;">Ver su propuesta</a></div></div></div>
-    <div class="step-row"><div class="num-badge">3</div><div style="flex:1;"><div class="t">Alta y transferencia</div><div class="d">La inversión en tecnología + metodología + soporte + estrategia. Esta transferencia no es un pago: es adquirir un sistema de inscripciones funcionando para su colegio.</div>
+    <div class="step-row" id="stepAltaTransferencia"><div class="num-badge">3</div><div style="flex:1;"><div class="t">Alta y transferencia</div><div class="d">La inversión en tecnología + metodología + soporte + estrategia. Esta transferencia no es un pago: es adquirir un sistema de inscripciones funcionando para su colegio.</div>
       <div style="margin-top:10px;"><a href="https://drive.google.com/file/d/1DAAcw3Y5zoEqhKd9VDLaO8SQ3pgN8FJN/view" target="_blank" rel="noopener" class="btn-activar-sec" style="font-size:13.5px;padding:9px 18px;">Formato de alta de cuenta</a></div></div></div>
     <div class="px-off" style="margin-top:6px;padding:14px 20px;border-left:3px solid var(--green-d);background:rgba(86,239,159,.06);border-radius:0 12px 12px 0;font-size:16.5px;font-weight:700;color:var(--navy-deep);">Al alumno <span style="color:var(--green-d);" data-bind="alumnos_breakeven" data-fmt="dec2"></span> salimos gratis — y de ahí, nos quedamos buscando subir su matrícula.</div>
   </div>
@@ -1776,6 +1776,10 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
     </label>
     <div class="efield"><label>Descuento mensual <span class="monCampo" style="font-weight:400;color:var(--dim);"></span> <span style="font-weight:400;color:var(--dim);">(0 = sin descuento)</span></label><input data-f="descuento" type="text" inputmode="decimal" class="numfld"></div>
     <div class="efield"><label>Link de la propuesta <span style="font-weight:400;color:var(--dim);">(vacío = sin botón; NUNCA hay uno por default — solo el de este cliente)</span></label><input data-f="link_propuesta" type="text" placeholder="https://…"></div>
+    <label id="omitirPropuestaBox" style="display:flex;align-items:center;gap:11px;font-size:13.5px;font-weight:700;color:var(--navy-deep);cursor:pointer;border:.5px solid var(--border);border-radius:10px;padding:11px 14px;background:var(--blue-soft);margin-bottom:16px;">
+      <input type="checkbox" id="omitirPropuestaChk" style="width:16px;height:16px;accent-color:var(--green-d);">
+      <span>Omitir paso de firma de propuesta<span style="display:block;font-size:11.5px;font-weight:600;color:var(--dim);margin-top:2px;">Para cuando este cliente no tiene propuesta formal todavía. En «¿Qué sigue?» desaparece ese paso y quedan solo Creación de cuenta y Transferencia.</span></span>
+    </label>
     <div class="efield"><label>Caso de éxito <span style="font-weight:400;color:var(--dim);">(Auto lo elige según su perfil)</span></label>
       <div class="segpills" id="casoPills">
         <div class="segpill" data-caso="auto">Auto</div>
@@ -1913,6 +1917,7 @@ let DATA = {
   productos_orden:[],
   productos_manual:{},
   sin_precios:false,
+  omitir_propuesta:false,
   sello_captura:"",
   antiguedad_anios:30,
   leads_dia:30,
@@ -2152,6 +2157,19 @@ function renderData(){
     const url = (DATA.link_propuesta || '').trim();
     if(url){ lp.href = url; lp.style.display = 'inline-flex'; }
     else { lp.removeAttribute('href'); lp.style.display = 'none'; }
+  }
+  // Paso "Firma de la propuesta" (Anexo · Cómo se activa): opcional — el comercial lo
+  // apaga a mano desde DATOS cuando ese cliente no tiene (o no debe ver todavía) una
+  // propuesta formal. No depende de si hay link capturado, es una decisión aparte.
+  const stepFirma = document.getElementById('stepFirmaPropuesta');
+  const stepAlta = document.getElementById('stepAltaTransferencia');
+  if(stepFirma && stepAlta){
+    const omitir = !!DATA.omitir_propuesta;
+    stepFirma.style.display = omitir ? 'none' : '';
+    const badgeAlta = stepAlta.querySelector('.num-badge');
+    const tituloAlta = stepAlta.querySelector('.t');
+    if(badgeAlta) badgeAlta.textContent = omitir ? '2' : '3';
+    if(tituloAlta) tituloAlta.textContent = omitir ? 'Transferencia' : 'Alta y transferencia';
   }
   const ctaM = document.getElementById('btnCtaMxn'), ctaU = document.getElementById('btnCtaUsd');
   if(ctaM && ctaU){
@@ -3066,6 +3084,18 @@ sinPreciosChk.addEventListener('change', ()=>{
   DATA.sin_precios = sinPreciosChk.checked;
   sinSalto(()=>{ pintarSinPrecios(); renderData(); saveData(); guardarHistorial(); });
 });
+const omitirPropuestaChk = document.getElementById('omitirPropuestaChk');
+function pintarOmitirPropuesta(){
+  const on = !!DATA.omitir_propuesta;
+  omitirPropuestaChk.checked = on;
+  const box = document.getElementById('omitirPropuestaBox');
+  box.style.background = on ? 'rgba(86,239,159,.09)' : 'var(--blue-soft)';
+  box.style.borderColor = on ? 'var(--green-d)' : 'var(--border)';
+}
+omitirPropuestaChk.addEventListener('change', ()=>{
+  DATA.omitir_propuesta = omitirPropuestaChk.checked;
+  pintarOmitirPropuesta(); renderData(); saveData(); guardarHistorial();
+});
 document.getElementById('btnPrecios').addEventListener('click', abrirPreciosModal);
 document.getElementById('preciosCerrar').addEventListener('click', ()=>{ document.getElementById('preciosModal').style.display='none'; });
 document.getElementById('preciosReset').addEventListener('click', ()=>{
@@ -3383,6 +3413,7 @@ function nuevaPresentacionEnBlanco(){
   applyToggles();
   renderProductosToggles();
   pintarSinPrecios();
+  pintarOmitirPropuesta();
   render();
   renderData();
   saveData();
@@ -3737,6 +3768,7 @@ async function inicializar(){
   applyToggles();
   renderProductosToggles();
   pintarSinPrecios();
+  pintarOmitirPropuesta();
   renderData();
   setSegPill(DATA.segmento);
   setPaquetePill(DATA.paquete || 'estrategia');
