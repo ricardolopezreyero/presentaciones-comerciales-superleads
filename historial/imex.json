@@ -3,7 +3,7 @@
   "ciudad": "Puebla",
   "comercial": "ricardo",
   "guardado": "18 ago 2026, 09:43 a.m.",
-  "guardado_ts": 1787067795305,
+  "guardado_ts": 1787067810718,
   "data": {
     "colegio": "IMEX",
     "prospecto_nombre": "Eidri Zamora",
@@ -23,9 +23,9 @@
     "productos_off": {
       "radar": true,
       "referidos": true,
-      "academia": true,
       "integraciones": true,
-      "form_uni": true
+      "form_uni": true,
+      "maquina": true
     },
     "productos_orden": [
       "torre",
@@ -45,11 +45,12 @@
       "form_uni": true,
       "form_k12": true,
       "integraciones": true,
-      "maquina": true
+      "maquina": true,
+      "academia": true
     },
     "sin_precios": false,
     "omitir_propuesta": true,
-    "sello_captura": "2026-08-18 09:43:15",
+    "sello_captura": "2026-08-18 09:43:30",
     "antiguedad_anios": 30,
     "leads_dia": 26,
     "tasa_conversion": 2.27,
