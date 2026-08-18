@@ -281,6 +281,19 @@ body.sin-precios .px-blank{visibility:hidden;}
 .rm-t{font-weight:800;font-size:18px;color:#fff;margin-bottom:6px;}
 .rm-d{font-size:14px;color:#7a9fd4;line-height:1.4;}
 
+/* ===== organigrama del equipo (quién los acompaña) ===== */
+.teamRoot{background:var(--green);color:var(--navy-deep);font-weight:800;font-size:18px;padding:14px 30px;border-radius:12px;text-align:center;position:relative;}
+.teamRoot span{display:block;font-size:11px;font-weight:700;color:var(--navy-deep);opacity:.65;margin-top:3px;text-transform:uppercase;letter-spacing:.6px;}
+.teamRoot::after{content:"";position:absolute;left:50%;bottom:-26px;width:2px;height:26px;background:rgba(255,255,255,.18);}
+.teamTree{display:flex;justify-content:center;gap:28px;margin-top:52px;position:relative;}
+.teamTree::before{content:"";position:absolute;top:-26px;left:16.6%;right:16.6%;height:2px;background:rgba(255,255,255,.18);}
+.teamBranch{flex:1;max-width:260px;display:flex;flex-direction:column;align-items:stretch;gap:10px;position:relative;}
+.teamBranch::before{content:"";position:absolute;top:-26px;left:50%;width:2px;height:26px;background:rgba(255,255,255,.18);}
+.teamNode{background:rgba(255,255,255,.05);border:.5px solid rgba(255,255,255,.14);border-radius:10px;padding:11px 14px;font-size:13.5px;font-weight:700;color:#fff;text-align:center;}
+.teamNode.main{background:rgba(86,239,159,.1);border-color:rgba(86,239,159,.3);color:var(--green);font-size:14.5px;}
+.teamSub{display:flex;flex-direction:column;gap:8px;margin-top:2px;}
+.teamSub .teamNode{color:#7a9fd4;font-weight:600;font-size:12.5px;}
+
 /* ===== scale image switcher ===== */
 .scale-thumbs{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;gap:10px;z-index:5;}
 .scale-dot{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.35);border:.5px solid rgba(255,255,255,.6);cursor:pointer;}
@@ -1462,6 +1475,38 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
   <div class="caption">Semana 5–6: los primeros «aha moments» — y ya no hay vuelta atrás.</div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">28</div>
+</section>
+
+<!-- ============ 26b EQUIPO DE IMPLEMENTACIÓN Y MANTENIMIENTO ============ -->
+<section class="slide dark" data-cat="cierre" data-notes="No los dejamos solos después de instalar — cada rol tiene dueño y nombre. DATO: el Account Manager SuperLeads es su punto de contacto único; de ahí se reparte a Implementación, a Soporte con Alex —soporte avanzado y soporte técnico— y al Líder de Growth Educativo —metas, proceso comercial y comunicación—. PRINCIPIO: instalar el sistema es el primer paso, no el último — el mantenimiento es tan importante como la instalación, y aquí se ve quién lo sostiene.">
+  <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Siguiente paso</div></div>
+  <h1>No los dejamos solos después de instalar</h1>
+  <div class="fill center" style="gap:0;">
+    <div class="teamRoot">Account Manager SuperLeads<span>su punto de contacto único</span></div>
+    <div class="teamTree">
+      <div class="teamBranch">
+        <div class="teamNode main">Implementación</div>
+      </div>
+      <div class="teamBranch">
+        <div class="teamNode main">Soporte con Alex</div>
+        <div class="teamSub">
+          <div class="teamNode">Soporte avanzado</div>
+          <div class="teamNode">Soporte técnico</div>
+        </div>
+      </div>
+      <div class="teamBranch">
+        <div class="teamNode main">Líder de Growth Educativo</div>
+        <div class="teamSub">
+          <div class="teamNode">Metas</div>
+          <div class="teamNode">Proceso comercial</div>
+          <div class="teamNode">Comunicación</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="caption" style="color:#7a9fd4;">Cada rol tiene dueño y nombre — implementación, soporte y crecimiento, siempre con alguien del otro lado.</div>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
+  <div class="slide-num">28b</div>
 </section>
 
 <!-- ============ 27 LO QUE NO VAMOS A PEDIR ============ -->
