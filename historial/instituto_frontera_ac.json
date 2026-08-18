@@ -2,8 +2,8 @@
   "colegio": "Instituto Frontera AC",
   "ciudad": "Tijuana",
   "comercial": "ricardo",
-  "guardado": "10 ago 2026, 10:36 a.m.",
-  "guardado_ts": 1786379775593,
+  "guardado": "18 ago 2026, 08:13 a.m.",
+  "guardado_ts": 1787062389095,
   "data": {
     "colegio": "Instituto Frontera AC",
     "prospecto_nombre": "Verónica García",
@@ -23,16 +23,21 @@
     "productos_off": {
       "radar": true,
       "referidos": true,
-      "academia": true
+      "academia": true,
+      "form_uni": true
     },
     "productos_orden": [],
-    "sedes": 1,
+    "productos_manual": {},
+    "sin_precios": false,
+    "omitir_propuesta": true,
+    "sello_captura": "",
     "antiguedad_anios": 30,
     "leads_dia": 30,
     "tasa_conversion": 3.95,
     "tasa_cita_alumno": 40,
     "matricula_actual": 433,
     "capacidad_instalada": 1400,
+    "lista_espera": 0,
     "colegiatura_mensual": 2100,
     "meses_permanencia": 24,
     "costo_por_alumno": 3380,
@@ -43,6 +48,7 @@
     "descuento": 0,
     "imagen_escala": "auto",
     "caso_id": "auto",
-    "link_propuesta": ""
+    "link_propuesta": "",
+    "sedes": 1
   }
 }
