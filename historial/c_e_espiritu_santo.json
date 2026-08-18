@@ -2,8 +2,8 @@
   "colegio": "C. E. Espiritu Santo",
   "ciudad": "Guayaquil",
   "comercial": "ricardo",
-  "guardado": "18 ago 2026, 08:26 a.m.",
-  "guardado_ts": 1787063177420,
+  "guardado": "18 ago 2026, 09:40 a.m.",
+  "guardado_ts": 1787067607833,
   "data": {
     "colegio": "C. E. Espiritu Santo",
     "prospecto_nombre": "Ximena Martinez Toral",
@@ -73,7 +73,7 @@
     "mejora_conservadora": 2,
     "descuento": 0,
     "imagen_escala": "salon",
-    "caso_id": "auto",
+    "caso_id": "harkness",
     "link_propuesta": ""
   }
 }
