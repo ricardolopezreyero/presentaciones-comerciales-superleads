@@ -3,7 +3,7 @@
   "ciudad": "Puebla",
   "comercial": "ricardo",
   "guardado": "18 ago 2026, 09:44 a.m.",
-  "guardado_ts": 1787067873732,
+  "guardado_ts": 1787067876922,
   "data": {
     "colegio": "IMEX",
     "prospecto_nombre": "Eidri Zamora",
@@ -55,7 +55,7 @@
     },
     "sin_precios": false,
     "omitir_propuesta": true,
-    "sello_captura": "2026-08-18 09:43:30",
+    "sello_captura": "2026-08-18 09:44:36",
     "antiguedad_anios": 30,
     "leads_dia": 26,
     "tasa_conversion": 2.27,
