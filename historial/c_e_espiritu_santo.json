@@ -2,8 +2,8 @@
   "colegio": "C. E. Espiritu Santo",
   "ciudad": "Guayaquil",
   "comercial": "ricardo",
-  "guardado": "18 ago 2026, 12:01 p.m.",
-  "guardado_ts": 1787076069451,
+  "guardado": "18 ago 2026, 12:39 p.m.",
+  "guardado_ts": 1787078390924,
   "data": {
     "colegio": "C. E. Espiritu Santo",
     "prospecto_nombre": "Ximena Martinez Toral",
@@ -18,7 +18,10 @@
     "moneda": "usd",
     "comercial": "ricardo",
     "notas_slide": {},
-    "semaforo_override": {},
+    "semaforo_override": {
+      "ocupacion": "amarillo",
+      "pct_referidos": "amarillo"
+    },
     "precios_override": {
       "k12": {
         "crm_paquete": 10800,
@@ -30,7 +33,6 @@
       "radar": true,
       "referidos": true,
       "academia": true,
-      "integraciones": true,
       "form_uni": true,
       "maquina": true
     },
@@ -56,7 +58,7 @@
     },
     "sin_precios": false,
     "omitir_propuesta": true,
-    "sello_captura": "2026-08-18 12:01:09",
+    "sello_captura": "2026-08-18 12:39:50",
     "antiguedad_anios": 70,
     "leads_dia": 7,
     "tasa_conversion": 12,
@@ -73,7 +75,7 @@
     "mejora_conservadora": 2,
     "descuento": 0,
     "imagen_escala": "salon",
-    "caso_id": "harkness",
+    "caso_id": "pilar",
     "link_propuesta": ""
   }
 }
