@@ -2,8 +2,8 @@
   "colegio": "Instituto Frontera AC",
   "ciudad": "Tijuana",
   "comercial": "ricardo",
-  "guardado": "18 ago 2026, 08:13 a.m.",
-  "guardado_ts": 1787062389095,
+  "guardado": "18 ago 2026, 02:52 p.m.",
+  "guardado_ts": 1787086372379,
   "data": {
     "colegio": "Instituto Frontera AC",
     "prospecto_nombre": "Verónica García",
@@ -12,7 +12,7 @@
     "prospecto_2_cargo": "Contador",
     "ciudad": "Tijuana",
     "pais": "México",
-    "fecha_presentacion": "11 de agosto de 2026",
+    "fecha_presentacion": "18 de agosto de 2026 · 2:51 p.m.",
     "segmento": "k12",
     "paquete": "estrategia",
     "moneda": "mxn",
@@ -27,10 +27,15 @@
       "form_uni": true
     },
     "productos_orden": [],
-    "productos_manual": {},
+    "productos_manual": {
+      "academia": true,
+      "maquina": true,
+      "referidos": true,
+      "form_k12": true
+    },
     "sin_precios": false,
-    "omitir_propuesta": true,
-    "sello_captura": "",
+    "omitir_propuesta": false,
+    "sello_captura": "2026-08-18 14:51:40",
     "antiguedad_anios": 30,
     "leads_dia": 30,
     "tasa_conversion": 3.95,
@@ -48,7 +53,6 @@
     "descuento": 0,
     "imagen_escala": "auto",
     "caso_id": "auto",
-    "link_propuesta": "",
-    "sedes": 1
+    "link_propuesta": ""
   }
 }
