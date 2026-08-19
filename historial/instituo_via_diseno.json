@@ -2,8 +2,8 @@
   "colegio": "Instituo Vía Diseño",
   "ciudad": "Tijuana",
   "comercial": "ricardo",
-  "guardado": "19 ago 2026, 11:48 a.m.",
-  "guardado_ts": 1787161725263,
+  "guardado": "19 ago 2026, 11:59 a.m.",
+  "guardado_ts": 1787162380404,
   "data": {
     "colegio": "Instituo Vía Diseño",
     "prospecto_nombre": "Verónica García",
@@ -12,30 +12,48 @@
     "prospecto_2_cargo": "Contador",
     "ciudad": "Tijuana",
     "pais": "México",
-    "fecha_presentacion": "11 de agosto de 2026",
+    "fecha_presentacion": "19 de agosto de 2026 · 11:56 a.m.",
     "segmento": "k12",
     "paquete": "estrategia",
     "moneda": "mxn",
     "comercial": "ricardo",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "grupo": {
+        "crm_paquete": 15000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
-      "academia": true,
-      "form_uni": true
+      "maquina": true,
+      "form_k12": true
     },
-    "productos_orden": [],
+    "productos_orden": [
+      "calendario",
+      "whatsapp",
+      "torre",
+      "constanza",
+      "crm",
+      "academia",
+      "integraciones",
+      "maquina",
+      "radar",
+      "referidos",
+      "form_k12",
+      "form_uni"
+    ],
     "productos_manual": {
       "academia": true,
       "maquina": true,
       "referidos": true,
-      "form_k12": true
+      "form_k12": true,
+      "form_uni": true
     },
     "sin_precios": false,
     "omitir_propuesta": false,
-    "sello_captura": "2026-08-19 11:48:45",
+    "sello_captura": "2026-08-19 11:56:38",
     "antiguedad_anios": 30,
     "leads_dia": 30,
     "tasa_conversion": 3.95,
