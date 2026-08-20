@@ -96,6 +96,9 @@ h2{font-size:28px;font-weight:700;letter-spacing:-.4px;line-height:1.2;margin:0 
 .dark .sub,.blue .sub{color:var(--green);}
 
 .stat-hero{font-weight:800;letter-spacing:-3px;line-height:.95;font-size:clamp(70px,11vw,150px);color:var(--navy-deep);font-variant-numeric:tabular-nums;}
+/* Etiqueta MXN/USD junto a cualquier cifra de dinero — tamaño topado (no puramente
+   relativo) para que en un stat-hero de 150px se vea como unidad, no como titular. */
+.cur-tag{display:inline-block;font-size:clamp(9px,.22em,14px);font-weight:800;letter-spacing:.05em;margin-left:.3em;opacity:.55;text-transform:uppercase;white-space:nowrap;}
 .dark .stat-hero, .blue .stat-hero{color:#fff;}
 .stat-hero.green{color:var(--green-d);}
 .dark .stat-hero.green, .blue .stat-hero.green{color:var(--green);}
@@ -318,18 +321,28 @@ body.sin-precios .px-blank{visibility:hidden;}
 @media (prefers-reduced-motion:reduce){.rnodo{animation:none;}}
 @keyframes vivoPulso{0%,100%{opacity:1;}50%{opacity:.35;}}
 
-/* ===== organigrama del equipo (quién los acompaña) ===== */
+/* ===== organigrama del equipo (quién los acompaña) =====
+   Interactivo: pasar el mouse resalta el rol para hablar de él en vivo; un clic lo deja
+   «encendido» — verde sólido, guardado en DATA.equipo_marcas — y así viaja en el PDF/HTML
+   exportado como huella de qué le interesó al prospecto. Segundo clic lo apaga. */
 .teamRoot{background:var(--green);color:var(--navy-deep);font-weight:800;font-size:18px;padding:14px 30px;border-radius:12px;text-align:center;position:relative;}
 .teamRoot span{display:block;font-size:11px;font-weight:700;color:var(--navy-deep);opacity:.65;margin-top:3px;text-transform:uppercase;letter-spacing:.6px;}
-.teamRoot::after{content:"";position:absolute;left:50%;bottom:-26px;width:2px;height:26px;background:rgba(255,255,255,.18);}
+.teamRoot::after{content:"";position:absolute;left:50%;bottom:-26px;width:2px;height:26px;background:rgba(255,255,255,.28);}
 .teamTree{display:flex;justify-content:center;gap:28px;margin-top:52px;position:relative;}
-.teamTree::before{content:"";position:absolute;top:-26px;left:16.6%;right:16.6%;height:2px;background:rgba(255,255,255,.18);}
-.teamBranch{flex:1;max-width:260px;display:flex;flex-direction:column;align-items:stretch;gap:10px;position:relative;}
-.teamBranch::before{content:"";position:absolute;top:-26px;left:50%;width:2px;height:26px;background:rgba(255,255,255,.18);}
-.teamNode{background:rgba(255,255,255,.05);border:.5px solid rgba(255,255,255,.14);border-radius:10px;padding:11px 14px;font-size:13.5px;font-weight:700;color:#fff;text-align:center;}
-.teamNode.main{background:rgba(86,239,159,.1);border-color:rgba(86,239,159,.3);color:var(--green);font-size:14.5px;}
-.teamSub{display:flex;flex-direction:column;gap:8px;margin-top:2px;}
-.teamSub .teamNode{color:#7a9fd4;font-weight:600;font-size:12.5px;}
+.teamTree::before{content:"";position:absolute;top:-26px;left:16.6%;right:16.6%;height:2px;background:rgba(255,255,255,.28);}
+.teamBranch{flex:1;max-width:260px;display:flex;flex-direction:column;align-items:stretch;gap:0;position:relative;}
+.teamBranch::before{content:"";position:absolute;top:-26px;left:50%;width:2px;height:26px;background:rgba(255,255,255,.28);}
+.teamNode{background:rgba(255,255,255,.05);border:.5px solid rgba(255,255,255,.14);border-radius:10px;padding:11px 14px;font-size:13.5px;font-weight:700;color:#fff;text-align:center;cursor:pointer;transition:background-color .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease),transform .2s var(--ease);}
+.teamNode:hover{border-color:var(--green);background:rgba(86,239,159,.14);transform:translateY(-2px);}
+.teamNode.main{background:rgba(86,239,159,.1);border-color:rgba(86,239,159,.3);color:var(--green);font-size:14.5px;margin-bottom:14px;}
+.teamSub{display:flex;flex-direction:column;gap:8px;position:relative;padding-left:18px;}
+.teamSub::before{content:"";position:absolute;left:0;top:-6px;bottom:14px;width:2px;background:rgba(255,255,255,.28);}
+.teamSub .teamNode{color:#7a9fd4;font-weight:600;font-size:12.5px;position:relative;}
+.teamSub .teamNode::before{content:"";position:absolute;left:-18px;top:50%;width:18px;height:2px;background:rgba(255,255,255,.28);}
+.teamNode.activo{background:var(--green);border-color:var(--green);color:var(--navy-deep);}
+.teamNode.activo:hover{background:var(--green-d);}
+.teamSub .teamNode.activo{color:var(--navy-deep);font-weight:800;}
+@media print{.teamNode{cursor:default;}}
 
 /* ===== scale image switcher ===== */
 .scale-thumbs{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;gap:10px;z-index:5;}
@@ -703,8 +716,13 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
   <div class="fill center">
     <div class="stat-hero" data-bind="ltv" data-fmt="mxn"></div>
     <div class="stat-label" style="text-align:center;margin-top:4px;">cuesta cada silla vacía, en valor de vida del alumno.</div>
-    <div style="margin-top:28px;padding-top:22px;border-top:.5px solid rgba(255,255,255,.12);text-align:center;max-width:760px;">
-      <div style="font-size:15px;font-weight:600;color:#7a9fd4;line-height:1.5;">Multiplicado por todas sus sillas vacías, es <b style="font-size:23px;font-weight:800;color:var(--green);" data-bind="hueco_total" data-fmt="mxn"></b> — el valor que le faltaría al colegio el día que decidieran venderlo.</div>
+    <div style="margin-top:16px;display:flex;align-items:baseline;justify-content:center;gap:9px;flex-wrap:wrap;font-size:14px;font-weight:700;color:#7a9fd4;">
+      <span data-bind="colegiatura_conv" data-fmt="mxn"></span><span style="font-weight:500;">colegiatura mensual</span>
+      <span style="color:var(--dim);font-weight:800;">×</span>
+      <span data-bind="meses_permanencia" data-fmt="num"></span><span style="font-weight:500;">meses de permanencia</span>
+    </div>
+    <div style="margin-top:26px;padding-top:18px;border-top:.5px solid rgba(255,255,255,.1);text-align:center;max-width:620px;">
+      <div style="font-size:12px;font-weight:600;color:#4a6aaa;line-height:1.5;">Multiplicado por todas sus sillas vacías, es <b style="font-weight:800;color:var(--green);" data-bind="hueco_total" data-fmt="mxn"></b> — el valor que le faltaría al colegio el día que decidieran venderlo.</div>
     </div>
   </div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
@@ -807,7 +825,6 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
         </div>
       </div>
     </div>
-    <div style="margin-top:16px;font-size:16px;font-weight:700;color:var(--navy-deep);text-align:center;">Los dos caminos se suman. <span style="color:var(--muted);font-weight:600;">El orden: primero la tasa, después el volumen.</span></div>
   </div>
 <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">09</div>
@@ -1525,27 +1542,27 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
     <div class="teamRoot">Account Manager SuperLeads<span>su punto de contacto único</span></div>
     <div class="teamTree">
       <div class="teamBranch">
-        <div class="teamNode main">Implementación</div>
+        <div class="teamNode main" data-nodo="implementacion">Implementación</div>
         <div class="teamSub">
-          <div class="teamNode">Técnica</div>
-          <div class="teamNode">Metodológica</div>
-          <div class="teamNode">Estratégica</div>
+          <div class="teamNode" data-nodo="impl-tecnica">Técnica</div>
+          <div class="teamNode" data-nodo="impl-metodologica">Metodológica</div>
+          <div class="teamNode" data-nodo="impl-estrategica">Estratégica</div>
         </div>
       </div>
       <div class="teamBranch">
-        <div class="teamNode main">Soporte</div>
+        <div class="teamNode main" data-nodo="soporte">Soporte</div>
         <div class="teamSub">
-          <div class="teamNode">Alex 24/7</div>
-          <div class="teamNode">Optimización técnica</div>
-          <div class="teamNode">Sesiones en vivo semanales</div>
+          <div class="teamNode" data-nodo="soporte-alex">Alex 24/7</div>
+          <div class="teamNode" data-nodo="soporte-optimizacion">Optimización técnica</div>
+          <div class="teamNode" data-nodo="soporte-sesiones">Sesiones en vivo semanales</div>
         </div>
       </div>
       <div class="teamBranch">
-        <div class="teamNode main">Líder de Growth Educativo</div>
+        <div class="teamNode main" data-nodo="growth">Líder de Growth Educativo</div>
         <div class="teamSub">
-          <div class="teamNode">Metas</div>
-          <div class="teamNode">Proceso comercial</div>
-          <div class="teamNode">Comunicación</div>
+          <div class="teamNode" data-nodo="growth-metas">Metas</div>
+          <div class="teamNode" data-nodo="growth-proceso">Proceso comercial</div>
+          <div class="teamNode" data-nodo="growth-comunicacion">Comunicación</div>
         </div>
       </div>
     </div>
@@ -1641,17 +1658,16 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
 </section>
 
 <!-- ============ 37 CIERRE ============ -->
-<section class="slide dark" data-cat="cierre" data-notes="Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclusivo para educación privada. DATO: el acuerdo propuesto es probar y medir — ver cuántos alumnos extra se pueden generar juntos. Riesgo conocido y acotado, crecimiento abierto. TÉCNICA: cierra con un solo botón — activar la cuenta en su moneda, y empezamos.">
+<section class="slide dark" data-cat="cierre" data-notes="Ustedes tienen la institución; SuperLeads es el sistema de inscripciones exclusivo para educación privada. DATO: el acuerdo propuesto es probar y medir — ver cuántos alumnos extra se pueden generar juntos. Riesgo conocido y acotado, crecimiento abierto. TÉCNICA: cierra con un solo botón — activar la cuenta en su moneda, y empezamos. OJO: si no cierran hoy, ofrecer 20 minutos esta semana para resolver las últimas dudas de su equipo — sin ponerlo en la lámina.">
   <div class="fill center" style="gap:0;">
     <a href="https://superleads.mx" target="_blank" rel="noopener" style="display:block;"><img src="assets_deck_instituto_frontera/logo-superleads.svg" style="height:82px;" alt="SuperLeads"></a>
     <div style="width:56px;height:2px;background:var(--green);margin:26px 0;"></div>
     <div style="text-align:center;max-width:960px;font-size:31px;line-height:1.4;font-weight:800;letter-spacing:-.4px;color:#fff;">Ustedes tienen a <span style="color:var(--green);" data-bind="colegio"></span>.<br>Nosotros somos un sistema de inscripciones exclusivamente para la educación privada.</div>
-    <div style="text-align:center;font-size:20px;font-weight:600;color:#7a9fd4;margin-top:18px;">¿Lo activamos hoy, o agendamos 20 minutos esta semana para resolver las últimas dudas de su equipo?</div>
     <div style="margin-top:30px;">
       <a id="btnCierreMxn" href="https://superleads.mx/activa-tu-cuenta" target="_blank" rel="noopener" class="btn-activar" style="font-size:19px;padding:17px 40px;">Activar la cuenta de <span data-bind="colegio"></span></a>
       <a id="btnCierreUsd" href="https://superleads.mx/activa-tu-cuenta-usd" target="_blank" rel="noopener" class="btn-activar" style="font-size:19px;padding:17px 40px;display:none;">Activar la cuenta de <span data-bind="colegio"></span></a>
     </div>
-    <div style="margin-top:14px;font-size:13.5px;font-weight:700;color:#4a6aaa;letter-spacing:.2px;">Toma menos de 2 minutos · constancia de situación fiscal y tarjeta bancaria</div>
+    <div style="margin-top:14px;font-size:13.5px;font-weight:700;color:#4a6aaa;letter-spacing:.2px;">Menos de 2 minutos — solo necesitan su constancia de situación fiscal y una tarjeta a la mano.</div>
     <div style="margin-top:34px;text-align:center;">
       <div style="font-size:10.5px;letter-spacing:3px;color:var(--green);font-weight:800;text-transform:uppercase;margin-bottom:6px;">Los acompaña</div>
       <div style="font-size:19px;font-weight:800;color:#fff;line-height:1.35;" data-bind="comercial_firma"></div>
@@ -2061,6 +2077,7 @@ let DATA = {
   sin_precios:false,
   omitir_propuesta:false,
   embudo_marcas:{},
+  equipo_marcas:{},
   sello_captura:"",
   antiguedad_anios:30,
   leads_dia:30,
@@ -2114,17 +2131,25 @@ function usdNice(m){
 }
 /* Micro-costos variables en USD: /18 con redondeo hacia arriba al centavo */
 function usdMicro(m){ return Math.ceil(m / TIPO_CAMBIO * 100) / 100; }
-function money(n){
+/* Etiqueta de moneda — la guía (§8) la pide explícita en cualquier cifra con
+   posibilidad de ambigüedad, y en una llamada compartiendo pantalla siempre la hay:
+   nadie sabe de un vistazo si "$" es MXN o USD. Va en HTML (no texto plano) para
+   poder pintarla más chica que el número — moneyPlain() es la versión sin etiqueta,
+   para los pocos lugares (inputs, badges de moneda ya visibles) donde sobraría. */
+function curTag(){ return '<span class="cur-tag">'+(DATA.moneda==='usd'?'USD':'MXN')+'</span>'; }
+function moneyPlain(n){
   if(DATA.moneda === 'usd') return 'US$' + Math.round(n).toLocaleString('en-US');
   return '$' + mxNum(n);
 }
-function money2(n){
+function money2Plain(n){
   if(DATA.moneda === 'usd'){
     const opts = {minimumFractionDigits: Number.isInteger(+n) ? 0 : 2, maximumFractionDigits: 2};
     return 'US$' + Number(n).toLocaleString('en-US', opts);
   }
   return '$' + (Number.isInteger(+n) ? mxNum(n) : mxNum(n, 2));
 }
+function money(n){ return moneyPlain(n) + curTag(); }
+function money2(n){ return money2Plain(n) + curTag(); }
 /* Agrupado mexicano: 12,345 · 1'234,567 (miles coma, millones apóstrofe) */
 function mxGroup(intStr){
   const groups = [];
@@ -2204,7 +2229,7 @@ function calc(d){
   const comercial_firma = com.nombre + ' \u00b7 ' + com.email;
   const casoObj = resolveCaso(d);
   const caso_nombre = casoObj.nombre, caso_resultado = casoObj.resultado, caso_quote = casoObj.quote;
-  return Object.assign({}, d, {precio_crm, precio_estrategia, precio_atraccion, precio_base, precio_con_estrategia, precio_todo, paquete, precio_lista, descuento, precio_total, precio_anual, precio_diario, leads_anio, ocupacion, lugares_vacios, ltv, hueco_total, roas, alumnos_por_decimal, pesos_por_decimal, decimal_paso_txt, alumnos_paso, valor_paso, alumnos_breakeven, alumnos_extra, ingreso_extra_anual, estrellitas_est, valor_estrellitas, leads_adicionales_camino1, tasa_objetivo, leads_meta_2b, leads_extra_2b, perdida_pct, caso_nombre, caso_resultado, caso_quote, valor_implementacion, cuota_apertura, costo_wa, costo_correo, costo_llamada, costo_webhook, costo_constanza, comercial_firma});
+  return Object.assign({}, d, {precio_crm, precio_estrategia, precio_atraccion, precio_base, precio_con_estrategia, precio_todo, paquete, precio_lista, descuento, precio_total, precio_anual, precio_diario, leads_anio, ocupacion, lugares_vacios, ltv, hueco_total, colegiatura_conv, roas, alumnos_por_decimal, pesos_por_decimal, decimal_paso_txt, alumnos_paso, valor_paso, alumnos_breakeven, alumnos_extra, ingreso_extra_anual, estrellitas_est, valor_estrellitas, leads_adicionales_camino1, tasa_objetivo, leads_meta_2b, leads_extra_2b, perdida_pct, caso_nombre, caso_resultado, caso_quote, valor_implementacion, cuota_apertura, costo_wa, costo_correo, costo_llamada, costo_webhook, costo_constanza, comercial_firma});
 }
 
 /* Da formato a un valor calculado según su data-fmt (mxn, pct0, x1, etc.) para pintarlo
@@ -2213,7 +2238,7 @@ function fmtVal(v, fmt){
   if(v===undefined||v===null) return '';
   switch(fmt){
     case 'mxn': return money(v);
-    case 'mxnmes': return money(v)+'/mes';
+    case 'mxnmes': return moneyPlain(v)+'/mes'+curTag();
     case 'mxn2': return money2(v);
     case 'num': return numf(v);
     case 'pct0': return Math.round(v)+'%';
@@ -2250,10 +2275,12 @@ function tierChip(metric, v){
    Se llama después de cualquier cambio a DATA. */
 function renderData(){
   const c = calc(DATA);
+  const FMT_DINERO = {mxn:1, mxn2:1, mxnmes:1};
   document.querySelectorAll('[data-bind]').forEach(el=>{
     const key = el.dataset.bind;
     if(!(key in c)) return;
-    el.textContent = fmtVal(c[key], el.dataset.fmt);
+    const val = fmtVal(c[key], el.dataset.fmt);
+    if(FMT_DINERO[el.dataset.fmt]) el.innerHTML = val; else el.textContent = val;
   });
   const casoSlideSel = document.getElementById('casoSlideSelect');
   if(casoSlideSel) casoSlideSel.value = DATA.caso_id || 'auto';
@@ -2273,6 +2300,10 @@ function renderData(){
     const m = (DATA.embudo_marcas && DATA.embudo_marcas[b.dataset.etapa]) || '';
     b.classList.toggle('rojo', m==='rojo');
     b.classList.toggle('verde', m==='verde');
+  });
+  // Organigrama del equipo: repinta qué roles quedaron «encendidos» — huella de interés
+  document.querySelectorAll('.teamNode[data-nodo]').forEach(n=>{
+    n.classList.toggle('activo', !!(DATA.equipo_marcas && DATA.equipo_marcas[n.dataset.nodo]));
   });
   // Dos caminos: la barra del camino técnico es proporcional al rudo, y si la pura
   // conversión ya alcanza la meta, se muestra el total necesario — nunca un negativo.
@@ -2378,6 +2409,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
       const actual = DATA.embudo_marcas[k] || '';
       const sig = actual === '' ? 'rojo' : (actual === 'rojo' ? 'verde' : '');
       if(sig) DATA.embudo_marcas[k] = sig; else delete DATA.embudo_marcas[k];
+      renderData(); saveData();
+    });
+  });
+  document.querySelectorAll('.teamNode[data-nodo]').forEach(n=>{
+    n.addEventListener('click', ()=>{
+      if(!DATA.equipo_marcas || typeof DATA.equipo_marcas !== 'object') DATA.equipo_marcas = {};
+      const k = n.dataset.nodo;
+      if(DATA.equipo_marcas[k]) delete DATA.equipo_marcas[k]; else DATA.equipo_marcas[k] = true;
       renderData(); saveData();
     });
   });
