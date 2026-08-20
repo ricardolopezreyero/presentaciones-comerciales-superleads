@@ -281,6 +281,43 @@ body.sin-precios .px-blank{visibility:hidden;}
 .rm-t{font-weight:800;font-size:18px;color:#fff;margin-bottom:6px;}
 .rm-d{font-size:14px;color:#7a9fd4;line-height:1.4;}
 
+/* ===== SuperLeads Radio (panel flotante) y Horarios LATAM (modal) ===== */
+#musicaPanel{display:none;position:fixed;right:14px;bottom:64px;width:380px;background:var(--navy-mid);border:.5px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 14px;z-index:60;box-shadow:0 18px 50px rgba(0,18,64,.5);}
+#musicaPanel.on{display:block;}
+#musicaFrameWrap iframe{border:0;display:block;width:100%;height:152px;border-radius:10px;}
+#controls button.activo{background:var(--green);color:var(--navy-deep);}
+#horariosModal{display:none;position:fixed;inset:0;background:rgba(4,10,26,.72);z-index:85;align-items:center;justify-content:center;}
+#horariosModal.open{display:flex;}
+#horariosBox{background:var(--navy-mid);border:.5px solid rgba(255,255,255,.14);border-radius:16px;padding:24px 28px;width:760px;max-width:94vw;max-height:90vh;overflow:auto;box-shadow:0 30px 90px rgba(0,18,64,.5);}
+.hrCard{background:rgba(255,255,255,.04);border:.5px solid rgba(255,255,255,.1);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;align-items:center;gap:9px;}
+.hrRol{font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--green);}
+.hrSelect{width:100%;background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:13px;padding:8px 10px;border-radius:8px;font-family:inherit;}
+.hrSelect option{color:var(--ink);background:#fff;}
+.hrHora{font-size:52px;font-weight:800;letter-spacing:-1.5px;line-height:1;color:#fff;font-variant-numeric:tabular-nums;}
+.hrTime{background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:14px;padding:7px 12px;border-radius:8px;font-family:inherit;color-scheme:dark;}
+
+/* ===== embudo de admisión (nativo e interactivo) =====
+   Magnitud en un solo tono claro→oscuro (guía §16). Cada barra se puede marcar en vivo:
+   1 clic = fuga (rojo), 2 = sana (verde), 3 = despejada — el estado viaja en DATA. */
+.embGrupo{display:flex;align-items:center;gap:26px;background:rgba(255,255,255,.04);border:.5px solid rgba(255,255,255,.07);border-radius:12px;padding:12px 22px 12px 14px;}
+.embBarras{flex:1;display:flex;flex-direction:column;gap:7px;min-width:0;}
+.embBarra{width:var(--w);min-width:150px;background:var(--fill);color:#fff;font-size:14.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;padding:9px 18px;border-radius:8px;cursor:pointer;transition:transform .2s var(--ease),background-color .2s;white-space:nowrap;}
+.embBarra:hover{transform:translateY(-2px);}
+.embBarra.rojo{background:var(--bad);}
+.embBarra.verde{background:var(--ok);}
+.embEtiqueta{flex:0 0 215px;font-size:16.5px;font-weight:800;color:#7a9fd4;text-align:left;}
+.embPuente{align-self:flex-start;margin-left:24%;display:inline-flex;align-items:center;gap:7px;padding:3px 14px;border-radius:9999px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;background:rgba(86,239,159,.1);color:var(--green);border:.5px solid rgba(86,239,159,.25);}
+@media print{.embBarra{cursor:default;}}
+
+/* ===== ruedas que giran solas (Red de Conocimiento / Rueda de crecimiento) =====
+   Un pulso de color recorre los nodos en el orden de la rueda — acompaña al comercial
+   sin quitar el foco: movimiento lento y suave (§7.2 fondo decorativo), nunca brusco. */
+@keyframes ruedaPulso{0%,14%,100%{fill:#fff;}7%{fill:#CFE0FF;}}
+.rnodo{animation:ruedaPulso var(--rp-dur,12.5s) ease-in-out infinite;animation-delay:var(--rp-del,0s);}
+@media print{.rnodo{animation:none;}}
+@media (prefers-reduced-motion:reduce){.rnodo{animation:none;}}
+@keyframes vivoPulso{0%,100%{opacity:1;}50%{opacity:.35;}}
+
 /* ===== organigrama del equipo (quién los acompaña) ===== */
 .teamRoot{background:var(--green);color:var(--navy-deep);font-weight:800;font-size:18px;padding:14px 30px;border-radius:12px;text-align:center;position:relative;}
 .teamRoot span{display:block;font-size:11px;font-weight:700;color:var(--navy-deep);opacity:.65;margin-top:3px;text-transform:uppercase;letter-spacing:.6px;}
@@ -517,22 +554,21 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
 <div id="stage"><div class="slide-frame" id="frame">
 
 <!-- ============ 01 PORTADA ============ -->
-<section class="slide dark active" data-cat="apertura" data-notes="SuperLeads instala y opera sistemas de inscripciones premium para colegios y universidades privadas en LATAM. TÉCNICA: hoy repasamos sus números con sus propios datos, el sistema completo —herramientas, metodología y acompañamiento— y cerramos con precios claros y el siguiente paso. OJO: todo lo que van a ver está calculado con los datos reales de su institución.">
+<section class="slide dark active" data-cat="apertura" data-notes="SuperLeads audita, analiza y calibra sistemas de inscripciones para colegios y universidades privados en Hispanoamérica. TÉCNICA: hoy repasamos sus números con sus propios datos, el sistema completo —herramientas, metodología y acompañamiento— y cerramos con precios claros y el siguiente paso. OJO: todo lo que van a ver está calculado con los datos reales de su institución.">
   <div class="fill center" style="gap:20px;">
     <img class="logo" src="assets_deck_instituto_frontera/logo-superleads.svg" style="height:82px;margin-bottom:4px;">
     <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Presentación del Sistema</div></div>
     <h1 style="font-size:58px;max-width:920px;" data-bind="colegio">Instituto Frontera AC</h1>
-    <div class="body-txt" style="text-align:center;font-size:19px;">
-      <span id="portadaAsistentes"></span><br>
-      <span data-bind="ciudad"></span>, <span data-bind="pais"></span> &nbsp;·&nbsp; <span data-bind="fecha_presentacion"></span>
-    </div>
-    <div style="margin-top:24px;border:.5px solid rgba(255,255,255,.28);background:rgba(255,255,255,.045);border-radius:14px;padding:16px 36px;max-width:840px;text-align:center;box-shadow:0 8px 30px rgba(0,37,130,.25);">
+    <div class="body-txt" style="text-align:center;font-size:17px;margin-top:-8px;"><span data-bind="ciudad"></span>, <span data-bind="pais"></span></div>
+    <div class="body-txt" style="text-align:center;font-size:19px;margin-top:-6px;"><span id="portadaAsistentes"></span></div>
+    <div style="margin-top:20px;border:.5px solid rgba(255,255,255,.28);background:rgba(255,255,255,.045);border-radius:14px;padding:16px 36px;max-width:880px;text-align:center;box-shadow:0 8px 30px rgba(0,37,130,.25);">
       <div style="font-size:10.5px;letter-spacing:3px;color:var(--green);font-weight:800;text-transform:uppercase;margin-bottom:7px;">Qué hacemos</div>
-      <div style="font-size:15.5px;font-weight:600;color:#7a9fd4;line-height:1.55;">Instalación y mantenimiento de sistemas de inscripciones <span style="color:var(--green);font-weight:800;">premium</span><br>para colegios y universidades privadas en LATAM.</div>
+      <div style="font-size:15.5px;font-weight:600;color:#7a9fd4;line-height:1.55;"><span style="color:var(--green);font-weight:800;">Auditamos, analizamos y calibramos</span> sistemas de inscripciones<br>para colegios y universidades privados en Hispanoamérica.</div>
     </div>
-    <div style="margin-top:26px;text-align:center;">
+    <div style="margin-top:24px;text-align:center;">
       <div style="font-size:10.5px;letter-spacing:3px;color:var(--green);font-weight:800;text-transform:uppercase;margin-bottom:6px;">Presenta</div>
       <div style="font-size:22px;font-weight:800;color:#fff;line-height:1.35;" data-bind="comercial_firma"></div>
+      <div class="body-txt" style="text-align:center;font-size:14.5px;margin-top:6px;" data-bind="fecha_presentacion"></div>
     </div>
   </div>
 </section>
@@ -602,28 +638,43 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
   <div class="slide-num">03</div>
 </section>
 
-<!-- ============ 04 SU EMBUDO ============ -->
-<section class="slide dark" data-cat="diagnostico" data-notes="Ocho pasos separan un anuncio de un alumno inscrito, y cada flecha es una fuga posible. DATO: la fuga más cara casi nunca está en atraer — está entre el prospecto y la cita. Estándar de excelencia: primer contacto en menos de 5 minutos. OJO: la cobertura importa — tardes, sábados y respuesta automática fuera de horario. PRINCIPIO: cada hora sin contacto, el prospecto se enfría, y alguien más contesta primero.">
+<!-- ============ 04 EMBUDO DE ADMISION (nativo e interactivo) ============ -->
+<section class="slide dark" data-cat="diagnostico" data-notes="Ocho pasos separan un anuncio de un alumno inscrito, y cada etapa es una fuga posible. TÉCNICA: tocar las etapas en vivo — un clic la marca en rojo (ahí está su fuga), dos clics en verde (ahí son buenos), tres la despeja. Primero marcar en verde lo que hacen bien —el elogio abre la conversación— y después en rojo dónde suponemos que está el problema. DATO: la fuga más cara casi nunca está en atraer — está entre el prospecto y la cita. Estándar de excelencia: primer contacto en menos de 5 minutos. PRINCIPIO: cada hora sin contacto, el prospecto se enfría, y alguien más contesta primero.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El diagnóstico</div></div>
-  <h1>Su embudo de admisión</h1>
-  <div class="fill" style="margin-top:6px;">
-    <div class="imgwrap" style="height:100%;"><img src="assets_deck_instituto_frontera/l04-embudo.png"></div>
+  <h1>Embudo de admisión</h1>
+  <div class="fill" style="justify-content:center;gap:9px;min-height:0;margin-top:2px;">
+    <div class="embGrupo">
+      <div class="embBarras">
+        <div class="embBarra" data-etapa="impresiones" style="--w:100%;--fill:#8BBDFE;">Impresiones</div>
+        <div class="embBarra" data-etapa="alcance" style="--w:87%;--fill:#6FADFD;">Alcance</div>
+        <div class="embBarra" data-etapa="clics" style="--w:74%;--fill:#539CFB;">Clics</div>
+      </div>
+      <div class="embEtiqueta">Proceso de atracción</div>
+    </div>
+    <div class="embPuente">Formación del prospecto</div>
+    <div class="embGrupo">
+      <div class="embBarras">
+        <div class="embBarra" data-etapa="prospectos" style="--w:62%;--fill:#388BF7;">Prospectos</div>
+        <div class="embBarra" data-etapa="contactados" style="--w:50%;--fill:#2A78D6;">Contactados</div>
+        <div class="embBarra" data-etapa="cita" style="--w:39%;--fill:#2163B4;">Cita</div>
+      </div>
+      <div class="embEtiqueta">Proceso de admisión</div>
+    </div>
+    <div class="embPuente">Formación del alumno</div>
+    <div class="embGrupo">
+      <div class="embBarras">
+        <div class="embBarra" data-etapa="asistio" style="--w:29%;--fill:#185092;">Asistió</div>
+        <div class="embBarra" data-etapa="inscritos" style="--w:21%;--fill:#103E74;">Inscritos</div>
+      </div>
+      <div class="embEtiqueta">Proceso de inscripción</div>
+    </div>
   </div>
-  <div class="caption">Ocho pasos separan un anuncio de un alumno inscrito. Hoy, <span data-bind="perdida_pct" data-fmt="raw"></span> de cada 100 se pierden en el camino.</div>
+  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:18px;margin-top:8px;">
+    <div class="caption" style="margin-top:0;">Ocho pasos separan un anuncio de un alumno inscrito. Hoy, <span data-bind="perdida_pct" data-fmt="raw"></span> de cada 100 se pierden en el camino.</div>
+    <div class="no-print" style="font-size:11px;font-weight:600;color:#4a6aaa;white-space:nowrap;">Toca una etapa: 1 clic la marca en rojo · 2 en verde · 3 la despeja</div>
+  </div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">04</div>
-</section>
-
-<!-- ============ 05 DONDE SE PIERDE ============ -->
-<section class="slide light" data-cat="diagnostico" data-notes="Ustedes son buenísimos atrayendo — se nota en los números. La turbulencia está después. PRINCIPIO del marco SuperLeads: un buen anuncio no compensa un mal seguimiento. DATO: el prospecto entra y no hay un camino claro de qué sigue en cada paso — ahí se enfría. OJO: si proponen «meterle más presupuesto a anuncios», aclarar que sin arreglar el proceso eso solo compra fugas más caras.">
-  <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El diagnóstico</div></div>
-  <h1>Dónde se pierde el prospecto</h1>
-  <div class="fill" style="margin-top:6px;">
-    <div class="imgwrap" style="height:100%;border:none;background:transparent;"><img src="assets_deck_instituto_frontera/embudo-admision.png"></div>
-  </div>
-  <div style="margin-top:10px;font-size:16px;font-weight:600;color:var(--muted);line-height:1.5;">Ustedes son buenísimos atrayendo. La turbulencia vive en <b style="color:var(--navy-deep);">«Formación del lead»</b> y <b style="color:var(--navy-deep);">«Formación del alumno»</b> — ahí entra SuperLeads.</div>
-  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
-  <div class="slide-num">05</div>
 </section>
 
 <!-- ============ 06 ESCALA ============ -->
@@ -725,57 +776,43 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
 </section>
 
 <!-- ============ 09 DOS CAMINOS ============ -->
-<section class="slide light" data-cat="diagnostico" data-notes="Estar lleno es matemático: prospectos por tasa de conversión. Hay dos caminos para lograr la meta. PRINCIPIO: el dato que mueve todo es su tasa de conversión de hoy — cada décima extra son alumnos. DATO: camino 1 es más presupuesto en marketing, más prospectos con la misma tasa; camino 2 es mejorar la tasa de conversión, el mismo resultado con la mitad de prospectos. TÉCNICA: el orden recomendado es primero la tasa, después el volumen — los dos caminos se suman.">
+<section class="slide light" data-cat="diagnostico" data-notes="Estar lleno es matemático: prospectos por tasa de conversión. Hay dos caminos para la misma meta. DATO: el camino rudo es comprar más tráfico con la misma tasa; el camino técnico es convertir mejor lo que ya llega — las barras muestran cuántos prospectos extra exige cada uno. TÉCNICA: dejar que la diferencia de tamaño de las barras hable sola, 3 segundos de silencio. Los dos caminos se suman — el orden recomendado: primero la tasa, después el volumen.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El diagnóstico</div></div>
-  <h1>Los dos caminos para lograr la meta</h1>
+  <h1>Dos caminos para la misma meta</h1>
   <div class="fill center" style="gap:0;">
     <div style="border:.5px solid var(--blue);background:var(--blue-softer);border-radius:16px;padding:12px 44px;text-align:center;">
       <div class="stat-hero" style="font-size:50px;"><span data-bind="lugares_vacios" data-fmt="num"></span></div>
-      <div class="stat-label" style="margin-top:0;">lugares vacíos por llenar — <b style="color:var(--navy);">la meta</b></div>
+      <div style="font-size:13px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--blue);margin-top:2px;">Meta de estudiantes nuevos</div>
     </div>
     <div class="branch-arrow">↓</div>
-    <div class="grid2" style="width:100%;max-width:980px;align-items:stretch;">
-      <div class="card camCard">
-        <h3 style="color:var(--muted);margin-bottom:2px;">Camino 1 · Más volumen</h3>
-        <div class="camTasa">
-          <span class="t" data-bind="tasa_conversion" data-fmt="pct2"></span>
-          <span class="flecha">→</span>
-          <span class="t" data-bind="tasa_conversion" data-fmt="pct2"></span>
-          <span class="nota">sin cambio</span>
-        </div>
-        <div class="camCuerpo">
-          <div class="camGrande">
-            <div class="n" style="color:var(--navy-deep);">+<span data-bind="leads_adicionales_camino1" data-fmt="num"></span></div>
-            <div class="l">prospectos extra al año</div>
-          </div>
-          <div class="camDetalle">Mismo proceso, misma tasa: la meta solo se alcanza <b>comprando muchísimo más tráfico</b>. Cada prospecto extra cuesta dinero.</div>
+    <div class="grid2" style="width:100%;max-width:1020px;align-items:stretch;">
+      <div class="card" style="display:flex;flex-direction:column;gap:10px;padding:24px 26px;">
+        <div style="font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--chart-2);">El camino rudo</div>
+        <h3 style="margin:0;font-size:20px;color:var(--navy-deep);">Más presupuesto en anuncios</h3>
+        <div style="font-size:13.5px;font-weight:700;color:var(--muted);">Misma tasa: <span data-bind="tasa_conversion" data-fmt="pct2"></span> — cada prospecto extra cuesta dinero.</div>
+        <div style="margin-top:auto;">
+          <div style="font-size:44px;font-weight:800;letter-spacing:-1px;line-height:1;color:var(--chart-2);">+<span data-bind="leads_adicionales_camino1" data-fmt="num"></span></div>
+          <div style="font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-top:4px;">prospectos extra al año</div>
+          <div style="height:16px;border-radius:8px;background:var(--blue-softer);margin-top:10px;overflow:hidden;"><div id="barRudo" style="height:100%;width:100%;border-radius:8px;background:var(--chart-2);"></div></div>
         </div>
       </div>
-      <div class="card camCard" style="border-color:var(--blue);">
-        <h3 style="color:var(--blue);margin-bottom:2px;">Camino 2 · Mejor conversión</h3>
-        <div class="camTasa" style="border-color:rgba(0,57,200,.35);">
-          <span class="t" data-bind="tasa_conversion" data-fmt="pct2"></span>
-          <span class="flecha" style="color:var(--blue);">→</span>
-          <span class="t" style="color:var(--blue);" data-bind="tasa_objetivo" data-fmt="pct2"></span>
-          <span class="nota" style="color:var(--blue);">+<span data-bind="mejora_conservadora"></span> pts</span>
-        </div>
-        <div class="camCuerpo">
-          <div class="camGrande">
-            <div class="n" style="color:var(--blue);">+<span data-bind="leads_extra_2b" data-fmt="num"></span></div>
-            <div class="l" style="color:var(--blue);">prospectos extra al año</div>
-          </div>
-          <div class="camDetalle">Con esa tasa, <b>+<span data-bind="alumnos_extra" data-fmt="num"></span> alumnos</b> salen de los prospectos que ya tienen — sin gastar un peso más. El resto se cubre con <b><span data-bind="leads_meta_2b" data-fmt="num"></span> prospectos en total</b>.</div>
+      <div class="card" style="display:flex;flex-direction:column;gap:10px;padding:24px 26px;border-color:var(--chart-3);background:rgba(27,175,122,.04);">
+        <div style="font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--chart-3);">El camino técnico · SuperLeads</div>
+        <h3 style="margin:0;font-size:20px;color:var(--navy-deep);">Mejor tasa de conversión</h3>
+        <div style="font-size:13.5px;font-weight:700;color:var(--muted);"><span data-bind="tasa_conversion" data-fmt="pct2"></span> → <b style="color:var(--chart-3);"><span data-bind="tasa_objetivo" data-fmt="pct2"></span></b> — los mismos prospectos, convertidos mejor.</div>
+        <div style="margin-top:auto;">
+          <div id="tecnicoNum" style="font-size:44px;font-weight:800;letter-spacing:-1px;line-height:1;color:var(--chart-3);"></div>
+          <div id="tecnicoLabel" style="font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-top:4px;"></div>
+          <div style="height:16px;border-radius:8px;background:var(--blue-softer);margin-top:10px;overflow:hidden;"><div id="barTecnico" style="height:100%;width:4%;border-radius:8px;background:var(--chart-3);"></div></div>
         </div>
       </div>
     </div>
-  </div>
-    <div style="margin-top:16px;border:.5px solid var(--border);background:var(--blue-softer);border-radius:14px;padding:13px 30px;max-width:760px;margin-left:auto;margin-right:auto;text-align:center;">
-    <div style="font-size:10.5px;letter-spacing:3px;color:var(--blue);font-weight:800;text-transform:uppercase;margin-bottom:5px;">El dato que mueve todo</div>
-    <div style="font-size:16.5px;font-weight:700;color:var(--navy-deep);">La misma meta: por el camino 1, <b><span data-bind="leads_adicionales_camino1" data-fmt="num"></span></b> prospectos extra. Por el camino 2, <b style="color:var(--blue);"><span data-bind="leads_extra_2b" data-fmt="num"></span></b>. <span style="color:var(--muted);font-weight:600;">Cada décima de conversión son alumnos.</span></div>
+    <div style="margin-top:16px;font-size:16px;font-weight:700;color:var(--navy-deep);text-align:center;">Los dos caminos se suman. <span style="color:var(--muted);font-weight:600;">El orden: primero la tasa, después el volumen.</span></div>
   </div>
 <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">09</div>
 </section>
+
 
 <!-- ============ POR QUÉ EXISTIMOS ============ -->
 <section class="slide dark" data-cat="sistema" data-notes="Esto se dice tal cual, despacio: «Creemos que ningún alumno debería perder la oportunidad de estudiar en el colegio correcto por culpa de un mal proceso de admisión — y que los colegios deben ser rentables para poder cumplir su misión educativa.» TÉCNICA: bajar el ritmo aquí — es la única lámina que no vende nada. Después el propósito: «Darle poder a los colegios y universidades para que inscriban fácilmente a millones de estudiantes.»">
@@ -805,7 +842,7 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
 <!-- ============ 12 SISTEMA (native rebuild, bigger) ============ -->
 <section class="slide light" data-cat="sistema" data-notes="El CRM es solo la tecnología — a propósito es el círculo más chico. Encima va la metodología, y encima el sistema completo. PRINCIPIO: las inscripciones fallan por falta de sistema, no por falta de esfuerzo. Un buen anuncio no compensa un mal seguimiento. TÉCNICA: el sistema se construye por capas — base, activadores, ejecución. Con SuperLeads no contratan la tecnología: contratan a la empresa que tiene la tecnología y se especializa en inscripciones.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">El sistema</div></div>
-  <h1>Dónde vive cada pieza del sistema</h1>
+  <h1>Herramientas para inscripciones</h1>
   <div style="display:flex;gap:46px;flex:1;min-height:0;align-items:center;margin-top:6px;">
     <div class="venn venn-lg" style="flex-shrink:0;">
       <div class="c c1">Sistema de Inscripciones SuperLeads</div>
@@ -854,15 +891,15 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
         <path d="M 185,142 A 360 175 0 0 1 391,67"/>
       </g>
       <g text-anchor="middle" font-weight="800" font-size="17">
-        <rect x="395" y="32" width="190" height="56" rx="28" fill="#EEF2FF" stroke="var(--blue)" stroke-width="2.5"/>
+        <rect class="rnodo" style="--rp-dur:12.5s;--rp-del:0s;" x="395" y="32" width="190" height="56" rx="28" fill="#fff" stroke="var(--blue)" stroke-width="2.5"/>
         <text x="490" y="66" fill="#001240">Más clientes</text>
-        <rect x="737" y="153" width="190" height="56" rx="28" fill="#fff" stroke="#0039C8" stroke-width="2"/>
+        <rect class="rnodo" style="--rp-dur:12.5s;--rp-del:2.5s;" x="737" y="153" width="190" height="56" rx="28" fill="#fff" stroke="#0039C8" stroke-width="2"/>
         <text x="832" y="187" fill="#001240">Más prospectos</text>
-        <rect x="607" y="349" width="190" height="56" rx="28" fill="#fff" stroke="#0039C8" stroke-width="2"/>
+        <rect class="rnodo" style="--rp-dur:12.5s;--rp-del:5s;" x="607" y="349" width="190" height="56" rx="28" fill="#fff" stroke="#0039C8" stroke-width="2"/>
         <text x="702" y="383" fill="#001240">Más datos</text>
-        <rect x="183" y="349" width="190" height="56" rx="28" fill="#fff" stroke="#0039C8" stroke-width="2"/>
+        <rect class="rnodo" style="--rp-dur:12.5s;--rp-del:7.5s;" x="183" y="349" width="190" height="56" rx="28" fill="#fff" stroke="#0039C8" stroke-width="2"/>
         <text x="278" y="383" fill="#001240">Más pruebas</text>
-        <rect x="38" y="153" width="220" height="56" rx="28" fill="#fff" stroke="#0039C8" stroke-width="2"/>
+        <rect class="rnodo" style="--rp-dur:12.5s;--rp-del:10s;" x="38" y="153" width="220" height="56" rx="28" fill="#fff" stroke="#0039C8" stroke-width="2"/>
         <text x="148" y="187" fill="#001240">Mejor metodología</text>
       </g>
       <g text-anchor="middle">
@@ -902,31 +939,31 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
         <line x1="301" y1="76" x2="331" y2="70"/>
       </g>
       <g text-anchor="middle" font-weight="800" font-size="16">
-        <rect x="395" y="29" width="190" height="52" rx="26" fill="#EEF2FF" stroke="var(--blue)" stroke-width="2.5"/>
+        <rect class="rnodo" style="--rp-dur:17.5s;--rp-del:0s;" x="395" y="29" width="190" height="52" rx="26" fill="#fff" stroke="var(--blue)" stroke-width="2.5"/>
         <text x="490" y="61" fill="#001240" font-size="17">Más alumnos</text>
         <circle cx="400" cy="34" r="13" fill="var(--blue)"/><text x="400" y="39" fill="#fff" font-size="13">1</text>
 
-        <rect x="711" y="99" width="185" height="52" rx="26" fill="#fff" stroke="#0039C8" stroke-width="2"/>
+        <rect class="rnodo" style="--rp-dur:17.5s;--rp-del:2.5s;" x="711" y="99" width="185" height="52" rx="26" fill="#fff" stroke="#0039C8" stroke-width="2"/>
         <text x="803" y="131" fill="#001240">Más rentable</text>
         <circle cx="716" cy="104" r="13" fill="#0039C8"/><text x="716" y="109" fill="#fff" font-size="13">2</text>
 
-        <rect x="760" y="255" width="200" height="52" rx="26" fill="#fff" stroke="#0039C8" stroke-width="2"/>
+        <rect class="rnodo" style="--rp-dur:17.5s;--rp-del:5s;" x="760" y="255" width="200" height="52" rx="26" fill="#fff" stroke="#0039C8" stroke-width="2"/>
         <text x="860" y="287" fill="#001240">Mejores sueldos</text>
         <circle cx="765" cy="260" r="13" fill="#0039C8"/><text x="765" y="265" fill="#fff" font-size="13">3</text>
 
-        <rect x="559" y="375" width="210" height="62" rx="26" fill="#fff" stroke="#0039C8" stroke-width="2"/>
+        <rect class="rnodo" style="--rp-dur:17.5s;--rp-del:7.5s;" x="559" y="375" width="210" height="62" rx="26" fill="#fff" stroke="#0039C8" stroke-width="2"/>
         <text x="664" y="401" fill="#001240">Más retención<tspan x="664" dy="20">de personal</tspan></text>
         <circle cx="564" cy="380" r="13" fill="#0039C8"/><text x="564" y="385" fill="#fff" font-size="13">4</text>
 
-        <rect x="206" y="381" width="220" height="52" rx="26" fill="#fff" stroke="#0039C8" stroke-width="2"/>
+        <rect class="rnodo" style="--rp-dur:17.5s;--rp-del:10s;" x="206" y="381" width="220" height="52" rx="26" fill="#fff" stroke="#0039C8" stroke-width="2"/>
         <text x="316" y="413" fill="#001240">Mejor nivel académico</text>
         <circle cx="211" cy="386" r="13" fill="#0039C8"/><text x="211" y="391" fill="#fff" font-size="13">5</text>
 
-        <rect x="20" y="255" width="180" height="52" rx="26" fill="#fff" stroke="#0039C8" stroke-width="2"/>
+        <rect class="rnodo" style="--rp-dur:17.5s;--rp-del:12.5s;" x="20" y="255" width="180" height="52" rx="26" fill="#fff" stroke="#0039C8" stroke-width="2"/>
         <text x="110" y="287" fill="#001240">Más referidos</text>
         <circle cx="25" cy="260" r="13" fill="#0039C8"/><text x="25" y="265" fill="#fff" font-size="13">6</text>
 
-        <rect x="72" y="93" width="210" height="62" rx="26" fill="#EEF2FF" stroke="var(--blue)" stroke-width="2.5"/>
+        <rect class="rnodo" style="--rp-dur:17.5s;--rp-del:15s;" x="72" y="93" width="210" height="62" rx="26" fill="#fff" stroke="var(--blue)" stroke-width="2.5"/>
         <text x="177" y="119" fill="#001240">Mejor sistema<tspan x="177" dy="20">de inscripciones</tspan></text>
         <circle cx="77" cy="98" r="13" fill="var(--blue)"/><text x="77" y="103" fill="#fff" font-size="13">7</text>
       </g>
@@ -937,7 +974,7 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
       </g>
     </svg>
   </div>
-  <div style="margin-top:6px;font-size:15.5px;font-weight:700;color:var(--navy-deep);">Nuestro trabajo es el nodo 7 — el sistema de inscripciones. El beneficio le pertenece a toda la rueda: es la misma rueda de SuperLeads, ahora girando dentro de su institución.</div>
+  <div style="margin-top:6px;font-size:15.5px;font-weight:700;color:var(--navy-deep);">Las decisiones que toma el departamento de admisiones impactan directamente en la economía de todo el personal y de la institución.</div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">14a</div>
 </section>
@@ -1038,8 +1075,11 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
 
 <!-- ============ 18a COLEGIO OPERANDO: CRM ============ -->
 <section class="slide light" data-toggle="crm" data-notes="Un colegio real operando hoy: alumnos por etapa, moviéndose con automatizaciones y metodología. DATO: todos los prospectos en un solo lugar, con dueño claro por prospecto, histórico completo de interacciones y razones de no-inscripción capturadas. OJO: sin Excel paralelo — ahí es donde se mueren los seguimientos.">
-  <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Un colegio operando hoy</div></div>
-  <h1>El CRM: sus alumnos en orden</h1>
+  <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Un colegio inscribiendo hoy</div></div>
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
+    <h1>Proceso de admisiones en vivo</h1>
+    <span style="display:inline-flex;align-items:center;gap:8px;margin-top:10px;padding:6px 16px;border-radius:9999px;background:rgba(208,59,59,.08);border:.5px solid rgba(208,59,59,.35);color:var(--bad);font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;"><span style="width:8px;height:8px;border-radius:50%;background:var(--bad);animation:vivoPulso 1.6s ease-in-out infinite;"></span>En vivo</span>
+  </div>
   <div class="fill" style="margin-top:6px;"><div class="imgwrap" style="height:100%;"><img src="assets_deck_instituto_frontera/l16-mosaico-2.png"></div></div>
   <div style="margin-top:12px;font-size:18.5px;font-weight:800;color:var(--navy-deep);">Sus <span style="color:var(--blue);"><span data-bind="matricula_actual" data-fmt="num"></span> alumnos</span> y cada prospecto nuevo, en perfecto orden — moviéndose con automatizaciones, secuencias y metodología.</div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
@@ -1048,7 +1088,7 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
 
 <!-- ============ 18b COLEGIO OPERANDO: CAPACITACION ============ -->
 <section class="slide light" data-toggle="academia" data-notes="La Academia SuperLeads vive dentro del mismo sistema: cursos con lo mínimo que el equipo necesita dominar. PRINCIPIO: el estándar vive en el sistema, no en la memoria de una persona — si alguien rota, el conocimiento se queda en la institución. El acompañamiento se hace con métricas, no con opiniones.">
-  <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Un colegio operando hoy</div></div>
+  <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Un colegio inscribiendo hoy</div></div>
   <h1>Academia SuperLeads</h1>
   <div class="sub">La capacitación vive dentro del mismo sistema</div>
   <div class="fill" style="margin-top:6px;"><div class="imgwrap" style="height:100%;"><img src="assets_deck_instituto_frontera/l16-mosaico-4.png"></div></div>
@@ -1059,7 +1099,7 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
 
 <!-- ============ 18c COLEGIO OPERANDO: CALENDARIO ============ -->
 <section class="slide light" data-toggle="calendario" data-notes="Antes de ser alumnos, son citas — y este calendario se llena solo: Constanza agenda, el sistema confirma y recuerda. DATO: referencia sana de asistencia a citas, 70%. TÉCNICA: una cita confirmada de verdad lleva evento enviado, confirmación por WhatsApp y qué preparar. OJO: a la cita que no llega se le busca en los primeros 10 minutos — ahí todavía se rescata.">
-  <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Un colegio operando hoy</div></div>
+  <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Un colegio inscribiendo hoy</div></div>
   <h1>El calendario que se llena solo</h1>
   <div class="fill" style="margin-top:6px;"><div class="imgwrap" style="height:100%;"><img src="assets_deck_instituto_frontera/l16-mosaico-1.png"></div></div>
   <div style="margin-top:12px;font-size:18.5px;font-weight:800;color:var(--navy-deep);">Antes de ser alumnos, son citas — y hoy <span style="color:var(--blue);"><span data-bind="tasa_cita_alumno" data-fmt="pct0"></span> de sus citas</span> termina en inscripción. Un calendario lleno precede a una matrícula llena.</div>
@@ -1069,7 +1109,7 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
 
 <!-- ============ 18d COLEGIO OPERANDO: MARKETING ============ -->
 <section class="slide light" data-toggle="maquina" data-notes="La Máquina de Atracción es el músculo del producto de Atracción Inteligente: llenar la parte alta del embudo. TÉCNICA: presupuesto constante todo el año, no solo en temporada. DATO: remarketing — la familia ve a la institución varias veces antes de levantar la mano. PRINCIPIO: el número que manda es lo que cuesta cada prospecto calificado por canal, no el prospecto barato.">
-  <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Un colegio operando hoy</div></div>
+  <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Un colegio inscribiendo hoy</div></div>
   <h1>La Máquina de Atracción</h1>
   <div class="sub">El marketing, estructurado — el músculo detrás de Atracción Inteligente</div>
   <div class="fill" style="margin-top:6px;"><div class="imgwrap" style="height:100%;"><img src="assets_deck_instituto_frontera/l16-mosaico-3.png"></div></div>
@@ -1478,7 +1518,7 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
 </section>
 
 <!-- ============ 26b EQUIPO DE IMPLEMENTACIÓN Y MANTENIMIENTO ============ -->
-<section class="slide dark" data-cat="cierre" data-notes="No los dejamos solos después de instalar — cada rol tiene dueño y nombre. DATO: el Account Manager SuperLeads es su punto de contacto único; de ahí se reparte a Implementación, a Soporte con Alex —soporte avanzado y soporte técnico— y al Líder de Growth Educativo —metas, proceso comercial y comunicación—. PRINCIPIO: instalar el sistema es el primer paso, no el último — el mantenimiento es tan importante como la instalación, y aquí se ve quién lo sostiene.">
+<section class="slide dark" data-cat="cierre" data-notes="No los dejamos solos después de instalar — cada rol tiene dueño y nombre. DATO: el Account Manager SuperLeads es su punto de contacto único; de ahí se reparte a Implementación —técnica, metodológica y estratégica—, a Soporte —Alex 24/7, optimización técnica y sesiones en vivo semanales— y al Líder de Growth Educativo —metas, proceso comercial y comunicación—. PRINCIPIO: instalar el sistema es el primer paso, no el último — el mantenimiento es tan importante como la instalación, y aquí se ve quién lo sostiene.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">Siguiente paso</div></div>
   <h1>No los dejamos solos después de instalar</h1>
   <div class="fill center" style="gap:0;">
@@ -1486,12 +1526,18 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
     <div class="teamTree">
       <div class="teamBranch">
         <div class="teamNode main">Implementación</div>
+        <div class="teamSub">
+          <div class="teamNode">Técnica</div>
+          <div class="teamNode">Metodológica</div>
+          <div class="teamNode">Estratégica</div>
+        </div>
       </div>
       <div class="teamBranch">
-        <div class="teamNode main">Soporte con Alex</div>
+        <div class="teamNode main">Soporte</div>
         <div class="teamSub">
-          <div class="teamNode">Soporte avanzado</div>
-          <div class="teamNode">Soporte técnico</div>
+          <div class="teamNode">Alex 24/7</div>
+          <div class="teamNode">Optimización técnica</div>
+          <div class="teamNode">Sesiones en vivo semanales</div>
         </div>
       </div>
       <div class="teamBranch">
@@ -1641,6 +1687,8 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
   <button id="btnPdf" class="wide-btn" title="Descargar PDF"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PDF</button>
   <button id="btnHtml" class="wide-btn" title="Descargar HTML con estos datos"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>HTML</button>
   <button id="btnPng" class="wide-btn" title="Descargar esta lámina como imagen PNG"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PNG</button>
+  <button id="btnMusica" title="Música de fondo · SuperLeads Radio"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button>
+  <button id="btnHorarios" title="Horarios LATAM — cuadrar la cita"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 2.5"/><path d="M3.5 9h17M3.5 15h17" stroke-opacity=".45"/></svg></button>
   <button id="btnFs" title="Pantalla completa (F)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18-5h-3a2 2 0 0 0 0 0m3 0v5m0 6v3a2 2 0 0 1-2 2h-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
 </div>
 
@@ -1802,7 +1850,8 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
         <div class="segpill" data-seg="academiaAll">Academia (todas)</div>
         <div class="segpill" data-seg="maternal">Maternal</div>
         <div class="segpill" data-seg="k12">K12</div>
-        <div class="segpill" data-seg="grupo">Grupo / Universidad</div>
+        <div class="segpill" data-seg="universidad">Universidad</div>
+        <div class="segpill" data-seg="grupo">Grupo</div>
       </div>
       <input type="hidden" data-f="segmento">
     </div>
@@ -1847,6 +1896,49 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
   </form>
 </div>
 
+<!-- SuperLeads Radio: el iframe se crea al primer clic y NUNCA se desmonta — al ocultar
+     el panel la música sigue sonando. Sin controles extra: le pican play y a presentar. -->
+<div id="musicaPanel" class="no-print">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;">
+    <span style="font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--green);">SuperLeads Radio</span>
+    <span style="font-size:10.5px;font-weight:600;color:#4a6aaa;">La música sigue al cerrar este panel</span>
+  </div>
+  <div id="musicaFrameWrap"></div>
+</div>
+
+<div id="horariosModal" class="no-print">
+  <div id="horariosBox">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px;">
+      <h3 style="margin:0;font-size:19px;color:#fff;">Cuadrar la cita entre dos países</h3>
+      <button type="button" id="horariosCerrar" style="background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:12.5px;padding:8px 16px;border-radius:8px;cursor:pointer;font-family:inherit;">Cerrar</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;">
+      <div class="hrCard">
+        <div class="hrRol">Tú</div>
+        <select id="hrPaisA" class="hrSelect"></select>
+        <div class="hrHora" id="hrHoraA">--:--</div>
+        <input type="time" id="hrInputA" class="hrTime">
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
+        <button type="button" id="hrSwap" title="Intercambiar países" style="width:40px;height:40px;border-radius:50%;border:.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;cursor:pointer;font-size:16px;">⇄</button>
+        <span id="hrDif" style="font-size:11.5px;font-weight:800;color:#7a9fd4;white-space:nowrap;"></span>
+      </div>
+      <div class="hrCard">
+        <div class="hrRol">Prospecto</div>
+        <select id="hrPaisB" class="hrSelect"></select>
+        <div class="hrHora" id="hrHoraB">--:--</div>
+        <div id="hrFechaB" style="font-size:11.5px;font-weight:700;color:#7a9fd4;min-height:15px;"></div>
+      </div>
+    </div>
+    <div id="hrCalidad" style="display:flex;align-items:center;gap:8px;margin-top:14px;font-size:13px;font-weight:700;color:#7a9fd4;"></div>
+    <div style="display:flex;gap:10px;margin-top:14px;align-items:center;">
+      <button type="button" id="hrAhora" style="background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:12.5px;padding:9px 16px;border-radius:8px;cursor:pointer;font-family:inherit;">Ahora</button>
+      <input type="date" id="hrFecha" style="background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:12.5px;padding:8px 12px;border-radius:8px;font-family:inherit;color-scheme:dark;">
+      <button type="button" id="hrCopiar" style="flex:1;background:var(--green);color:var(--navy-deep);font-weight:800;font-size:13px;padding:10px;border-radius:8px;border:none;cursor:pointer;font-family:inherit;">Copiar propuesta de horario</button>
+    </div>
+  </div>
+</div>
+
 <div id="preciosModal" class="no-print" style="display:none;position:fixed;inset:0;background:rgba(4,10,26,.62);z-index:80;align-items:center;justify-content:center;">
   <div style="background:#fff;border-radius:16px;padding:26px 30px;width:760px;max-width:94vw;max-height:88vh;overflow:auto;box-shadow:0 30px 80px rgba(0,37,130,.4);">
     <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;">
@@ -1857,6 +1949,10 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
       </div>
     </div>
     <div id="preciosModalNota" style="font-size:12.5px;color:var(--dim);font-weight:600;margin-bottom:14px;"></div>
+    <!-- Se edita un solo segmento a la vez: ver los 6 juntos era demasiada carga visual,
+         y si el cliente alcanza a ver la pantalla, solo ve los precios que le corresponden.
+         Las ediciones de cada pestaña se conservan en borrador hasta «Guardar precios». -->
+    <div class="segpills" id="preciosSegPills" style="margin-bottom:14px;"></div>
     <table style="width:100%;border-collapse:collapse;font-size:13.5px;">
       <tr style="text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;">
         <th></th>
@@ -1932,7 +2028,8 @@ const PRECIOS = {
   academiaAll:{crm:25000, de:10000, ai:10000, label:'Academia (todas)'},
   maternal:{crm:5000, de:4000, ai:4000, label:'Maternal'},
   k12:{crm:10000, crm_paquete:9000, de:5000, ai:6000, label:'K12'},
-  grupo:{crm:25000, de:10000, ai:10000, label:'Grupo / Universidad'},
+  universidad:{crm:12000, crm_paquete:10000, de:7000, ai:7000, label:'Universidad'},
+  grupo:{crm:25000, de:10000, ai:10000, label:'Grupo'},
 };
 /* Tres paquetes por segmento, cumulativos: base (CRM) → + estrategia → + atracción inteligente (todo) */
 const PAQUETES = ['base','estrategia','todo'];
@@ -1963,6 +2060,7 @@ let DATA = {
   productos_manual:{},
   sin_precios:false,
   omitir_propuesta:false,
+  embudo_marcas:{},
   sello_captura:"",
   antiguedad_anios:30,
   leads_dia:30,
@@ -1991,7 +2089,7 @@ const DATA_SEMILLA = JSON.parse(JSON.stringify(DATA));
 
 /* ===== Biblioteca de casos de éxito reales (SuperLeads) ===== */
 const CASOS = [
-  {key:'cuenca', nombre:'Universidad Católica de Cuenca', resultado:'Del 3% al 4.52% de conversión en menos de dos meses.', quote:'Su proceso operaba sin sistema — los prospectos entraban, pero nadie los acompañaba hasta la inscripción. Instalamos el sistema y, en dos meses, su conversión creció 50%. Más alumnos, con los mismos prospectos.', segs:['grupo']},
+  {key:'cuenca', nombre:'Universidad Católica de Cuenca', resultado:'Del 3% al 4.52% de conversión en menos de dos meses.', quote:'Su proceso operaba sin sistema — los prospectos entraban, pero nadie los acompañaba hasta la inscripción. Instalamos el sistema y, en dos meses, su conversión creció 50%. Más alumnos, con los mismos prospectos.', segs:['universidad','grupo']},
   {key:'swiss', nombre:'Swiss Academy', resultado:'De un proceso fragmentado a 10.64% de conversión.', quote:'Sin control ni visibilidad real del embudo — cada ciclo era una apuesta. Lo estructuramos, y su tasa de inscripción llegó a 10.64%.', segs:['k12']},
   {key:'pilar', nombre:'Colegio del Pilar', resultado:'16% de inscripción, con una sola persona atendiendo citas.', quote:'El equipo era pequeño, y el sistema que lo respaldaba, casi inexistente. Hoy tienen 16% de inscripción en su último periodo.', segs:['maternal','academia1']},
   {key:'alamos', nombre:'Colegio Álamos Cancún', resultado:'Control total del embudo, con un objetivo claro: llenar al 100%.', quote:'Pasaron de admisiones reactivas a un proceso con seguimiento real, etapa por etapa, hasta la inscripción.', segs:[]},
@@ -2170,6 +2268,28 @@ function renderData(){
   document.querySelectorAll('.chipSel').forEach(sel=>{
     sel.value = (DATA.semaforo_override && DATA.semaforo_override[sel.dataset.chipsel]) || 'auto';
   });
+  // Embudo de admisión: repinta las marcas rojo/verde guardadas en DATA
+  document.querySelectorAll('.embBarra').forEach(b=>{
+    const m = (DATA.embudo_marcas && DATA.embudo_marcas[b.dataset.etapa]) || '';
+    b.classList.toggle('rojo', m==='rojo');
+    b.classList.toggle('verde', m==='verde');
+  });
+  // Dos caminos: la barra del camino técnico es proporcional al rudo, y si la pura
+  // conversión ya alcanza la meta, se muestra el total necesario — nunca un negativo.
+  (function(){
+    const num = document.getElementById('tecnicoNum'), lab = document.getElementById('tecnicoLabel'), bar = document.getElementById('barTecnico');
+    if(!num || !lab || !bar) return;
+    const extra1 = c.leads_adicionales_camino1, extra2 = c.leads_extra_2b;
+    if(extra2 > 0){
+      num.textContent = '+' + fmtVal(extra2, 'num');
+      lab.textContent = 'prospectos extra al año';
+      bar.style.width = Math.max(2, Math.min(100, extra1 > 0 ? (extra2/extra1)*100 : 100)) + '%';
+    }else{
+      num.textContent = fmtVal(c.leads_meta_2b, 'num');
+      lab.textContent = 'prospectos en total bastan — hoy ya generan más';
+      bar.style.width = '2%';
+    }
+  })();
   // Slide "Su inversión": menú de 3 paquetes siempre visible, se marca el propuesto.
   const TXT_PAQUETE = {
     base: 'Hoy proponemos solo la tecnología. La Dirección Estratégica y la Atracción Inteligente quedan disponibles cuando quieran sumarlas.',
@@ -2250,6 +2370,16 @@ function autoScaleImage(tasa){
 document.addEventListener('DOMContentLoaded', ()=>{
   scaleDots().forEach(dot=>{
     dot.addEventListener('click', (e)=>{ e.stopPropagation(); scaleManual=true; showScale(+dot.dataset.goto); });
+  });
+  document.querySelectorAll('.embBarra').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      if(!DATA.embudo_marcas || typeof DATA.embudo_marcas !== 'object') DATA.embudo_marcas = {};
+      const k = b.dataset.etapa;
+      const actual = DATA.embudo_marcas[k] || '';
+      const sig = actual === '' ? 'rojo' : (actual === 'rojo' ? 'verde' : '');
+      if(sig) DATA.embudo_marcas[k] = sig; else delete DATA.embudo_marcas[k];
+      renderData(); saveData();
+    });
   });
   document.querySelectorAll('.chipSel').forEach(sel=>{
     sel.addEventListener('click', e=> e.stopPropagation());
@@ -2485,7 +2615,7 @@ const PRODUCTOS_TOGGLE = [
   {key:'whatsapp',   label:'De WhatsApp a alumno'},
   {key:'constanza',  label:'Constanza'},
   {key:'torre',      label:'La Torre de Control'},
-  {key:'crm',        label:'El CRM: sus alumnos en orden'},
+  {key:'crm',        label:'Proceso de admisiones en vivo'},
   {key:'academia',   label:'Academia SuperLeads'},
   {key:'calendario', label:'El calendario que se llena solo'},
   {key:'maquina',    label:'La Máquina de Atracción'},
@@ -2533,8 +2663,8 @@ function autoProductos(){
   if(!DATA.productos_manual || typeof DATA.productos_manual !== 'object') DATA.productos_manual = {};
   const off = DATA.productos_off, man = DATA.productos_manual;
   const set = (k, encendida)=>{ if(man[k]) return; if(encendida) delete off[k]; else off[k] = true; };
-  // Formularios: por segmento. K12/Maternal/Academia -> K12. Grupo/Universidad -> Universidad.
-  const uni = (DATA.segmento === 'grupo');
+  // Formularios: por segmento. K12/Maternal/Academia -> K12. Universidad/Grupo -> Universidad.
+  const uni = (DATA.segmento === 'grupo' || DATA.segmento === 'universidad');
   set('form_k12', !uni);
   set('form_uni', uni);
   // Integraciones: solo si ya usan un CRM u otra plataforma (no solo mensajería).
@@ -2614,7 +2744,7 @@ function renderAsistentes(){
   const linea = [ persona('prospecto_nombre','prospecto_cargo'), persona('prospecto_2_nombre','prospecto_2_cargo') ]
     .filter(Boolean).join('\u00a0 · \u00a0');
   el.textContent = linea;
-  el.parentNode.querySelectorAll('br').forEach(br=>{ br.style.display = linea ? '' : 'none'; });
+  el.parentNode.style.display = linea ? '' : 'none';
 }
 /* ===== MODO SIN PRECIOS: la presentación completa, sin una sola cifra de dinero ===== */
 const CAMPOS_PRECIO = ['valor_implementacion','precio_crm','precio_estrategia','precio_atraccion',
@@ -3080,29 +3210,64 @@ function pintarPreciosMoneda(){
     ? 'Precios mostrados en d\u00f3lares (USD, TC $'+TIPO_CAMBIO+') \u2014 al guardar se convierten a MXN, que es la moneda base. El cambio de moneda aplica a toda la presentaci\u00f3n.'
     : 'Precios en pesos (MXN) \u2014 el USD se deriva solo. Los cambios viajan en el HTML exportado; los precios de f\u00e1brica no se tocan.';
 }
-function abrirPreciosModal(){
+/* El modal edita UN segmento a la vez — arranca en el seleccionado en DATOS. Las
+   ediciones de cada pestaña viven en preciosDraft (siempre en MXN) hasta «Guardar». */
+let preciosModalSeg = null;
+let preciosDraft = {};
+function harvestPreciosInputs(){
+  const usd = precioMoneda()==='usd';
+  document.querySelectorAll('#preciosGrid input[data-pseg]').forEach(inp=>{
+    if(inp.value === inp.dataset.init) return; // sin cambios: no tocar (evita redondeos fantasma en USD)
+    const seg = inp.dataset.pseg, campo = inp.dataset.pcampo;
+    let val = parseFloat(String(inp.value).replace(/[',\s]/g,''));
+    if(isNaN(val)) return;
+    if(usd) val = Math.round(val * TIPO_CAMBIO);
+    if(!preciosDraft[seg]) preciosDraft[seg] = {};
+    preciosDraft[seg][campo] = val;
+  });
+}
+function renderPreciosGrid(){
   const grid = document.getElementById('preciosGrid');
+  const seg = preciosModalSeg;
   const pref = (precioMoneda()==='usd') ? 'US$' : '$';
-  grid.innerHTML = Object.keys(PRECIOS).map(seg=>{
-    const v = preciosVigentes(seg);
-    const inp = (campo, mxnVal)=>{
-      const shown = fmtPrecioVal(mxnVal);
-      // Las columnas «en paquete» van sombreadas en azul, para leerse como un bloque
-      // aparte del CRM suelto; la primera lleva el filo azul que abre el grupo.
-      const enPaquete = campo !== 'crm';
-      const tdEstilo = 'padding:6px;' + (enPaquete ? 'background:var(--blue-softer);' : '') + (campo==='crm_paquete' ? 'border-left:3px solid var(--blue-mid);' : '');
-      return '<td style="'+tdEstilo+'"><div style="display:flex;align-items:center;gap:4px;border:.5px solid var(--border);border-radius:8px;background:#fff;padding:0 0 0 9px;"><span style="font-size:11.5px;font-weight:700;color:var(--muted);">'+pref+'</span>'
-        +'<input data-pseg="'+seg+'" data-pcampo="'+campo+'" data-init="'+shown+'" type="text" inputmode="numeric" value="'+shown+'" style="width:100%;border:none;background:transparent;padding:8px 10px 8px 0;font-size:13.5px;font-family:inherit;outline:none;"></div></td>';
-    };
-    return '<tr style="border-top:.5px solid var(--border);"><td style="padding:8px 6px;font-weight:700;color:var(--navy-deep);">'+PRECIOS[seg].label+'</td>'
-      + inp('crm', v.crm) + inp('crm_paquete', v.crm_paquete !== undefined ? v.crm_paquete : v.crm) + inp('de', v.de) + inp('ai', v.ai) + '</tr>';
-  }).join('');
+  const v = Object.assign({}, preciosVigentes(seg), preciosDraft[seg] || {});
+  const inp = (campo, mxnVal)=>{
+    const shown = fmtPrecioVal(mxnVal);
+    // Las columnas «en paquete» van sombreadas en azul, para leerse como un bloque
+    // aparte del CRM suelto; la primera lleva el filo azul que abre el grupo.
+    const enPaquete = campo !== 'crm';
+    const tdEstilo = 'padding:6px;' + (enPaquete ? 'background:var(--blue-softer);' : '') + (campo==='crm_paquete' ? 'border-left:3px solid var(--blue-mid);' : '');
+    return '<td style="'+tdEstilo+'"><div style="display:flex;align-items:center;gap:4px;border:.5px solid var(--border);border-radius:8px;background:#fff;padding:0 0 0 9px;"><span style="font-size:11.5px;font-weight:700;color:var(--muted);">'+pref+'</span>'
+      +'<input data-pseg="'+seg+'" data-pcampo="'+campo+'" data-init="'+shown+'" type="text" inputmode="numeric" value="'+shown+'" style="width:100%;border:none;background:transparent;padding:8px 10px 8px 0;font-size:13.5px;font-family:inherit;outline:none;"></div></td>';
+  };
+  grid.innerHTML = '<tr style="border-top:.5px solid var(--border);"><td style="padding:8px 6px;font-weight:700;color:var(--navy-deep);">'+PRECIOS[seg].label+'</td>'
+    + inp('crm', v.crm) + inp('crm_paquete', v.crm_paquete !== undefined ? v.crm_paquete : v.crm) + inp('de', v.de) + inp('ai', v.ai) + '</tr>';
   grid.querySelectorAll('input[data-pseg]').forEach(el=>{
     el.addEventListener('blur', ()=>{
       const n = parseFloat(String(el.value).replace(/[',\s]/g,''));
       if(!isNaN(n)) el.value = mxNum(n, (n % 1 !== 0) ? 2 : 0);
     });
   });
+}
+function renderPreciosSegPills(){
+  const cont = document.getElementById('preciosSegPills');
+  cont.innerHTML = Object.keys(PRECIOS).map(seg=>
+    '<div class="segpill'+(seg===preciosModalSeg?' active':'')+'" data-pseg-pill="'+seg+'">'+PRECIOS[seg].label+'</div>').join('');
+  cont.querySelectorAll('[data-pseg-pill]').forEach(p=>{
+    p.addEventListener('click', ()=>{
+      if(p.dataset.psegPill === preciosModalSeg) return;
+      harvestPreciosInputs(); // lo tecleado en esta pestaña no se pierde al cambiar
+      preciosModalSeg = p.dataset.psegPill;
+      renderPreciosSegPills();
+      renderPreciosGrid();
+    });
+  });
+}
+function abrirPreciosModal(){
+  preciosDraft = {};
+  preciosModalSeg = PRECIOS[DATA.segmento] ? DATA.segmento : 'k12';
+  renderPreciosSegPills();
+  renderPreciosGrid();
   pintarPreciosMoneda();
   document.getElementById('preciosModal').style.display = 'flex';
 }
@@ -3110,11 +3275,13 @@ document.querySelectorAll('#preciosMonedaPills button').forEach(b=>{
   b.addEventListener('click', ()=>{
     const prev = precioMoneda();
     if(prev===b.dataset.pmon) return;
+    harvestPreciosInputs(); // conserva lo tecleado antes de repintar en la otra moneda
     DATA.moneda = b.dataset.pmon;
     setMonedaPill(DATA.moneda);
     convertirCamposDineroForm(prev, DATA.moneda); // si DATOS está abierto, sus campos siguen valiendo lo mismo
     renderData(); saveData(); guardarHistorial();
-    abrirPreciosModal();
+    renderPreciosGrid();
+    pintarPreciosMoneda();
   });
 });
 const sinPreciosChk = document.getElementById('sinPreciosChk');
@@ -3145,23 +3312,24 @@ document.getElementById('btnPrecios').addEventListener('click', abrirPreciosModa
 document.getElementById('preciosCerrar').addEventListener('click', ()=>{ document.getElementById('preciosModal').style.display='none'; });
 document.getElementById('preciosReset').addEventListener('click', ()=>{
   DATA.precios_override = {};
-  saveData(); renderData(); abrirPreciosModal();
+  preciosDraft = {};
+  saveData(); renderData();
+  renderPreciosGrid();
 });
 document.getElementById('preciosGuardar').addEventListener('click', ()=>{
-  const usd = precioMoneda()==='usd';
+  harvestPreciosInputs(); // la pestaña visible entra al borrador junto con las demás
   const ov = Object.assign({}, DATA.precios_override || {});
-  document.querySelectorAll('#preciosGrid input[data-pseg]').forEach(inp=>{
-    if(inp.value === inp.dataset.init) return; // sin cambios: no tocar (evita redondeos fantasma en USD)
-    const seg = inp.dataset.pseg, campo = inp.dataset.pcampo;
-    let val = parseFloat(String(inp.value).replace(/[',\s]/g,''));
-    if(isNaN(val)) return;
-    if(usd) val = Math.round(val * TIPO_CAMBIO);
-    const def = PRECIOS[seg][campo] !== undefined ? PRECIOS[seg][campo] : (campo==='crm_paquete' ? PRECIOS[seg].crm : undefined);
-    if(!ov[seg]) ov[seg] = {};
-    if(val !== def) ov[seg][campo] = val; else delete ov[seg][campo];
-    if(!Object.keys(ov[seg]).length) delete ov[seg];
+  Object.keys(preciosDraft).forEach(seg=>{
+    Object.keys(preciosDraft[seg]).forEach(campo=>{
+      const val = preciosDraft[seg][campo];
+      const def = PRECIOS[seg][campo] !== undefined ? PRECIOS[seg][campo] : (campo==='crm_paquete' ? PRECIOS[seg].crm : undefined);
+      if(!ov[seg]) ov[seg] = {};
+      if(val !== def) ov[seg][campo] = val; else delete ov[seg][campo];
+      if(!Object.keys(ov[seg]).length) delete ov[seg];
+    });
   });
   DATA.precios_override = ov;
+  preciosDraft = {};
   saveData(); renderData(); guardarHistorial();
   document.getElementById('preciosModal').style.display='none';
 });
@@ -3780,6 +3948,142 @@ document.getElementById('btnHome').addEventListener('click', async ()=>{
     location.href = '/';
   }
 });
+
+/* ===== SuperLeads Radio: misma playlist que Rayos X. El iframe nace al primer clic y
+   nunca se desmonta — ocultar el panel no corta la música. ===== */
+(function(){
+  const btn = document.getElementById('btnMusica'), panel = document.getElementById('musicaPanel');
+  if(!btn || !panel) return;
+  let cargado = false;
+  btn.addEventListener('click', ()=>{
+    if(!cargado){
+      cargado = true;
+      const f = document.createElement('iframe');
+      f.src = 'https://open.spotify.com/embed/playlist/7cwQ0gO0I9sJC1EAg0CWKH?utm_source=generator&theme=0';
+      f.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+      f.title = 'SuperLeads Radio — playlist de fondo';
+      document.getElementById('musicaFrameWrap').appendChild(f);
+    }
+    panel.classList.toggle('on');
+    btn.classList.toggle('activo', panel.classList.contains('on'));
+  });
+})();
+
+/* ===== Horarios LATAM — port del comparador de Rayos X (lib/rayosx/horarios.ts).
+   Nada de offsets quemados: varios países cambian de horario en el año, así que todo
+   sale de Intl con la zona IANA real y el offset se calcula para la fecha probada. ===== */
+const HR_PAISES = [
+  {codigo:'MX', pais:'México', ciudad:'Ciudad de México', zona:'America/Mexico_City', bandera:'🇲🇽'},
+  {codigo:'GT', pais:'Guatemala', ciudad:'Ciudad de Guatemala', zona:'America/Guatemala', bandera:'🇬🇹'},
+  {codigo:'SV', pais:'El Salvador', ciudad:'San Salvador', zona:'America/El_Salvador', bandera:'🇸🇻'},
+  {codigo:'HN', pais:'Honduras', ciudad:'Tegucigalpa', zona:'America/Tegucigalpa', bandera:'🇭🇳'},
+  {codigo:'NI', pais:'Nicaragua', ciudad:'Managua', zona:'America/Managua', bandera:'🇳🇮'},
+  {codigo:'CR', pais:'Costa Rica', ciudad:'San José', zona:'America/Costa_Rica', bandera:'🇨🇷'},
+  {codigo:'PA', pais:'Panamá', ciudad:'Ciudad de Panamá', zona:'America/Panama', bandera:'🇵🇦'},
+  {codigo:'CO', pais:'Colombia', ciudad:'Bogotá', zona:'America/Bogota', bandera:'🇨🇴'},
+  {codigo:'EC', pais:'Ecuador', ciudad:'Quito', zona:'America/Guayaquil', bandera:'🇪🇨'},
+  {codigo:'PE', pais:'Perú', ciudad:'Lima', zona:'America/Lima', bandera:'🇵🇪'},
+  {codigo:'CU', pais:'Cuba', ciudad:'La Habana', zona:'America/Havana', bandera:'🇨🇺'},
+  {codigo:'DO', pais:'República Dominicana', ciudad:'Santo Domingo', zona:'America/Santo_Domingo', bandera:'🇩🇴'},
+  {codigo:'PR', pais:'Puerto Rico', ciudad:'San Juan', zona:'America/Puerto_Rico', bandera:'🇵🇷'},
+  {codigo:'VE', pais:'Venezuela', ciudad:'Caracas', zona:'America/Caracas', bandera:'🇻🇪'},
+  {codigo:'BO', pais:'Bolivia', ciudad:'La Paz', zona:'America/La_Paz', bandera:'🇧🇴'},
+  {codigo:'US', pais:'Estados Unidos', ciudad:'Miami', zona:'America/New_York', bandera:'🇺🇸'},
+  {codigo:'PY', pais:'Paraguay', ciudad:'Asunción', zona:'America/Asuncion', bandera:'🇵🇾'},
+  {codigo:'UY', pais:'Uruguay', ciudad:'Montevideo', zona:'America/Montevideo', bandera:'🇺🇾'},
+  {codigo:'AR', pais:'Argentina', ciudad:'Buenos Aires', zona:'America/Argentina/Buenos_Aires', bandera:'🇦🇷'},
+  {codigo:'BR', pais:'Brasil', ciudad:'São Paulo', zona:'America/Sao_Paulo', bandera:'🇧🇷'},
+  {codigo:'CL', pais:'Chile', ciudad:'Santiago', zona:'America/Santiago', bandera:'🇨🇱'},
+];
+function hrOffsetMs(instante, zona){
+  const partes = new Intl.DateTimeFormat('en-US', {timeZone:zona, hour12:false, year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', second:'2-digit'}).formatToParts(new Date(instante));
+  const m = Object.fromEntries(partes.map(p=>[p.type,p.value]));
+  return Date.UTC(+m.year, +m.month-1, +m.day, (+m.hour)%24, +m.minute, +m.second) - instante;
+}
+function hrAInstante(fechaISO, horaHHmm, zona){
+  const [a,me,d] = fechaISO.split('-').map(Number), [h,mi] = horaHHmm.split(':').map(Number);
+  const aprox = Date.UTC(a, me-1, d, h, mi, 0);
+  return aprox - hrOffsetMs(aprox, zona);
+}
+function hrAHoraFecha(instante, zona){
+  const partes = new Intl.DateTimeFormat('en-CA', {timeZone:zona, hour12:false, year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit'}).formatToParts(instante);
+  const m = Object.fromEntries(partes.map(p=>[p.type,p.value]));
+  return {hora: String((+m.hour)%24).padStart(2,'0')+':'+m.minute, fecha: m.year+'-'+m.month+'-'+m.day};
+}
+function hrCalidad(hora){ if(hora>=8 && hora<20) return 'bien'; if(hora===7 || hora===20) return 'atencion'; return 'evitar'; }
+function hrA12(horaHHmm){
+  const [h,mi] = horaHHmm.split(':').map(Number);
+  return new Intl.DateTimeFormat('es-MX', {hour:'numeric', minute:'2-digit', hour12:true, timeZone:'UTC'}).format(new Date(Date.UTC(2000,0,1,h,mi)));
+}
+function hrFechaLarga(fechaISO){
+  const [a,me,d] = fechaISO.split('-').map(Number);
+  return new Intl.DateTimeFormat('es-MX', {weekday:'long', day:'numeric', month:'long', timeZone:'UTC'}).format(new Date(Date.UTC(a,me-1,d))).replace(',','');
+}
+(function(){
+  const modal = document.getElementById('horariosModal');
+  if(!modal) return;
+  const selA = document.getElementById('hrPaisA'), selB = document.getElementById('hrPaisB');
+  const inpA = document.getElementById('hrInputA'), inpFecha = document.getElementById('hrFecha');
+  const outA = document.getElementById('hrHoraA'), outB = document.getElementById('hrHoraB');
+  const outFB = document.getElementById('hrFechaB'), outDif = document.getElementById('hrDif'), outCal = document.getElementById('hrCalidad');
+  HR_PAISES.forEach(p=>{
+    selA.insertAdjacentHTML('beforeend', '<option value="'+p.codigo+'">'+p.bandera+' '+p.pais+' · '+p.ciudad+'</option>');
+    selB.insertAdjacentHTML('beforeend', '<option value="'+p.codigo+'">'+p.bandera+' '+p.pais+' · '+p.ciudad+'</option>');
+  });
+  const porCodigo = c=> HR_PAISES.find(p=>p.codigo===c) || HR_PAISES[0];
+  function paisDelProspecto(){
+    const nombre = (DATA.pais||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    const hit = HR_PAISES.find(p=> p.pais.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'') === nombre);
+    return hit ? hit.codigo : 'CO';
+  }
+  function pintar(){
+    const zA = porCodigo(selA.value).zona, zB = porCodigo(selB.value).zona;
+    const fecha = inpFecha.value, hora = inpA.value;
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(fecha) || !/^\d{2}:\d{2}$/.test(hora)) return;
+    const instante = hrAInstante(fecha, hora, zA);
+    const b = hrAHoraFecha(instante, zB);
+    outA.textContent = hora;
+    outB.textContent = b.hora;
+    const difH = (hrOffsetMs(instante, zB) - hrOffsetMs(instante, zA)) / 3600000;
+    outDif.textContent = difH === 0 ? 'misma hora' : ((difH>0?'+':'−') + Math.abs(difH) + ' h');
+    outFB.textContent = b.fecha !== fecha ? (b.fecha < fecha ? 'el día anterior' : 'el día siguiente') : '';
+    const cal = [hrCalidad(+hora.slice(0,2)), hrCalidad(+b.hora.slice(0,2))].sort((x,y)=> ['bien','atencion','evitar'].indexOf(y) - ['bien','atencion','evitar'].indexOf(x))[0];
+    const CAL = {bien:['var(--ok)','Buena hora para los dos'], atencion:['var(--warn)','Al filo — con cuidado'], evitar:['var(--bad)','Fuera de horario para alguno de los dos']};
+    outCal.innerHTML = '<span style="width:9px;height:9px;border-radius:50%;background:'+CAL[cal][0]+';flex-shrink:0;"></span>'+CAL[cal][1];
+  }
+  document.getElementById('btnHorarios').addEventListener('click', ()=>{
+    selA.value = 'MX';
+    selB.value = paisDelProspecto();
+    if(selB.value === selA.value) selB.value = (selA.value === 'CO') ? 'MX' : (selA.value==='MX' ? 'CO' : 'MX');
+    const ahora = hrAHoraFecha(Date.now(), porCodigo(selA.value).zona);
+    inpFecha.value = ahora.fecha;
+    inpA.value = ahora.hora;
+    pintar();
+    modal.classList.add('open');
+  });
+  document.getElementById('horariosCerrar').addEventListener('click', ()=> modal.classList.remove('open'));
+  modal.addEventListener('click', e=>{ if(e.target === modal) modal.classList.remove('open'); });
+  [selA, selB, inpA, inpFecha].forEach(el=> el.addEventListener('change', pintar));
+  inpA.addEventListener('input', pintar);
+  document.getElementById('hrSwap').addEventListener('click', ()=>{
+    const a = selA.value; selA.value = selB.value; selB.value = a;
+    const ahora = hrAHoraFecha(Date.now(), porCodigo(selA.value).zona);
+    inpA.value = ahora.hora; inpFecha.value = ahora.fecha;
+    pintar();
+  });
+  document.getElementById('hrAhora').addEventListener('click', ()=>{
+    const ahora = hrAHoraFecha(Date.now(), porCodigo(selA.value).zona);
+    inpFecha.value = ahora.fecha; inpA.value = ahora.hora; pintar();
+  });
+  document.getElementById('hrCopiar').addEventListener('click', async ()=>{
+    const pA = porCodigo(selA.value), pB = porCodigo(selB.value);
+    const texto = 'Quedamos el '+hrFechaLarga(inpFecha.value)+': '+hrA12(outB.textContent)+' hora de '+pB.pais+' ('+hrA12(inpA.value)+' hora de '+pA.pais+').';
+    const btn = document.getElementById('hrCopiar');
+    try{ await navigator.clipboard.writeText(texto); btn.textContent = 'Copiado — listo para pegar'; }
+    catch(e){ btn.textContent = 'No se pudo copiar — selecciona a mano'; }
+    setTimeout(()=>{ btn.textContent = 'Copiar propuesta de horario'; }, 1600);
+  });
+})();
 
 async function inicializar(){
   // Un slug real (el que genera slug()) nunca lleva punto — así que una ruta con punto
