@@ -2,8 +2,8 @@
   "colegio": "Instituto Vía Diseño",
   "ciudad": "Querétaro",
   "comercial": "victor",
-  "guardado": "19 ago 2026, 12:55 p.m.",
-  "guardado_ts": 1787165754416,
+  "guardado": "19 ago 2026, 06:32 p.m.",
+  "guardado_ts": 1787185972258,
   "data": {
     "colegio": "Instituto Vía Diseño",
     "prospecto_nombre": "Laura Romero",
@@ -54,7 +54,7 @@
     },
     "sin_precios": false,
     "omitir_propuesta": false,
-    "sello_captura": "2026-08-19 12:55:54",
+    "sello_captura": "2026-08-19 18:32:52",
     "antiguedad_anios": 16,
     "leads_dia": 12,
     "tasa_conversion": 0.25,
@@ -72,6 +72,6 @@
     "descuento": 0,
     "imagen_escala": "auto",
     "caso_id": "cuenca",
-    "link_propuesta": ""
+    "link_propuesta": "https://link.superleads.mx/documents/v1/1b3430cc-b35b-460d-b25c-9ecbbdd8c801?locale=es"
   }
 }
