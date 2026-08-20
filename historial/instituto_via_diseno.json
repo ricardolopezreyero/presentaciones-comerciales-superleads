@@ -2,8 +2,8 @@
   "colegio": "Instituto Vía Diseño",
   "ciudad": "Querétaro",
   "comercial": "victor",
-  "guardado": "19 ago 2026, 10:18 p.m.",
-  "guardado_ts": 1787199508709,
+  "guardado": "19 ago 2026, 10:19 p.m.",
+  "guardado_ts": 1787199580847,
   "data": {
     "colegio": "Instituto Vía Diseño",
     "prospecto_nombre": "Laura Romero",
@@ -17,7 +17,9 @@
     "paquete": "estrategia",
     "moneda": "mxn",
     "comercial": "victor",
-    "notas_slide": {},
+    "notas_slide": {
+      "0": "<br>"
+    },
     "semaforo_override": {},
     "precios_override": {
       "grupo": {
