@@ -2,8 +2,8 @@
   "colegio": "C. E. Espiritu Santo",
   "ciudad": "Guayaquil",
   "comercial": "ricardo",
-  "guardado": "19 ago 2026, 08:49 p.m.",
-  "guardado_ts": 1787194197706,
+  "guardado": "19 ago 2026, 08:50 p.m.",
+  "guardado_ts": 1787194227840,
   "data": {
     "colegio": "C. E. Espiritu Santo",
     "prospecto_nombre": "Ximena Martinez Toral",
@@ -27,6 +27,9 @@
         "crm_paquete": 10800,
         "de": 6300,
         "ai": 9000
+      },
+      "universidad": {
+        "crm": 13000
       }
     },
     "productos_off": {},
