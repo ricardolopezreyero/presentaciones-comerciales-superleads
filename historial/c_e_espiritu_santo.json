@@ -2,8 +2,8 @@
   "colegio": "C. E. Espiritu Santo",
   "ciudad": "Guayaquil",
   "comercial": "ricardo",
-  "guardado": "19 ago 2026, 08:50 p.m.",
-  "guardado_ts": 1787194227840,
+  "guardado": "19 ago 2026, 08:51 p.m.",
+  "guardado_ts": 1787194277494,
   "data": {
     "colegio": "C. E. Espiritu Santo",
     "prospecto_nombre": "Ximena Martinez Toral",
@@ -13,7 +13,7 @@
     "ciudad": "Guayaquil",
     "pais": "Ecuador",
     "fecha_presentacion": "18 de agosto de 2026 · 7:21 a.m.",
-    "segmento": "universidad",
+    "segmento": "k12",
     "paquete": "estrategia",
     "moneda": "mxn",
     "comercial": "ricardo",
@@ -27,9 +27,6 @@
         "crm_paquete": 10800,
         "de": 6300,
         "ai": 9000
-      },
-      "universidad": {
-        "crm": 13000
       }
     },
     "productos_off": {},
