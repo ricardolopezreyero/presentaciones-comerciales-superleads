@@ -2,8 +2,8 @@
   "colegio": "Colegio del Sauce",
   "ciudad": "Hidalgo",
   "comercial": "victor",
-  "guardado": "21 ago 2026, 10:59 a.m.",
-  "guardado_ts": 1787331570658,
+  "guardado": "21 ago 2026, 11:03 a.m.",
+  "guardado_ts": 1787331789492,
   "data": {
     "colegio": "Colegio del Sauce",
     "prospecto_nombre": "Francisco Emmanuel García Aguirre",
@@ -22,16 +22,15 @@
     "precios_override": {},
     "productos_off": {
       "radar": true,
-      "referidos": true,
-      "academia": true,
       "integraciones": true,
-      "form_uni": true
+      "form_uni": true,
+      "calendario": true
     },
     "productos_orden": [
+      "constanza",
       "calendario",
       "whatsapp",
       "torre",
-      "constanza",
       "crm",
       "academia",
       "integraciones",
@@ -48,13 +47,14 @@
       "form_k12": true,
       "form_uni": true,
       "crm": true,
-      "integraciones": true
+      "integraciones": true,
+      "calendario": true
     },
     "sin_precios": false,
     "omitir_propuesta": false,
     "embudo_marcas": {},
     "equipo_marcas": {},
-    "sello_captura": "2026-08-21 10:59:07",
+    "sello_captura": "2026-08-21 11:03:09",
     "antiguedad_anios": 3,
     "leads_dia": 1,
     "tasa_conversion": 5.21,
