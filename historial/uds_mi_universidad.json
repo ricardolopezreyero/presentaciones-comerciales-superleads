@@ -3,7 +3,7 @@
   "ciudad": "Chiapas",
   "comercial": "victor",
   "guardado": "21 ago 2026, 09:50 a.m.",
-  "guardado_ts": 1787327409829,
+  "guardado_ts": 1787327430395,
   "data": {
     "colegio": "UDS Mi Universidad",
     "prospecto_nombre": "Víctor Albores",
@@ -21,7 +21,8 @@
     "semaforo_override": {},
     "precios_override": {
       "grupo": {
-        "crm_paquete": 19000
+        "crm_paquete": 14000,
+        "ai": 15000
       }
     },
     "productos_off": {
