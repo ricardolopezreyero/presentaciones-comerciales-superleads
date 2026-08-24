@@ -2,8 +2,8 @@
   "colegio": " Colegio Kaambal",
   "ciudad": "Tesistán, Zapopan, Jalisco",
   "comercial": "victor",
-  "guardado": "24 ago 2026, 09:47 a.m.",
-  "guardado_ts": 1787586471536,
+  "guardado": "24 ago 2026, 09:56 a.m.",
+  "guardado_ts": 1787586968407,
   "data": {
     "colegio": " Colegio Kaambal",
     "prospecto_nombre": "Juan Pablo Rojas Pérez",
@@ -19,7 +19,11 @@
     "comercial": "victor",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "k12": {
+        "crm_paquete": 8000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
