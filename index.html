@@ -4177,5 +4177,96 @@ async function inicializar(){
 inicializar();
 </script>
 <!-- RLR -->
+<script>
+/* ===== AVISO: presentaciones llegadas desde Rayos X =====
+   El Rayos X, al finalizar un diagnóstico, escribe/actualiza el archivo del
+   colegio en historial/ con un commit "Rayos X → presentación[ nueva]: X".
+   Este bloque lee esos commits al abrir la app y levanta un aviso para que
+   una presentación recién llegada NUNCA pase desapercibida. Se corre una
+   sola consulta ligera (la lista de commits, sin bajar archivos) y lo visto
+   se recuerda en localStorage por navegador. */
+(function(){
+  var VISTO_KEY = 'rx_aviso_visto_ts';
+  var RX_RE = /^Rayos X → presentación( nueva)?: (.+)$/;
+
+  function vistoHasta(){
+    var v = parseInt(localStorage.getItem(VISTO_KEY) || '0', 10);
+    /* Primera vez en este navegador: solo lo de las últimas 48 horas, para no
+       inundar con todo el historial viejo. */
+    return v || (Date.now() - 48*3600*1000);
+  }
+
+  function pintar(nuevos){
+    var caja = document.createElement('div');
+    caja.id = 'avisoRx';
+    caja.setAttribute('style',
+      'position:fixed;right:22px;bottom:22px;z-index:9999;max-width:380px;'+
+      'background:var(--navy-deep);color:#fff;border-radius:18px;padding:18px 20px;'+
+      'box-shadow:0 18px 50px rgba(0,18,64,.5);font-family:inherit;'+
+      'opacity:0;transform:translateY(14px);transition:opacity .45s var(--ease),transform .45s var(--ease);');
+    var titulo = nuevos.some(function(n){ return n.nueva; })
+      ? 'Nueva presentación desde Rayos X'
+      : 'Presentación actualizada desde Rayos X';
+    var html = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">'+
+      '<span style="display:flex;width:34px;height:34px;border-radius:50%;background:rgba(86,239,159,.16);align-items:center;justify-content:center;font-size:16px;">📊</span>'+
+      '<b style="font-size:14px;">'+titulo+'</b></div>';
+    nuevos.slice(0,3).forEach(function(n){
+      html += '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 0;border-top:.5px solid rgba(255,255,255,.12);">'+
+        '<span style="font-size:13px;color:rgba(255,255,255,.9);">'+escapeHtml(n.colegio)+
+        (n.nueva ? ' <span style="color:var(--green);font-size:11px;font-weight:700;">· nueva</span>' : '')+'</span>'+
+        '<button data-slug="'+escapeHtml(slug(n.colegio))+'" style="flex-shrink:0;background:var(--green);color:var(--navy-deep);border:0;border-radius:9999px;padding:6px 14px;font-weight:800;font-size:12px;cursor:pointer;font-family:inherit;">Abrir</button></div>';
+    });
+    html += '<div style="text-align:right;margin-top:10px;">'+
+      '<button id="avisoRxOk" style="background:none;border:0;color:rgba(255,255,255,.55);font-size:12px;cursor:pointer;font-family:inherit;">Entendido</button></div>';
+    caja.innerHTML = html;
+    document.body.appendChild(caja);
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      caja.style.opacity = '1'; caja.style.transform = 'translateY(0)';
+    }); });
+
+    var maxTs = Math.max.apply(null, nuevos.map(function(n){ return n.ts; }));
+    function cerrar(){
+      try{ localStorage.setItem(VISTO_KEY, String(maxTs)); }catch(e){}
+      caja.style.opacity = '0'; caja.style.transform = 'translateY(14px)';
+      setTimeout(function(){ caja.remove(); }, 500);
+    }
+    caja.querySelectorAll('button[data-slug]').forEach(function(b){
+      b.onclick = function(){
+        try{ localStorage.setItem(VISTO_KEY, String(maxTs)); }catch(e){}
+        location.href = '/' + b.getAttribute('data-slug');
+      };
+    });
+    document.getElementById('avisoRxOk').onclick = cerrar;
+  }
+
+  async function revisar(){
+    try{
+      var r = await fetch('https://api.github.com/repos/'+GH_HIST_REPO+'/commits?path=historial&per_page=15&t='+Date.now(),
+        {headers: ghHeaders(), cache:'no-store'});
+      if(!r.ok) return;
+      var commits = await r.json();
+      if(!Array.isArray(commits)) return;
+      var desde = vistoHasta();
+      var vistos = {};
+      var nuevos = [];
+      commits.forEach(function(c){
+        var msg = ((c.commit||{}).message||'').split('\n')[0];
+        var m = msg.match(RX_RE);
+        if(!m) return;
+        var ts = new Date(((c.commit||{}).author||{}).date || 0).getTime();
+        if(!(ts > desde)) return;
+        var colegio = m[2];
+        if(vistos[colegio]) return; /* el commit más reciente por colegio manda */
+        vistos[colegio] = true;
+        nuevos.push({colegio: colegio, nueva: !!m[1], ts: ts});
+      });
+      if(nuevos.length) pintar(nuevos);
+    }catch(e){ /* sin red o sin API: la app sigue igual */ }
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', revisar);
+  else revisar();
+})();
+</script>
 </body>
 </html>
