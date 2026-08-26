@@ -2,8 +2,8 @@
   "colegio": "Playland Academy",
   "ciudad": "Puebla",
   "comercial": "ricardo",
-  "guardado": "26 ago 2026, 01:32 p.m.",
-  "guardado_ts": 1787772779119,
+  "guardado": "26 ago 2026, 01:43 p.m.",
+  "guardado_ts": 1787773436681,
   "data": {
     "colegio": "Playland Academy",
     "prospecto_nombre": "Ana Sofía Plata",
@@ -71,7 +71,7 @@
       "growth-proceso": true,
       "growth-comunicacion": true
     },
-    "sello_captura": "2026-08-26 13:19:50",
+    "sello_captura": "2026-08-26 13:43:56",
     "antiguedad_anios": 7,
     "leads_dia": 6,
     "tasa_conversion": 0.68,
@@ -89,7 +89,7 @@
     "descuento": 0,
     "imagen_escala": "auditorio",
     "caso_id": "swiss",
-    "link_propuesta": "",
+    "link_propuesta": "https://link.superleads.mx/documents/v1/7e469d0e-ee31-4458-b7b7-671cae4838e5?locale=es",
     "origen_rayosx": "9cf23efc-ba72-454c-85dc-91dfb5f202a2"
   }
 }
