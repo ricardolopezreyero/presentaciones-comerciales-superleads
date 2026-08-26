@@ -2,8 +2,8 @@
   "colegio": "Playland Academy",
   "ciudad": "Puebla",
   "comercial": "ricardo",
-  "guardado": "25 ago 2026, 06:08 p.m.",
-  "guardado_ts": 1787681326520,
+  "guardado": "26 ago 2026, 01:19 p.m.",
+  "guardado_ts": 1787771989208,
   "data": {
     "colegio": "Playland Academy",
     "prospecto_nombre": "Ana Sofía Plata",
@@ -49,7 +49,7 @@
       "integraciones": true
     },
     "sin_precios": false,
-    "omitir_propuesta": true,
+    "omitir_propuesta": false,
     "embudo_marcas": {
       "prospectos": "rojo",
       "contactados": "rojo",
