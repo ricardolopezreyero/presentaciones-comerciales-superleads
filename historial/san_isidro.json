@@ -2,8 +2,8 @@
   "colegio": "San Isidro",
   "ciudad": "Cuenca",
   "comercial": "victor",
-  "guardado": "28 ago 2026, 03:12 p.m.",
-  "guardado_ts": 1787951578694,
+  "guardado": "28 ago 2026, 03:16 p.m.",
+  "guardado_ts": 1787951819860,
   "data": {
     "colegio": "San Isidro",
     "prospecto_nombre": "Sandra El Khory",
@@ -24,7 +24,7 @@
     },
     "precios_override": {
       "universidad": {
-        "crm_paquete": 9000,
+        "crm_paquete": 8100,
         "de": 5400
       }
     },
