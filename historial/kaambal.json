@@ -2,8 +2,8 @@
   "colegio": "kaambal",
   "ciudad": "Tijuana",
   "comercial": "ricardo",
-  "guardado": "28 ago 2026, 09:48 a.m.",
-  "guardado_ts": 1787932134524,
+  "guardado": "28 ago 2026, 09:49 a.m.",
+  "guardado_ts": 1787932155602,
   "data": {
     "colegio": "kaambal",
     "prospecto_nombre": "Verónica García",
@@ -19,7 +19,11 @@
     "comercial": "ricardo",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "k12": {
+        "ai": 5000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
