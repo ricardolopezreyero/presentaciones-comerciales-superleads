@@ -8,6 +8,30 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    /* La vuelta de la sincronización: la presentación escribe en el Rayos X.
+       Va por aquí y no directo desde el navegador porque el secreto compartido
+       vive en las variables del Worker — mandarlo al cliente lo dejaría a la
+       vista de cualquiera que abra las herramientas del navegador, y este
+       endpoint escribe en la base de producción del Rayos X. */
+    if (url.pathname === '/api/rayosx-sync' && request.method === 'POST') {
+      if (!env.RAYOSX_SYNC_SECRET) {
+        return Response.json({ ok: false, mensaje: 'Sin RAYOSX_SYNC_SECRET configurado.' }, { status: 503 });
+      }
+      const r = await fetch('https://rayosx.superleads.mx/api/presentacion', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          'x-presentacion-secreto': env.RAYOSX_SYNC_SECRET,
+        },
+        body: await request.text(),
+      });
+      return new Response(await r.text(), {
+        status: r.status,
+        headers: { 'content-type': 'application/json' },
+      });
+    }
+
     const res = await env.ASSETS.fetch(request);
     const ct = res.headers.get('content-type') || '';
     if (!ct.includes('text/html')) return res;

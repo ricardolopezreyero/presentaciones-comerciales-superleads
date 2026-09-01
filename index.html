@@ -1765,6 +1765,13 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
   <h4>Editar datos del prospecto</h4>
   <div class="eHint">Cambia lo que necesites y dale «Actualizar presentación». Los títulos de las láminas no cambian — solo los datos.</div>
   <div class="eHint" style="margin-top:-10px;">Estos datos se guardan automáticamente en este navegador. Un prospecto puede llenar esta sección solo, sin ayuda de un comercial.</div>
+  <!-- El camino de vuelta al diagnóstico. Solo aparece cuando esta presentación
+       nació de un Rayos X (DATA.origen_rayosx trae su id): una hecha a mano no
+       tiene a dónde ir. Lo enciende sincronizarBotonRayosX(). -->
+  <a id="irAlRayosX" href="#" target="_blank" rel="noreferrer" style="display:none;align-items:center;gap:8px;margin:0 0 14px;padding:9px 14px;border-radius:999px;background:var(--navy-deep);color:#fff;font-size:13px;font-weight:800;text-decoration:none;width:fit-content;">
+    Ir al Rayos X
+    <span style="font-size:15px;line-height:1;">&#8599;</span>
+  </a>
   <form id="editForm">
     <div class="efield"><label>Colegio</label><div style="position:relative;"><input data-f="colegio"><div id="colegioSug" style="display:none;position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:30;background:#fff;border:.5px solid var(--border);border-radius:10px;box-shadow:0 14px 40px rgba(0,37,130,.14);max-height:230px;overflow:auto;"></div></div><div id="colegioAviso" style="display:none;font-size:12px;font-weight:700;margin-top:6px;line-height:1.45;"></div>
       <div id="urlPresentBox" style="margin-top:8px;display:flex;align-items:center;gap:8px;background:var(--blue-soft);border:.5px solid var(--border);border-radius:8px;padding:8px 10px;">
@@ -2275,6 +2282,9 @@ function tierChip(metric, v){
    Se llama después de cualquier cambio a DATA. */
 function renderData(){
   const c = calc(DATA);
+  // El botón de vuelta al Rayos X se enciende/apaga con los datos: al cargar
+  // una presentación del historial, DATA cambia y con ella su origen.
+  try{ sincronizarBotonRayosX(); }catch(e){}
   const FMT_DINERO = {mxn:1, mxn2:1, mxnmes:1};
   document.querySelectorAll('[data-bind]').forEach(el=>{
     const key = el.dataset.bind;
@@ -3463,6 +3473,7 @@ async function guardarHistorial(){
         guardarUltimoSlugGuardado(nuevoSlug);
         try{ history.replaceState(null, '', '/' + nuevoSlug); }catch(e){}
         actualizarCajaUrl();
+        empujarARayosX();
         return true;
       }
       if(p.status!==409 && p.status!==422) break;
@@ -3471,6 +3482,48 @@ async function guardarHistorial(){
   }catch(err){ setHistStatus('\u26a0 Sin conexi\u00f3n a la nube (los datos s\u00ed quedaron en este equipo)'); }
   return false;
 }
+/* La vuelta de la sincronización: lo que se ajustó aquí viaja al Rayos X.
+   En la cita se corrigen números en vivo —la matrícula real, los prospectos al
+   día— y antes se quedaban solo aquí: el Rayos X seguía con lo viejo y, peor,
+   su siguiente guardado los pisaba sin avisar, porque la sincronización de ida
+   sobreescribe todo lo que considera suyo.
+
+   Va por /api/rayosx-sync (nuestro propio Worker) y no directo al Rayos X para
+   que el secreto compartido no baje al navegador. Del otro lado solo se acepta
+   la CAPTURA CRUDA: lo derivado (conversión, costo por alumno) se recalcula
+   allá, que es donde vive la fórmula.
+
+   No lanza ni bloquea el guardado: la presentación ya quedó salvada en la nube,
+   y que el aviso falle no debe costarle el trabajo al comercial. */
+async function empujarARayosX(){
+  if(!DATA || !DATA.origen_rayosx) return;
+  try{
+    const r = await fetch('/api/rayosx-sync', {
+      method:'POST',
+      headers:{'content-type':'application/json'},
+      body: JSON.stringify({ diagnosticId: DATA.origen_rayosx, data: DATA })
+    });
+    if(r.ok){
+      const j = await r.json().catch(()=>null);
+      const n = (j && j.aplicados && j.aplicados.length) || 0;
+      if(n > 0) setHistStatus('\u2713 Guardado \u00b7 ' + n + ' dato(s) actualizados tambi\u00e9n en el Rayos X');
+    }
+  }catch(e){ /* silencio a prop\u00f3sito: ver comentario de arriba */ }
+}
+
+/* Enciende el botón de vuelta al Rayos X cuando esta presentación vino de uno. */
+function sincronizarBotonRayosX(){
+  const a = document.getElementById('irAlRayosX');
+  if(!a) return;
+  const id = DATA && DATA.origen_rayosx;
+  if(id){
+    a.href = 'https://rayosx.superleads.mx/diagnostics/' + id + '/results';
+    a.style.display = 'inline-flex';
+  } else {
+    a.style.display = 'none';
+  }
+}
+
 let HIST_CACHE = [];
 let HIST_CARGA_EN_CURSO = null;
 function pausa(ms){ return new Promise(res=> setTimeout(res, ms)); }
