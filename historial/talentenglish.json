@@ -2,8 +2,8 @@
   "colegio": "TalentEnglish",
   "ciudad": "Texcoco de Mora",
   "comercial": "victor",
-  "guardado": "02 sep 2026, 09:50 a.m.",
-  "guardado_ts": 1788364258729,
+  "guardado": "02 sep 2026, 09:51 a.m.",
+  "guardado_ts": 1788364294278,
   "data": {
     "colegio": "TalentEnglish",
     "prospecto_nombre": "Marco Granados",
@@ -19,7 +19,12 @@
     "comercial": "victor",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "academia1": {
+        "crm_paquete": 5000,
+        "de": 4000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
