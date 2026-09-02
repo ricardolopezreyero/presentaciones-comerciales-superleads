@@ -2,8 +2,8 @@
   "colegio": "La Cuarta Pared, Instituto de Artes Cinematográficas",
   "ciudad": "CDMX",
   "comercial": "ricardo",
-  "guardado": "02 sep 2026, 10:34 a.m.",
-  "guardado_ts": 1788366877822,
+  "guardado": "02 sep 2026, 10:54 a.m.",
+  "guardado_ts": 1788368056283,
   "data": {
     "colegio": "La Cuarta Pared, Instituto de Artes Cinematográficas",
     "prospecto_nombre": "Hugo Félix Mercado",
@@ -23,6 +23,9 @@
       "k12": {
         "crm_paquete": 8000,
         "de": 6000
+      },
+      "academia1": {
+        "crm_paquete": 8000
       }
     },
     "productos_off": {
