@@ -2,8 +2,8 @@
   "colegio": "TalentEnglish",
   "ciudad": "Texcoco de Mora",
   "comercial": "victor",
-  "guardado": "02 sep 2026, 09:51 a.m.",
-  "guardado_ts": 1788364294278,
+  "guardado": "02 sep 2026, 09:56 a.m.",
+  "guardado_ts": 1788364571445,
   "data": {
     "colegio": "TalentEnglish",
     "prospecto_nombre": "Marco Granados",
@@ -26,19 +26,37 @@
       }
     },
     "productos_off": {
-      "radar": true,
       "referidos": true,
       "academia": true,
-      "integraciones": true,
-      "form_uni": true
+      "form_uni": true,
+      "maquina": true,
+      "form_k12": true
     },
-    "productos_orden": [],
-    "productos_manual": {},
+    "productos_orden": [
+      "constanza",
+      "crm",
+      "whatsapp",
+      "calendario",
+      "torre",
+      "academia",
+      "maquina",
+      "radar",
+      "referidos",
+      "integraciones",
+      "form_k12",
+      "form_uni"
+    ],
+    "productos_manual": {
+      "maquina": true,
+      "radar": true,
+      "integraciones": true,
+      "form_k12": true
+    },
     "sin_precios": false,
     "omitir_propuesta": false,
     "embudo_marcas": {},
     "equipo_marcas": {},
-    "sello_captura": "2026-09-02 09:50:58",
+    "sello_captura": "2026-09-02 09:56:11",
     "antiguedad_anios": 2014,
     "leads_dia": 16,
     "tasa_conversion": 2.26,
