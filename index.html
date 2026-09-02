@@ -1884,6 +1884,7 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
         <div class="segpill" data-paq="estrategia">+ Dirección Estratégica</div>
         <div class="segpill" data-paq="todo">+ Atracción Inteligente</div>
       </div>
+      <div id="avisoPaquete" style="display:none;margin-top:8px;border:.5px solid var(--warn);background:rgba(235,104,52,.08);border-radius:8px;padding:9px 12px;font-size:11.5px;font-weight:700;color:var(--warn);line-height:1.45;"></div>
       <input type="hidden" data-f="paquete">
     </div>
     <label id="sinPreciosBox" style="display:flex;align-items:center;gap:11px;font-size:13.5px;font-weight:700;color:var(--navy-deep);cursor:pointer;border:.5px solid var(--border);border-radius:10px;padding:11px 14px;background:var(--blue-soft);margin-bottom:16px;">
@@ -2344,6 +2345,25 @@ function renderData(){
   if(rowAI) rowAI.style.display = (c.paquete==='todo' && c.precio_atraccion>0) ? '' : 'none';
   const txtPaq = document.getElementById('txtPaquete');
   if(txtPaq) txtPaq.textContent = TXT_PAQUETE[c.paquete] || TXT_PAQUETE.estrategia;
+  /* Un componente del paquete cotizado SIN precio de lista para ese segmento desaparece
+     de la tabla sin avisar (la regla de arriba lo oculta si vale 0) — y el total tampoco
+     se mueve. Eso solo se descubría en vivo; aquí el panel DATOS lo dice antes. */
+  const avisoPaq = document.getElementById('avisoPaquete');
+  if(avisoPaq){
+    const faltan = [];
+    if(c.paquete !== 'base' && !(c.precio_estrategia > 0)) faltan.push('Dirección Estratégica');
+    if(c.paquete === 'todo' && !(c.precio_atraccion > 0)) faltan.push('Atracción Inteligente');
+    if(faltan.length){
+      const segLabel = (PRECIOS[DATA.segmento] || {}).label || DATA.segmento;
+      const varios = faltan.length > 1;
+      avisoPaq.textContent = faltan.join(' y ') + (varios ? ' no tienen' : ' no tiene')
+        + ' precio de lista para «' + segLabel + '», así que hoy no aparece' + (varios ? 'n' : '')
+        + ' en la lámina de inversión ni suma' + (varios ? 'n' : '') + ' al total. Ponle precio en «editar».';
+      avisoPaq.style.display = '';
+    }else{
+      avisoPaq.style.display = 'none';
+    }
+  }
 
   // Descuento: nota discreta + precio de lista tachado, solo si hay monto — a propósito muy tenue.
   const descNote = document.getElementById('descuentoNote');
