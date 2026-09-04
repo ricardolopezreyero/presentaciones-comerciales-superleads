@@ -2,8 +2,8 @@
   "colegio": "UDES Universidad",
   "ciudad": "Heroica Puebla de Zaragoza",
   "comercial": "ricardo",
-  "guardado": "04 sep 2026, 12:28 p.m.",
-  "guardado_ts": 1788546492026,
+  "guardado": "04 sep 2026, 01:14 p.m.",
+  "guardado_ts": 1788549263769,
   "data": {
     "colegio": "UDES Universidad",
     "prospecto_nombre": "Arturo Hernández",
@@ -18,15 +18,17 @@
     "moneda": "mxn",
     "comercial": "ricardo",
     "notas_slide": {},
-    "semaforo_override": {},
+    "semaforo_override": {
+      "tasa_cita_alumno": "verde",
+      "tasa_conversion": "amarillo"
+    },
     "precios_override": {},
     "productos_off": {
       "radar": true,
       "referidos": true,
       "academia": true,
       "form_k12": true,
-      "maquina": true,
-      "form_uni": true
+      "maquina": true
     },
     "productos_orden": [],
     "productos_manual": {
@@ -36,9 +38,22 @@
     },
     "sin_precios": false,
     "omitir_propuesta": true,
-    "embudo_marcas": {},
-    "equipo_marcas": {},
-    "sello_captura": "2026-09-04 12:28:12",
+    "embudo_marcas": {
+      "impresiones": "verde",
+      "alcance": "verde",
+      "clics": "verde",
+      "prospectos": "rojo",
+      "contactados": "rojo",
+      "cita": "rojo",
+      "asistio": "verde",
+      "inscritos": "verde"
+    },
+    "equipo_marcas": {
+      "implementacion": true,
+      "soporte": true,
+      "growth": true
+    },
+    "sello_captura": "2026-09-04 13:14:23",
     "antiguedad_anios": 2006,
     "leads_dia": 29,
     "tasa_conversion": 2.94,
