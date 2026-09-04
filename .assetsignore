@@ -1,2 +1,8 @@
 historial/**
 worker.js
+# El repo mismo no es un asset. Nunca debió subirse, pero pasaba desapercibido
+# porque el paquete de git todavía cabía en el límite de 25 MiB por archivo;
+# al cruzarlo, el deploy dejó de funcionar de golpe.
+.git/**
+.wrangler/**
+node_modules/**
