@@ -2,8 +2,8 @@
   "colegio": "UDES Universidad",
   "ciudad": "Heroica Puebla de Zaragoza",
   "comercial": "ricardo",
-  "guardado": "01 sep 2026, 05:44 p.m.",
-  "guardado_ts": 1788284652134,
+  "guardado": "04 sep 2026, 12:27 p.m.",
+  "guardado_ts": 1788546471861,
   "data": {
     "colegio": "UDES Universidad",
     "prospecto_nombre": "Arturo Hernández",
@@ -25,12 +25,12 @@
       "referidos": true,
       "academia": true,
       "integraciones": true,
-      "form_uni": true
+      "form_k12": true
     },
     "productos_orden": [],
     "productos_manual": {},
     "sin_precios": false,
-    "omitir_propuesta": false,
+    "omitir_propuesta": true,
     "embudo_marcas": {},
     "equipo_marcas": {},
     "sello_captura": "2026-09-01 17:44:12",
