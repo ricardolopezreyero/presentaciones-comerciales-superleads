@@ -530,6 +530,12 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
   .slide-frame{display:contents;}
   .slide{display:flex !important;position:relative;width:1280px;height:720px;page-break-after:always;box-shadow:none;transform:none !important;}
   .slide.prod-off{display:none !important;}
+  /* La última lámina no lleva salto: si lo lleva, el PDF cierra con una página en blanco. */
+  .slide.ultima-impresa{page-break-after:auto !important;break-after:auto !important;}
+  /* Las sombras difuminadas no se difuminan al imprimir: salen como un rectángulo de
+     color sólido y corrido (el «cuadro verde» detrás de los botones en el celular).
+     En papel no aportan profundidad, así que aquí no van. */
+  *{box-shadow:none !important;filter:none !important;}
 }
 </style>
 </head>
@@ -4050,6 +4056,15 @@ document.getElementById('btnPng').onclick = async ()=>{
   if(jaula && jaula.parentNode) jaula.parentNode.removeChild(jaula);
   btn.innerHTML = htmlPrevio; btn.disabled = false;
 };
+/* Antes de imprimir marcamos la última lámina que sí se ve: el page-break-after de todas
+   las demás es lo que dejaba una página vacía al final del PDF. Va en beforeprint para que
+   valga igual desde el botón PDF que desde Cmd+P, y viaje en el HTML exportado. */
+window.addEventListener('beforeprint', ()=>{
+  const visibles = Array.from(document.querySelectorAll('.slide')).filter(s=> !s.classList.contains('prod-off'));
+  document.querySelectorAll('.slide.ultima-impresa').forEach(s=> s.classList.remove('ultima-impresa'));
+  if(visibles.length) visibles[visibles.length-1].classList.add('ultima-impresa');
+});
+
 document.getElementById('btnPdf').onclick = ()=>{
   // El PDF toma su nombre del título del documento: lo cambiamos justo antes
   // de imprimir para que se llame igual que la descarga de HTML.
