@@ -4210,7 +4210,9 @@ document.getElementById('btnHome').addEventListener('click', async ()=>{
     if(!cargado){
       cargado = true;
       const f = document.createElement('iframe');
-      f.src = 'https://open.spotify.com/embed/playlist/7cwQ0gO0I9sJC1EAg0CWKH?utm_source=generator&theme=0';
+      // Misma playlist que Rayos X (Chillout Lounge) — se cambian juntas para que
+      // el fondo suene igual en las dos herramientas.
+      f.src = 'https://open.spotify.com/embed/playlist/37i9dQZF1DWTvNyxOwkztu?utm_source=generator&theme=0';
       f.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
       f.title = 'SuperLeads Radio — playlist de fondo';
       document.getElementById('musicaFrameWrap').appendChild(f);
