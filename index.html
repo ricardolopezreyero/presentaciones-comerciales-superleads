@@ -2001,10 +2001,51 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
   </div>
 </div>
 
+<!-- Tabla completa de precios: los 6 segmentos de un jalón, solo lectura y con aire
+     de sobra — está pensada para capturar la pantalla y mandarla, no para editar.
+     Por eso vive aparte del modal de configuración, que sigue mostrando un solo
+     segmento (si el cliente alcanza a ver la pantalla, solo ve lo suyo). -->
+<div id="preciosTablaModal" class="no-print" style="display:none;position:fixed;inset:0;background:rgba(4,10,26,.72);z-index:85;align-items:center;justify-content:center;padding:24px;">
+  <div id="preciosTablaCard" style="background:#fff;border-radius:18px;padding:30px 34px 26px;width:1000px;max-width:96vw;max-height:92vh;overflow:auto;box-shadow:0 30px 80px rgba(0,37,130,.4);">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:4px;">
+      <div>
+        <div style="font-size:10.5px;letter-spacing:3px;font-weight:800;color:var(--blue);text-transform:uppercase;">SuperLeads · Precios por segmento</div>
+        <h3 style="margin:6px 0 0;font-size:24px;letter-spacing:-.5px;color:var(--navy-deep);">Tabla completa</h3>
+      </div>
+      <button type="button" id="preciosTablaCerrar" style="background:#fff;color:var(--dim);font-weight:700;font-size:13px;padding:10px 16px;border-radius:10px;border:.5px solid var(--border);cursor:pointer;font-family:inherit;">Cerrar</button>
+    </div>
+    <div id="preciosTablaNota" style="font-size:12.5px;color:var(--dim);font-weight:600;margin-bottom:18px;"></div>
+    <table style="width:100%;border-collapse:collapse;font-size:14px;">
+      <thead>
+        <tr style="text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;">
+          <th></th>
+          <th style="padding:8px 10px;color:var(--muted);">Suelto</th>
+          <th colspan="3" style="padding:8px 12px;color:var(--blue);background:var(--blue-softer);border-radius:10px 10px 0 0;border-left:3px solid var(--blue-mid);">En paquete — una sola decisión</th>
+        </tr>
+        <tr style="text-align:left;color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;">
+          <th style="padding:8px 10px;">Segmento</th>
+          <th style="padding:8px 10px;">CRM solo</th>
+          <th style="padding:8px 12px;background:var(--blue-softer);border-left:3px solid var(--blue-mid);">CRM</th>
+          <th style="padding:8px 12px;background:var(--blue-softer);">Dir. Estratégica</th>
+          <th style="padding:8px 12px;background:var(--blue-softer);">Atracción Int.</th>
+        </tr>
+      </thead>
+      <tbody id="preciosTablaGrid"></tbody>
+    </table>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:20px;padding-top:16px;border-top:.5px solid var(--border);">
+      <img src="assets_deck_instituto_frontera/logo-superleads-oscuro.svg" alt="SuperLeads" style="height:20px;" onerror="this.style.display='none'">
+      <span id="preciosTablaPie" style="font-size:11.5px;font-weight:700;color:var(--dim);margin-left:auto;"></span>
+    </div>
+  </div>
+</div>
+
 <div id="preciosModal" class="no-print" style="display:none;position:fixed;inset:0;background:rgba(4,10,26,.62);z-index:80;align-items:center;justify-content:center;">
   <div style="background:#fff;border-radius:16px;padding:26px 30px;width:760px;max-width:94vw;max-height:88vh;overflow:auto;box-shadow:0 30px 80px rgba(0,37,130,.4);">
     <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;">
-      <h3 style="margin:0 0 4px;font-size:20px;color:var(--navy-deep);">Configuración de precios</h3>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <h3 style="margin:0 0 4px;font-size:20px;color:var(--navy-deep);">Configuración de precios</h3>
+        <button type="button" id="preciosVerTodos" title="Ver la tabla completa — los 6 segmentos, lista para capturar" style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border:.5px solid var(--border);background:var(--blue-soft);color:var(--navy);border-radius:9px;cursor:pointer;font-family:inherit;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.6 12S5.5 5 12 5s10.4 7 10.4 7-3.9 7-10.4 7S1.6 12 1.6 12"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
       <div style="display:flex;gap:6px;" id="preciosMonedaPills">
         <button type="button" data-pmon="mxn" style="border:.5px solid var(--border);background:var(--blue-soft);color:var(--navy-deep);font-weight:800;font-size:12.5px;padding:8px 14px;border-radius:99px;cursor:pointer;font-family:inherit;">Pesos (MXN)</button>
         <button type="button" data-pmon="usd" style="border:.5px solid var(--border);background:var(--blue-soft);color:var(--navy-deep);font-weight:800;font-size:12.5px;padding:8px 14px;border-radius:99px;cursor:pointer;font-family:inherit;">Dólares (USD)</button>
@@ -3389,6 +3430,51 @@ function renderPreciosSegPills(){
     });
   });
 }
+/* Pinta la tabla completa: precios vigentes (fábrica + lo que este colegio tenga
+   sobrescrito) más lo que esté tecleado sin guardar, para que la captura muestre
+   exactamente lo que se está viendo. El segmento del prospecto va resaltado. */
+function renderPreciosTabla(){
+  const usd = precioMoneda()==='usd';
+  const pref = usd ? 'US$' : '$';
+  const grid = document.getElementById('preciosTablaGrid');
+  grid.innerHTML = Object.keys(PRECIOS).map(seg=>{
+    const v = Object.assign({}, preciosVigentes(seg), preciosDraft[seg] || {});
+    const suyo = seg === DATA.segmento;
+    const celda = (mxn, enPaquete, abre)=>{
+      const st = 'padding:13px 12px;font-weight:700;color:var(--navy-deep);white-space:nowrap;'
+        + (enPaquete ? 'background:var(--blue-softer);' : '')
+        + (abre ? 'border-left:3px solid var(--blue-mid);' : '');
+      return '<td style="'+st+'"><span style="font-size:11px;font-weight:700;color:var(--muted);">'+pref+'</span> '+fmtPrecioVal(mxn)+'</td>';
+    };
+    const nombre = '<td style="padding:13px 10px;font-weight:800;color:var(--navy-deep);white-space:nowrap;">'+PRECIOS[seg].label
+      + (suyo ? '<span style="margin-left:8px;font-size:9.5px;letter-spacing:1.2px;font-weight:800;color:var(--green-d);border:.5px solid var(--green-d);border-radius:99px;padding:2px 7px;vertical-align:middle;">SU SEGMENTO</span>' : '')
+      + '</td>';
+    return '<tr style="border-top:.5px solid var(--border);'+(suyo?'background:rgba(86,239,159,.08);':'')+'">'
+      + nombre
+      + celda(v.crm, false, false)
+      + celda(v.crm_paquete !== undefined ? v.crm_paquete : v.crm, true, true)
+      + celda(v.de, true, false)
+      + celda(v.ai, true, false)
+      + '</tr>';
+  }).join('');
+  const nota = document.getElementById('preciosTablaNota');
+  nota.textContent = usd
+    ? 'Mensualidad por producto, en dólares (USD, TC $'+TIPO_CAMBIO+'). La moneda base es el peso.'
+    : 'Mensualidad por producto, en pesos mexicanos (MXN).';
+  const pie = document.getElementById('preciosTablaPie');
+  pie.textContent = (usd ? 'USD' : 'MXN') + ' · mensual por producto · ' + new Date().toLocaleDateString('es-MX', {day:'numeric', month:'long', year:'numeric'});
+}
+function abrirPreciosTabla(){
+  harvestPreciosInputs(); // lo tecleado sin guardar también se ve en la captura
+  renderPreciosTabla();
+  document.getElementById('preciosTablaModal').style.display = 'flex';
+}
+document.getElementById('preciosVerTodos').addEventListener('click', abrirPreciosTabla);
+document.getElementById('preciosTablaCerrar').addEventListener('click', ()=>{ document.getElementById('preciosTablaModal').style.display='none'; });
+document.getElementById('preciosTablaModal').addEventListener('click', e=>{
+  if(e.target.id === 'preciosTablaModal') e.currentTarget.style.display='none';
+});
+
 function abrirPreciosModal(){
   preciosDraft = {};
   preciosModalSeg = PRECIOS[DATA.segmento] ? DATA.segmento : 'k12';
