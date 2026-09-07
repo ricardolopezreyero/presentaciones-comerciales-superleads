@@ -1975,7 +1975,7 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
 <div id="horariosModal" class="no-print">
   <div id="horariosBox">
     <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px;">
-      <h3 style="margin:0;font-size:19px;color:#fff;">Cuadrar la cita entre dos países</h3>
+      <h3 style="margin:0;font-size:19px;color:#fff;">Cuadrar la cita</h3>
       <button type="button" id="horariosCerrar" style="background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:12.5px;padding:8px 16px;border-radius:8px;cursor:pointer;font-family:inherit;">Cerrar</button>
     </div>
     <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;">
@@ -4326,28 +4326,38 @@ document.getElementById('btnHome').addEventListener('click', async ()=>{
 /* ===== Horarios LATAM — port del comparador de Rayos X (lib/rayosx/horarios.ts).
    Nada de offsets quemados: varios países cambian de horario en el año, así que todo
    sale de Intl con la zona IANA real y el offset se calcula para la fecha probada. ===== */
+/* México no es un solo horario: son cuatro husos, y una junta con Hermosillo o con
+   Cancún se cuadra mal si se asume el centro. Van primero porque es donde más se usa.
+   «claves» son estados y ciudades para adivinar el huso desde los datos del prospecto
+   (solo se consultan cuando el país es México); el centro es el default. */
 const HR_PAISES = [
-  {codigo:'MX', pais:'México', ciudad:'Ciudad de México', zona:'America/Mexico_City', bandera:'🇲🇽'},
-  {codigo:'GT', pais:'Guatemala', ciudad:'Ciudad de Guatemala', zona:'America/Guatemala', bandera:'🇬🇹'},
-  {codigo:'SV', pais:'El Salvador', ciudad:'San Salvador', zona:'America/El_Salvador', bandera:'🇸🇻'},
-  {codigo:'HN', pais:'Honduras', ciudad:'Tegucigalpa', zona:'America/Tegucigalpa', bandera:'🇭🇳'},
-  {codigo:'NI', pais:'Nicaragua', ciudad:'Managua', zona:'America/Managua', bandera:'🇳🇮'},
-  {codigo:'CR', pais:'Costa Rica', ciudad:'San José', zona:'America/Costa_Rica', bandera:'🇨🇷'},
-  {codigo:'PA', pais:'Panamá', ciudad:'Ciudad de Panamá', zona:'America/Panama', bandera:'🇵🇦'},
-  {codigo:'CO', pais:'Colombia', ciudad:'Bogotá', zona:'America/Bogota', bandera:'🇨🇴'},
-  {codigo:'EC', pais:'Ecuador', ciudad:'Quito', zona:'America/Guayaquil', bandera:'🇪🇨'},
-  {codigo:'PE', pais:'Perú', ciudad:'Lima', zona:'America/Lima', bandera:'🇵🇪'},
-  {codigo:'CU', pais:'Cuba', ciudad:'La Habana', zona:'America/Havana', bandera:'🇨🇺'},
-  {codigo:'DO', pais:'República Dominicana', ciudad:'Santo Domingo', zona:'America/Santo_Domingo', bandera:'🇩🇴'},
-  {codigo:'PR', pais:'Puerto Rico', ciudad:'San Juan', zona:'America/Puerto_Rico', bandera:'🇵🇷'},
-  {codigo:'VE', pais:'Venezuela', ciudad:'Caracas', zona:'America/Caracas', bandera:'🇻🇪'},
-  {codigo:'BO', pais:'Bolivia', ciudad:'La Paz', zona:'America/La_Paz', bandera:'🇧🇴'},
-  {codigo:'US', pais:'Estados Unidos', ciudad:'Miami', zona:'America/New_York', bandera:'🇺🇸'},
-  {codigo:'PY', pais:'Paraguay', ciudad:'Asunción', zona:'America/Asuncion', bandera:'🇵🇾'},
-  {codigo:'UY', pais:'Uruguay', ciudad:'Montevideo', zona:'America/Montevideo', bandera:'🇺🇾'},
-  {codigo:'AR', pais:'Argentina', ciudad:'Buenos Aires', zona:'America/Argentina/Buenos_Aires', bandera:'🇦🇷'},
-  {codigo:'BR', pais:'Brasil', ciudad:'São Paulo', zona:'America/Sao_Paulo', bandera:'🇧🇷'},
-  {codigo:'CL', pais:'Chile', ciudad:'Santiago', zona:'America/Santiago', bandera:'🇨🇱'},
+  {codigo:'MX-C',  grupo:'México', pais:'México', zonaNom:'Centro', ciudad:'CDMX, Guadalajara, Monterrey', zona:'America/Mexico_City', bandera:'🇲🇽', refHora:'del centro de México'},
+  {codigo:'MX-P',  grupo:'México', pais:'México', zonaNom:'Pacífico', ciudad:'Hermosillo, Culiacán, Mazatlán, La Paz', zona:'America/Hermosillo', bandera:'🇲🇽', refHora:'del Pacífico (Hermosillo)',
+   claves:['sonora','hermosillo','obregon','nogales','guaymas','navojoa','sinaloa','culiacan','mazatlan','los mochis','nayarit','tepic','baja california sur','la paz','los cabos','cabo san lucas','san jose del cabo']},
+  {codigo:'MX-NO', grupo:'México', pais:'México', zonaNom:'Noroeste', ciudad:'Tijuana, Mexicali, Ensenada', zona:'America/Tijuana', bandera:'🇲🇽', refHora:'del noroeste (Tijuana)',
+   claves:['baja california','tijuana','mexicali','ensenada','rosarito','tecate']},
+  {codigo:'MX-SE', grupo:'México', pais:'México', zonaNom:'Sureste', ciudad:'Cancún, Playa del Carmen, Chetumal', zona:'America/Cancun', bandera:'🇲🇽', refHora:'del sureste (Cancún)',
+   claves:['quintana roo','cancun','playa del carmen','cozumel','chetumal','tulum','riviera maya']},
+  {codigo:'GT', pais:'Guatemala', ciudad:'Ciudad de Guatemala', zona:'America/Guatemala', bandera:'🇬🇹', grupo:'Resto de Hispanoamérica'},
+  {codigo:'SV', pais:'El Salvador', ciudad:'San Salvador', zona:'America/El_Salvador', bandera:'🇸🇻', grupo:'Resto de Hispanoamérica'},
+  {codigo:'HN', pais:'Honduras', ciudad:'Tegucigalpa', zona:'America/Tegucigalpa', bandera:'🇭🇳', grupo:'Resto de Hispanoamérica'},
+  {codigo:'NI', pais:'Nicaragua', ciudad:'Managua', zona:'America/Managua', bandera:'🇳🇮', grupo:'Resto de Hispanoamérica'},
+  {codigo:'CR', pais:'Costa Rica', ciudad:'San José', zona:'America/Costa_Rica', bandera:'🇨🇷', grupo:'Resto de Hispanoamérica'},
+  {codigo:'PA', pais:'Panamá', ciudad:'Ciudad de Panamá', zona:'America/Panama', bandera:'🇵🇦', grupo:'Resto de Hispanoamérica'},
+  {codigo:'CO', pais:'Colombia', ciudad:'Bogotá', zona:'America/Bogota', bandera:'🇨🇴', grupo:'Resto de Hispanoamérica'},
+  {codigo:'EC', pais:'Ecuador', ciudad:'Quito', zona:'America/Guayaquil', bandera:'🇪🇨', grupo:'Resto de Hispanoamérica'},
+  {codigo:'PE', pais:'Perú', ciudad:'Lima', zona:'America/Lima', bandera:'🇵🇪', grupo:'Resto de Hispanoamérica'},
+  {codigo:'CU', pais:'Cuba', ciudad:'La Habana', zona:'America/Havana', bandera:'🇨🇺', grupo:'Resto de Hispanoamérica'},
+  {codigo:'DO', pais:'República Dominicana', ciudad:'Santo Domingo', zona:'America/Santo_Domingo', bandera:'🇩🇴', grupo:'Resto de Hispanoamérica'},
+  {codigo:'PR', pais:'Puerto Rico', ciudad:'San Juan', zona:'America/Puerto_Rico', bandera:'🇵🇷', grupo:'Resto de Hispanoamérica'},
+  {codigo:'VE', pais:'Venezuela', ciudad:'Caracas', zona:'America/Caracas', bandera:'🇻🇪', grupo:'Resto de Hispanoamérica'},
+  {codigo:'BO', pais:'Bolivia', ciudad:'La Paz', zona:'America/La_Paz', bandera:'🇧🇴', grupo:'Resto de Hispanoamérica'},
+  {codigo:'US', pais:'Estados Unidos', ciudad:'Miami', zona:'America/New_York', bandera:'🇺🇸', grupo:'Resto de Hispanoamérica'},
+  {codigo:'PY', pais:'Paraguay', ciudad:'Asunción', zona:'America/Asuncion', bandera:'🇵🇾', grupo:'Resto de Hispanoamérica'},
+  {codigo:'UY', pais:'Uruguay', ciudad:'Montevideo', zona:'America/Montevideo', bandera:'🇺🇾', grupo:'Resto de Hispanoamérica'},
+  {codigo:'AR', pais:'Argentina', ciudad:'Buenos Aires', zona:'America/Argentina/Buenos_Aires', bandera:'🇦🇷', grupo:'Resto de Hispanoamérica'},
+  {codigo:'BR', pais:'Brasil', ciudad:'São Paulo', zona:'America/Sao_Paulo', bandera:'🇧🇷', grupo:'Resto de Hispanoamérica'},
+  {codigo:'CL', pais:'Chile', ciudad:'Santiago', zona:'America/Santiago', bandera:'🇨🇱', grupo:'Resto de Hispanoamérica'},
 ];
 function hrOffsetMs(instante, zona){
   const partes = new Intl.DateTimeFormat('en-US', {timeZone:zona, hour12:false, year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', second:'2-digit'}).formatToParts(new Date(instante));
@@ -4380,15 +4390,34 @@ function hrFechaLarga(fechaISO){
   const inpA = document.getElementById('hrInputA'), inpFecha = document.getElementById('hrFecha');
   const outA = document.getElementById('hrHoraA'), outB = document.getElementById('hrHoraB');
   const outFB = document.getElementById('hrFechaB'), outDif = document.getElementById('hrDif'), outCal = document.getElementById('hrCalidad');
+  // Agrupado: los husos de México arriba en su propio bloque, el resto abajo.
+  const grupos = [];
   HR_PAISES.forEach(p=>{
-    selA.insertAdjacentHTML('beforeend', '<option value="'+p.codigo+'">'+p.bandera+' '+p.pais+' · '+p.ciudad+'</option>');
-    selB.insertAdjacentHTML('beforeend', '<option value="'+p.codigo+'">'+p.bandera+' '+p.pais+' · '+p.ciudad+'</option>');
+    const g = p.grupo || 'Resto de Hispanoamérica';
+    let e = grupos.find(x=>x.nombre===g);
+    if(!e){ e = {nombre:g, items:[]}; grupos.push(e); }
+    e.items.push(p);
   });
+  const opcionesHTML = grupos.map(g=> '<optgroup label="'+g.nombre+'">'
+    + g.items.map(p=> '<option value="'+p.codigo+'">'+p.bandera+' '
+        + (p.zonaNom ? p.pais+' · '+p.zonaNom : p.pais+' · '+p.ciudad) + '</option>').join('')
+    + '</optgroup>').join('');
+  selA.innerHTML = opcionesHTML;
+  selB.innerHTML = opcionesHTML;
   const porCodigo = c=> HR_PAISES.find(p=>p.codigo===c) || HR_PAISES[0];
+  const sinAcentos = s=> (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
   function paisDelProspecto(){
-    const nombre = (DATA.pais||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-    const hit = HR_PAISES.find(p=> p.pais.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'') === nombre);
-    return hit ? hit.codigo : 'CO';
+    const nombre = sinAcentos(DATA.pais);
+    const hit = HR_PAISES.find(p=> !p.zonaNom && sinAcentos(p.pais) === nombre);
+    if(hit) return hit.codigo;
+    if(nombre === 'mexico' || !nombre){
+      // Dentro de México el huso se adivina por dónde está el colegio; si no se
+      // reconoce, centro, que es donde vive la mayoría del país.
+      const donde = sinAcentos(DATA.ciudad);
+      const zona = HR_PAISES.find(p=> p.claves && p.claves.some(k=> donde.includes(k)));
+      return zona ? zona.codigo : (nombre ? 'MX-C' : 'CO');
+    }
+    return 'CO';
   }
   function pintar(){
     const zA = porCodigo(selA.value).zona, zB = porCodigo(selB.value).zona;
@@ -4406,9 +4435,9 @@ function hrFechaLarga(fechaISO){
     outCal.innerHTML = '<span style="width:9px;height:9px;border-radius:50%;background:'+CAL[cal][0]+';flex-shrink:0;"></span>'+CAL[cal][1];
   }
   document.getElementById('btnHorarios').addEventListener('click', ()=>{
-    selA.value = 'MX';
+    selA.value = 'MX-C'; // el comercial presenta desde el centro
     selB.value = paisDelProspecto();
-    if(selB.value === selA.value) selB.value = (selA.value === 'CO') ? 'MX' : (selA.value==='MX' ? 'CO' : 'MX');
+    if(selB.value === selA.value) selB.value = 'CO';
     const ahora = hrAHoraFecha(Date.now(), porCodigo(selA.value).zona);
     inpFecha.value = ahora.fecha;
     inpA.value = ahora.hora;
@@ -4431,7 +4460,8 @@ function hrFechaLarga(fechaISO){
   });
   document.getElementById('hrCopiar').addEventListener('click', async ()=>{
     const pA = porCodigo(selA.value), pB = porCodigo(selB.value);
-    const texto = 'Quedamos el '+hrFechaLarga(inpFecha.value)+': '+hrA12(outB.textContent)+' hora de '+pB.pais+' ('+hrA12(inpA.value)+' hora de '+pA.pais+').';
+    const ref = p=> p.refHora || ('de '+p.pais);
+    const texto = 'Quedamos el '+hrFechaLarga(inpFecha.value)+': '+hrA12(outB.textContent)+' hora '+ref(pB)+' ('+hrA12(inpA.value)+' hora '+ref(pA)+').';
     const btn = document.getElementById('hrCopiar');
     try{ await navigator.clipboard.writeText(texto); btn.textContent = 'Copiado — listo para pegar'; }
     catch(e){ btn.textContent = 'No se pudo copiar — selecciona a mano'; }
