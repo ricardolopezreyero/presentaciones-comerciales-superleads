@@ -351,13 +351,16 @@ body.sin-precios .px-blank{visibility:hidden;}
 .scale-cap{position:absolute;left:32px;bottom:56px;color:#fff;font-size:15px;font-weight:700;background:rgba(0,18,64,.55);padding:8px 16px;border-radius:8px;z-index:5;}
 
 /* ===== CONTROLS ===== */
-#controls{position:fixed;bottom:0;left:0;right:0;height:52px;background:rgba(0,18,64,.95);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;gap:14px;z-index:30;font-family:'Plus Jakarta Sans',sans-serif;}
+#controls{position:fixed;bottom:0;left:0;right:0;height:52px;background:rgba(0,18,64,.95);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;gap:10px;z-index:30;font-family:'Plus Jakarta Sans',sans-serif;}
 #controls button,#controls .barLink{text-decoration:none;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.15);color:#fff;width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:16px;font-family:inherit;transition:background-color .2s var(--ease),color .2s var(--ease),transform .2s var(--ease);}
 #controls button:hover,#controls .barLink:hover{background:var(--green);color:var(--navy-deep);}
 #controls button:active,#controls .barLink:active{transform:scale(.96);}
 #controls button svg,#controls .barLink svg{flex-shrink:0;}
 #counter{color:#fff;font-size:13px;font-weight:700;min-width:64px;text-align:center;}
-.wide-btn{width:auto !important;padding:0 14px;font-size:12px !important;font-weight:700;letter-spacing:.5px;gap:8px;}
+.wide-btn{width:auto !important;padding:0 12px;font-size:12px !important;font-weight:700;letter-spacing:.5px;gap:7px;white-space:nowrap;}
+/* En pantallas angostas la barra se aprieta antes que desbordarse: con 16 controles,
+   que se salga uno por la izquierda es peor que un par de píxeles menos de aire. */
+@media (max-width:1340px){#controls{gap:6px;} .wide-btn{padding:0 9px;font-size:11px !important;letter-spacing:.3px;gap:5px;} #controls button,#controls .barLink{width:32px;height:32px;}}
 
 /* ===== ÍNDICE DE LÁMINAS (modal) =====
    Ancho generoso a propósito — pensado para pantallas de 15" sin sentirse apretado.
@@ -1728,10 +1731,11 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
 </div>
 
 <div id="controls" class="no-print">
-  <button id="btnHome" class="wide-btn" title="Inicio — todas las presentaciones"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg>INICIO</button>
+  <button id="btnHome" class="wide-btn" title="Todas las presentaciones guardadas"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg>PRESENTACIONES</button>
   <button id="btnHist" class="wide-btn" title="Historial compartido de presentaciones (H)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>HISTORIAL</button>
   <button id="btnEdit" class="wide-btn" title="Editar datos"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>DATOS</button>
   <button id="btnIndice" class="wide-btn" title="Índice de láminas (I) — o deja ‹/› presionado un momento"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>ÍNDICE</button>
+  <button id="btnInicioDeck" class="wide-btn" title="Ir a la primera lámina (Inicio)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="5" x2="6" y2="19"/><polygon points="20 5 9 12 20 19" fill="currentColor" stroke="none"/></svg>INICIO</button>
   <button id="btnPrev" title="Anterior (←)">‹</button>
   <span id="counter">1 / 31</span>
   <button id="btnNext" title="Siguiente (→)">›</button>
@@ -3116,6 +3120,16 @@ function holdSoltar(dir, navegarSiFueToque){
   if(navegarSiFueToque && !holdDisparado){ if(dir===1) next(); else prev(); }
   holdDisparado = false;
 }
+/* «INICIO» de la barra = primera lámina. El botón de la izquierda, que saca de la
+   presentación, ahora se llama PRESENTACIONES: decían INICIO los dos y se picaba el
+   equivocado a media junta. Salta las láminas apagadas por si la primera lo estuviera. */
+function irAlInicioDelDeck(){
+  const i = slides.findIndex(s=> !s.classList.contains('prod-off'));
+  idx = (i < 0) ? 0 : i;
+  render();
+}
+document.getElementById('btnInicioDeck').addEventListener('click', irAlInicioDelDeck);
+
 const btnNextEl = document.getElementById('btnNext'), btnPrevEl = document.getElementById('btnPrev');
 btnNextEl.addEventListener('mousedown', ()=> holdIniciar());
 btnNextEl.addEventListener('mouseup', ()=> holdSoltar(1, true));
@@ -3979,6 +3993,7 @@ window.addEventListener('keydown', (e)=>{
   else if(e.key==='f'||e.key==='F'){ document.getElementById('btnFs').click(); }
   else if(e.key==='h'||e.key==='H'){ document.getElementById('btnHist').click(); }
   else if(e.key==='i'||e.key==='I'){ abrirIndice(); }
+  else if(e.key==='Home'){ e.preventDefault(); irAlInicioDelDeck(); }
   else if(e.key==='Escape'){ notesPanel.classList.remove('open'); editPanel.classList.remove('open'); histPanel.classList.remove('open'); cerrarIndice(); }
 });
 
