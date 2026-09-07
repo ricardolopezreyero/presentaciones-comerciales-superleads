@@ -38,7 +38,6 @@
                         «Nueva presentación»; oculta #stage/#controls vía body.modo-home.
    #notesPanel          Panel de notas del comercial (lateral derecho).
    #editPanel           Panel «Editar datos» (DATOS) — formulario completo del prospecto y la propuesta.
-   #histPanel           Panel «Historial» — buscador y lista de presentaciones guardadas en la nube.
    @media print          Reglas exclusivas para exportar a PDF (oculta controles, fuerza saltos de página).
    body.sin-precios      Oculta toda cifra de dinero cuando el modo «Presentar sin precios» está activo.
    ===================================================================================== */
@@ -360,7 +359,7 @@ body.sin-precios .px-blank{visibility:hidden;}
 .wide-btn{width:auto !important;padding:0 12px;font-size:12px !important;font-weight:700;letter-spacing:.5px;gap:7px;white-space:nowrap;}
 /* En pantallas angostas la barra se aprieta antes que desbordarse: con 16 controles,
    que se salga uno por la izquierda es peor que un par de píxeles menos de aire. */
-@media (max-width:1340px){#controls{gap:6px;} .wide-btn{padding:0 9px;font-size:11px !important;letter-spacing:.3px;gap:5px;} #controls button,#controls .barLink{width:32px;height:32px;}}
+@media (max-width:1060px){#controls{gap:6px;} .wide-btn{padding:0 9px;font-size:11px !important;letter-spacing:.3px;gap:5px;} #controls button,#controls .barLink{width:32px;height:32px;}}
 
 /* ===== ÍNDICE DE LÁMINAS (modal) =====
    Ancho generoso a propósito — pensado para pantallas de 15" sin sentirse apretado.
@@ -498,17 +497,6 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
   #homeInner{padding:40px 20px 56px;}
   #homeHead h1{font-size:26px;}
 }
-#histPanel{position:fixed;left:0;top:0;bottom:52px;width:400px;background:#fff;color:#1a1a1a;padding:26px;overflow-y:auto;transform:translateX(-100%);transition:transform .25s var(--ease);z-index:21;border-right:.5px solid var(--border);}
-#histPanel.open{transform:translateX(0);}
-#histPanel h4{margin:0 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);}
-#histSearch{width:100%;box-sizing:border-box;border:.5px solid var(--border);border-radius:8px;padding:11px 14px;font-size:14px;font-family:inherit;margin:10px 0 6px;}
-#histSearch:focus{outline:none;border-color:var(--blue);}
-#histStatus{font-size:11.5px;color:var(--dim);margin:4px 0 12px;min-height:15px;}
-.histItem{border:.5px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:10px;background:var(--blue-soft);}
-.histItem b{font-size:14px;color:var(--navy-deep);display:block;}
-.histItem .hMeta{font-size:11.5px;color:var(--dim);margin:3px 0 8px;}
-.histLoad{background:var(--navy);color:#fff;font-weight:800;font-size:12px;padding:7px 14px;border-radius:8px;border:none;cursor:pointer;transition:background-color .2s;}
-.histLoad:hover{background:var(--navy-mid);}
 .segpills{display:flex;flex-wrap:wrap;gap:8px;}
 .segpill{border:.5px solid var(--border);border-radius:9999px;padding:8px 14px;font-size:12px;font-weight:700;color:var(--navy-deep);cursor:pointer;background:var(--blue-soft);transition:background-color .15s,border-color .15s,color .15s;}
 .segpill:hover{border-color:var(--blue);}
@@ -548,7 +536,7 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
 
 <!-- ===== Home: pantalla de selección al entrar por la raíz (sin slug en la URL) =====
      Lista todas las presentaciones guardadas en la nube para abrir una, o arrancar una
-     nueva. La barra de controles de abajo (HISTORIAL/DATOS/ÍNDICE/‹›/NOTAS/PDF/HTML/PNG)
+     nueva. La barra de controles de abajo (INICIO/DATOS/ÍNDICE/‹›/NOTAS/PDF/PNG)
      solo tiene sentido dentro de una presentación — aquí se oculta (ver body.modo-home). -->
 <div id="homeScreen" class="no-print">
   <div id="homeFondo"><div class="globo-1"></div><div class="globo-2"></div></div>
@@ -1731,17 +1719,15 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
 </div>
 
 <div id="controls" class="no-print">
-  <button id="btnHome" class="wide-btn" title="Todas las presentaciones guardadas"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg>PRESENTACIONES</button>
-  <button id="btnHist" class="wide-btn" title="Historial compartido de presentaciones (H)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>HISTORIAL</button>
+  <button id="btnHome" title="Presentaciones — todas las guardadas"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg></button>
+  <button id="btnInicioDeck" class="wide-btn" title="Ir a la primera lámina (Inicio)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="5" x2="6" y2="19"/><polygon points="20 5 9 12 20 19" fill="currentColor" stroke="none"/></svg>INICIO</button>
   <button id="btnEdit" class="wide-btn" title="Editar datos"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>DATOS</button>
   <button id="btnIndice" class="wide-btn" title="Índice de láminas (I) — o deja ‹/› presionado un momento"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>ÍNDICE</button>
-  <button id="btnInicioDeck" class="wide-btn" title="Ir a la primera lámina (Inicio)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="5" x2="6" y2="19"/><polygon points="20 5 9 12 20 19" fill="currentColor" stroke="none"/></svg>INICIO</button>
   <button id="btnPrev" title="Anterior (←)">‹</button>
   <span id="counter">1 / 31</span>
   <button id="btnNext" title="Siguiente (→)">›</button>
   <button id="notesBtn" class="wide-btn" title="Notas del orador (N)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>NOTAS</button>
   <button id="btnPdf" class="wide-btn" title="Descargar PDF"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PDF</button>
-  <button id="btnHtml" class="wide-btn" title="Descargar HTML con estos datos"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>HTML</button>
   <button id="btnPng" class="wide-btn" title="Descargar esta lámina como imagen PNG"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PNG</button>
   <button id="btnMusica" title="Música de fondo · SuperLeads Radio"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button>
   <a id="btnWa" class="barLink no-drag" href="https://wa.me/5218148089420" target="_blank" rel="noopener" title="Escribirnos por WhatsApp"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2m0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24a8.24 8.24 0 0 1 0 16.48m4.52-6.17c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.18-.54.06-.25-.13-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.09-.17.04-.31-.02-.44-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42h-.47c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07s.9 2.4 1.02 2.56c.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.11-.23-.17-.48-.29"/></svg></a>
@@ -1793,14 +1779,6 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
       <div id="notasResumenLista" style="margin-top:14px;"></div>
     </div>
   </div>
-</div>
-
-<div id="histPanel" class="no-print">
-  <h4>Historial compartido</h4>
-  <div class="eHint">Cada vez que alguien da «Actualizar presentación», sus datos se guardan en la nube. Aquí las ven todos los asesores. Busca la institución y cárgala para continuar donde se quedó.</div>
-  <input type="text" id="histSearch" placeholder="Buscar institución...">
-  <div id="histStatus"></div>
-  <div id="histList"></div>
 </div>
 
 <div id="editPanel" class="no-print">
@@ -2126,6 +2104,9 @@ const _RLR="Ricardo López Reyero", _k="EYE", _rev=181218; // RLR
 
 /* Fuente HTML original — capturada al cargar, antes de cualquier cambio del usuario.
    Se usa para armar el archivo descargable con los datos actuales ya incrustados. */
+/* Copia del HTML tal como llegó, antes de que el JS toque el DOM. Ya no hay descarga
+   de HTML, pero se conserva porque es lo que haría posible reconstruirla sin volver a
+   pensarla — capturarla después del arranque daría un archivo con el estado a medias. */
 const ORIGINAL_HTML_SOURCE = document.documentElement.outerHTML;
 const STORAGE_KEY = 'sl_presentacion_frontera_data';
 
@@ -3027,7 +3008,7 @@ function prev(){
 }
 
 /* ===== Índice de láminas: modal con una tarjeta (número + nombre) por lámina encendida =====
-   Se abre de dos formas: (a) el botón «📑 ÍNDICE» junto a HISTORIAL/DATOS, siempre disponible;
+   Se abre de dos formas: (a) el botón «📑 ÍNDICE» junto a INICIO/DATOS, siempre disponible;
    (b) dejando presionado ‹ o › (mouse) o la flecha del teclado un momento (HOLD_MS). Un TOQUE
    corto en ‹ / › o en la flecha sigue moviendo una sola lámina, como siempre — la diferencia
    la marca cuánto tiempo se mantiene presionado, no cuántas veces se presiona. */
@@ -3560,7 +3541,6 @@ document.getElementById('preciosGuardar').addEventListener('click', ()=>{
   document.getElementById('preciosModal').style.display='none';
 });
 document.getElementById('btnEdit').onclick = ()=>{
-  histPanel.classList.remove('open');
   populateForm();
   editPanel.classList.toggle('open');
   highlightRelevantFields();
@@ -3577,7 +3557,14 @@ function normTxt(s){ return (s||'').toString().toLowerCase().normalize('NFD').re
 /* Escapa HTML antes de insertarlo con innerHTML — los datos del historial vienen de otros
    asesores y no se deben tratar como marcado de confianza. */
 function escapeHtml(s){ return (s===undefined||s===null) ? '' : String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function setHistStatus(msg){ const el = document.getElementById('histStatus'); if(el) el.textContent = msg || ''; }
+/* El panel «Historial» se fue: el Home ya lista, busca y abre todo lo guardado.
+   El estado («Guardado en la nube», «Sin conexión»…) vive aquí y se pinta en el Home. */
+let HIST_STATUS = '';
+function setHistStatus(msg){
+  HIST_STATUS = msg || '';
+  const el = document.getElementById('homeStatus');
+  if(el) el.textContent = HIST_STATUS;
+}
 
 /* ===== URL propia por presentaci\u00f3n =====
    Cada conjunto de datos (cada colegio) vive en la nube bajo su propio slug:
@@ -3732,7 +3719,6 @@ function histGuardarLocal(lista){
   try{ localStorage.removeItem(HIST_LS); }catch(e){}
 }
 function pintarHistorial(){
-  try{ renderHistList(); }catch(e){}
   try{ if(typeof renderHomeList === 'function') renderHomeList(); }catch(e){}
 }
 /* Un archivo del historial, con un reintento: la API de GitHub falla suelto de vez en cuando. */
@@ -3820,31 +3806,6 @@ async function cargarListaHistorial(){
   })();
   try{ await HIST_CARGA_EN_CURSO; } finally { HIST_CARGA_EN_CURSO = null; }
 }
-function renderHistList(){
-  const cont = document.getElementById('histList');
-  if(!cont) return;
-  const q = normTxt(document.getElementById('histSearch').value);
-  const lista = HIST_CACHE.filter(h=> !q || normTxt(h.colegio).includes(q) || normTxt(h.ciudad).includes(q));
-  if(!lista.length){ cont.innerHTML = '<div class="eHint">Sin resultados.</div>'; return; }
-  cont.innerHTML = lista.map((h,i)=>{
-    const com = (typeof COMERCIALES!=='undefined' && COMERCIALES[h.comercial]) ? COMERCIALES[h.comercial].nombre : (h.comercial||'');
-    const colegio = escapeHtml(h.colegio), ciudad = escapeHtml(h.ciudad), comN = escapeHtml(com), fecha = escapeHtml(h.guardado||'\u2014');
-    return '<div class="histItem"><b>'+colegio+'</b>'
-      +'<div class="hMeta">'+(ciudad? ciudad+' \u00b7 ':'')+(comN? comN+' \u00b7 ':'')+'\u00daltima modificaci\u00f3n: '+fecha+'</div>'
-      +'<button type="button" class="histLoad" data-hidx="'+HIST_CACHE.indexOf(h)+'">Cargar esta presentaci\u00f3n</button></div>';
-  }).join('');
-  cont.querySelectorAll('.histLoad').forEach(b=>{
-    b.addEventListener('click', async ()=>{
-      const h = HIST_CACHE[parseInt(b.dataset.hidx,10)];
-      if(!h || !h.data) return;
-      b.textContent = 'Cargando...'; b.disabled = true;
-      const slugDestino = slug(h.colegio);
-      // respalda lo actual en la nube antes de salir de esta presentación
-      if(ultimoSlugGuardado && ultimoSlugGuardado !== slugDestino) await guardarHistorial();
-      location.href = '/' + slugDestino;
-    });
-  });
-}
 /* ===== El nombre del colegio no se repite: se busca mientras se escribe ===== */
 let histCargadoUnaVez = false;
 async function asegurarHistorial(){
@@ -3904,14 +3865,6 @@ function renderColegioSug(){
   inp.addEventListener('input', ()=>{ renderColegioSug(); actualizarCajaUrl(); });
   inp.addEventListener('blur', ()=> setTimeout(()=>{ const c = document.getElementById('colegioSug'); if(c) c.style.display='none'; }, 160));
 })();
-const histPanel = document.getElementById('histPanel');
-document.getElementById('btnHist').onclick = ()=>{
-  const abre = !histPanel.classList.contains('open');
-  histPanel.classList.toggle('open', abre);
-  if(abre){ editPanel.classList.remove('open'); cargarListaHistorial(); }
-};
-document.getElementById('histSearch').addEventListener('input', renderHistList);
-
 document.getElementById('editForm').addEventListener('submit', (e)=>{
   e.preventDefault();
   const campoColegio = document.querySelector('#editForm [data-f="colegio"]');
@@ -3991,10 +3944,9 @@ window.addEventListener('keydown', (e)=>{
   else if(e.key==='n'||e.key==='N'){ notesPanel.classList.toggle('open'); }
   else if(e.key==='e'||e.key==='E'){ populateForm(); editPanel.classList.toggle('open'); highlightRelevantFields(); }
   else if(e.key==='f'||e.key==='F'){ document.getElementById('btnFs').click(); }
-  else if(e.key==='h'||e.key==='H'){ document.getElementById('btnHist').click(); }
   else if(e.key==='i'||e.key==='I'){ abrirIndice(); }
   else if(e.key==='Home'){ e.preventDefault(); irAlInicioDelDeck(); }
-  else if(e.key==='Escape'){ notesPanel.classList.remove('open'); editPanel.classList.remove('open'); histPanel.classList.remove('open'); cerrarIndice(); }
+  else if(e.key==='Escape'){ notesPanel.classList.remove('open'); editPanel.classList.remove('open'); cerrarIndice(); }
 });
 
 /* ===================== GUARDAR ÚLTIMO USO (localStorage) ===================== */
@@ -4058,14 +4010,6 @@ function fechaArchivoISO(){
   const d = new Date(), p = n=> String(n).padStart(2,'0');
   return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());
 }
-function buildExportHTML(){
-  const dataBlock = 'let DATA = ' + JSON.stringify(DATA, null, 2) + ';';
-  let html = ORIGINAL_HTML_SOURCE.replace(/let DATA = \{[\s\S]*?\n\};/, dataBlock);
-  // Cada exportación usa su propia clave de guardado: así un archivo exportado
-  // nunca hereda ni pisa los datos de otra presentación abierta en el mismo equipo.
-  html = html.replace(/const STORAGE_KEY = '[^']*';/, "const STORAGE_KEY = 'sl_pres_" + slug(DATA.colegio) + "';");
-  return '<!DOCTYPE html>\n' + html;
-}
 function downloadBlob(content, filename, type){
   const blob = new Blob([content], {type});
   const url = URL.createObjectURL(blob);
@@ -4074,10 +4018,6 @@ function downloadBlob(content, filename, type){
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(()=> URL.revokeObjectURL(url), 4000);
 }
-document.getElementById('btnHtml').onclick = ()=>{
-  const html = buildExportHTML();
-  downloadBlob(html, 'SuperLeads_Propuesta_' + nombreInstitucionArchivo(DATA.colegio) + '_' + fechaArchivoISO() + '.html', 'text/html;charset=utf-8');
-};
 
 /* ===================== DESCARGAR LA LÁMINA ACTUAL COMO PNG ===================== */
 function cargarHtml2Canvas(){
@@ -4200,7 +4140,7 @@ async function cargarPorSlugDesdeNube(rutaSlug){
 }
 /* ===== Home: pantalla de selección al entrar por la raíz, o si el slug de la URL no existe.
    Lista lo que haya en el historial compartido y ofrece «Nueva presentación» — la barra de
-   controles (HISTORIAL/DATOS/ÍNDICE/‹›/NOTAS/PDF/HTML/PNG) solo aplica dentro de una
+   controles (INICIO/DATOS/ÍNDICE/‹›/NOTAS/PDF/PNG) solo aplica dentro de una
    presentación, así que se oculta mientras el Home está activo (ver body.modo-home en CSS). */
 function mostrarHome(){
   document.body.classList.add('modo-home');
@@ -4217,8 +4157,7 @@ function renderHomeList(){
   const cont = document.getElementById('homeList');
   if(!cont) return;
   const statusEl = document.getElementById('homeStatus');
-  const histStatusEl = document.getElementById('histStatus');
-  if(statusEl) statusEl.textContent = histStatusEl ? histStatusEl.textContent : '';
+  if(statusEl) statusEl.textContent = HIST_STATUS;
   const buscador = document.getElementById('homeSearch');
   const crudo = (buscador ? buscador.value : '').trim();
   const q = normTxt(crudo);
@@ -4293,7 +4232,7 @@ document.getElementById('btnHome').addEventListener('click', async ()=>{
   try{ if(ultimoSlugGuardado) await guardarHistorial(); }catch(e){}
   if(location.protocol === 'file:'){
     // en el archivo local no hay rutas — se muestra el Home encima, sin navegar
-    editPanel.classList.remove('open'); histPanel.classList.remove('open'); notesPanel.classList.remove('open');
+    editPanel.classList.remove('open'); notesPanel.classList.remove('open');
     btn.disabled = false;
     mostrarHome();
   }else{
