@@ -2,8 +2,8 @@
   "colegio": "Universidad José Martí",
   "ciudad": "Colima",
   "comercial": "victor",
-  "guardado": "07 sep 2026, 01:57 p.m.",
-  "guardado_ts": 1788811022326,
+  "guardado": "07 sep 2026, 01:58 p.m.",
+  "guardado_ts": 1788811081972,
   "data": {
     "colegio": "Universidad José Martí",
     "prospecto_nombre": "Marcos Daniel Barajas Yescas",
@@ -19,7 +19,12 @@
     "comercial": "victor",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "universidad": {
+        "crm_paquete": 9000,
+        "de": 6000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
