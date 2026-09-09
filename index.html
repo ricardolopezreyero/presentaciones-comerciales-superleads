@@ -349,6 +349,24 @@ body.sin-precios .px-blank{visibility:hidden;}
 .scale-dot.active{background:var(--green);border-color:var(--green);}
 .scale-cap{position:absolute;left:32px;bottom:56px;color:#fff;font-size:15px;font-weight:700;background:rgba(0,18,64,.55);padding:8px 16px;border-radius:8px;z-index:5;}
 
+/* ===== Lámina de inversión: se aprieta sola cuando lleva mucho =====
+   La lámina mide 720px fijos y su contenido crece con lo cotizado: el paquete completo,
+   el renglón de soporte y la nota de descuento juntos se salían por abajo y el cierre se
+   montaba sobre el logo. En vez de recortar la información, la lámina cede espacio en dos
+   escalones — primero aire, luego tamaños — hasta que todo cabe. */
+#slideInversion.inv-apretada table.semaforo td{padding:10px 0;}
+#slideInversion.inv-apretada #txtPaquete{font-size:13.5px;margin-top:9px;}
+#slideInversion.inv-apretada .invBox{padding:11px 20px;}
+#slideInversion.inv-apretada .invN{font-size:27px;}
+#slideInversion.inv-apretada > div[style*="grid-template-columns:1fr 1fr 1.25fr"]{margin-top:11px;}
+#slideInversion.inv-apretada2 table.semaforo{font-size:15.5px;}
+#slideInversion.inv-apretada2 table.semaforo td{padding:7px 0;}
+#slideInversion.inv-apretada2 table.semaforo td.val{font-size:22px;}
+#slideInversion.inv-apretada2 table.semaforo td.small{font-size:13px;}
+#slideInversion.inv-apretada2 .invN{font-size:24px;}
+#slideInversion.inv-apretada2 .invBox{padding:9px 18px;}
+#slideInversion.inv-apretada2 .stat-hero{font-size:31px !important;}
+
 /* ===== Selector de soporte en vivo (lámina de inversión) =====
    Se ve como una etiqueta con chevron, no como un control de formulario: en la junta se
    cambia con un clic, y en el PDF/PNG queda como texto — por eso el botón lleva el nombre
@@ -1373,7 +1391,7 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
 </section>
 
 <!-- ============ 22 INVERSION ============ -->
-<section class="slide light" data-cat="inversion" data-notes="La tabla muestra exactamente lo que se está cotizando — ni un producto más. Números limpios. TÉCNICA: anual es el ciclo escolar completo de 10 meses, mensual es el compromiso real mes a mes, y al día es la perspectiva de lo que se invierte en el sistema cada día de operación. PRINCIPIO: la conversación importante no es la inversión en el sistema — es la capacidad disponible y el ingreso extra posible al año.">
+<section class="slide light" id="slideInversion" data-cat="inversion" data-notes="La tabla muestra exactamente lo que se está cotizando — ni un producto más. Números limpios. TÉCNICA: anual es el ciclo escolar completo de 10 meses, mensual es el compromiso real mes a mes, y al día es la perspectiva de lo que se invierte en el sistema cada día de operación. PRINCIPIO: la conversación importante no es la inversión en el sistema — es la capacidad disponible y el ingreso extra posible al año.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">La inversión</div></div>
   <h1>Su inversión — y lo que puede producir</h1>
   <table class="semaforo" style="margin-top:8px;">
@@ -1384,7 +1402,7 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
     <tr id="rowAI"><td>Atracción Inteligente</td><td class="small">Generación de demanda calificada — prospectos que sí convierten</td><td class="val" style="font-size:19px;" data-bind="precio_atraccion" data-fmt="mxnmes"></td></tr>
     <!-- Soporte: siempre visible y cambiable en vivo. El botón es texto plano (no un
          <select>) para que salga idéntico en el PDF y en el PNG; el menú es no-print. -->
-    <tr id="rowSoporte"><td style="position:relative;">Soporte<button type="button" id="sopBtn" class="sopBtn no-print no-drag" aria-haspopup="listbox" aria-expanded="false"><span id="sopBtnTxt">Incluido</span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><span id="sopBtnPrint" class="sopPill">Incluido</span><div id="sopMenu" class="sopMenu no-print" role="listbox"></div></td><td class="small" id="sopDetalle"></td><td class="val" style="font-size:19px;" data-bind="precio_soporte" data-fmt="mxnmes"></td></tr>
+    <tr id="rowSoporte"><td style="position:relative;">Soporte<button type="button" id="sopBtn" class="sopBtn no-print no-drag" aria-haspopup="listbox" aria-expanded="false"><span id="sopBtnTxt">Sin soporte</span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><span id="sopBtnPrint" class="sopPill">Sin soporte</span><div id="sopMenu" class="sopMenu no-print" role="listbox"></div></td><td class="small" id="sopDetalle"></td><td class="val" style="font-size:19px;" data-bind="precio_soporte" data-fmt="mxnmes"></td></tr>
   </table>
 
   <div class="body-txt px-off" id="txtPaquete" style="font-size:14.5px;margin-top:14px;max-width:900px;font-weight:600;color:var(--navy);"></div>
@@ -1431,7 +1449,9 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
       <div class="invL" style="color:var(--blue);">y que ya está dentro de su capacidad</div>
     </div>
   </div>
-  <div style="margin-top:14px;font-size:17px;font-weight:700;color:var(--navy-deep);text-align:center;line-height:1.5;">La conversación correcta no es la inversión — es esto. <span style="color:var(--muted);font-weight:600;">Ese dinero es real y ya está dentro de su capacidad instalada: se alcanza con sistema. Enfoquémonos en crecer eso.</span></div>
+  <!-- Cierre a la derecha y en dos renglones: el logo vive abajo a la izquierda y el
+       texto centrado a todo lo ancho se le montaba encima. -->
+  <div style="margin-top:6px;margin-left:auto;max-width:620px;padding-right:34px;font-size:16.5px;font-weight:700;color:var(--navy-deep);text-align:right;line-height:1.4;">La conversación correcta no es la inversión — es esto.<br><span style="color:var(--muted);font-weight:600;">Ese dinero ya está dentro de su capacidad instalada.</span></div>
   <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
   <div class="slide-num">24</div>
 </section>
@@ -1931,7 +1951,7 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
     </div>
     <div class="efield"><label>Soporte <span style="font-weight:400;color:var(--dim);">(también se cambia en vivo desde la lámina de inversión)</span></label>
       <div class="segpills" id="soportePills">
-        <div class="segpill" data-sop="incluido">Incluido</div>
+        <div class="segpill" data-sop="sin">Sin soporte</div>
         <div class="segpill" data-sop="mantenimiento">Mantenimiento</div>
         <div class="segpill" data-sop="crecimiento">Crecimiento</div>
         <div class="segpill" data-sop="dedicado">Dedicado</div>
@@ -2160,17 +2180,19 @@ const PRECIOS = {
   grupo:{crm:25000, de:10000, ai:10000, label:'Grupo'},
 };
 /* Soporte: escalón aparte del paquete y con el mismo precio en todos los segmentos.
-   Arranca en «incluido» ($0) — el que ya viene con el sistema — y sube solo si la junta
-   lo pide. Por eso el renglón se ve siempre en la lámina de inversión, aunque valga 0:
-   es la puerta para hablarlo en vivo, no un producto escondido en la cotización. */
+   Arranca en «sin soporte» ($0) y sube solo si la junta lo pide. Por eso el renglón se
+   ve siempre en la lámina de inversión, aunque valga 0: es la puerta para hablarlo en
+   vivo, no un producto escondido en la cotización. */
 const SOPORTE = {
-  incluido:      {precio:0,     label:'Incluido',      detalle:'Alex 24/7, optimización técnica y sesiones en vivo semanales'},
-  mantenimiento: {precio:5000,  label:'Mantenimiento', detalle:'Además: revisión mensual del embudo y ajustes de configuración cuando los pidan'},
-  crecimiento:   {precio:10000, label:'Crecimiento',   detalle:'Además: analista asignado, tablero revisado cada semana y plan de mejora por temporada'},
-  dedicado:      {precio:20000, label:'Dedicado',      detalle:'Además: equipo dedicado a su institución, prioridad de atención y trabajo dentro de su operación'},
+  sin:           {precio:0,     label:'Sin soporte',   detalle:'Sin acciones programadas sobre su sistema de admisiones'},
+  mantenimiento: {precio:5000,  label:'Mantenimiento', detalle:'Acciones de mejora y mantenimiento sobre su sistema de admisiones en el CRM: revisión mensual del embudo y ajustes de configuración'},
+  crecimiento:   {precio:10000, label:'Crecimiento',   detalle:'Además: analista asignado, su CRM revisado cada semana y plan de mejora por temporada'},
+  dedicado:      {precio:20000, label:'Dedicado',      detalle:'Además: equipo dedicado trabajando su CRM por dentro, con prioridad de atención'},
 };
 const SOPORTE_KEYS = Object.keys(SOPORTE);
-function soporteKey(v){ return SOPORTE[v] ? v : 'incluido'; }
+/* «incluido» fue el nombre del escalón de $0 antes de que se llamara «sin»: las
+   presentaciones guardadas con ese valor siguen abriendo bien. */
+function soporteKey(v){ return SOPORTE[v] ? v : 'sin'; }
 /* Precio vigente de un escalón: el de fábrica salvo que esta presentación lo haya cambiado. */
 function soportePrecio(k, d){
   const dd = d || DATA;
@@ -2197,7 +2219,7 @@ let DATA = {
   fecha_presentacion:"11 de agosto de 2026",
   segmento:"k12",
   paquete:"estrategia",
-  soporte:"incluido",
+  soporte:"sin",
   soporte_precios:{},
   moneda:"mxn",
   comercial:"ricardo",
@@ -2373,6 +2395,27 @@ function calc(d){
   return Object.assign({}, d, {precio_crm, precio_estrategia, precio_atraccion, precio_base, precio_con_estrategia, precio_todo, paquete, precio_paquete, soporte, precio_soporte, soporte_label, soporte_detalle, precio_lista, descuento, precio_total, precio_anual, precio_diario, leads_anio, ocupacion, lugares_vacios, ltv, hueco_total, colegiatura_conv, roas, alumnos_por_decimal, pesos_por_decimal, decimal_paso_txt, alumnos_paso, valor_paso, alumnos_breakeven, alumnos_extra, ingreso_extra_anual, estrellitas_est, valor_estrellitas, leads_adicionales_camino1, tasa_objetivo, leads_meta_2b, leads_extra_2b, perdida_pct, caso_nombre, caso_resultado, caso_quote, valor_implementacion, cuota_apertura, costo_wa, costo_correo, costo_llamada, costo_webhook, costo_constanza, comercial_firma});
 }
 
+/* La lámina de inversión cede espacio en dos escalones hasta que su contenido cabe en los
+   720px. Se mide después de pintar, porque lo que ocupa depende de lo cotizado. */
+function ajustarInversion(){
+  const sec = document.getElementById('slideInversion');
+  if(!sec) return;
+  const fondo = ()=>{
+    let max = 0;
+    for(const el of sec.children){
+      if(!el.offsetHeight || getComputedStyle(el).position === 'absolute') continue;
+      max = Math.max(max, el.offsetTop + el.offsetHeight);
+    }
+    return max;
+  };
+  const CABE = 712; // 720 de lámina, con un respiro para no rozar el borde
+  sec.classList.remove('inv-apretada','inv-apretada2');
+  if(fondo() <= CABE) return;
+  sec.classList.add('inv-apretada');
+  if(fondo() <= CABE) return;
+  sec.classList.add('inv-apretada2');
+}
+
 /* Menú del selector de soporte: se arma con los precios vigentes y en la moneda activa,
    para que lo que se elige en vivo sea exactamente lo que va a sumar al total. */
 function pintarSoporteMenu(){
@@ -2383,7 +2426,7 @@ function pintarSoporteMenu(){
   menu.innerHTML = SOPORTE_KEYS.map(k=>{
     const mxn = soportePrecio(k);
     const val = usd ? usdNice(mxn) : mxn;
-    const precio = mxn === 0 ? 'incluido' : (usd?'US$':'$') + mxNum(val) + '/mes';
+    const precio = mxn === 0 ? '$0' : (usd?'US$':'$') + mxNum(val) + '/mes';
     return '<button type="button" class="sopOpt'+(k===actual?' activa':'')+'" data-sop="'+k+'" role="option" aria-selected="'+(k===actual)+'">'
       + SOPORTE[k].label + '<span class="sopPrecio">' + precio + '</span></button>';
   }).join('');
@@ -2514,18 +2557,12 @@ function renderData(){
   if(rowDE) rowDE.style.display = (c.paquete!=='base' && c.precio_estrategia>0) ? '' : 'none';
   const rowAI = document.getElementById('rowAI');
   if(rowAI) rowAI.style.display = (c.paquete==='todo' && c.precio_atraccion>0) ? '' : 'none';
-  // Soporte: el renglón se ve siempre, aunque el escalón incluido valga 0.
+  // Soporte: el renglón se ve siempre, aunque el escalón elegido valga 0.
   const sopTxt = document.getElementById('sopBtnTxt'), sopPrint = document.getElementById('sopBtnPrint');
   if(sopTxt) sopTxt.textContent = c.soporte_label;
   if(sopPrint) sopPrint.textContent = c.soporte_label;
   const sopDet = document.getElementById('sopDetalle');
   if(sopDet) sopDet.textContent = c.soporte_detalle;
-  // El escalón que ya viene con el sistema se lee «Incluido», no «$0/mes»: en la lámina
-  // del cliente un cero se ve como algo que falta, y aquí es algo que se les está dando.
-  const sopVal = document.querySelector('#rowSoporte .val');
-  if(sopVal && !DATA.sin_precios){
-    if(c.precio_soporte === 0) sopVal.innerHTML = '<span style="font-size:16px;color:var(--green-d);">Incluido</span>';
-  }
   pintarSoporteMenu();
   const txtPaq = document.getElementById('txtPaquete');
   if(txtPaq) txtPaq.textContent = TXT_PAQUETE[c.paquete] || TXT_PAQUETE.estrategia;
@@ -2594,6 +2631,7 @@ function renderData(){
   renderSello();
   renderCapacidad();
   aplicarSinPrecios();
+  ajustarInversion(); // hasta el final: mide con todo ya pintado (descuento incluido)
 }
 
 /* ===================== SCALE IMAGE SWITCHER (slide 06) ===================== */
@@ -3542,12 +3580,12 @@ function renderPreciosGrid(){
     });
   });
 }
-/* Los tres escalones de pago del soporte (el incluido siempre vale 0, no se edita). */
+/* Los tres escalones de pago del soporte («sin soporte» siempre vale 0, no se edita). */
 function renderPreciosSoporte(){
   const cont = document.getElementById('preciosSoporte');
   if(!cont) return;
   const pref = (precioMoneda()==='usd') ? 'US$' : '$';
-  cont.innerHTML = SOPORTE_KEYS.filter(k=> k!=='incluido').map(k=>{
+  cont.innerHTML = SOPORTE_KEYS.filter(k=> k !== 'sin').map(k=>{
     const mxn = (soporteDraft[k] !== undefined) ? soporteDraft[k] : soportePrecio(k);
     const shown = fmtPrecioVal(mxn);
     return '<div><div style="font-size:11.5px;font-weight:700;color:var(--navy-deep);margin-bottom:5px;">'+SOPORTE[k].label+'</div>'
@@ -3624,7 +3662,7 @@ function renderPreciosTabla(){
         +'</td>'
         +'<td style="padding:11px 10px;font-size:12.5px;font-weight:600;color:var(--muted);">'+SOPORTE[k].detalle+'</td>'
         +'<td style="padding:11px 10px;font-weight:700;color:var(--navy-deep);white-space:nowrap;text-align:right;">'
-        + (mxn === 0 ? '<span style="color:var(--green-d);">incluido</span>' : '<span style="font-size:11px;font-weight:700;color:var(--muted);">'+pref+'</span> '+fmtPrecioVal(mxn))
+        + '<span style="font-size:11px;font-weight:700;color:var(--muted);">'+pref+'</span> '+fmtPrecioVal(mxn)
         +'</td></tr>';
     }).join('');
   }
