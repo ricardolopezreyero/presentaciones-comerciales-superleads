@@ -349,6 +349,25 @@ body.sin-precios .px-blank{visibility:hidden;}
 .scale-dot.active{background:var(--green);border-color:var(--green);}
 .scale-cap{position:absolute;left:32px;bottom:56px;color:#fff;font-size:15px;font-weight:700;background:rgba(0,18,64,.55);padding:8px 16px;border-radius:8px;z-index:5;}
 
+/* ===== Selector de soporte en vivo (lámina de inversión) =====
+   Se ve como una etiqueta con chevron, no como un control de formulario: en la junta se
+   cambia con un clic, y en el PDF/PNG queda como texto — por eso el botón lleva el nombre
+   escrito y el menú es no-print. */
+.sopBtn{display:inline-flex;align-items:center;gap:6px;margin-left:10px;border:.5px solid var(--blue-mid);background:var(--blue-softer);color:var(--blue);font-family:inherit;font-weight:800;font-size:12px;letter-spacing:.2px;padding:4px 10px;border-radius:99px;cursor:pointer;vertical-align:middle;transition:background-color .15s var(--ease),border-color .15s var(--ease);}
+.sopBtn:hover{background:var(--blue-soft);border-color:var(--blue);}
+.sopBtn svg{opacity:.7;flex-shrink:0;}
+.sopPill{display:none;margin-left:10px;border:.5px solid var(--blue-mid);background:var(--blue-softer);color:var(--blue);font-weight:800;font-size:12px;letter-spacing:.2px;padding:4px 10px;border-radius:99px;vertical-align:middle;}
+.sopMenu{display:none;position:absolute;left:0;top:calc(100% + 6px);z-index:40;min-width:280px;background:#fff;border:.5px solid var(--border);border-radius:12px;padding:6px;box-shadow:0 18px 44px rgba(0,37,130,.22);}
+.sopMenu.on{display:block;}
+.sopOpt{display:flex;align-items:baseline;gap:10px;width:100%;text-align:left;border:none;background:transparent;font-family:inherit;font-size:13px;font-weight:700;color:var(--navy-deep);padding:9px 11px;border-radius:8px;cursor:pointer;}
+.sopOpt:hover{background:var(--blue-soft);}
+.sopOpt.activa{background:rgba(86,239,159,.12);color:var(--green-d);}
+.sopOpt .sopPrecio{margin-left:auto;font-size:12px;font-weight:800;color:var(--muted);white-space:nowrap;}
+.sopOpt.activa .sopPrecio{color:var(--green-d);}
+@media print{.sopPill{display:inline-block;}}
+/* Sin precios: el escalón de soporte se sigue nombrando, pero su costo no aparece. */
+body.sin-precios .sopPrecio{display:none;}
+
 /* ===== CONTROLS ===== */
 #controls{position:fixed;bottom:0;left:0;right:0;height:52px;background:rgba(0,18,64,.95);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;gap:10px;z-index:30;font-family:'Plus Jakarta Sans',sans-serif;}
 #controls button,#controls .barLink{text-decoration:none;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.15);color:#fff;width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:16px;font-family:inherit;transition:background-color .2s var(--ease),color .2s var(--ease),transform .2s var(--ease);}
@@ -1363,6 +1382,9 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
     <tr><td>CRM SuperLeads</td><td class="small">Usuarios y prospectos ilimitados, agente IA, embudo configurado</td><td class="val" style="font-size:19px;" data-bind="precio_crm" data-fmt="mxnmes"></td></tr>
     <tr id="rowDE"><td>Dirección Estratégica</td><td class="small">Departamento dedicado, metodología, acompañamiento cercano</td><td class="val" style="font-size:19px;" data-bind="precio_estrategia" data-fmt="mxnmes"></td></tr>
     <tr id="rowAI"><td>Atracción Inteligente</td><td class="small">Generación de demanda calificada — prospectos que sí convierten</td><td class="val" style="font-size:19px;" data-bind="precio_atraccion" data-fmt="mxnmes"></td></tr>
+    <!-- Soporte: siempre visible y cambiable en vivo. El botón es texto plano (no un
+         <select>) para que salga idéntico en el PDF y en el PNG; el menú es no-print. -->
+    <tr id="rowSoporte"><td style="position:relative;">Soporte<button type="button" id="sopBtn" class="sopBtn no-print no-drag" aria-haspopup="listbox" aria-expanded="false"><span id="sopBtnTxt">Incluido</span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><span id="sopBtnPrint" class="sopPill">Incluido</span><div id="sopMenu" class="sopMenu no-print" role="listbox"></div></td><td class="small" id="sopDetalle"></td><td class="val" style="font-size:19px;" data-bind="precio_soporte" data-fmt="mxnmes"></td></tr>
   </table>
 
   <div class="body-txt px-off" id="txtPaquete" style="font-size:14.5px;margin-top:14px;max-width:900px;font-weight:600;color:var(--navy);"></div>
@@ -1907,6 +1929,15 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
       <div id="avisoPaquete" style="display:none;margin-top:8px;border:.5px solid var(--warn);background:rgba(235,104,52,.08);border-radius:8px;padding:9px 12px;font-size:11.5px;font-weight:700;color:var(--warn);line-height:1.45;"></div>
       <input type="hidden" data-f="paquete">
     </div>
+    <div class="efield"><label>Soporte <span style="font-weight:400;color:var(--dim);">(también se cambia en vivo desde la lámina de inversión)</span></label>
+      <div class="segpills" id="soportePills">
+        <div class="segpill" data-sop="incluido">Incluido</div>
+        <div class="segpill" data-sop="mantenimiento">Mantenimiento</div>
+        <div class="segpill" data-sop="crecimiento">Crecimiento</div>
+        <div class="segpill" data-sop="dedicado">Dedicado</div>
+      </div>
+      <input type="hidden" data-f="soporte">
+    </div>
     <label id="sinPreciosBox" style="display:flex;align-items:center;gap:11px;font-size:13.5px;font-weight:700;color:var(--navy-deep);cursor:pointer;border:.5px solid var(--border);border-radius:10px;padding:11px 14px;background:var(--blue-soft);margin-bottom:16px;">
       
       <input type="checkbox" id="sinPreciosChk" style="width:16px;height:16px;accent-color:var(--green-d);">
@@ -2014,6 +2045,10 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
       </thead>
       <tbody id="preciosTablaGrid"></tbody>
     </table>
+    <div style="margin-top:22px;">
+      <div style="font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:700;margin-bottom:8px;">Soporte · se suma al paquete</div>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;"><tbody id="preciosTablaSoporte"></tbody></table>
+    </div>
     <div style="display:flex;align-items:center;gap:8px;margin-top:20px;padding-top:16px;border-top:.5px solid var(--border);">
       <img src="assets_deck_instituto_frontera/logo-superleads-oscuro.svg" alt="SuperLeads" style="height:20px;" onerror="this.style.display='none'">
       <span id="preciosTablaPie" style="font-size:11.5px;font-weight:700;color:var(--dim);margin-left:auto;"></span>
@@ -2049,6 +2084,11 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
       </tr>
       <tbody id="preciosGrid"></tbody>
     </table>
+    <!-- El soporte no cambia por segmento: mismo precio para todos, editable una vez. -->
+    <div style="margin-top:18px;padding-top:14px;border-top:.5px solid var(--border);">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:700;margin-bottom:8px;">Soporte <span style="text-transform:none;letter-spacing:0;font-weight:600;color:var(--dim);">— igual en todos los segmentos</span></div>
+      <div id="preciosSoporte" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;"></div>
+    </div>
     <div style="display:flex;gap:10px;margin-top:18px;">
       <button type="button" id="preciosGuardar" style="flex:1;background:var(--green);color:var(--navy-deep);font-weight:800;font-size:14px;padding:12px;border-radius:10px;border:none;cursor:pointer;">Guardar precios</button>
       <button type="button" id="preciosReset" style="background:#fff;color:var(--navy);font-weight:700;font-size:13px;padding:12px 16px;border-radius:10px;border:.5px solid var(--border);cursor:pointer;">Restaurar de fábrica</button>
@@ -2119,6 +2159,25 @@ const PRECIOS = {
   universidad:{crm:12000, crm_paquete:10000, de:7000, ai:7000, label:'Universidad'},
   grupo:{crm:25000, de:10000, ai:10000, label:'Grupo'},
 };
+/* Soporte: escalón aparte del paquete y con el mismo precio en todos los segmentos.
+   Arranca en «incluido» ($0) — el que ya viene con el sistema — y sube solo si la junta
+   lo pide. Por eso el renglón se ve siempre en la lámina de inversión, aunque valga 0:
+   es la puerta para hablarlo en vivo, no un producto escondido en la cotización. */
+const SOPORTE = {
+  incluido:      {precio:0,     label:'Incluido',      detalle:'Alex 24/7, optimización técnica y sesiones en vivo semanales'},
+  mantenimiento: {precio:5000,  label:'Mantenimiento', detalle:'Además: revisión mensual del embudo y ajustes de configuración cuando los pidan'},
+  crecimiento:   {precio:10000, label:'Crecimiento',   detalle:'Además: analista asignado, tablero revisado cada semana y plan de mejora por temporada'},
+  dedicado:      {precio:20000, label:'Dedicado',      detalle:'Además: equipo dedicado a su institución, prioridad de atención y trabajo dentro de su operación'},
+};
+const SOPORTE_KEYS = Object.keys(SOPORTE);
+function soporteKey(v){ return SOPORTE[v] ? v : 'incluido'; }
+/* Precio vigente de un escalón: el de fábrica salvo que esta presentación lo haya cambiado. */
+function soportePrecio(k, d){
+  const dd = d || DATA;
+  const ov = dd.soporte_precios || {};
+  return (ov[k] !== undefined && ov[k] !== null) ? ov[k] : SOPORTE[soporteKey(k)].precio;
+}
+
 /* Tres paquetes por segmento, cumulativos: base (CRM) → + estrategia → + atracción inteligente (todo) */
 const PAQUETES = ['base','estrategia','todo'];
 /* Comerciales que pueden presentar — la firma aparece en portada y cierre */
@@ -2138,6 +2197,8 @@ let DATA = {
   fecha_presentacion:"11 de agosto de 2026",
   segmento:"k12",
   paquete:"estrategia",
+  soporte:"incluido",
+  soporte_precios:{},
   moneda:"mxn",
   comercial:"ricardo",
   notas_slide:{},
@@ -2256,7 +2317,15 @@ function calc(d){
   const precio_base = usd ? usdNice(crm_solo_mxn) : crm_solo_mxn;
   const precio_con_estrategia = (usd ? usdNice(crm_paq_mxn) : crm_paq_mxn) + precio_estrategia;
   const precio_todo = precio_con_estrategia + precio_atraccion;
-  const precio_lista = paquete==='base' ? precio_base : paquete==='todo' ? precio_todo : precio_con_estrategia;
+  const precio_paquete = paquete==='base' ? precio_base : paquete==='todo' ? precio_todo : precio_con_estrategia;
+  // El soporte se suma al paquete antes del descuento: entra al total, al anual, al diario
+  // y —lo que más importa— al alumno en el que salimos gratis.
+  const soporte = soporteKey(d.soporte);
+  const soporte_mxn = soportePrecio(soporte, d);
+  const precio_soporte = usd ? usdNice(soporte_mxn) : soporte_mxn;
+  const soporte_label = SOPORTE[soporte].label;
+  const soporte_detalle = SOPORTE[soporte].detalle;
+  const precio_lista = precio_paquete + precio_soporte;
   const descuento = Math.round(Math.max(0, +d.descuento || 0) / fx); // el descuento se captura siempre en MXN
   const precio_total = Math.max(0, precio_lista - descuento);
   const precio_anual = precio_total * 10;        // ancla: ciclo escolar de 10 mensualidades
@@ -2301,8 +2370,46 @@ function calc(d){
   const comercial_firma = com.nombre + ' \u00b7 ' + com.email;
   const casoObj = resolveCaso(d);
   const caso_nombre = casoObj.nombre, caso_resultado = casoObj.resultado, caso_quote = casoObj.quote;
-  return Object.assign({}, d, {precio_crm, precio_estrategia, precio_atraccion, precio_base, precio_con_estrategia, precio_todo, paquete, precio_lista, descuento, precio_total, precio_anual, precio_diario, leads_anio, ocupacion, lugares_vacios, ltv, hueco_total, colegiatura_conv, roas, alumnos_por_decimal, pesos_por_decimal, decimal_paso_txt, alumnos_paso, valor_paso, alumnos_breakeven, alumnos_extra, ingreso_extra_anual, estrellitas_est, valor_estrellitas, leads_adicionales_camino1, tasa_objetivo, leads_meta_2b, leads_extra_2b, perdida_pct, caso_nombre, caso_resultado, caso_quote, valor_implementacion, cuota_apertura, costo_wa, costo_correo, costo_llamada, costo_webhook, costo_constanza, comercial_firma});
+  return Object.assign({}, d, {precio_crm, precio_estrategia, precio_atraccion, precio_base, precio_con_estrategia, precio_todo, paquete, precio_paquete, soporte, precio_soporte, soporte_label, soporte_detalle, precio_lista, descuento, precio_total, precio_anual, precio_diario, leads_anio, ocupacion, lugares_vacios, ltv, hueco_total, colegiatura_conv, roas, alumnos_por_decimal, pesos_por_decimal, decimal_paso_txt, alumnos_paso, valor_paso, alumnos_breakeven, alumnos_extra, ingreso_extra_anual, estrellitas_est, valor_estrellitas, leads_adicionales_camino1, tasa_objetivo, leads_meta_2b, leads_extra_2b, perdida_pct, caso_nombre, caso_resultado, caso_quote, valor_implementacion, cuota_apertura, costo_wa, costo_correo, costo_llamada, costo_webhook, costo_constanza, comercial_firma});
 }
+
+/* Menú del selector de soporte: se arma con los precios vigentes y en la moneda activa,
+   para que lo que se elige en vivo sea exactamente lo que va a sumar al total. */
+function pintarSoporteMenu(){
+  const menu = document.getElementById('sopMenu');
+  if(!menu) return;
+  const actual = soporteKey(DATA.soporte);
+  const usd = DATA.moneda === 'usd';
+  menu.innerHTML = SOPORTE_KEYS.map(k=>{
+    const mxn = soportePrecio(k);
+    const val = usd ? usdNice(mxn) : mxn;
+    const precio = mxn === 0 ? 'incluido' : (usd?'US$':'$') + mxNum(val) + '/mes';
+    return '<button type="button" class="sopOpt'+(k===actual?' activa':'')+'" data-sop="'+k+'" role="option" aria-selected="'+(k===actual)+'">'
+      + SOPORTE[k].label + '<span class="sopPrecio">' + precio + '</span></button>';
+  }).join('');
+}
+(function(){
+  const btn = document.getElementById('sopBtn'), menu = document.getElementById('sopMenu');
+  if(!btn || !menu) return;
+  const cerrar = ()=>{ menu.classList.remove('on'); btn.setAttribute('aria-expanded','false'); };
+  btn.addEventListener('click', e=>{
+    e.stopPropagation();
+    const abre = !menu.classList.contains('on');
+    menu.classList.toggle('on', abre);
+    btn.setAttribute('aria-expanded', String(abre));
+  });
+  menu.addEventListener('click', e=>{
+    e.stopPropagation();
+    const op = e.target.closest('.sopOpt');
+    if(!op) return;
+    DATA.soporte = soporteKey(op.dataset.sop);
+    cerrar();
+    setSoportePill(DATA.soporte);
+    renderData(); saveData(); guardarHistorial();
+  });
+  document.addEventListener('click', cerrar);
+  window.addEventListener('keydown', e=>{ if(e.key==='Escape') cerrar(); });
+})();
 
 /* Da formato a un valor calculado según su data-fmt (mxn, pct0, x1, etc.) para pintarlo
    en un [data-bind]. */
@@ -2407,6 +2514,19 @@ function renderData(){
   if(rowDE) rowDE.style.display = (c.paquete!=='base' && c.precio_estrategia>0) ? '' : 'none';
   const rowAI = document.getElementById('rowAI');
   if(rowAI) rowAI.style.display = (c.paquete==='todo' && c.precio_atraccion>0) ? '' : 'none';
+  // Soporte: el renglón se ve siempre, aunque el escalón incluido valga 0.
+  const sopTxt = document.getElementById('sopBtnTxt'), sopPrint = document.getElementById('sopBtnPrint');
+  if(sopTxt) sopTxt.textContent = c.soporte_label;
+  if(sopPrint) sopPrint.textContent = c.soporte_label;
+  const sopDet = document.getElementById('sopDetalle');
+  if(sopDet) sopDet.textContent = c.soporte_detalle;
+  // El escalón que ya viene con el sistema se lee «Incluido», no «$0/mes»: en la lámina
+  // del cliente un cero se ve como algo que falta, y aquí es algo que se les está dando.
+  const sopVal = document.querySelector('#rowSoporte .val');
+  if(sopVal && !DATA.sin_precios){
+    if(c.precio_soporte === 0) sopVal.innerHTML = '<span style="font-size:16px;color:var(--green-d);">Incluido</span>';
+  }
+  pintarSoporteMenu();
   const txtPaq = document.getElementById('txtPaquete');
   if(txtPaq) txtPaq.textContent = TXT_PAQUETE[c.paquete] || TXT_PAQUETE.estrategia;
   /* Un componente del paquete cotizado SIN precio de lista para ese segmento desaparece
@@ -2888,7 +3008,7 @@ function renderAsistentes(){
   el.parentNode.style.display = linea ? '' : 'none';
 }
 /* ===== MODO SIN PRECIOS: la presentación completa, sin una sola cifra de dinero ===== */
-const CAMPOS_PRECIO = ['valor_implementacion','precio_crm','precio_estrategia','precio_atraccion',
+const CAMPOS_PRECIO = ['valor_implementacion','precio_crm','precio_estrategia','precio_atraccion','precio_soporte',
   'precio_lista','precio_total','precio_anual','precio_diario','descuento','ingreso_extra_anual',
   'costo_wa','costo_correo','costo_llamada','costo_webhook','costo_constanza','cuota_apertura','alumnos_breakeven'];
 function aplicarSinPrecios(){
@@ -3170,6 +3290,12 @@ function setPaquetePill(v){
   const inp = document.querySelector('#editForm [data-f="paquete"]');
   if(inp) inp.value = v;
 }
+function setSoportePill(v){
+  const k = soporteKey(v);
+  document.querySelectorAll('#soportePills .segpill').forEach(p=> p.classList.toggle('active', p.dataset.sop===k));
+  const inp = document.querySelector('#editForm [data-f="soporte"]');
+  if(inp) inp.value = k;
+}
 function setCasoPill(v){
   const c = v || 'auto';
   document.querySelectorAll('#casoPills .segpill').forEach(p=> p.classList.toggle('active', p.dataset.caso===c));
@@ -3258,6 +3384,7 @@ function populateForm(){
   });
   setSegPill(DATA.segmento);
   setPaquetePill(DATA.paquete || 'estrategia');
+  setSoportePill(DATA.soporte);
   setMonedaPill(DATA.moneda || 'mxn');
   setComercialPill(DATA.comercial || 'ricardo');
   setEscalaPill(DATA.imagen_escala || 'auto');
@@ -3272,6 +3399,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
   });
   document.querySelectorAll('#paquetePills .segpill').forEach(p=>{
     p.addEventListener('click', ()=> setPaquetePill(p.dataset.paq));
+  });
+  document.querySelectorAll('#soportePills .segpill').forEach(p=>{
+    p.addEventListener('click', ()=> setSoportePill(p.dataset.sop));
   });
   document.querySelectorAll('#monedaPills .segpill').forEach(p=>{
     p.addEventListener('click', ()=>{
@@ -3322,8 +3452,8 @@ const HL_MAP = [
   ['Torre de Control', ['leads_dia','tasa_conversion']],
   ['hacen hoy vs', ['herramienta_actual','personas_admisiones','leads_dia']],
   ['Caso real', ['caso_id','segmento']],
-  ['Su inversión', ['segmento','paquete','moneda','descuento']],
-  ['Inversión asimétrica', ['colegiatura_mensual','paquete','descuento']],
+  ['Su inversión', ['segmento','paquete','soporte','moneda','descuento']],
+  ['Inversión asimétrica', ['colegiatura_mensual','paquete','soporte','descuento']],
   ['Costos variables', ['moneda']],
   ['funciona el saldo', ['moneda']],
   ['¿Qué sigue?', ['link_propuesta','moneda']],
@@ -3376,6 +3506,7 @@ function pintarPreciosMoneda(){
    ediciones de cada pestaña viven en preciosDraft (siempre en MXN) hasta «Guardar». */
 let preciosModalSeg = null;
 let preciosDraft = {};
+let soporteDraft = {};
 function harvestPreciosInputs(){
   const usd = precioMoneda()==='usd';
   document.querySelectorAll('#preciosGrid input[data-pseg]').forEach(inp=>{
@@ -3409,6 +3540,35 @@ function renderPreciosGrid(){
       const n = parseFloat(String(el.value).replace(/[',\s]/g,''));
       if(!isNaN(n)) el.value = mxNum(n, (n % 1 !== 0) ? 2 : 0);
     });
+  });
+}
+/* Los tres escalones de pago del soporte (el incluido siempre vale 0, no se edita). */
+function renderPreciosSoporte(){
+  const cont = document.getElementById('preciosSoporte');
+  if(!cont) return;
+  const pref = (precioMoneda()==='usd') ? 'US$' : '$';
+  cont.innerHTML = SOPORTE_KEYS.filter(k=> k!=='incluido').map(k=>{
+    const mxn = (soporteDraft[k] !== undefined) ? soporteDraft[k] : soportePrecio(k);
+    const shown = fmtPrecioVal(mxn);
+    return '<div><div style="font-size:11.5px;font-weight:700;color:var(--navy-deep);margin-bottom:5px;">'+SOPORTE[k].label+'</div>'
+      +'<div style="display:flex;align-items:center;gap:4px;border:.5px solid var(--border);border-radius:8px;background:#fff;padding:0 0 0 9px;"><span style="font-size:11.5px;font-weight:700;color:var(--muted);">'+pref+'</span>'
+      +'<input data-sopp="'+k+'" data-init="'+shown+'" type="text" inputmode="numeric" value="'+shown+'" style="width:100%;border:none;background:transparent;padding:8px 10px 8px 0;font-size:13.5px;font-family:inherit;outline:none;"></div></div>';
+  }).join('');
+  cont.querySelectorAll('input[data-sopp]').forEach(el=>{
+    el.addEventListener('blur', ()=>{
+      const n = parseFloat(String(el.value).replace(/[',\s]/g,''));
+      if(!isNaN(n)) el.value = mxNum(n, (n % 1 !== 0) ? 2 : 0);
+    });
+  });
+}
+function harvestSoporteInputs(){
+  const usd = precioMoneda()==='usd';
+  document.querySelectorAll('#preciosSoporte input[data-sopp]').forEach(inp=>{
+    if(inp.value === inp.dataset.init) return;
+    let val = parseFloat(String(inp.value).replace(/[',\s]/g,''));
+    if(isNaN(val)) return;
+    if(usd) val = Math.round(val * TIPO_CAMBIO);
+    soporteDraft[inp.dataset.sopp] = val;
   });
 }
 function renderPreciosSegPills(){
@@ -3452,6 +3612,22 @@ function renderPreciosTabla(){
       + celda(v.ai, true, false)
       + '</tr>';
   }).join('');
+  const sopGrid = document.getElementById('preciosTablaSoporte');
+  if(sopGrid){
+    const actual = soporteKey(DATA.soporte);
+    sopGrid.innerHTML = SOPORTE_KEYS.map(k=>{
+      const mxn = Object.prototype.hasOwnProperty.call(soporteDraft, k) ? soporteDraft[k] : soportePrecio(k);
+      const suyo = k === actual;
+      return '<tr style="border-top:.5px solid var(--border);'+(suyo?'background:rgba(86,239,159,.08);':'')+'">'
+        +'<td style="padding:11px 10px;font-weight:800;color:var(--navy-deep);white-space:nowrap;">'+SOPORTE[k].label
+        + (suyo ? '<span style="margin-left:8px;font-size:9.5px;letter-spacing:1.2px;font-weight:800;color:var(--green-d);border:.5px solid var(--green-d);border-radius:99px;padding:2px 7px;vertical-align:middle;">EL SUYO</span>' : '')
+        +'</td>'
+        +'<td style="padding:11px 10px;font-size:12.5px;font-weight:600;color:var(--muted);">'+SOPORTE[k].detalle+'</td>'
+        +'<td style="padding:11px 10px;font-weight:700;color:var(--navy-deep);white-space:nowrap;text-align:right;">'
+        + (mxn === 0 ? '<span style="color:var(--green-d);">incluido</span>' : '<span style="font-size:11px;font-weight:700;color:var(--muted);">'+pref+'</span> '+fmtPrecioVal(mxn))
+        +'</td></tr>';
+    }).join('');
+  }
   const nota = document.getElementById('preciosTablaNota');
   nota.textContent = usd
     ? 'Mensualidad por producto, en dólares (USD, TC $'+TIPO_CAMBIO+'). La moneda base es el peso.'
@@ -3461,6 +3637,7 @@ function renderPreciosTabla(){
 }
 function abrirPreciosTabla(){
   harvestPreciosInputs(); // lo tecleado sin guardar también se ve en la captura
+  harvestSoporteInputs();
   renderPreciosTabla();
   document.getElementById('preciosTablaModal').style.display = 'flex';
 }
@@ -3471,10 +3648,11 @@ document.getElementById('preciosTablaModal').addEventListener('click', e=>{
 });
 
 function abrirPreciosModal(){
-  preciosDraft = {};
+  preciosDraft = {}; soporteDraft = {};
   preciosModalSeg = PRECIOS[DATA.segmento] ? DATA.segmento : 'k12';
   renderPreciosSegPills();
   renderPreciosGrid();
+  renderPreciosSoporte();
   pintarPreciosMoneda();
   document.getElementById('preciosModal').style.display = 'flex';
 }
@@ -3483,11 +3661,13 @@ document.querySelectorAll('#preciosMonedaPills button').forEach(b=>{
     const prev = precioMoneda();
     if(prev===b.dataset.pmon) return;
     harvestPreciosInputs(); // conserva lo tecleado antes de repintar en la otra moneda
+    harvestSoporteInputs();
     DATA.moneda = b.dataset.pmon;
     setMonedaPill(DATA.moneda);
     convertirCamposDineroForm(prev, DATA.moneda); // si DATOS está abierto, sus campos siguen valiendo lo mismo
     renderData(); saveData(); guardarHistorial();
     renderPreciosGrid();
+    renderPreciosSoporte();
     pintarPreciosMoneda();
   });
 });
@@ -3519,12 +3699,20 @@ document.getElementById('btnPrecios').addEventListener('click', abrirPreciosModa
 document.getElementById('preciosCerrar').addEventListener('click', ()=>{ document.getElementById('preciosModal').style.display='none'; });
 document.getElementById('preciosReset').addEventListener('click', ()=>{
   DATA.precios_override = {};
-  preciosDraft = {};
+  DATA.soporte_precios = {};
+  preciosDraft = {}; soporteDraft = {};
   saveData(); renderData();
   renderPreciosGrid();
+  renderPreciosSoporte();
 });
 document.getElementById('preciosGuardar').addEventListener('click', ()=>{
   harvestPreciosInputs(); // la pestaña visible entra al borrador junto con las demás
+  harvestSoporteInputs();
+  const sop = Object.assign({}, DATA.soporte_precios || {});
+  Object.keys(soporteDraft).forEach(k=>{
+    if(soporteDraft[k] !== SOPORTE[k].precio) sop[k] = soporteDraft[k]; else delete sop[k];
+  });
+  DATA.soporte_precios = sop;
   const ov = Object.assign({}, DATA.precios_override || {});
   Object.keys(preciosDraft).forEach(seg=>{
     Object.keys(preciosDraft[seg]).forEach(campo=>{
@@ -3536,7 +3724,7 @@ document.getElementById('preciosGuardar').addEventListener('click', ()=>{
     });
   });
   DATA.precios_override = ov;
-  preciosDraft = {};
+  preciosDraft = {}; soporteDraft = {};
   saveData(); renderData(); guardarHistorial();
   document.getElementById('preciosModal').style.display='none';
 });
@@ -3922,6 +4110,7 @@ function nuevaPresentacionEnBlanco(){
   saveData();
   setSegPill(DATA.segmento);
   setPaquetePill(DATA.paquete || 'estrategia');
+  setSoportePill(DATA.soporte);
   setMonedaPill(DATA.moneda || 'mxn');
   setComercialPill(DATA.comercial || 'ricardo');
   setEscalaPill(DATA.imagen_escala || 'auto');
@@ -4444,6 +4633,7 @@ async function inicializar(){
   renderData();
   setSegPill(DATA.segmento);
   setPaquetePill(DATA.paquete || 'estrategia');
+  setSoportePill(DATA.soporte);
   setMonedaPill(DATA.moneda || 'mxn');
   setComercialPill(DATA.comercial || 'ricardo');
   setEscalaPill(DATA.imagen_escala || 'auto');
