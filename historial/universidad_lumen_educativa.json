@@ -2,8 +2,8 @@
   "colegio": "Universidad Lumen Educativa",
   "ciudad": "Torreón",
   "comercial": "ricardo",
-  "guardado": "08 sep 2026, 06:18 p.m.",
-  "guardado_ts": 1788913114060,
+  "guardado": "08 sep 2026, 07:13 p.m.",
+  "guardado_ts": 1788916434642,
   "data": {
     "colegio": "Universidad Lumen Educativa",
     "prospecto_nombre": "Eduardo Chavez Guevara",
@@ -21,7 +21,11 @@
     "comercial": "ricardo",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "universidad": {
+        "crm_paquete": 8000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
