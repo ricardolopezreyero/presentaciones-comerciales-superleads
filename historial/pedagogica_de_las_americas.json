@@ -2,8 +2,8 @@
   "colegio": "Pedagógica de las Ámericas",
   "ciudad": "Ciudad de México",
   "comercial": "ricardo",
-  "guardado": "08 sep 2026, 08:08 p.m.",
-  "guardado_ts": 1788898099132,
+  "guardado": "09 sep 2026, 08:55 a.m.",
+  "guardado_ts": 1788965746545,
   "data": {
     "colegio": "Pedagógica de las Ámericas",
     "prospecto_nombre": "Luis Guerrero Romero",
@@ -15,17 +15,26 @@
     "fecha_presentacion": "8 de septiembre de 2026",
     "segmento": "k12",
     "paquete": "estrategia",
+    "soporte": "sin",
+    "soporte_precios": {},
     "moneda": "mxn",
     "comercial": "ricardo",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "k12": {
+        "crm_paquete": 5000,
+        "de": 4000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
       "academia": true,
       "integraciones": true,
-      "form_uni": true
+      "form_uni": true,
+      "primeras_semanas": true,
+      "equipo_soporte": true
     },
     "productos_orden": [],
     "productos_manual": {},
