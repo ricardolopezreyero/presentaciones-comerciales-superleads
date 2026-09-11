@@ -2,8 +2,8 @@
   "colegio": "INSTITUTO BILINGŪE CONETL",
   "ciudad": "Juárez",
   "comercial": "ricardo",
-  "guardado": "08 sep 2026, 05:29 p.m.",
-  "guardado_ts": 1788888589391,
+  "guardado": "11 sep 2026, 11:07 a.m.",
+  "guardado_ts": 1789146435560,
   "data": {
     "colegio": "INSTITUTO BILINGŪE CONETL",
     "prospecto_nombre": "ROBERTO ARMANDO VILLALOBOS ANCHONDO",
@@ -15,6 +15,8 @@
     "fecha_presentacion": "8 de septiembre de 2026",
     "segmento": "k12",
     "paquete": "estrategia",
+    "soporte": "sin",
+    "soporte_precios": {},
     "moneda": "mxn",
     "comercial": "ricardo",
     "notas_slide": {},
@@ -25,7 +27,9 @@
       "referidos": true,
       "academia": true,
       "integraciones": true,
-      "form_uni": true
+      "form_uni": true,
+      "primeras_semanas": true,
+      "equipo_soporte": true
     },
     "productos_orden": [],
     "productos_manual": {},
