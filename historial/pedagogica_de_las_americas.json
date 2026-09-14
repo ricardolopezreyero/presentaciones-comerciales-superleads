@@ -2,8 +2,8 @@
   "colegio": "Pedagógica de las Ámericas",
   "ciudad": "Ciudad de México",
   "comercial": "ricardo",
-  "guardado": "14 sep 2026, 10:40 p.m.",
-  "guardado_ts": 1789425644359,
+  "guardado": "14 sep 2026, 04:44 p.m.",
+  "guardado_ts": 1789425871904,
   "data": {
     "colegio": "Pedagógica de las Ámericas",
     "prospecto_nombre": "Luis Guerrero Romero",
@@ -24,7 +24,8 @@
     "precios_override": {
       "k12": {
         "crm_paquete": 5000,
-        "ai": 8000
+        "ai": 8000,
+        "de": 0
       }
     },
     "productos_off": {
