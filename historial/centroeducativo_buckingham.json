@@ -2,8 +2,8 @@
   "colegio": "CentroEducativo Buckingham",
   "ciudad": "",
   "comercial": "ricardo",
-  "guardado": "10 sep 2026, 06:59 p.m.",
-  "guardado_ts": 1789066795348,
+  "guardado": "15 sep 2026, 10:01 a.m.",
+  "guardado_ts": 1789488107993,
   "data": {
     "colegio": "CentroEducativo Buckingham",
     "prospecto_nombre": "María del Refugio",
@@ -15,17 +15,25 @@
     "fecha_presentacion": "10 de septiembre de 2026",
     "segmento": "k12",
     "paquete": "estrategia",
+    "soporte": "sin",
+    "soporte_precios": {},
     "moneda": "mxn",
     "comercial": "ricardo",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "k12": {
+        "crm_paquete": 7000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
       "academia": true,
       "integraciones": true,
-      "form_uni": true
+      "form_uni": true,
+      "primeras_semanas": true,
+      "equipo_soporte": true
     },
     "productos_orden": [],
     "productos_manual": {},
