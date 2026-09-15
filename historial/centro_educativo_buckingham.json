@@ -2,8 +2,8 @@
   "colegio": "Centro Educativo Buckingham",
   "ciudad": "Guadalajara",
   "comercial": "victor",
-  "guardado": "15 sep 2026, 10:01 a.m.",
-  "guardado_ts": 1789488115895,
+  "guardado": "15 sep 2026, 02:02 p.m.",
+  "guardado_ts": 1789502547753,
   "data": {
     "colegio": "Centro Educativo Buckingham",
     "prospecto_nombre": "María del Refugio",
@@ -20,7 +20,9 @@
     "moneda": "mxn",
     "comercial": "victor",
     "notas_slide": {},
-    "semaforo_override": {},
+    "semaforo_override": {
+      "tasa_cita_alumno": "verde"
+    },
     "precios_override": {
       "k12": {
         "crm_paquete": 7000
@@ -32,16 +34,24 @@
       "academia": true,
       "integraciones": true,
       "form_uni": true,
-      "primeras_semanas": true,
-      "equipo_soporte": true
+      "primeras_semanas": true
     },
     "productos_orden": [],
-    "productos_manual": {},
+    "productos_manual": {
+      "equipo_soporte": true
+    },
     "sin_precios": false,
     "omitir_propuesta": false,
-    "embudo_marcas": {},
+    "embudo_marcas": {
+      "impresiones": "verde",
+      "alcance": "verde",
+      "clics": "verde",
+      "contactados": "rojo",
+      "cita": "rojo",
+      "asistio": "rojo"
+    },
     "equipo_marcas": {},
-    "sello_captura": "2026-09-15 10:01:55",
+    "sello_captura": "2026-09-15 14:02:27",
     "antiguedad_anios": 35,
     "leads_dia": 2,
     "tasa_conversion": 3.42,
@@ -58,7 +68,7 @@
     "mejora_conservadora": 2,
     "descuento": 0,
     "imagen_escala": "auto",
-    "caso_id": "auto",
+    "caso_id": "cuenca",
     "link_propuesta": "",
     "origen_rayosx": "99a4dcf2-159c-4f21-b44f-fae0d738de7d"
   }
