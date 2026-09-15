@@ -3,7 +3,7 @@
   "ciudad": "Monterrey",
   "comercial": "ricardo",
   "guardado": "14 sep 2026, 10:11 p.m.",
-  "guardado_ts": 1789445467339,
+  "guardado_ts": 1789445493191,
   "data": {
     "colegio": "Universidad Edec",
     "prospecto_nombre": "Jonathan Cardona",
@@ -29,19 +29,22 @@
     },
     "productos_off": {
       "radar": true,
-      "referidos": true,
       "academia": true,
       "primeras_semanas": true,
       "equipo_soporte": true,
-      "form_k12": true
+      "form_k12": true,
+      "maquina": true
     },
     "productos_orden": [],
-    "productos_manual": {},
+    "productos_manual": {
+      "maquina": true,
+      "referidos": true
+    },
     "sin_precios": true,
     "omitir_propuesta": false,
     "embudo_marcas": {},
     "equipo_marcas": {},
-    "sello_captura": "2026-09-14 22:10:55",
+    "sello_captura": "2026-09-14 22:11:33",
     "antiguedad_anios": 0,
     "leads_dia": 85.7,
     "tasa_conversion": 3.07,
