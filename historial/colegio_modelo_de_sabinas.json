@@ -2,8 +2,8 @@
   "colegio": "Colegio Modelo de Sabinas",
   "ciudad": "Sabinas, Coahuila",
   "comercial": "victor",
-  "guardado": "16 sep 2026, 11:04 a.m.",
-  "guardado_ts": 1789578263275,
+  "guardado": "16 sep 2026, 11:05 a.m.",
+  "guardado_ts": 1789578324934,
   "data": {
     "colegio": "Colegio Modelo de Sabinas",
     "prospecto_nombre": "Ana Irene Ramírez",
@@ -21,7 +21,11 @@
     "comercial": "victor",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "k12": {
+        "crm_paquete": 7000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
