@@ -2,8 +2,8 @@
   "colegio": "Colegio mexicano bilingüe",
   "ciudad": "Torreón",
   "comercial": "ricardo",
-  "guardado": "14 sep 2026, 05:43 p.m.",
-  "guardado_ts": 1789407825478,
+  "guardado": "17 sep 2026, 11:35 a.m.",
+  "guardado_ts": 1789666500439,
   "data": {
     "colegio": "Colegio mexicano bilingüe",
     "prospecto_nombre": "Jaime Alejandro Miranda Cruz",
@@ -15,6 +15,8 @@
     "fecha_presentacion": "14 de septiembre de 2026",
     "segmento": "universidad",
     "paquete": "estrategia",
+    "soporte": "sin",
+    "soporte_precios": {},
     "moneda": "mxn",
     "comercial": "ricardo",
     "notas_slide": {},
@@ -24,8 +26,9 @@
       "radar": true,
       "referidos": true,
       "academia": true,
-      "integraciones": true,
-      "form_uni": true
+      "form_k12": true,
+      "primeras_semanas": true,
+      "equipo_soporte": true
     },
     "productos_orden": [],
     "productos_manual": {},
