@@ -2,8 +2,8 @@
   "colegio": "Colegio de Estudios Superiores y de Especialidades del Estado de Oaxaca",
   "ciudad": "Juchitán de Zaragoza",
   "comercial": "ricardo",
-  "guardado": "14 sep 2026, 07:28 p.m.",
-  "guardado_ts": 1789414099903,
+  "guardado": "17 sep 2026, 03:56 p.m.",
+  "guardado_ts": 1789682199688,
   "data": {
     "colegio": "Colegio de Estudios Superiores y de Especialidades del Estado de Oaxaca",
     "prospecto_nombre": "Edgar Florencio Sánchez López",
@@ -15,6 +15,8 @@
     "fecha_presentacion": "14 de septiembre de 2026",
     "segmento": "universidad",
     "paquete": "estrategia",
+    "soporte": "sin",
+    "soporte_precios": {},
     "moneda": "mxn",
     "comercial": "ricardo",
     "notas_slide": {},
@@ -25,7 +27,9 @@
       "referidos": true,
       "academia": true,
       "integraciones": true,
-      "form_uni": true
+      "form_k12": true,
+      "primeras_semanas": true,
+      "equipo_soporte": true
     },
     "productos_orden": [],
     "productos_manual": {},
