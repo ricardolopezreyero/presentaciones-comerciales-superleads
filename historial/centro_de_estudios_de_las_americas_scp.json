@@ -2,8 +2,8 @@
   "colegio": "Centro de Estudios de las Americas SCP",
   "ciudad": "Mérida",
   "comercial": "victor",
-  "guardado": "17 sep 2026, 08:13 a.m.",
-  "guardado_ts": 1789654388305,
+  "guardado": "17 sep 2026, 08:35 a.m.",
+  "guardado_ts": 1789655713717,
   "data": {
     "colegio": "Centro de Estudios de las Americas SCP",
     "prospecto_nombre": "Antonio Santa Cruz Polanco",
@@ -28,16 +28,24 @@
       "academia": true,
       "integraciones": true,
       "form_uni": true,
-      "primeras_semanas": true,
-      "equipo_soporte": true
+      "primeras_semanas": true
     },
     "productos_orden": [],
-    "productos_manual": {},
+    "productos_manual": {
+      "equipo_soporte": true
+    },
     "sin_precios": false,
     "omitir_propuesta": false,
-    "embudo_marcas": {},
+    "embudo_marcas": {
+      "impresiones": "verde",
+      "alcance": "verde",
+      "clics": "verde",
+      "prospectos": "verde",
+      "contactados": "verde",
+      "cita": "verde"
+    },
     "equipo_marcas": {},
-    "sello_captura": "2026-09-17 08:13:08",
+    "sello_captura": "2026-09-17 08:35:13",
     "antiguedad_anios": 42,
     "leads_dia": 6.1,
     "tasa_conversion": 7.89,
