@@ -1,0 +1,94 @@
+{
+  "colegio": "IBIME",
+  "ciudad": "Ecatepec, Estado de México",
+  "comercial": "ricardo",
+  "guardado": "18 sep 2026, 01:00 p.m.",
+  "guardado_ts": 1789758031144,
+  "data": {
+    "colegio": "IBIME",
+    "prospecto_nombre": "Norma Angélica Romero Ramón",
+    "prospecto_cargo": "Directora y dueña",
+    "prospecto_2_nombre": "",
+    "prospecto_2_cargo": "",
+    "ciudad": "Ecatepec, Estado de México",
+    "pais": "México",
+    "fecha_presentacion": "10 de agosto de 2026 · 12:47 p.m.",
+    "segmento": "grupo",
+    "paquete": "estrategia",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "moneda": "mxn",
+    "comercial": "ricardo",
+    "notas_slide": {},
+    "semaforo_override": {
+      "pct_referidos": "amarillo",
+      "tasa_conversion": "rojo"
+    },
+    "precios_override": {
+      "grupo": {
+        "crm_paquete": 22000
+      }
+    },
+    "productos_off": {
+      "academia": true,
+      "radar": true,
+      "referidos": true,
+      "maquina": true,
+      "form_uni": true,
+      "primeras_semanas": true,
+      "equipo_soporte": true
+    },
+    "productos_orden": [
+      "torre",
+      "crm",
+      "whatsapp",
+      "constanza",
+      "calendario",
+      "form_k12",
+      "maquina",
+      "academia",
+      "radar",
+      "referidos",
+      "form_uni",
+      "integraciones"
+    ],
+    "productos_manual": {
+      "form_uni": true,
+      "form_k12": true,
+      "integraciones": true
+    },
+    "sin_precios": false,
+    "omitir_propuesta": false,
+    "embudo_marcas": {
+      "prospectos": "rojo",
+      "contactados": "rojo",
+      "cita": "rojo",
+      "asistio": "verde",
+      "inscritos": "verde",
+      "impresiones": "rojo",
+      "alcance": "rojo",
+      "clics": "rojo"
+    },
+    "equipo_marcas": {},
+    "sello_captura": "2026-09-18 13:00:31",
+    "antiguedad_anios": 21,
+    "leads_dia": 35,
+    "tasa_conversion": 2.97,
+    "tasa_cita_alumno": 90,
+    "matricula_actual": 3800,
+    "capacidad_instalada": 5500,
+    "lista_espera": 0,
+    "colegiatura_mensual": 4000,
+    "meses_permanencia": 60,
+    "costo_por_alumno": 267,
+    "pct_referidos": 10,
+    "personas_admisiones": 4,
+    "herramienta_actual": "Excel y WhatsApp",
+    "mejora_conservadora": 2,
+    "descuento": 0,
+    "imagen_escala": "autobus",
+    "caso_id": "alamos",
+    "link_propuesta": "https://link.superleads.mx/documents/v1/ae8fa02d-9059-4085-9833-89ca9b30b20c?locale=es",
+    "sedes": 1
+  }
+}
