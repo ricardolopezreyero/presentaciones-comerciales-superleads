@@ -2,6 +2,10 @@
   "name": "presentaciones-comerciales-superleads",
   "compatibility_date": "2026-08-01",
   "main": "worker.js",
+  // El token de GitHub vive en la bóveda de la cuenta (Secrets Store «superleads»), no en el HTML público.
+  "secrets_store_secrets": [
+    { "binding": "GITHUB_TOKEN", "store_id": "308dac6355cb4d7a8bef6cc8ef7ee035", "secret_name": "GITHUB_PRESENTACIONES_ESCRITURA" }
+  ],
   "assets": {
     "directory": "./",
     "binding": "ASSETS",

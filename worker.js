@@ -32,6 +32,13 @@ export default {
       });
     }
 
+    /* RLR — El historial vive en GitHub, pero el token NO vive en el navegador.
+       Antes el index.html (público, en un repo público) traía el token disfrazado: cualquiera que
+       abriera el archivo podía escribir en el repo. Ahora el token vive en la bóveda de la cuenta
+       (Secrets Store) y el navegador habla con este proxy, que solo sabe hacer cuatro cosas y
+       solo sobre historial/: listar, leer, guardar y borrar. */
+    if (url.pathname.startsWith('/api/gh/')) return proxyGitHub(request, env, url);
+
     const res = await env.ASSETS.fetch(request);
     const ct = res.headers.get('content-type') || '';
     if (!ct.includes('text/html')) return res;
@@ -53,3 +60,60 @@ export default {
     return new Response(html, { status: res.status, headers: res.headers });
   }
 };
+
+const GH_REPO = 'ricardolopezreyero/presentaciones-comerciales-superleads';
+const GH_RAMA = 'main';
+
+/** Lo único que se deja pasar: el historial y la lista de commits del historial. Nada más del repo. */
+function rutaPermitida(resto, metodo) {
+  const limpio = resto.split('?')[0];
+  if (metodo === 'GET') {
+    return limpio === 'contents/historial'
+      || /^contents\/historial\/[A-Za-z0-9_.-]+\.json$/.test(limpio)
+      || limpio === 'commits';
+  }
+  // Escribir o borrar: solo un archivo del historial
+  return /^contents\/historial\/[A-Za-z0-9_.-]+\.json$/.test(limpio);
+}
+
+async function proxyGitHub(request, env, url) {
+  const metodo = request.method;
+  const resto = url.pathname.slice('/api/gh/'.length) + url.search;
+  const json = (o, s) => Response.json(o, { status: s || 200, headers: { 'cache-control': 'no-store' } });
+
+  if (!['GET', 'PUT', 'DELETE'].includes(metodo)) return json({ message: 'Método no permitido' }, 405);
+  if (!rutaPermitida(resto, metodo)) return json({ message: 'Esa ruta no está permitida' }, 403);
+
+  if (metodo !== 'GET') {
+    // Guardar y borrar solo desde la propia presentación (no desde otra página ni desde un enlace).
+    const origen = request.headers.get('origin') || '';
+    if (origen && origen !== url.origin) return json({ message: 'Origen no permitido' }, 403);
+    // Si la cuenta tiene clave puesta, se exige; si no, basta con el candado de arriba.
+    const clave = env.PRESENTACIONES_CLAVE;
+    if (clave && request.headers.get('x-clave') !== clave) return json({ message: 'Falta la clave para guardar' }, 401);
+  }
+
+  let token = '';
+  try { token = typeof env.GITHUB_TOKEN?.get === 'function' ? await env.GITHUB_TOKEN.get() : (env.GITHUB_TOKEN || ''); } catch (e) { token = ''; }
+  if (!token) return json({ message: 'Falta el token de GitHub en la bóveda de la cuenta.' }, 503);
+
+  const r = await fetch(`https://api.github.com/repos/${GH_REPO}/${resto}`, {
+    method: metodo,
+    headers: {
+      authorization: `Bearer ${token}`,
+      accept: 'application/vnd.github+json',
+      'user-agent': 'SuperLeads-Presentaciones/1.0',
+      ...(metodo === 'GET' ? {} : { 'content-type': 'application/json' }),
+    },
+    body: metodo === 'GET' ? undefined : await request.text(),
+  });
+
+  const texto = await r.text();
+  // La lista de archivos trae URLs absolutas a api.github.com: se reescriben para que el navegador
+  // vuelva por aquí (y nunca necesite el token).
+  const cuerpo = texto.split(`https://api.github.com/repos/${GH_REPO}/`).join(`${url.origin}/api/gh/`);
+  return new Response(cuerpo, {
+    status: r.status,
+    headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' },
+  });
+}

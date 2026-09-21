@@ -1838,16 +1838,9 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
   </a>
   <form id="editForm">
     <div class="efield"><label>Colegio</label><div style="position:relative;"><input data-f="colegio"><div id="colegioSug" style="display:none;position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:30;background:#fff;border:.5px solid var(--border);border-radius:10px;box-shadow:0 14px 40px rgba(0,37,130,.14);max-height:230px;overflow:auto;"></div></div><div id="colegioAviso" style="display:none;font-size:12px;font-weight:700;margin-top:6px;line-height:1.45;"></div>
-      <div id="urlPresentBox" style="margin-top:8px;display:flex;align-items:center;gap:8px;background:var(--blue-soft);border:.5px solid var(--border);border-radius:8px;padding:8px 10px;">
-        <span style="font-size:11.5px;font-weight:700;color:var(--dim);white-space:nowrap;">URL</span>
-        <span id="urlPresentTxt" style="font-size:11.5px;font-weight:700;color:var(--navy-deep);flex:1;overflow-wrap:anywhere;line-height:1.4;"></span>
-        <button type="button" id="btnCopiarUrl" title="Copiar enlace de esta presentación" style="flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:7px;border:.5px solid var(--border);background:#fff;color:var(--navy);cursor:pointer;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
-      </div>
-      <!-- RLR · de la presentación a su propuesta: la misma URL siempre, y la crea si todavía no existe -->
-      <div id="urlPropuestaBox" style="margin-top:6px;display:flex;align-items:center;gap:8px;background:var(--blue-soft);border:.5px solid var(--border);border-radius:8px;padding:8px 10px;">
-        <span style="font-size:11.5px;font-weight:700;color:var(--dim);white-space:nowrap;">PROPUESTA</span>
-        <a id="urlPropuestaTxt" href="#" target="_blank" rel="noopener" style="font-size:11.5px;font-weight:700;color:var(--navy-deep);flex:1;overflow-wrap:anywhere;line-height:1.4;text-decoration:underline;">—</a>
-        <button type="button" id="btnAbrirPropuesta" title="Abrir su propuesta para editarla" style="flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:7px;border:.5px solid var(--border);background:#fff;color:var(--navy);cursor:pointer;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button>
+      <div id="urlPresentBox" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;">
+        <button type="button" id="btnCopiarUrl" title="Copiar el enlace de esta presentación" style="display:inline-flex;align-items:center;gap:7px;border-radius:8px;border:.5px solid var(--border);background:#fff;color:var(--navy-deep);font-family:inherit;font-size:12px;font-weight:700;padding:9px 13px;cursor:pointer;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiar enlace</button>
+        <button type="button" id="btnAbrirPropuesta" title="Abrir su propuesta para editarla" style="display:inline-flex;align-items:center;gap:7px;border-radius:8px;border:.5px solid var(--border);background:#fff;color:var(--navy-deep);font-family:inherit;font-size:12px;font-weight:700;padding:9px 13px;cursor:pointer;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Abrir su propuesta</button>
       </div>
       <div class="eHint" style="margin:6px 0 0;">Este enlace siempre abre este mismo conjunto de datos — compártelo con otro comercial para que continúe donde se quedó. Si cambias el nombre del colegio y guardas, el enlace se actualiza y el anterior deja de funcionar.</div>
     </div>
@@ -3782,9 +3775,11 @@ document.getElementById('btnEdit').onclick = ()=>{
 /* ===================== HISTORIAL COMPARTIDO (nube, sin login) ===================== */
 const GH_HIST_REPO = 'ricardolopezreyero/presentaciones-comerciales-superleads';
 const GH_HIST_BRANCH = 'main';
-const GH_HIST_K = ['Y3BvMEFNS0RMUUExMV90YXBfYnVodGln','NVlpcEk4d2V6Tk1DSEJfME1haGtxUXRS','ZkhXOHVGdGxURjhUc3czUGxYZ0dwUndu','VmIxc3RTQ3FaSFM2TFJZRmpuSm1J'];
-function ghTok(){ return GH_HIST_K.map(c=> atob(c).split('').reverse().join('')).join(''); }
-function ghHeaders(){ return {Authorization:'Bearer '+ghTok(), Accept:'application/vnd.github+json'}; }
+/* RLR — El token ya no vive aquí. El navegador habla con /api/gh/… y es el Worker (worker.js)
+   el que pone el token, que vive en la bóveda de la cuenta en Cloudflare. Así este archivo, que es
+   público, ya no lleva ninguna llave. */
+const GH_API = '/api/gh';
+function ghHeaders(){ return {Accept:'application/vnd.github+json'}; }
 function b64utf8(s){ return btoa(unescape(encodeURIComponent(s))); }
 function unb64utf8(s){ return decodeURIComponent(escape(atob(s.replace(/\n/g,'')))); }
 function normTxt(s){ return (s||'').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
@@ -3817,11 +3812,15 @@ function urlPresentacion(colegioStr){ return 'https://' + DOMINIO_PRESENTACIONES
 /* Refresca la cajita de URL bajo el campo Colegio con lo que se guardar\u00eda ahora mismo. */
 function actualizarCajaUrl(){
   const inp = document.querySelector('#editForm [data-f="colegio"]');
-  const txt = document.getElementById('urlPresentTxt');
-  if(!txt) return;
-  const nombre = (inp && inp.value) || DATA.colegio || '';
-  txt.textContent = nombre.trim() ? urlPresentacion(nombre) : '\u2014';
-  try{ pintarUrlPropuesta(); }catch(err){}
+  const hay = !!((inp && inp.value) || DATA.colegio || '').trim();
+  /* RLR — Sin URLs a la vista: solo los botones, y apagados mientras no haya colegio. */
+  ['btnCopiarUrl','btnAbrirPropuesta'].forEach(id=>{
+    const b = document.getElementById(id);
+    if(!b) return;
+    b.disabled = !hay;
+    b.style.opacity = hay ? '1' : '.45';
+    b.style.cursor = hay ? 'pointer' : 'default';
+  });
 }
 /* RLR — El puente hacia la propuesta. propuesta.superleads.mx/de/<slug> abre la propuesta de ESTA
    presentación y la crea si todavía no existe: una sola URL, sin API ni llaves. */
@@ -3840,13 +3839,6 @@ function abrirSuPropuesta(){
   if(!u){ avisar('Primero ponle nombre al colegio'); return; }
   window.open(u, '_blank', 'noopener');
 }
-function pintarUrlPropuesta(){
-  const a = document.getElementById('urlPropuestaTxt');
-  if(!a) return;
-  const u = urlDeSuPropuesta();
-  a.textContent = u ? u.replace(/^https:\/\//,'') : '\u2014';
-  a.href = u || '#';
-}
 document.getElementById('btnPropuesta').addEventListener('click', abrirSuPropuesta);
 document.getElementById('btnAbrirPropuesta').addEventListener('click', abrirSuPropuesta);
 document.getElementById('btnCopiarUrl').addEventListener('click', ()=>{
@@ -3863,7 +3855,7 @@ document.getElementById('btnCopiarUrl').addEventListener('click', ()=>{
 async function ghEliminarArchivo(slugViejo){
   if(!slugViejo) return;
   const archivo = 'historial/' + slugViejo + '.json';
-  const url = 'https://api.github.com/repos/'+GH_HIST_REPO+'/contents/'+archivo;
+  const url = GH_API+'/contents/'+archivo;
   try{
     const g = await fetch(url+'?ref='+GH_HIST_BRANCH+'&t='+Date.now(), {headers: ghHeaders(), cache:'no-store'});
     if(g.status !== 200) return; // ya no existe \u2014 nada que borrar
@@ -3875,7 +3867,7 @@ async function guardarHistorial(){
   if(!DATA.colegio || !DATA.colegio.trim()) return false;
   const nuevoSlug = slug(DATA.colegio);
   const archivo = 'historial/' + nuevoSlug + '.json';
-  const url = 'https://api.github.com/repos/'+GH_HIST_REPO+'/contents/'+archivo;
+  const url = GH_API+'/contents/'+archivo;
   const ahora = new Date();
   const payload = {
     colegio: DATA.colegio, ciudad: DATA.ciudad || '', comercial: DATA.comercial || '',
@@ -4021,7 +4013,7 @@ async function cargarListaHistorial(){
     try{
       let r, intentoDir = 0;
       while(true){
-        r = await fetch('https://api.github.com/repos/'+GH_HIST_REPO+'/contents/historial?ref='+GH_HIST_BRANCH+'&t='+Date.now(), {headers: ghHeaders(), cache:'no-store'});
+        r = await fetch(GH_API+'/contents/historial?ref='+GH_HIST_BRANCH+'&t='+Date.now(), {headers: ghHeaders(), cache:'no-store'});
         if(r.status===404){ HIST_CACHE = []; histGuardarLocal([]); setHistStatus('Todavía no hay presentaciones guardadas.'); pintarHistorial(); return; }
         if(r.ok) break;
         intentoDir++;
@@ -4391,7 +4383,7 @@ function mostrarCargaOverlay(on){
 }
 async function cargarPorSlugDesdeNube(rutaSlug){
   const archivo = 'historial/' + rutaSlug + '.json';
-  const url = 'https://api.github.com/repos/'+GH_HIST_REPO+'/contents/'+archivo+'?ref='+GH_HIST_BRANCH+'&t='+Date.now();
+  const url = GH_API+'/contents/'+archivo+'?ref='+GH_HIST_BRANCH+'&t='+Date.now();
   const r = await fetch(url, {headers: ghHeaders(), cache:'no-store'});
   if(r.status === 404) return null;
   if(!r.ok) throw new Error('HTTP ' + r.status);
@@ -4788,7 +4780,7 @@ inicializar();
 
   async function revisar(){
     try{
-      var r = await fetch('https://api.github.com/repos/'+GH_HIST_REPO+'/commits?path=historial&per_page=15&t='+Date.now(),
+      var r = await fetch(GH_API+'/commits?path=historial&per_page=15&t='+Date.now(),
         {headers: ghHeaders(), cache:'no-store'});
       if(!r.ok) return;
       var commits = await r.json();
