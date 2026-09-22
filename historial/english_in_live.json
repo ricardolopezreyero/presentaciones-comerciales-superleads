@@ -2,8 +2,8 @@
   "colegio": "ENGLISH in Live",
   "ciudad": "Estado de México",
   "comercial": "ricardo",
-  "guardado": "21 sep 2026, 06:41 p.m.",
-  "guardado_ts": 1790016071566,
+  "guardado": "22 sep 2026, 09:26 a.m.",
+  "guardado_ts": 1790090800304,
   "data": {
     "colegio": "ENGLISH in Live",
     "prospecto_nombre": "Erika Chavez Cortes",
@@ -15,6 +15,8 @@
     "fecha_presentacion": "21 de septiembre de 2026",
     "segmento": "academia1",
     "paquete": "estrategia",
+    "soporte": "sin",
+    "soporte_precios": {},
     "moneda": "mxn",
     "comercial": "ricardo",
     "notas_slide": {},
@@ -25,7 +27,9 @@
       "referidos": true,
       "academia": true,
       "integraciones": true,
-      "form_uni": true
+      "form_uni": true,
+      "primeras_semanas": true,
+      "equipo_soporte": true
     },
     "productos_orden": [],
     "productos_manual": {},
