@@ -2,8 +2,8 @@
   "colegio": "Instituto Gauss Jordan",
   "ciudad": "Ciudad de México",
   "comercial": "ricardo",
-  "guardado": "24 sep 2026, 09:38 a.m.",
-  "guardado_ts": 1790264318345,
+  "guardado": "24 sep 2026, 09:39 a.m.",
+  "guardado_ts": 1790264373525,
   "data": {
     "colegio": "Instituto Gauss Jordan",
     "prospecto_nombre": "Ruth Morales",
@@ -29,7 +29,6 @@
       "academia": true,
       "form_k12": true,
       "primeras_semanas": true,
-      "equipo_soporte": true,
       "calendario": true,
       "maquina": true
     },
@@ -50,13 +49,14 @@
     "productos_manual": {
       "calendario": true,
       "maquina": true,
-      "referidos": true
+      "referidos": true,
+      "equipo_soporte": true
     },
     "sin_precios": false,
     "omitir_propuesta": false,
     "embudo_marcas": {},
     "equipo_marcas": {},
-    "sello_captura": "2026-09-24 09:38:38",
+    "sello_captura": "2026-09-24 09:39:33",
     "antiguedad_anios": 35,
     "leads_dia": 15,
     "tasa_conversion": 1.35,
