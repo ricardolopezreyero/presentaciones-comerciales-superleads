@@ -1849,6 +1849,10 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
       <div class="efield"><label>Cargo</label><input data-f="prospecto_cargo"></div>
     </div>
     <div class="erow2">
+      <div class="efield"><label>Correo <span style="font-weight:400;color:var(--dim);">(para la ficha)</span></label><input data-f="prospecto_correo" type="email" autocomplete="off"></div>
+      <div class="efield"><label>WhatsApp o teléfono <span style="font-weight:400;color:var(--dim);">(para la ficha)</span></label><input data-f="prospecto_tel" type="tel" autocomplete="off"></div>
+    </div>
+    <div class="erow2">
       <div class="efield"><label>Contacto 2 · nombre</label><input data-f="prospecto_2_nombre"></div>
       <div class="efield"><label>Cargo</label><input data-f="prospecto_2_cargo"></div>
     </div>
@@ -1989,6 +1993,14 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
     <h4 style="margin-top:26px;border-top:.5px solid var(--border);padding-top:20px;">Productos SuperLeads</h4>
     <div class="eHint" style="margin-top:-10px;">Láminas de producto que se pueden prender y apagar. La configuración se guarda sola — lo apagado no aparece ni en pantalla ni en el PDF.</div>
     <div id="productosToggles" style="display:flex;flex-direction:column;gap:9px;margin-top:6px;"></div>
+
+    <h4 style="margin-top:26px;border-top:.5px solid var(--border);padding-top:20px;">Ficha de contacto</h4>
+    <div class="eHint" style="margin-top:-10px;">El contacto de esta institución en formato .vcf — se abre en el teléfono y se guarda en la agenda con su cargo, su colegio y las ligas de esta presentación. Se arma con los datos de arriba.</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;">
+      <button type="button" id="btnFicha" style="display:inline-flex;align-items:center;gap:8px;border-radius:9px;border:.5px solid var(--border);background:#fff;color:var(--navy-deep);font-family:inherit;font-size:13px;font-weight:800;padding:10px 15px;cursor:pointer;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Descargar ficha de contacto</button>
+      <a id="fichaBrief" href="#" target="_blank" rel="noopener" style="display:none;align-items:center;gap:8px;border-radius:9px;border:.5px solid var(--border);background:var(--blue-soft);color:var(--navy-deep);font-size:13px;font-weight:800;padding:10px 15px;text-decoration:none;">Ver su Rayos X</a>
+    </div>
+    <div id="fichaAviso" style="display:none;margin-top:8px;font-size:11.5px;font-weight:700;line-height:1.45;"></div>
   </form>
 </div>
 
@@ -2213,6 +2225,8 @@ let DATA = {
   colegio:"Instituto Frontera AC",
   prospecto_nombre:"Verónica García",
   prospecto_cargo:"Dirección General",
+  prospecto_correo:"",
+  prospecto_tel:"",
   prospecto_2_nombre:"Armando",
   prospecto_2_cargo:"Contador",
   ciudad:"Tijuana",
@@ -3431,6 +3445,7 @@ function populateForm(){
   setCasoPill(DATA.caso_id || 'auto');
   actualizarCajaUrl();
   pintarMonedaCampos();
+  pintarAvisoFicha();
 }
 document.addEventListener('DOMContentLoaded', ()=>{
   document.querySelectorAll('#segPills .segpill').forEach(p=>{
@@ -4255,6 +4270,91 @@ function slug(s){
 /* Nombre de archivo — convención SuperLeads_TipoDeDocumento_Institucion_AAAA-MM-DD
    (guía de estilos §20.9): institución en PascalCase sin espacios/acentos/eñes, fecha ISO
    al final. No reemplaza a slug(), que sigue gobernando la URL/ruta en la nube. */
+/* ===== Ficha de contacto (.vcf) =====
+   Misma idea que la ficha que el Brief Agendado adjunta a su correo: un contacto que se
+   guarda en la agenda del teléfono y trae consigo de dónde salió. Aquí se arma con los
+   datos de esta presentación — hoy el Rayos X solo nos manda nombre y cargo, así que el
+   correo y el teléfono se capturan arriba; el día que lleguen desde allá, caen solos en
+   esos mismos campos y la ficha sale completa sin tocar nada.
+   vCard 3.0, que es lo que abre iOS y Android sin preguntar. */
+function vcardEscapar(s){
+  return String(s||'').replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\r?\n/g,'\\n');
+}
+function telLimpio(s){
+  const t = String(s||'').trim();
+  if(!t) return '';
+  // Acepta lo que el asesor pegue: número suelto, con espacios, o una liga de WhatsApp.
+  const wa = t.match(/(?:wa\.me\/|api\.whatsapp\.com\/send\?phone=)(\+?\d+)/i);
+  const crudo = wa ? wa[1] : t;
+  const soloNum = crudo.replace(/[^\d+]/g,'');
+  return soloNum.length >= 8 ? soloNum : '';
+}
+function construirFicha(){
+  const d = DATA;
+  const nombre = (d.prospecto_nombre||'').trim();
+  const colegio = (d.colegio||'').trim();
+  if(!nombre && !colegio) return null;
+  const com = COMERCIALES[d.comercial] || COMERCIALES.ricardo;
+  const tel = telLimpio(d.prospecto_tel);
+  const correo = (d.prospecto_correo||'').trim();
+  const L = ['BEGIN:VCARD','VERSION:3.0'];
+  const partes = nombre.split(/\s+/);
+  const apellidos = partes.length > 1 ? partes.slice(1).join(' ') : '';
+  const pila = partes[0] || '';
+  L.push('N:'+vcardEscapar(apellidos)+';'+vcardEscapar(pila)+';;;');
+  L.push('FN:'+vcardEscapar(nombre || colegio));
+  if(colegio) L.push('ORG:'+vcardEscapar(colegio));
+  if(d.prospecto_cargo) L.push('TITLE:'+vcardEscapar(d.prospecto_cargo));
+  if(tel) L.push('TEL;TYPE=CELL,VOICE:'+tel);
+  if(correo) L.push('EMAIL;TYPE=INTERNET,WORK:'+vcardEscapar(correo));
+  if(d.ciudad || d.pais) L.push('ADR;TYPE=WORK:;;;'+vcardEscapar(d.ciudad||'')+';;;'+vcardEscapar(d.pais||''));
+  // Las ligas van etiquetadas para que el teléfono las muestre con su nombre.
+  let n = 0;
+  const liga = (url, etiqueta)=>{
+    if(!url) return;
+    n++;
+    L.push('item'+n+'.URL:'+vcardEscapar(url));
+    L.push('item'+n+'.X-ABLabel:'+etiqueta);
+  };
+  if(tel) liga('https://wa.me/'+tel.replace(/\D/g,''), 'WhatsApp');
+  liga(urlPresentacion(colegio), 'Presentación SuperLeads');
+  liga(d.link_propuesta, 'Su propuesta');
+  if(d.origen_rayosx) liga('https://rayosx.superleads.mx/diagnostics/'+d.origen_rayosx+'/results', 'Rayos X de Inscripciones');
+  const nota = [];
+  if(d.prospecto_2_nombre) nota.push('También en la junta: '+d.prospecto_2_nombre+(d.prospecto_2_cargo?' ('+d.prospecto_2_cargo+')':''));
+  nota.push('Lo acompaña: '+com.nombre+' · '+com.email);
+  if(d.fecha_presentacion) nota.push('Presentación del sistema: '+d.fecha_presentacion);
+  nota.push('Source: Presentaciones Comerciales SuperLeads');
+  L.push('NOTE:'+vcardEscapar(nota.join('\n')));
+  L.push('CATEGORIES:SuperLeads,lead,presentacion');
+  L.push('UID:superleads-presentacion-'+slug(colegio||nombre));
+  L.push('REV:'+new Date().toISOString().replace(/\.\d{3}/,''));
+  L.push('END:VCARD');
+  return L.join('\r\n')+'\r\n';
+}
+function selloArchivoMinuto(){
+  const d = new Date(), p = n=> String(n).padStart(2,'0');
+  return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'_'+p(d.getHours())+p(d.getMinutes());
+}
+/* Avisa qué le falta a la ficha antes de bajarla — un contacto sin teléfono ni correo
+   se guarda igual, pero no sirve para llamar. */
+function pintarAvisoFicha(){
+  const av = document.getElementById('fichaAviso');
+  const liga = document.getElementById('fichaBrief');
+  if(liga){
+    const on = !!(DATA && DATA.origen_rayosx);
+    liga.style.display = on ? 'inline-flex' : 'none';
+    if(on) liga.href = 'https://rayosx.superleads.mx/diagnostics/' + DATA.origen_rayosx + '/results';
+  }
+  if(!av) return;
+  const faltan = [];
+  if(!telLimpio(DATA.prospecto_tel)) faltan.push('WhatsApp o teléfono');
+  if(!(DATA.prospecto_correo||'').trim()) faltan.push('correo');
+  if(!faltan.length){ av.style.display = 'none'; return; }
+  av.style.display = '';
+  av.style.color = 'var(--warn)';
+  av.textContent = 'La ficha saldrá sin ' + faltan.join(' ni ') + ' — captúralo' + (faltan.length>1?'s':'') + ' arriba, en Contacto 1.';
+}
 function nombreInstitucionArchivo(s){
   return (s||'Colegio').toString().normalize('NFD').replace(/[̀-ͯ]/g,'')
     .replace(/[^a-zA-Z0-9]+/g,' ').trim().split(/\s+/)
@@ -4303,6 +4403,16 @@ function numeroLaminaVisible(){
   const encendidas = slides.filter(x=>!slideOff(x));
   return String(encendidas.indexOf(slides[idx]) + 1).padStart(2,'0');
 }
+document.getElementById('btnFicha').addEventListener('click', ()=>{
+  const vcf = construirFicha();
+  const btn = document.getElementById('btnFicha');
+  const previo = btn.innerHTML;
+  if(!vcf){ btn.textContent = 'Falta el nombre del contacto o del colegio'; setTimeout(()=> btn.innerHTML = previo, 2200); return; }
+  downloadBlob(vcf, 'SuperLeads_Ficha_' + nombreInstitucionArchivo(DATA.colegio) + '_' + selloArchivoMinuto() + '.vcf', 'text/vcard;charset=utf-8');
+  btn.textContent = 'Ficha descargada';
+  setTimeout(()=> btn.innerHTML = previo, 1800);
+});
+
 document.getElementById('btnPng').onclick = async ()=>{
   const btn = document.getElementById('btnPng');
   const htmlPrevio = btn.innerHTML;
