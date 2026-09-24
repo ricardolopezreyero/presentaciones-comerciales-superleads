@@ -2,12 +2,14 @@
   "colegio": "Cecype Educación",
   "ciudad": "Morelia",
   "comercial": "victor",
-  "guardado": "17 sep 2026, 10:02 a.m.",
-  "guardado_ts": 1789660944418,
+  "guardado": "24 sep 2026, 09:25 a.m.",
+  "guardado_ts": 1790263547486,
   "data": {
     "colegio": "Cecype Educación",
     "prospecto_nombre": "Erick Espinosa",
     "prospecto_cargo": "Director",
+    "prospecto_correo": "",
+    "prospecto_tel": "",
     "prospecto_2_nombre": "",
     "prospecto_2_cargo": "",
     "ciudad": "Morelia",
@@ -20,7 +22,9 @@
     "moneda": "mxn",
     "comercial": "victor",
     "notas_slide": {},
-    "semaforo_override": {},
+    "semaforo_override": {
+      "tasa_cita_alumno": "amarillo"
+    },
     "precios_override": {},
     "productos_off": {
       "radar": true,
