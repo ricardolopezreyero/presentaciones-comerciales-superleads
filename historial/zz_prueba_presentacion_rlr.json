@@ -1,0 +1,39 @@
+{
+  "colegio": "ZZ Prueba Presentacion RLR",
+  "ciudad": "Torreón",
+  "comercial": "ricardo@superleads.mx",
+  "guardado": "28 sep 2026, 10:21 p.m.",
+  "guardado_ts": 1790634113567,
+  "data": {
+    "colegio": "ZZ Prueba Presentacion RLR",
+    "ciudad": "Torreón",
+    "pais": "México",
+    "prospecto_nombre": "Ana Prueba",
+    "prospecto_cargo": "Dirección",
+    "prospecto_2_nombre": "",
+    "prospecto_2_cargo": "",
+    "fecha_presentacion": "28 de septiembre de 2026",
+    "segmento": "k12",
+    "paquete": "base",
+    "soporte": "sin",
+    "moneda": "mxn",
+    "comercial": "ricardo@superleads.mx",
+    "descuento": 0,
+    "precios_override": {
+      "k12": {
+        "crm": 10000,
+        "crm_paquete": 9000,
+        "de": 5000,
+        "ai": 6000
+      }
+    },
+    "soporte_precios": {
+      "sin": 0,
+      "mantenimiento": 5000,
+      "crecimiento": 10000,
+      "dedicado": 20000
+    },
+    "link_propuesta": "https://propuesta.superleads.mx/de/zz_prueba_presentacion_rlr",
+    "presentacion_slug": "zz_prueba_presentacion_rlr"
+  }
+}
