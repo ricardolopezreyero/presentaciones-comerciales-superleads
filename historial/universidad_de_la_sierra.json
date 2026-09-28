@@ -2,8 +2,8 @@
   "colegio": "Universidad de la Sierra",
   "ciudad": "Huauchinango",
   "comercial": "victor",
-  "guardado": "28 sep 2026, 11:59 a.m.",
-  "guardado_ts": 1790618362464,
+  "guardado": "28 sep 2026, 12:00 p.m.",
+  "guardado_ts": 1790618405849,
   "data": {
     "colegio": "Universidad de la Sierra",
     "prospecto_nombre": "Nallely Guadalupe Moctezuma Nava",
@@ -18,15 +18,16 @@
     "segmento": "universidad",
     "paquete": "estrategia",
     "soporte": "mantenimiento",
-    "soporte_precios": {},
+    "soporte_precios": {
+      "mantenimiento": 6000
+    },
     "moneda": "mxn",
     "comercial": "victor",
     "notas_slide": {},
     "semaforo_override": {},
     "precios_override": {
       "universidad": {
-        "crm_paquete": 9000,
-        "de": 6000
+        "crm_paquete": 9000
       },
       "grupo": {
         "crm_paquete": 10000,
