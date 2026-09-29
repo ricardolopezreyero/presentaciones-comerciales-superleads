@@ -2,8 +2,8 @@
   "colegio": "Lingüastic",
   "ciudad": "Tehuacán",
   "comercial": "victor",
-  "guardado": "29 sep 2026, 12:21 p.m.",
-  "guardado_ts": 1790706085632,
+  "guardado": "29 sep 2026, 12:22 p.m.",
+  "guardado_ts": 1790706171613,
   "data": {
     "colegio": "Lingüastic",
     "prospecto_nombre": "Oscar Lopez",
@@ -16,7 +16,7 @@
     "pais": "México",
     "fecha_presentacion": "25 de septiembre de 2026",
     "segmento": "academia1",
-    "paquete": "base",
+    "paquete": "estrategia",
     "soporte": "mantenimiento",
     "soporte_precios": {},
     "moneda": "mxn",
@@ -63,7 +63,7 @@
       "cita": "rojo"
     },
     "equipo_marcas": {},
-    "sello_captura": "2026-09-29 12:14:35",
+    "sello_captura": "2026-09-29 12:22:51",
     "antiguedad_anios": 3,
     "leads_dia": 25,
     "tasa_conversion": 1.81,
