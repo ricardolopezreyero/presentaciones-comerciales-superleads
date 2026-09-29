@@ -3,7 +3,7 @@
   "ciudad": "Torreón",
   "comercial": "ricardo",
   "guardado": "29 sep 2026, 05:33 p.m.",
-  "guardado_ts": 1790000100000,
+  "guardado_ts": 1790000200000,
   "data": {
     "colegio": "ZZ Sync Precios",
     "ciudad": "Torreón",
@@ -21,7 +21,7 @@
     "descuento": 0,
     "precios_override": {
       "k12": {
-        "de": 9000
+        "de": 11000
       }
     },
     "soporte_precios": {
