@@ -2,8 +2,8 @@
   "colegio": "Lingüastic",
   "ciudad": "Tehuacán",
   "comercial": "victor",
-  "guardado": "29 sep 2026, 11:08 a.m.",
-  "guardado_ts": 1790701695650,
+  "guardado": "29 sep 2026, 12:14 p.m.",
+  "guardado_ts": 1790705675149,
   "data": {
     "colegio": "Lingüastic",
     "prospecto_nombre": "Oscar Lopez",
@@ -22,23 +22,48 @@
     "moneda": "mxn",
     "comercial": "victor",
     "notas_slide": {},
-    "semaforo_override": {},
+    "semaforo_override": {
+      "tasa_cita_alumno": "verde",
+      "roas": "verde"
+    },
     "precios_override": {},
     "productos_off": {
       "radar": true,
-      "referidos": true,
       "academia": true,
       "form_uni": true,
       "primeras_semanas": true,
       "equipo_soporte": true
     },
-    "productos_orden": [],
-    "productos_manual": {},
+    "productos_orden": [
+      "whatsapp",
+      "constanza",
+      "torre",
+      "crm",
+      "academia",
+      "calendario",
+      "maquina",
+      "radar",
+      "integraciones",
+      "referidos",
+      "form_k12",
+      "form_uni"
+    ],
+    "productos_manual": {
+      "referidos": true,
+      "equipo_soporte": true
+    },
     "sin_precios": false,
     "omitir_propuesta": false,
-    "embudo_marcas": {},
+    "embudo_marcas": {
+      "impresiones": "verde",
+      "alcance": "verde",
+      "clics": "verde",
+      "prospectos": "verde",
+      "contactados": "rojo",
+      "cita": "rojo"
+    },
     "equipo_marcas": {},
-    "sello_captura": "2026-09-29 11:07:57",
+    "sello_captura": "2026-09-29 12:14:35",
     "antiguedad_anios": 3,
     "leads_dia": 25,
     "tasa_conversion": 1.81,
