@@ -3,7 +3,7 @@
   "ciudad": "Torreón",
   "comercial": "ricardo",
   "guardado": "29 sep 2026, 08:50 p.m.",
-  "guardado_ts": 1790736637776,
+  "guardado_ts": 1790736646951,
   "data": {
     "colegio": "ZZ Puente Prueba",
     "prospecto_nombre": "Prueba Puente",
@@ -23,7 +23,11 @@
     "comercial": "ricardo",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "k12": {
+        "de": 7777
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
@@ -38,7 +42,7 @@
     "omitir_propuesta": false,
     "embudo_marcas": {},
     "equipo_marcas": {},
-    "sello_captura": "2026-09-29 20:50:37",
+    "sello_captura": "2026-09-29 20:50:46",
     "antiguedad_anios": 30,
     "leads_dia": 30,
     "tasa_conversion": 3.95,
