@@ -2,8 +2,8 @@
   "colegio": "ENGLISH in Live",
   "ciudad": "Estado de México",
   "comercial": "ricardo",
-  "guardado": "22 sep 2026, 09:26 a.m.",
-  "guardado_ts": 1790090800304,
+  "guardado": "29 sep 2026, 08:40 p.m.",
+  "guardado_ts": 1790736045544,
   "data": {
     "colegio": "ENGLISH in Live",
     "prospecto_nombre": "Erika Chavez Cortes",
@@ -55,7 +55,7 @@
     "descuento": 0,
     "imagen_escala": "auto",
     "caso_id": "auto",
-    "link_propuesta": "",
+    "link_propuesta": "https://propuesta.superleads.mx/p/english-in-live/v2",
     "origen_rayosx": "99146272-a90a-4de7-a569-6fd5f72a90ea"
   }
 }
