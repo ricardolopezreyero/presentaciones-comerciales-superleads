@@ -2,8 +2,8 @@
   "colegio": "ZZ Puente Prueba",
   "ciudad": "Torreón",
   "comercial": "ricardo",
-  "guardado": "29 sep 2026, 08:50 p.m.",
-  "guardado_ts": 1790736646951,
+  "guardado": "simulado desde la propuesta",
+  "guardado_ts": 1790736675073,
   "data": {
     "colegio": "ZZ Puente Prueba",
     "prospecto_nombre": "Prueba Puente",
@@ -25,7 +25,7 @@
     "semaforo_override": {},
     "precios_override": {
       "k12": {
-        "de": 7777
+        "de": 4321
       }
     },
     "productos_off": {
@@ -60,6 +60,6 @@
     "descuento": 0,
     "imagen_escala": "auto",
     "caso_id": "auto",
-    "link_propuesta": ""
+    "link_propuesta": "https://propuesta.superleads.mx/p/zz-puente-prueba/v1"
   }
 }
