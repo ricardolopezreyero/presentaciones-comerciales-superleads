@@ -3972,8 +3972,26 @@ async function empujarARayosX(){
    procesa en el mismo segundo: nace el borrador si no existía, o se pone al día si ya estaba.
    Va por el Worker propio (/api/propuesta-aviso) porque el secreto compartido vive en la bóveda.
    Si el aviso se pierde, no pasa nada: el cron sigue de red. */
-async function avisarPropuesta(pslug, sha, payload){
+let avisoPendiente = null, avisoTimer = null;
+function avisarPropuesta(pslug, sha, payload){
   if(!pslug || DATA.omitir_propuesta) return;
+  // Se juntan: cada pastilla que se pica guarda, y cinco guardados en dos segundos no son
+  // cinco avisos — es uno, con lo último. La propuesta procesa una vez, no cinco.
+  avisoPendiente = { pslug, sha, payload };
+  clearTimeout(avisoTimer);
+  avisoTimer = setTimeout(mandarAvisoPropuesta, 1200);
+}
+// Si cierran la pestaña antes de que venza la espera, el aviso sale igual (sendBeacon sobrevive
+// al cierre). Sin esto ese último cambio esperaría al cron.
+window.addEventListener('pagehide', ()=>{
+  const a = avisoPendiente; if(!a) return;
+  avisoPendiente = null; clearTimeout(avisoTimer);
+  try{ navigator.sendBeacon('/api/propuesta-aviso', new Blob([JSON.stringify({ slug: a.pslug, sha: a.sha, archivo: a.payload })], {type:'application/json'})); }catch(e){}
+});
+async function mandarAvisoPropuesta(){
+  const a = avisoPendiente; avisoPendiente = null;
+  if(!a) return;
+  const { pslug, sha, payload } = a;
   try{
     const r = await fetch('/api/propuesta-aviso', {
       method:'POST', headers:{'content-type':'application/json'},
