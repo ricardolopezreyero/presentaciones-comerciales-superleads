@@ -2,12 +2,14 @@
   "colegio": "St Jude",
   "ciudad": "Mexicali",
   "comercial": "ricardo",
-  "guardado": "15 sep 2026, 07:47 p.m.",
-  "guardado_ts": 1789501641337,
+  "guardado": "29 sep 2026, 06:01 p.m.",
+  "guardado_ts": 1790726499599,
   "data": {
     "colegio": "St Jude",
     "prospecto_nombre": "Maria Fernanda Vega",
     "prospecto_cargo": "Dueña",
+    "prospecto_correo": "",
+    "prospecto_tel": "",
     "prospecto_2_nombre": "",
     "prospecto_2_cargo": "",
     "ciudad": "Mexicali",
@@ -15,17 +17,25 @@
     "fecha_presentacion": "15 de septiembre de 2026",
     "segmento": "k12",
     "paquete": "estrategia",
+    "soporte": "sin",
+    "soporte_precios": {},
     "moneda": "mxn",
     "comercial": "ricardo",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "k12": {
+        "de": 6000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
       "academia": true,
       "integraciones": true,
-      "form_uni": true
+      "form_uni": true,
+      "primeras_semanas": true,
+      "equipo_soporte": true
     },
     "productos_orden": [],
     "productos_manual": {},
