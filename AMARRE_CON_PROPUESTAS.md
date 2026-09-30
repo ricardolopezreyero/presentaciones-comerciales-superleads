@@ -165,3 +165,19 @@ Del lado de la propuesta todo esto vive en `~/propuesta`:
 - `src/propuestas.ts` — `ligarPresentacion()`, `deLaMismaPersona()`, `copiarAOtroColegio()`.
 - `src/index.ts` — la ruta `/de/<presentacion_slug>`.
 - `migrations/0004_presentacion_por_propuesta.sql` — la columna del amarre.
+
+---
+
+## 7. El puente en caliente (30 de septiembre de 2026)
+
+Lo de arriba sigue valiendo, con una precisión: el cron de 10 minutos ya **no es el camino normal,
+es la red**. Hoy la comunicación va así:
+
+| Dirección | Cómo | Cuánto tarda |
+|---|---|---|
+| Presentación → Propuesta | Al guardar, el navegador llama a `/api/propuesta-aviso` de su propio Worker, que le pone `PUENTE_SECRET` (bóveda) y llama a `POST propuesta.superleads.mx/api/presentaciones/aviso` con `{slug, sha, archivo}`. La propuesta lo procesa ahí mismo (`sincronizarUna`). | ~2 s para nacer, < 1 s para ponerse al día |
+| Propuesta → Presentación | Como antes: `empujarPrecios` / `empujarLiga` escriben `historial/<slug>.json` con el `sha` del espejo. | inmediato en GitHub |
+| …y la pestaña abierta | Al volver a ella (`focus`/`visibilitychange`) compara `guardado_ts` y adopta lo nuevo — nunca con el panel DATOS abierto. | < 1 s |
+
+`PUENTE_SECRET` es un secreto de la bóveda para que los Workers de la casa se avisen entre sí; lo ligan
+ambos `wrangler.jsonc`. Si algún día otra herramienta necesita avisar, es el mismo secreto.
