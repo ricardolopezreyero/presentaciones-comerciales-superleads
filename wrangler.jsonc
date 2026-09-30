@@ -4,7 +4,9 @@
   "main": "worker.js",
   // El token de GitHub vive en la bóveda de la cuenta (Secrets Store «superleads»), no en el HTML público.
   "secrets_store_secrets": [
-    { "binding": "GITHUB_TOKEN", "store_id": "308dac6355cb4d7a8bef6cc8ef7ee035", "secret_name": "GITHUB_PRESENTACIONES_ESCRITURA" }
+    { "binding": "GITHUB_TOKEN", "store_id": "308dac6355cb4d7a8bef6cc8ef7ee035", "secret_name": "GITHUB_PRESENTACIONES_ESCRITURA" },
+    // Con este se avisa a la propuesta en cuanto se guarda (ver /api/propuesta-aviso en worker.js).
+    { "binding": "PUENTE_SECRET", "store_id": "308dac6355cb4d7a8bef6cc8ef7ee035", "secret_name": "PUENTE_SECRET" }
   ],
   "assets": {
     "directory": "./",

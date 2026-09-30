@@ -3917,6 +3917,10 @@ async function guardarHistorial(){
       const p = await fetch(url, {method:'PUT', headers: ghHeaders(), body: JSON.stringify(body)});
       if(p.ok){
         setHistStatus('\u2713 Guardado en la nube \u00b7 '+payload.guardado);
+        let shaNuevo = '';
+        try{ shaNuevo = ((await p.json()).content || {}).sha || ''; }catch(e){}
+        ULTIMO_TS_NUBE = payload.guardado_ts;
+        avisarPropuesta(nuevoSlug, shaNuevo, payload);
         // Si el nombre del colegio cambi\u00f3 desde el \u00faltimo guardado, el archivo con el
         // slug anterior queda hu\u00e9rfano en la nube \u2014 se elimina para no duplicar el registro.
         if(ultimoSlugGuardado && ultimoSlugGuardado !== nuevoSlug) await ghEliminarArchivo(ultimoSlugGuardado);
@@ -3961,6 +3965,56 @@ async function empujarARayosX(){
     }
   }catch(e){ /* silencio a prop\u00f3sito: ver comentario de arriba */ }
 }
+
+/* ===== Puente en caliente con la propuesta =====
+   Antes la propuesta se enteraba de un cambio por su cron, cada 10 minutos. Ahora, en cuanto
+   GitHub confirma el guardado, se le manda el archivo tal cual quedó (con su sha) y ella lo
+   procesa en el mismo segundo: nace el borrador si no existía, o se pone al día si ya estaba.
+   Va por el Worker propio (/api/propuesta-aviso) porque el secreto compartido vive en la bóveda.
+   Si el aviso se pierde, no pasa nada: el cron sigue de red. */
+async function avisarPropuesta(pslug, sha, payload){
+  if(!pslug || DATA.omitir_propuesta) return;
+  try{
+    const r = await fetch('/api/propuesta-aviso', {
+      method:'POST', headers:{'content-type':'application/json'},
+      body: JSON.stringify({ slug: pslug, sha: sha, archivo: payload })
+    });
+    const j = await r.json().catch(()=> ({}));
+    if(r.ok && j.ok){
+      const que = j.borradores && j.borradores.length ? 'propuesta creada' : (j.sincronizadas && j.sincronizadas.length ? 'propuesta al día' : 'propuesta sin cambios');
+      setHistStatus('\u2713 Guardado \u00b7 ' + que);
+    }else{
+      console.warn('Aviso a la propuesta', r.status, j);
+    }
+  }catch(e){ console.warn('Aviso a la propuesta', e); }
+}
+
+/* Lo de vuelta: la propuesta escribe precios y ligas en este mismo archivo. Una pestaña abierta no
+   se enteraba hasta recargar. Ahora, al volver a ella, se compara la marca de guardado con la
+   última que conocemos y, si en la nube hay algo más nuevo, se adopta y se repinta — salvo que el
+   panel DATOS esté abierto, porque ahí puede haber cambios a medio teclear que no se deben pisar. */
+let ULTIMO_TS_NUBE = 0;
+let refrescandoDeNube = false;
+async function refrescarDesdeNubeSiHayNuevo(){
+  const pslug = ultimoSlugGuardado;
+  if(!pslug || refrescandoDeNube || location.protocol === 'file:') return;
+  if(editPanel && editPanel.classList.contains('open')) return;
+  refrescandoDeNube = true;
+  try{
+    const obj = await cargarPorSlugDesdeNube(pslug);
+    if(obj && obj.guardado_ts && obj.guardado_ts > ULTIMO_TS_NUBE){
+      ULTIMO_TS_NUBE = obj.guardado_ts;
+      Object.assign(DATA, obj.data);
+      saveData();
+      aplicarOrden(); applyToggles(); renderProductosToggles();
+      pintarSinPrecios(); pintarOmitirPropuesta(); renderData(); render();
+      avisar('Actualizado desde la nube \u00b7 ' + (obj.guardado || ''));
+    }
+  }catch(e){ /* sin red o sin archivo: no se molesta */ }
+  finally{ refrescandoDeNube = false; }
+}
+document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState === 'visible') refrescarDesdeNubeSiHayNuevo(); });
+window.addEventListener('focus', refrescarDesdeNubeSiHayNuevo);
 
 /* Enciende el botón de vuelta al Rayos X cuando esta presentación vino de uno. */
 function sincronizarBotonRayosX(){
@@ -4805,6 +4859,7 @@ async function inicializar(){
       const obj = await cargarPorSlugDesdeNube(rutaSlug);
       if(obj){
         Object.assign(DATA, obj.data);
+        ULTIMO_TS_NUBE = obj.guardado_ts || 0;
         ultimoSlugGuardado = rutaSlug;
         guardarUltimoSlugGuardado(rutaSlug);
         saveData();

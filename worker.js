@@ -32,6 +32,24 @@ export default {
       });
     }
 
+    /* El aviso en caliente a la propuesta: «acabo de guardar este colegio». Antes la propuesta se
+       enteraba por su cron cada 10 minutos; ahora se entera en el mismo segundo. Pasa por aquí
+       porque el secreto compartido vive en la bóveda de la cuenta, no en el navegador, y solo se
+       acepta desde la propia presentación (mismo origen), igual que guardar. */
+    if (url.pathname === '/api/propuesta-aviso' && request.method === 'POST') {
+      const origen = request.headers.get('origin') || '';
+      if (origen && origen !== url.origin) return Response.json({ ok: false, mensaje: 'Origen no permitido' }, { status: 403 });
+      let secreto = '';
+      try { secreto = typeof env.PUENTE_SECRET?.get === 'function' ? await env.PUENTE_SECRET.get() : (env.PUENTE_SECRET || ''); } catch (e) { secreto = ''; }
+      if (!secreto) return Response.json({ ok: false, mensaje: 'Falta PUENTE_SECRET en la bóveda.' }, { status: 503 });
+      const r = await fetch('https://propuesta.superleads.mx/api/presentaciones/aviso', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-puente-secreto': secreto },
+        body: await request.text(),
+      });
+      return new Response(await r.text(), { status: r.status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
+    }
+
     /* RLR — El historial vive en GitHub, pero el token NO vive en el navegador.
        Antes el index.html (público, en un repo público) traía el token disfrazado: cualquiera que
        abriera el archivo podía escribir en el repo. Ahora el token vive en la bóveda de la cuenta
