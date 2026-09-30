@@ -1969,7 +1969,9 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
       <span>Presentar sin precios<span style="display:block;font-size:11.5px;font-weight:600;color:var(--dim);margin-top:2px;">Para auditorio: se ven los productos y la estructura, pero ninguna cifra de dinero. Vive aquí porque es una variante de cómo se presenta el precio, no un modo aparte.</span></span>
     </label>
     <div class="efield"><label>Descuento mensual <span class="monCampo" style="font-weight:400;color:var(--dim);"></span> <span style="font-weight:400;color:var(--dim);">(0 = sin descuento)</span></label><input data-f="descuento" type="text" inputmode="decimal" class="numfld"></div>
-    <div class="efield"><label>Link de la propuesta <span style="font-weight:400;color:var(--dim);">(vacío = sin botón; NUNCA hay uno por default — solo el de este cliente)</span></label><input data-f="link_propuesta" type="text" placeholder="https://…"></div>
+    <div class="efield"><label>Link de la propuesta <span style="font-weight:400;color:var(--dim);">(se llena solo al enviar su propuesta)</span></label><input data-f="link_propuesta" type="text" placeholder="https://…">
+      <div class="eHint" style="margin:6px 0 0;">Es el botón que ve el cliente en «¿Qué sigue?». Lo escribe propuesta.superleads.mx cuando la propuesta sale, y lo reescribe si mandas una variante. Mientras sea borrador se queda vacío a propósito: un borrador no abre para el cliente. Para verla tú, usa «Abrir su propuesta».</div>
+    </div>
     <label id="omitirPropuestaBox" style="display:flex;align-items:center;gap:11px;font-size:13.5px;font-weight:700;color:var(--navy-deep);cursor:pointer;border:.5px solid var(--border);border-radius:10px;padding:11px 14px;background:var(--blue-soft);margin-bottom:16px;">
       <input type="checkbox" id="omitirPropuestaChk" style="width:16px;height:16px;accent-color:var(--green-d);">
       <span>Omitir paso de firma de propuesta<span style="display:block;font-size:11.5px;font-weight:600;color:var(--dim);margin-top:2px;">Para cuando este cliente no tiene propuesta formal todavía. En «¿Qué sigue?» desaparece ese paso y quedan solo Creación de cuenta y Transferencia.</span></span>
@@ -3894,7 +3896,24 @@ async function guardarHistorial(){
   try{
     for(let intento=0; intento<2; intento++){
       const g = await fetch(url+'?ref='+GH_HIST_BRANCH+'&t='+Date.now(), {headers: ghHeaders(), cache:'no-store'});
-      if(g.status===200){ body.sha = (await g.json()).sha; } else { delete body.sha; }
+      if(g.status===200){
+        const j = await g.json();
+        body.sha = j.sha;
+        /* La liga de la propuesta la escribe propuesta.superleads.mx en este mismo archivo
+           cuando la propuesta sale. Si eso pasó mientras esta pestaña estaba abierta, nuestro
+           guardado la borraría sin querer: se adopta antes de escribir. Solo cuando aquí no
+           hay una puesta a mano — lo que el comercial teclee siempre manda. */
+        try{
+          const remoto = JSON.parse(unb64utf8(j.content)).data || {};
+          const suya = String(remoto.link_propuesta || '').trim();
+          if(suya && !String(DATA.link_propuesta || '').trim()){
+            DATA.link_propuesta = suya;
+            payload.data = DATA;
+            body.content = b64utf8(JSON.stringify(payload, null, 2));
+            saveData();
+          }
+        }catch(e){ /* archivo ilegible: se guarda igual, no se pierde el trabajo */ }
+      } else { delete body.sha; }
       const p = await fetch(url, {method:'PUT', headers: ghHeaders(), body: JSON.stringify(body)});
       if(p.ok){
         setHistStatus('\u2713 Guardado en la nube \u00b7 '+payload.guardado);
