@@ -2,8 +2,8 @@
   "colegio": "Instituto Gauss Jordan",
   "ciudad": "Ciudad de México",
   "comercial": "victor",
-  "guardado": "01 oct 2026, 01:28 p.m.",
-  "guardado_ts": 1790882928507,
+  "guardado": "01 oct 2026, 01:29 p.m.",
+  "guardado_ts": 1790882946864,
   "data": {
     "colegio": "Instituto Gauss Jordan",
     "prospecto_nombre": "Ruth Morales",
@@ -23,7 +23,11 @@
     "comercial": "victor",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "universidad": {
+        "de": 7000
+      }
+    },
     "productos_off": {
       "radar": true,
       "academia": true,
