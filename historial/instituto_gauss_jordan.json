@@ -2,8 +2,8 @@
   "colegio": "Instituto Gauss Jordan",
   "ciudad": "Ciudad de México",
   "comercial": "victor",
-  "guardado": "01 oct 2026, 01:29 p.m.",
-  "guardado_ts": 1790882946864,
+  "guardado": "01 oct 2026, 01:30 p.m.",
+  "guardado_ts": 1790883027210,
   "data": {
     "colegio": "Instituto Gauss Jordan",
     "prospecto_nombre": "Ruth Morales",
@@ -87,7 +87,7 @@
     "descuento": 0,
     "imagen_escala": "auto",
     "caso_id": "auto",
-    "link_propuesta": "",
+    "link_propuesta": "https://propuesta.superleads.mx/p/instituto-gauss-jordan/v1",
     "origen_rayosx": "0d21160a-8d12-4e95-a981-06819a87396e",
     "creditos": {}
   }
