@@ -2,8 +2,8 @@
   "colegio": "universidad de la sierra",
   "ciudad": "Huauchinango",
   "comercial": "victor",
-  "guardado": "02 oct 2026, 06:11 p.m.",
-  "guardado_ts": 1790964664627,
+  "guardado": "04 oct 2026, 05:18 p.m.",
+  "guardado_ts": 1791155891914,
   "data": {
     "colegio": "universidad de la sierra",
     "prospecto_nombre": "Nallely Guadalupe Moctezuma Nava",
@@ -67,7 +67,7 @@
     "descuento": 0,
     "imagen_escala": "auto",
     "caso_id": "auto",
-    "link_propuesta": "",
+    "link_propuesta": "https://propuesta.superleads.mx/p/universidad-de-la-sierra/v1",
     "origen_rayosx": "e4eae2ff-ca2a-4a4d-9dd6-e9fe628071a6"
   }
 }
