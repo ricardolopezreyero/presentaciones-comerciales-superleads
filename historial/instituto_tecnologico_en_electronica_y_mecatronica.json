@@ -2,8 +2,8 @@
   "colegio": "Instituto Tecnológico en Electrónica y Mecatrónica",
   "ciudad": "Aguascalientes",
   "comercial": "ricardo",
-  "guardado": "05 oct 2026, 12:30 p.m.",
-  "guardado_ts": 1791225057682,
+  "guardado": "05 oct 2026, 12:40 p.m.",
+  "guardado_ts": 1791225633478,
   "data": {
     "colegio": "Instituto Tecnológico en Electrónica y Mecatrónica",
     "prospecto_nombre": "Francisco Javier López Medina",
@@ -23,7 +23,11 @@
     "comercial": "ricardo",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "academia1": {
+        "de": 6000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
@@ -66,6 +70,7 @@
     "imagen_escala": "auto",
     "caso_id": "auto",
     "link_propuesta": "",
-    "origen_rayosx": "326937e6-2330-4280-bc3a-aa4d044a1db8"
+    "origen_rayosx": "326937e6-2330-4280-bc3a-aa4d044a1db8",
+    "creditos": {}
   }
 }
