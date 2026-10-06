@@ -2,8 +2,8 @@
   "colegio": "Universidad Autónoma de la Laguna UAL",
   "ciudad": "Torreón",
   "comercial": "ricardo",
-  "guardado": "29 sep 2026, 04:35 p.m.",
-  "guardado_ts": 1790699744396,
+  "guardado": "06 oct 2026, 08:40 a.m.",
+  "guardado_ts": 1791297602818,
   "data": {
     "colegio": "Universidad Autónoma de la Laguna UAL",
     "prospecto_nombre": "Manuel Morales",
@@ -13,7 +13,7 @@
     "ciudad": "Torreón",
     "pais": "México",
     "fecha_presentacion": "29 de septiembre de 2026",
-    "segmento": "universidad",
+    "segmento": "universidadMas10",
     "paquete": "estrategia",
     "moneda": "mxn",
     "comercial": "ricardo",
@@ -52,6 +52,9 @@
     "imagen_escala": "auto",
     "caso_id": "auto",
     "link_propuesta": "",
-    "origen_rayosx": "6c469bc9-bd17-4022-9983-516445e6a75a"
+    "origen_rayosx": "6c469bc9-bd17-4022-9983-516445e6a75a",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "creditos": {}
   }
 }
