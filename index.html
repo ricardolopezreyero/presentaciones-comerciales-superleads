@@ -1427,7 +1427,6 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
   <h1>Su inversión — y lo que puede producir</h1>
   <table class="semaforo" style="margin-top:8px;">
     <tr><th>Producto</th><th>Detalle</th><th><span class="px-off">Precio</span></th></tr>
-    <tr id="rowImpl"><td>Implementación y capacitación</td><td class="small">Migración, embudo configurado, capacitación completa del equipo</td><td class="val" style="font-size:19px;color:var(--blue);"><span class="px-off">$0<span style="font-size:12px;color:var(--dim);font-weight:600;"> · antes <span data-bind="valor_implementacion" data-fmt="mxn"></span></span></span></td></tr>
     <tr><td>CRM SuperLeads</td><td class="small">Usuarios y prospectos ilimitados, agente IA, embudo configurado</td><td class="val" style="font-size:19px;" data-bind="precio_crm" data-fmt="mxnmes"></td></tr>
     <tr id="rowDE"><td>Dirección Estratégica</td><td class="small">Departamento dedicado, metodología, acompañamiento cercano</td><td class="val" style="font-size:19px;" data-bind="precio_estrategia" data-fmt="mxnmes"></td></tr>
     <tr id="rowAI"><td>Atracción Inteligente</td><td class="small">Generación de demanda calificada — prospectos que sí convierten</td><td class="val" style="font-size:19px;" data-bind="precio_atraccion" data-fmt="mxnmes"></td></tr>
@@ -1951,7 +1950,7 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
     <div id="implBox" style="border:.5px solid var(--border);border-radius:10px;padding:11px 14px;background:var(--blue-soft);margin-bottom:16px;">
       <label style="display:flex;align-items:center;gap:11px;font-size:13.5px;font-weight:700;color:var(--navy-deep);cursor:pointer;">
         <input type="checkbox" id="implChk" style="width:16px;height:16px;accent-color:var(--green-d);">
-        <span>Cobrar la instalación<span style="display:block;font-size:11.5px;font-weight:600;color:var(--dim);margin-top:2px;">Agrega la lámina «La instalación» antes de la inversión mensual y quita de ahí el renglón de implementación. Apagada, todo queda como siempre.</span></span>
+        <span>Cobrar la instalación<span style="display:block;font-size:11.5px;font-weight:600;color:var(--dim);margin-top:2px;">Agrega la lámina «La instalación» antes de la inversión mensual, y su monto viaja a la propuesta. Apagada, la presentación no habla de instalación y la propuesta se queda como esté.</span></span>
       </label>
       <div id="implMontoWrap" style="display:none;margin:10px 0 0 27px;">
         <div style="font-size:11.5px;font-weight:700;color:var(--navy-deep);margin-bottom:5px;">Monto en MXN <span style="font-weight:400;color:var(--dim);">(pago único)</span></div>
@@ -2393,7 +2392,6 @@ function calc(d){
   const leads_extra_2b = Math.max(0, leads_meta_2b - leads_anio);
   const perdida_pct = Math.round(100 - d.tasa_conversion);
   // Montos fijos de la propuesta, también bimoneda
-  const valor_implementacion = usd ? usdNice(60000) : 60000;
   // La instalación cobrada: pago único, aparte del mes a mes (no entra al mensual ni al año).
   const imp_mxn = implementacionMonto(d);
   const precio_implementacion = usd ? usdNice(imp_mxn) : imp_mxn;
@@ -2407,7 +2405,7 @@ function calc(d){
   const comercial_firma = com.nombre + ' \u00b7 ' + com.email;
   const casoObj = resolveCaso(d);
   const caso_nombre = casoObj.nombre, caso_resultado = casoObj.resultado, caso_quote = casoObj.quote;
-  return Object.assign({}, d, {precio_implementacion, precio_crm, precio_estrategia, precio_atraccion, precio_base, precio_con_estrategia, precio_todo, paquete, precio_paquete, soporte, precio_soporte, soporte_label, soporte_detalle, precio_lista, descuento, precio_total, precio_anual, precio_diario, leads_anio, ocupacion, lugares_vacios, ltv, hueco_total, colegiatura_conv, roas, alumnos_por_decimal, pesos_por_decimal, decimal_paso_txt, alumnos_paso, valor_paso, alumnos_breakeven, alumnos_extra, ingreso_extra_anual, estrellitas_est, valor_estrellitas, leads_adicionales_camino1, tasa_objetivo, leads_meta_2b, leads_extra_2b, perdida_pct, caso_nombre, caso_resultado, caso_quote, valor_implementacion, cuota_apertura, costo_wa, costo_correo, costo_llamada, costo_webhook, costo_constanza, comercial_firma});
+  return Object.assign({}, d, {precio_implementacion, precio_crm, precio_estrategia, precio_atraccion, precio_base, precio_con_estrategia, precio_todo, paquete, precio_paquete, soporte, precio_soporte, soporte_label, soporte_detalle, precio_lista, descuento, precio_total, precio_anual, precio_diario, leads_anio, ocupacion, lugares_vacios, ltv, hueco_total, colegiatura_conv, roas, alumnos_por_decimal, pesos_por_decimal, decimal_paso_txt, alumnos_paso, valor_paso, alumnos_breakeven, alumnos_extra, ingreso_extra_anual, estrellitas_est, valor_estrellitas, leads_adicionales_camino1, tasa_objetivo, leads_meta_2b, leads_extra_2b, perdida_pct, caso_nombre, caso_resultado, caso_quote, cuota_apertura, costo_wa, costo_correo, costo_llamada, costo_webhook, costo_constanza, comercial_firma});
 }
 
 /* La lámina de inversión cede espacio en dos escalones hasta que su contenido cabe en los
@@ -2568,8 +2566,6 @@ function renderData(){
     todo: 'Todo incluido: tecnología, acompañamiento estratégico y generación de demanda — un solo equipo operando su rueda completa.',
   };
   // La tabla muestra solo los productos incluidos en el paquete cotizado — números limpios, sin upsell.
-  const rowImpl = document.getElementById('rowImpl');
-  if(rowImpl) rowImpl.style.display = c.precio_implementacion > 0 ? 'none' : '';
   const rowDE = document.getElementById('rowDE');
   if(rowDE) rowDE.style.display = (c.paquete!=='base' && c.precio_estrategia>0) ? '' : 'none';
   const rowAI = document.getElementById('rowAI');
@@ -3071,7 +3067,7 @@ function renderAsistentes(){
   el.parentNode.style.display = linea ? '' : 'none';
 }
 /* ===== MODO SIN PRECIOS: la presentación completa, sin una sola cifra de dinero ===== */
-const CAMPOS_PRECIO = ['valor_implementacion','precio_implementacion','precio_crm','precio_estrategia','precio_atraccion','precio_soporte',
+const CAMPOS_PRECIO = ['precio_implementacion','precio_crm','precio_estrategia','precio_atraccion','precio_soporte',
   'precio_lista','precio_total','precio_anual','precio_diario','descuento','ingreso_extra_anual',
   'costo_wa','costo_correo','costo_llamada','costo_webhook','costo_constanza','cuota_apertura','alumnos_breakeven'];
 function aplicarSinPrecios(){
