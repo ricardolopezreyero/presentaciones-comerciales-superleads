@@ -3,7 +3,7 @@
   "ciudad": "Torreón",
   "comercial": "ricardo",
   "guardado": "06 oct 2026, 08:40 a.m.",
-  "guardado_ts": 1791297608148,
+  "guardado_ts": 1791297610966,
   "data": {
     "colegio": "Universidad Autónoma de la Laguna UAL",
     "prospecto_nombre": "Manuel Morales",
@@ -53,7 +53,7 @@
     "caso_id": "auto",
     "link_propuesta": "",
     "origen_rayosx": "6c469bc9-bd17-4022-9983-516445e6a75a",
-    "soporte": "sin",
+    "soporte": "crecimiento",
     "soporte_precios": {},
     "creditos": {}
   }
