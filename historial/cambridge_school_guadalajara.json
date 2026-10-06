@@ -3,7 +3,7 @@
   "ciudad": "Guadalajara",
   "comercial": "ricardo",
   "guardado": "06 oct 2026, 04:26 p.m.",
-  "guardado_ts": 1791325612504,
+  "guardado_ts": 1791325619584,
   "data": {
     "colegio": "Cambridge School Guadalajara",
     "prospecto_nombre": "Manuel Moreno",
@@ -59,6 +59,6 @@
     "caso_id": "auto",
     "link_propuesta": "",
     "origen_rayosx": "9ebb3285-1a43-4aa7-9f80-8b7cc1a33531",
-    "implementacion": 30000
+    "implementacion": 15000
   }
 }
