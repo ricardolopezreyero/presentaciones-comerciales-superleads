@@ -181,3 +181,20 @@ es la red**. Hoy la comunicación va así:
 
 `PUENTE_SECRET` es un secreto de la bóveda para que los Workers de la casa se avisen entre sí; lo ligan
 ambos `wrangler.jsonc`. Si algún día otra herramienta necesita avisar, es el mismo secreto.
+
+---
+
+## 8. La instalación (6 de octubre de 2026)
+
+`data.implementacion` — el pago único de la instalación, en pesos (como el descuento). Es el mismo
+nombre y la misma convención que `config.implementacion` de la propuesta.
+
+| En la presentación | Qué significa para la sincronía |
+|---|---|
+| Sin el campo (toda presentación anterior a esta fecha) | No opina. La propuesta conserva la suya. |
+| `0` — casilla «Cobrar la instalación» apagada | No opina. **Apagar la casilla no le quita la instalación a la propuesta**: eso se hace en el creador. |
+| `> 0` — casilla prendida | Manda el número. Llega al borrador al momento (o abre variante si ya salió). |
+
+De vuelta, la propuesta solo le escribe a la presentación que ya la está mostrando (`> 0`): le corrige
+el número, o la apaga con `0` si allá dejó de cobrarse. Nunca le prende la lámina a una que no la tenía.
+Vive en `src/sincronia.ts` (`Cotizacion.implementacion`) y sus pruebas en `tests/calculo.test.ts`.
