@@ -1390,13 +1390,50 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
   <div class="slide-num">23</div>
 </section>
 
+<!-- ============ 21b LA INSTALACIÓN ============
+     Solo existe cuando la instalación se cobra (DATA.implementacion > 0): la prende el
+     interruptor «Cobrar la instalación» de DATOS. Apagada no aparece ni en pantalla ni en
+     el PDF, y la lámina de inversión se queda exactamente como siempre. RLR -->
+<section class="slide light" id="slideInstalacion" data-si="implementacion" data-cat="inversion" data-notes="Primero la instalación, después el mes a mes: son dos cosas distintas y se dicen por separado. DATO: es un pago único y es el primer pago, al firmar; con él va incluido el primer mes de licencia. TÉCNICA: nombrar las dos mitades —instalamos la tecnología y la metodología— y el plazo, alrededor de cuatro semanas, sin comprometer una fecha exacta. PRINCIPIO: la instalación tiene su propio sistema, Implementación SuperLeads, y su equipo ve cada etapa: no es una promesa, es un proceso.">
+  <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">La inversión · primero</div></div>
+  <h1>La instalación — una sola vez</h1>
+  <div class="fill">
+  <div style="display:grid;grid-template-columns:1.55fr 1fr;gap:26px;align-items:stretch;">
+    <div style="display:flex;flex-direction:column;gap:20px;">
+      <div style="font-size:24px;font-weight:700;letter-spacing:-.3px;color:var(--navy-deep);line-height:1.4;">En <span style="color:var(--blue);">alrededor de <span id="instSemanas">4</span> semanas</span> dejamos su sistema de inscripciones instalado y a su equipo operándolo.</div>
+      <div class="grid2" style="align-items:stretch;">
+        <div class="card" style="padding:26px 26px;">
+          <div style="font-size:10.5px;letter-spacing:2.5px;font-weight:800;color:var(--blue);text-transform:uppercase;margin-bottom:8px;">Instalamos</div>
+          <h3 style="margin:0 0 10px;font-size:24px;color:var(--navy-deep);">La tecnología</h3>
+          <div class="body-txt" style="font-size:16px;">Su CRM configurado: migración de su base, embudo de admisiones y agente de IA listos para operar.</div>
+        </div>
+        <div class="card" style="padding:26px 26px;">
+          <div style="font-size:10.5px;letter-spacing:2.5px;font-weight:800;color:var(--blue);text-transform:uppercase;margin-bottom:8px;">Instalamos</div>
+          <h3 style="margin:0 0 10px;font-size:24px;color:var(--navy-deep);">La metodología</h3>
+          <div class="body-txt" style="font-size:16px;">El método de inscripciones en manos de su equipo: capacitación completa y el proceso calibrado a su institución.</div>
+        </div>
+      </div>
+      <div style="padding:16px 20px;border-left:3px solid var(--green-d);background:rgba(86,239,159,.06);border-radius:0 12px 12px 0;font-size:16px;font-weight:600;color:var(--navy-deep);line-height:1.5;">Para esto existe <b>Implementación SuperLeads</b>: cada etapa de su instalación queda a la vista de su equipo, con su avance.</div>
+    </div>
+    <div style="border:.5px solid var(--blue);background:var(--blue-softer);border-radius:16px;padding:34px 32px;display:flex;flex-direction:column;justify-content:center;">
+      <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--blue);">Instalación · pago único</div>
+      <div style="margin-top:8px;line-height:1.1;"><span class="stat-hero" style="font-size:64px;" data-bind="precio_implementacion" data-fmt="mxn"></span><span class="px-off" style="font-size:14px;font-weight:800;color:var(--muted);white-space:nowrap;"> + IVA</span></div>
+      <div class="px-off" style="margin-top:22px;padding-top:18px;border-top:.5px solid var(--border);font-size:16.5px;font-weight:700;color:var(--navy-deep);line-height:1.5;">Es el primer pago, al firmar.<br><span style="color:var(--muted);font-weight:600;">Incluye su primer mes de licencia.</span></div>
+    </div>
+  </div>
+  </div>
+  <div class="caption">Primero se instala. Después, el mes a mes.</div>
+  <a class="slide-brand no-drag" href="https://superleads.mx" target="_blank" rel="noopener" aria-label="SuperLeads"><img src="assets_deck_instituto_frontera/logo-superleads.svg" alt="SuperLeads"></a>
+  <div class="slide-num">23</div>
+</section>
+
 <!-- ============ 22 INVERSION ============ -->
 <section class="slide light" id="slideInversion" data-cat="inversion" data-notes="La tabla muestra exactamente lo que se está cotizando — ni un producto más. Números limpios. TÉCNICA: anual es el ciclo escolar completo de 10 meses, mensual es el compromiso real mes a mes, y al día es la perspectiva de lo que se invierte en el sistema cada día de operación. PRINCIPIO: la conversación importante no es la inversión en el sistema — es la capacidad disponible y el ingreso extra posible al año.">
   <div class="eyebrow"><div class="ew-dot"></div><div class="ew-t">La inversión</div></div>
   <h1>Su inversión — y lo que puede producir</h1>
   <table class="semaforo" style="margin-top:8px;">
     <tr><th>Producto</th><th>Detalle</th><th><span class="px-off">Precio</span></th></tr>
-    <tr><td>Implementación y capacitación</td><td class="small">Migración, embudo configurado, capacitación completa del equipo</td><td class="val" style="font-size:19px;color:var(--blue);"><span class="px-off">$0<span style="font-size:12px;color:var(--dim);font-weight:600;"> · antes <span data-bind="valor_implementacion" data-fmt="mxn"></span></span></span></td></tr>
+    <tr id="rowImpl"><td>Implementación y capacitación</td><td class="small">Migración, embudo configurado, capacitación completa del equipo</td><td class="val" style="font-size:19px;color:var(--blue);"><span class="px-off">$0<span style="font-size:12px;color:var(--dim);font-weight:600;"> · antes <span data-bind="valor_implementacion" data-fmt="mxn"></span></span></span></td></tr>
     <tr><td>CRM SuperLeads</td><td class="small">Usuarios y prospectos ilimitados, agente IA, embudo configurado</td><td class="val" style="font-size:19px;" data-bind="precio_crm" data-fmt="mxnmes"></td></tr>
     <tr id="rowDE"><td>Dirección Estratégica</td><td class="small">Departamento dedicado, metodología, acompañamiento cercano</td><td class="val" style="font-size:19px;" data-bind="precio_estrategia" data-fmt="mxnmes"></td></tr>
     <tr id="rowAI"><td>Atracción Inteligente</td><td class="small">Generación de demanda calificada — prospectos que sí convierten</td><td class="val" style="font-size:19px;" data-bind="precio_atraccion" data-fmt="mxnmes"></td></tr>
@@ -1963,6 +2000,16 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
       </div>
       <input type="hidden" data-f="soporte">
     </div>
+    <div id="implBox" style="border:.5px solid var(--border);border-radius:10px;padding:11px 14px;background:var(--blue-soft);margin-bottom:16px;">
+      <label style="display:flex;align-items:center;gap:11px;font-size:13.5px;font-weight:700;color:var(--navy-deep);cursor:pointer;">
+        <input type="checkbox" id="implChk" style="width:16px;height:16px;accent-color:var(--green-d);">
+        <span>Cobrar la instalación<span style="display:block;font-size:11.5px;font-weight:600;color:var(--dim);margin-top:2px;">Agrega la lámina «La instalación» antes de la inversión mensual y quita de ahí el renglón de implementación. Apagada, todo queda como siempre.</span></span>
+      </label>
+      <div id="implMontoWrap" style="display:none;margin:10px 0 0 27px;">
+        <div style="font-size:11.5px;font-weight:700;color:var(--navy-deep);margin-bottom:5px;">Monto en MXN <span style="font-weight:400;color:var(--dim);">(pago único)</span></div>
+        <input id="implMonto" type="text" inputmode="numeric" class="numfld" style="width:160px;">
+      </div>
+    </div>
     <label id="sinPreciosBox" style="display:flex;align-items:center;gap:11px;font-size:13.5px;font-weight:700;color:var(--navy-deep);cursor:pointer;border:.5px solid var(--border);border-radius:10px;padding:11px 14px;background:var(--blue-soft);margin-bottom:16px;">
       
       <input type="checkbox" id="sinPreciosChk" style="width:16px;height:16px;accent-color:var(--green-d);">
@@ -2399,6 +2446,9 @@ function calc(d){
   const perdida_pct = Math.round(100 - d.tasa_conversion);
   // Montos fijos de la propuesta, también bimoneda
   const valor_implementacion = usd ? usdNice(60000) : 60000;
+  // La instalación cobrada: pago único, aparte del mes a mes (no entra al mensual ni al año).
+  const imp_mxn = implementacionMonto(d);
+  const precio_implementacion = usd ? usdNice(imp_mxn) : imp_mxn;
   const cuota_apertura = usd ? usdNice(200) : 200;
   const costo_wa = usd ? usdMicro(1) : 1;
   const costo_correo = usd ? usdMicro(0.10) : 0.10;
@@ -2409,7 +2459,7 @@ function calc(d){
   const comercial_firma = com.nombre + ' \u00b7 ' + com.email;
   const casoObj = resolveCaso(d);
   const caso_nombre = casoObj.nombre, caso_resultado = casoObj.resultado, caso_quote = casoObj.quote;
-  return Object.assign({}, d, {precio_crm, precio_estrategia, precio_atraccion, precio_base, precio_con_estrategia, precio_todo, paquete, precio_paquete, soporte, precio_soporte, soporte_label, soporte_detalle, precio_lista, descuento, precio_total, precio_anual, precio_diario, leads_anio, ocupacion, lugares_vacios, ltv, hueco_total, colegiatura_conv, roas, alumnos_por_decimal, pesos_por_decimal, decimal_paso_txt, alumnos_paso, valor_paso, alumnos_breakeven, alumnos_extra, ingreso_extra_anual, estrellitas_est, valor_estrellitas, leads_adicionales_camino1, tasa_objetivo, leads_meta_2b, leads_extra_2b, perdida_pct, caso_nombre, caso_resultado, caso_quote, valor_implementacion, cuota_apertura, costo_wa, costo_correo, costo_llamada, costo_webhook, costo_constanza, comercial_firma});
+  return Object.assign({}, d, {precio_implementacion, precio_crm, precio_estrategia, precio_atraccion, precio_base, precio_con_estrategia, precio_todo, paquete, precio_paquete, soporte, precio_soporte, soporte_label, soporte_detalle, precio_lista, descuento, precio_total, precio_anual, precio_diario, leads_anio, ocupacion, lugares_vacios, ltv, hueco_total, colegiatura_conv, roas, alumnos_por_decimal, pesos_por_decimal, decimal_paso_txt, alumnos_paso, valor_paso, alumnos_breakeven, alumnos_extra, ingreso_extra_anual, estrellitas_est, valor_estrellitas, leads_adicionales_camino1, tasa_objetivo, leads_meta_2b, leads_extra_2b, perdida_pct, caso_nombre, caso_resultado, caso_quote, valor_implementacion, cuota_apertura, costo_wa, costo_correo, costo_llamada, costo_webhook, costo_constanza, comercial_firma});
 }
 
 /* La lámina de inversión cede espacio en dos escalones hasta que su contenido cabe en los
@@ -2570,6 +2620,8 @@ function renderData(){
     todo: 'Todo incluido: tecnología, acompañamiento estratégico y generación de demanda — un solo equipo operando su rueda completa.',
   };
   // La tabla muestra solo los productos incluidos en el paquete cotizado — números limpios, sin upsell.
+  const rowImpl = document.getElementById('rowImpl');
+  if(rowImpl) rowImpl.style.display = c.precio_implementacion > 0 ? 'none' : '';
   const rowDE = document.getElementById('rowDE');
   if(rowDE) rowDE.style.display = (c.paquete!=='base' && c.precio_estrategia>0) ? '' : 'none';
   const rowAI = document.getElementById('rowAI');
@@ -2966,7 +3018,15 @@ function moverProducto(key, dir){
   DATA.productos_orden = orden;
   sinSalto(()=>{ aplicarOrden(); applyToggles(); saveData(); renderProductosToggles(); render(); });
 }
+/* La instalación se cobra cuando DATA.implementacion trae un monto. Sin el campo (toda
+   presentación anterior a esto) o en 0, no se cobra y nada cambia. En pesos, como el descuento. */
+const IMPLEMENTACION_DE_CASA = 30000;
+function implementacionMonto(d){
+  const v = Math.round(+((d || DATA).implementacion) || 0);
+  return v > 0 ? v : 0;
+}
 function slideOff(s){
+  if(s.dataset.si === 'implementacion') return !(implementacionMonto() > 0);
   const k = s.dataset.toggle;
   return !!(k && DATA.productos_off && DATA.productos_off[k]);
 }
@@ -3063,7 +3123,7 @@ function renderAsistentes(){
   el.parentNode.style.display = linea ? '' : 'none';
 }
 /* ===== MODO SIN PRECIOS: la presentación completa, sin una sola cifra de dinero ===== */
-const CAMPOS_PRECIO = ['valor_implementacion','precio_crm','precio_estrategia','precio_atraccion','precio_soporte',
+const CAMPOS_PRECIO = ['valor_implementacion','precio_implementacion','precio_crm','precio_estrategia','precio_atraccion','precio_soporte',
   'precio_lista','precio_total','precio_anual','precio_diario','descuento','ingreso_extra_anual',
   'costo_wa','costo_correo','costo_llamada','costo_webhook','costo_constanza','cuota_apertura','alumnos_breakeven'];
 function aplicarSinPrecios(){
@@ -3747,6 +3807,33 @@ function pintarOmitirPropuesta(){
   box.style.background = on ? 'rgba(86,239,159,.09)' : 'var(--blue-soft)';
   box.style.borderColor = on ? 'var(--green-d)' : 'var(--border)';
 }
+/* «Cobrar la instalación». No pasa por el botón de guardar: como los otros interruptores, se
+   aplica al momento. El monto se recuerda al apagar, para que volver a prender no lo pierda. */
+const implChk = document.getElementById('implChk'), implMonto = document.getElementById('implMonto');
+let implUltimoMonto = IMPLEMENTACION_DE_CASA;
+function pintarImplementacion(){
+  const monto = implementacionMonto();
+  const on = monto > 0;
+  if(on) implUltimoMonto = monto;
+  implChk.checked = on;
+  implMonto.value = mxNum(on ? monto : implUltimoMonto);
+  document.getElementById('implMontoWrap').style.display = on ? '' : 'none';
+  const box = document.getElementById('implBox');
+  box.style.background = on ? 'rgba(86,239,159,.09)' : 'var(--blue-soft)';
+  box.style.borderColor = on ? 'var(--green-d)' : 'var(--border)';
+}
+function aplicarImplementacion(monto){
+  DATA.implementacion = monto;
+  pintarImplementacion();
+  sinSalto(()=>{ applyToggles(); renderData(); render(); });
+  saveData(); guardarHistorial();
+}
+implChk.addEventListener('change', ()=> aplicarImplementacion(implChk.checked ? (implUltimoMonto || IMPLEMENTACION_DE_CASA) : 0));
+implMonto.addEventListener('change', ()=>{
+  const n = Math.round(parseNumFld(implMonto.value) || 0);
+  if(!implChk.checked) return;
+  if(n > 0) aplicarImplementacion(n); else pintarImplementacion(); // un monto vacío no apaga: para eso está la casilla
+});
 omitirPropuestaChk.addEventListener('change', ()=>{
   DATA.omitir_propuesta = omitirPropuestaChk.checked;
   pintarOmitirPropuesta(); renderData(); saveData(); guardarHistorial();
@@ -4025,7 +4112,7 @@ async function refrescarDesdeNubeSiHayNuevo(){
       Object.assign(DATA, obj.data);
       saveData();
       aplicarOrden(); applyToggles(); renderProductosToggles();
-      pintarSinPrecios(); pintarOmitirPropuesta(); renderData(); render();
+      pintarSinPrecios(); pintarOmitirPropuesta(); pintarImplementacion(); renderData(); render();
       avisar('Actualizado desde la nube \u00b7 ' + (obj.guardado || ''));
     }
   }catch(e){ /* sin red o sin archivo: no se molesta */ }
@@ -4276,6 +4363,7 @@ function nuevaPresentacionEnBlanco(){
   renderProductosToggles();
   pintarSinPrecios();
   pintarOmitirPropuesta();
+  pintarImplementacion();
   render();
   renderData();
   saveData();
@@ -4897,6 +4985,7 @@ async function inicializar(){
   renderProductosToggles();
   pintarSinPrecios();
   pintarOmitirPropuesta();
+  pintarImplementacion();
   renderData();
   setSegPill(DATA.segmento);
   setPaquetePill(DATA.paquete || 'estrategia');
