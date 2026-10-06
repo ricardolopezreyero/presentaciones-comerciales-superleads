@@ -2,8 +2,8 @@
   "colegio": "Colegio Happy Rogers",
   "ciudad": "Ciudad de México",
   "comercial": "ricardo",
-  "guardado": "06 oct 2026, 10:28 a.m.",
-  "guardado_ts": 1791304100109,
+  "guardado": "06 oct 2026, 10:33 a.m.",
+  "guardado_ts": 1791304411869,
   "data": {
     "colegio": "Colegio Happy Rogers",
     "prospecto_nombre": "Ana María Sánchez Escárcega",
@@ -66,7 +66,7 @@
     "descuento": 0,
     "imagen_escala": "auto",
     "caso_id": "auto",
-    "link_propuesta": "",
+    "link_propuesta": "https://propuesta.superleads.mx/p/colegio-happy-rogers/v1",
     "origen_rayosx": "c9680b7b-62bf-43a6-a911-3e3bb104324f"
   }
 }
