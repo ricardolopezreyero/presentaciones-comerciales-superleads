@@ -3,7 +3,7 @@
   "ciudad": "Torreón",
   "comercial": "ricardo",
   "guardado": "06 oct 2026, 09:02 a.m.",
-  "guardado_ts": 1791298953838,
+  "guardado_ts": 1791298966028,
   "data": {
     "colegio": "ZZ Prueba Instalacion",
     "prospecto_nombre": "Verónica García",
@@ -74,6 +74,6 @@
     "imagen_escala": "auto",
     "caso_id": "auto",
     "link_propuesta": "",
-    "implementacion": 38500
+    "implementacion": 0
   }
 }
