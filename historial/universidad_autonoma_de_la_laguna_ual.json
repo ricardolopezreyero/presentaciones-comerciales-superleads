@@ -2,8 +2,8 @@
   "colegio": "Universidad Autónoma de la Laguna UAL",
   "ciudad": "Torreón",
   "comercial": "ricardo",
-  "guardado": "06 oct 2026, 10:55 a.m.",
-  "guardado_ts": 1791305738803,
+  "guardado": "06 oct 2026, 11:11 a.m.",
+  "guardado_ts": 1791306709212,
   "data": {
     "colegio": "Universidad Autónoma de la Laguna UAL",
     "prospecto_nombre": "Manuel Morales",
@@ -82,7 +82,7 @@
     "descuento": 0,
     "imagen_escala": "auto",
     "caso_id": "auto",
-    "link_propuesta": "",
+    "link_propuesta": "https://propuesta.superleads.mx/p/universidad-autonoma-de-la-laguna-ual/v1",
     "origen_rayosx": "6c469bc9-bd17-4022-9983-516445e6a75a",
     "creditos": {},
     "implementacion": 30000
