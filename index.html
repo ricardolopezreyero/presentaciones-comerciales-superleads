@@ -1925,6 +1925,7 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
         <div class="segpill" data-seg="maternal">Maternal</div>
         <div class="segpill" data-seg="k12">K12</div>
         <div class="segpill" data-seg="universidad">Universidad</div>
+        <div class="segpill" data-seg="universidadMas10" title="Universidad con más de 10 licenciaturas">Universidad +10 lic.</div>
         <div class="segpill" data-seg="grupo">Grupo</div>
       </div>
       <input type="hidden" data-f="segmento">
@@ -1934,6 +1935,7 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
         <div class="segpill" data-paq="base">Base (CRM)</div>
         <div class="segpill" data-paq="estrategia">+ Dirección Estratégica</div>
         <div class="segpill" data-paq="todo">+ Atracción Inteligente</div>
+        <div class="segpill" data-paq="atraccion" title="CRM + Atracción Inteligente, sin Dirección Estratégica">Atracción sin Dirección</div>
       </div>
       <div id="avisoPaquete" style="display:none;margin-top:8px;border:.5px solid var(--warn);background:rgba(235,104,52,.08);border-radius:8px;padding:9px 12px;font-size:11.5px;font-weight:700;color:var(--warn);line-height:1.45;"></div>
       <input type="hidden" data-f="paquete">
@@ -2043,7 +2045,7 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
   </div>
 </div>
 
-<!-- Tabla completa de precios: los 6 segmentos de un jalón, solo lectura y con aire
+<!-- Tabla completa de precios: todos los segmentos de un jalón, solo lectura y con aire
      de sobra — está pensada para capturar la pantalla y mandarla, no para editar.
      Por eso vive aparte del modal de configuración, que sigue mostrando un solo
      segmento (si el cliente alcanza a ver la pantalla, solo ve lo suyo). -->
@@ -2090,7 +2092,7 @@ body.modo-home #stage,body.modo-home #controls{display:none;}
     <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;">
       <div style="display:flex;align-items:center;gap:10px;">
         <h3 style="margin:0 0 4px;font-size:20px;color:var(--navy-deep);">Configuración de precios</h3>
-        <button type="button" id="preciosVerTodos" title="Ver la tabla completa — los 6 segmentos, lista para capturar" style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border:.5px solid var(--border);background:var(--blue-soft);color:var(--navy);border-radius:9px;cursor:pointer;font-family:inherit;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.6 12S5.5 5 12 5s10.4 7 10.4 7-3.9 7-10.4 7S1.6 12 1.6 12"/><circle cx="12" cy="12" r="3"/></svg></button>
+        <button type="button" id="preciosVerTodos" title="Ver la tabla completa — todos los segmentos, lista para capturar" style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border:.5px solid var(--border);background:var(--blue-soft);color:var(--navy);border-radius:9px;cursor:pointer;font-family:inherit;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.6 12S5.5 5 12 5s10.4 7 10.4 7-3.9 7-10.4 7S1.6 12 1.6 12"/><circle cx="12" cy="12" r="3"/></svg></button>
       </div>
       <div style="display:flex;gap:6px;" id="preciosMonedaPills">
         <button type="button" data-pmon="mxn" style="border:.5px solid var(--border);background:var(--blue-soft);color:var(--navy-deep);font-weight:800;font-size:12.5px;padding:8px 14px;border-radius:99px;cursor:pointer;font-family:inherit;">Pesos (MXN)</button>
@@ -2180,13 +2182,21 @@ const ORIGINAL_HTML_SOURCE = document.documentElement.outerHTML;
 const STORAGE_KEY = 'sl_presentacion_frontera_data';
 
 /* ===================== DATA MODEL ===================== */
+/* RLR — La lista de precios de la casa es UNA y vive en propuesta.superleads.mx («Precios de
+   lista»). Al abrir, la presentación la lee de ahí (aplicarListaDeCasa, más abajo) y la guarda
+   en este navegador para pintar al instante la siguiente vez. Lo de aquí es solo el RESPALDO
+   por si no hay red la primera vez: es la lista vigente al 7-oct-2026 (versión 1).
+   Por qué importa: los precios de cada presentación se guardan como DIFERENCIAS contra la
+   lista, y la propuesta las resuelve contra la suya. Con dos listas distintas, lo que una no
+   decía la otra lo rellenaba con otro número, y no coincidían sin que nadie moviera nada. */
 const PRECIOS = {
-  academia1:{crm:6000, de:6000, ai:6000, label:'Academia (1 unidad)'},
-  academiaAll:{crm:25000, de:10000, ai:10000, label:'Academia (todas)'},
-  maternal:{crm:5000, de:4000, ai:4000, label:'Maternal'},
-  k12:{crm:10000, crm_paquete:9000, de:5000, ai:6000, label:'K12'},
-  universidad:{crm:12000, crm_paquete:10000, de:7000, ai:7000, label:'Universidad'},
-  grupo:{crm:25000, de:10000, ai:10000, label:'Grupo'},
+  academia1:{crm:6000, crm_paquete:6000, de:8000, ai:8000, label:'Academia (1 unidad)'},
+  academiaAll:{crm:25000, crm_paquete:25000, de:12000, ai:12000, label:'Academia (todas)'},
+  maternal:{crm:5000, crm_paquete:5000, de:5000, ai:6000, label:'Maternal'},
+  k12:{crm:10000, crm_paquete:8000, de:6000, ai:6000, label:'K12'},
+  universidad:{crm:12000, crm_paquete:10000, de:8000, ai:7000, label:'Universidad'},
+  universidadMas10:{crm:20500, crm_paquete:20500, de:10000, ai:7000, label:'Universidad +10 lic.'},
+  grupo:{crm:25000, crm_paquete:25000, de:12000, ai:10000, label:'Grupo'},
 };
 /* Soporte: escalón aparte del paquete y con el mismo precio en todos los segmentos.
    Arranca en «sin soporte» ($0) y sube solo si la junta lo pide. Por eso el renglón se
@@ -2210,7 +2220,7 @@ function soportePrecio(k, d){
 }
 
 /* Tres paquetes por segmento, cumulativos: base (CRM) → + estrategia → + atracción inteligente (todo) */
-const PAQUETES = ['base','estrategia','todo'];
+const PAQUETES = ['base','estrategia','todo','atraccion']; // «atraccion» = CRM + Atracción, sin Dirección (como en la propuesta)
 /* Comerciales que pueden presentar — la firma aparece en portada y cierre */
 const COMERCIALES = {
   ricardo:{nombre:'Ricardo López Reyero', email:'Ricardo@SuperLeads.mx'},
@@ -2272,7 +2282,7 @@ const DATA_SEMILLA = JSON.parse(JSON.stringify(DATA));
 
 /* ===== Biblioteca de casos de éxito reales (SuperLeads) ===== */
 const CASOS = [
-  {key:'cuenca', nombre:'Universidad Católica de Cuenca', resultado:'Del 3% al 4.52% de conversión en menos de dos meses.', quote:'Su proceso operaba sin sistema — los prospectos entraban, pero nadie los acompañaba hasta la inscripción. Instalamos el sistema y, en dos meses, su conversión creció 50%. Más alumnos, con los mismos prospectos.', segs:['universidad','grupo']},
+  {key:'cuenca', nombre:'Universidad Católica de Cuenca', resultado:'Del 3% al 4.52% de conversión en menos de dos meses.', quote:'Su proceso operaba sin sistema — los prospectos entraban, pero nadie los acompañaba hasta la inscripción. Instalamos el sistema y, en dos meses, su conversión creció 50%. Más alumnos, con los mismos prospectos.', segs:['universidad','universidadMas10','grupo']},
   {key:'swiss', nombre:'Swiss Academy', resultado:'De un proceso fragmentado a 10.64% de conversión.', quote:'Sin control ni visibilidad real del embudo — cada ciclo era una apuesta. Lo estructuramos, y su tasa de inscripción llegó a 10.64%.', segs:['k12']},
   {key:'pilar', nombre:'Colegio del Pilar', resultado:'16% de inscripción, con una sola persona atendiendo citas.', quote:'El equipo era pequeño, y el sistema que lo respaldaba, casi inexistente. Hoy tienen 16% de inscripción en su último periodo.', segs:['maternal','academia1']},
   {key:'alamos', nombre:'Colegio Álamos Cancún', resultado:'Control total del embudo, con un objetivo claro: llenar al 100%.', quote:'Pasaron de admisiones reactivas a un proceso con seguimiento real, etapa por etapa, hasta la inscripción.', segs:[]},
@@ -2350,7 +2360,8 @@ function calc(d){
   const precio_base = usd ? usdNice(crm_solo_mxn) : crm_solo_mxn;
   const precio_con_estrategia = (usd ? usdNice(crm_paq_mxn) : crm_paq_mxn) + precio_estrategia;
   const precio_todo = precio_con_estrategia + precio_atraccion;
-  const precio_paquete = paquete==='base' ? precio_base : paquete==='todo' ? precio_todo : precio_con_estrategia;
+  const precio_solo_atraccion = (usd ? usdNice(crm_paq_mxn) : crm_paq_mxn) + precio_atraccion;
+  const precio_paquete = paquete==='base' ? precio_base : paquete==='todo' ? precio_todo : paquete==='atraccion' ? precio_solo_atraccion : precio_con_estrategia;
   // El soporte se suma al paquete antes del descuento: entra al total, al anual, al diario
   // y —lo que más importa— al alumno en el que salimos gratis.
   const soporte = soporteKey(d.soporte);
@@ -2564,12 +2575,13 @@ function renderData(){
     base: 'Hoy proponemos solo la tecnología. La Dirección Estratégica y la Atracción Inteligente quedan disponibles cuando quieran sumarlas.',
     estrategia: 'Una sola decisión, dos gastos fijos y predecibles — lo variable vive solo en comunicación.',
     todo: 'Todo incluido: tecnología, acompañamiento estratégico y generación de demanda — un solo equipo operando su rueda completa.',
+    atraccion: 'Tecnología y generación de demanda. La Dirección Estratégica queda disponible cuando quieran sumarla.',
   };
   // La tabla muestra solo los productos incluidos en el paquete cotizado — números limpios, sin upsell.
   const rowDE = document.getElementById('rowDE');
-  if(rowDE) rowDE.style.display = (c.paquete!=='base' && c.precio_estrategia>0) ? '' : 'none';
+  if(rowDE) rowDE.style.display = (c.paquete!=='base' && c.paquete!=='atraccion' && c.precio_estrategia>0) ? '' : 'none';
   const rowAI = document.getElementById('rowAI');
-  if(rowAI) rowAI.style.display = (c.paquete==='todo' && c.precio_atraccion>0) ? '' : 'none';
+  if(rowAI) rowAI.style.display = ((c.paquete==='todo' || c.paquete==='atraccion') && c.precio_atraccion>0) ? '' : 'none';
   // Soporte: el renglón se ve siempre, aunque el escalón elegido valga 0.
   const sopTxt = document.getElementById('sopBtnTxt'), sopPrint = document.getElementById('sopBtnPrint');
   if(sopTxt) sopTxt.textContent = c.soporte_label;
@@ -2585,8 +2597,8 @@ function renderData(){
   const avisoPaq = document.getElementById('avisoPaquete');
   if(avisoPaq){
     const faltan = [];
-    if(c.paquete !== 'base' && !(c.precio_estrategia > 0)) faltan.push('Dirección Estratégica');
-    if(c.paquete === 'todo' && !(c.precio_atraccion > 0)) faltan.push('Atracción Inteligente');
+    if(c.paquete !== 'base' && c.paquete !== 'atraccion' && !(c.precio_estrategia > 0)) faltan.push('Dirección Estratégica');
+    if((c.paquete === 'todo' || c.paquete === 'atraccion') && !(c.precio_atraccion > 0)) faltan.push('Atracción Inteligente');
     if(faltan.length){
       const segLabel = (PRECIOS[DATA.segmento] || {}).label || DATA.segmento;
       const varios = faltan.length > 1;
@@ -2964,7 +2976,66 @@ function moverProducto(key, dir){
 }
 /* La instalación se cobra cuando DATA.implementacion trae un monto. Sin el campo (toda
    presentación anterior a esto) o en 0, no se cobra y nada cambia. En pesos, como el descuento. */
-const IMPLEMENTACION_DE_CASA = 30000;
+let IMPLEMENTACION_DE_CASA = 30000;
+
+/* ===== Una sola lista de precios =====
+   aplicarListaDeCasa() pone en PRECIOS, SOPORTE e IMPLEMENTACION_DE_CASA lo que diga la lista
+   de la propuesta. Solo toca números (crm, crm_paquete, de, ai): los nombres cortos de aquí
+   se conservan. Devuelve true si algo cambió, para repintar solo cuando hace falta. */
+const LISTA_LS = 'sl:lista-casa:v1';
+let LISTA_CASA_VERSION = null;
+function aplicarListaDeCasa(lista){
+  if(!lista || typeof lista !== 'object' || !lista.segmentos) return false;
+  const num = v=>{ const n = Math.round(+v); return (v !== '' && v != null && isFinite(n) && n >= 0) ? n : null; };
+  let cambio = false;
+  Object.keys(lista.segmentos).forEach(seg=>{
+    const s = lista.segmentos[seg];
+    if(!s || typeof s !== 'object') return;
+    if(!PRECIOS[seg]){ PRECIOS[seg] = {label: String(s.label || seg)}; cambio = true; }
+    ['crm','crm_paquete','de','ai'].forEach(k=>{
+      const n = num(s[k]);
+      if(n !== null && PRECIOS[seg][k] !== n){ PRECIOS[seg][k] = n; cambio = true; }
+    });
+  });
+  if(lista.soporte) SOPORTE_KEYS.forEach(k=>{
+    const n = num(lista.soporte[k]);
+    if(n !== null && SOPORTE[k].precio !== n){ SOPORTE[k].precio = n; cambio = true; }
+  });
+  const imp = num(lista.implementacion);
+  if(imp && IMPLEMENTACION_DE_CASA !== imp){ IMPLEMENTACION_DE_CASA = imp; cambio = true; }
+  return cambio;
+}
+// Lo último que se supo, antes de pintar nada: así la lámina abre ya con la lista buena.
+try{
+  const g = JSON.parse(localStorage.getItem(LISTA_LS) || 'null');
+  if(g && g.lista){ aplicarListaDeCasa(g.lista); LISTA_CASA_VERSION = g.version; }
+}catch(e){ /* sin almacenamiento: se queda el respaldo */ }
+/* Va por la lista viva. Si cambió respecto a lo que había, se aplica, se guarda y —si la
+   presentación ya está pintada— se repinta. Nunca truena: sin red se queda con lo que tenga. */
+let listaCasaPromesa = null;
+function refrescarListaDeCasa(){
+  if(location.protocol === 'file:') return Promise.resolve(false);
+  if(listaCasaPromesa) return listaCasaPromesa;
+  listaCasaPromesa = (async ()=>{
+    try{
+      const r = await fetch('/api/lista-precios', {cache:'no-store'});
+      if(!r.ok) return false;
+      const j = await r.json();
+      if(!j || !j.ok || !j.lista) return false;
+      const cambio = aplicarListaDeCasa(j.lista);
+      LISTA_CASA_VERSION = j.version;
+      try{ localStorage.setItem(LISTA_LS, JSON.stringify({version: j.version, lista: j.lista, ts: Date.now()})); }catch(e){}
+      if(cambio && listaCasaPintada){
+        try{ renderData(); pintarImplementacion(); }catch(e){}
+        try{ if(document.getElementById('preciosModal').style.display === 'flex'){ renderPreciosSegPills(); renderPreciosGrid(); renderPreciosSoporte(); } }catch(e){}
+      }
+      return cambio;
+    }catch(e){ return false; }
+    finally{ setTimeout(()=>{ listaCasaPromesa = null; }, 0); }
+  })();
+  return listaCasaPromesa;
+}
+let listaCasaPintada = false; // true cuando la presentación ya hizo su primer render
 function implementacionMonto(d){
   const v = Math.round(+((d || DATA).implementacion) || 0);
   return v > 0 ? v : 0;
@@ -2982,7 +3053,7 @@ function autoProductos(){
   const off = DATA.productos_off, man = DATA.productos_manual;
   const set = (k, encendida)=>{ if(man[k]) return; if(encendida) delete off[k]; else off[k] = true; };
   // Formularios: por segmento. K12/Maternal/Academia -> K12. Universidad/Grupo -> Universidad.
-  const uni = (DATA.segmento === 'grupo' || DATA.segmento === 'universidad');
+  const uni = (DATA.segmento === 'grupo' || DATA.segmento === 'universidad' || DATA.segmento === 'universidadMas10');
   set('form_k12', !uni);
   set('form_uni', uni);
   // Integraciones: solo si ya usan un CRM u otra plataforma (no solo mensajería).
@@ -4061,7 +4132,7 @@ async function refrescarDesdeNubeSiHayNuevo(){
   }catch(e){ /* sin red o sin archivo: no se molesta */ }
   finally{ refrescandoDeNube = false; }
 }
-document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState === 'visible') refrescarDesdeNubeSiHayNuevo(); });
+document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState === 'visible'){ refrescarListaDeCasa(); refrescarDesdeNubeSiHayNuevo(); } });
 window.addEventListener('focus', refrescarDesdeNubeSiHayNuevo);
 
 /* Enciende el botón de vuelta al Rayos X cuando esta presentación vino de uno. */
@@ -4895,6 +4966,8 @@ function hrFechaLarga(fechaISO){
 })();
 
 async function inicializar(){
+  // La lista de la casa sale a buscarse desde ya, en paralelo con la presentación.
+  const listaLista = refrescarListaDeCasa();
   // Un slug real (el que genera slug()) nunca lleva punto — así que una ruta con punto
   // es un nombre de archivo (p. ej. abrir el HTML exportado en local con file://, o el
   // propio archivo servido tal cual) y no un slug de presentación: se ignora.
@@ -4922,6 +4995,9 @@ async function inicializar(){
     }
     mostrarCargaOverlay(false);
   }
+  // Se le da un momento a la lista para llegar antes de pintar (casi siempre ya llegó junto con
+  // la presentación). Si tarda más, se pinta con la guardada y se repinta sola cuando llegue.
+  try{ await Promise.race([listaLista, new Promise(res=> setTimeout(res, 2500))]); }catch(e){}
   fitStage();
   aplicarOrden();
   applyToggles();
@@ -4930,6 +5006,7 @@ async function inicializar(){
   pintarOmitirPropuesta();
   pintarImplementacion();
   renderData();
+  listaCasaPintada = true;
   setSegPill(DATA.segmento);
   setPaquetePill(DATA.paquete || 'estrategia');
   setSoportePill(DATA.soporte);

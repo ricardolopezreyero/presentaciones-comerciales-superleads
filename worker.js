@@ -50,6 +50,17 @@ export default {
       return new Response(await r.text(), { status: r.status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
     }
 
+    /* La lista de precios de la casa. Es UNA y vive en la propuesta («Precios de lista»); la
+       presentación la lee de aquí al abrir, en vez de traer la suya escrita en el código. Pasa
+       por el Worker porque la propuesta la entrega con el secreto compartido de la bóveda. */
+    if (url.pathname === '/api/lista-precios' && request.method === 'GET') {
+      let secreto = '';
+      try { secreto = typeof env.PUENTE_SECRET?.get === 'function' ? await env.PUENTE_SECRET.get() : (env.PUENTE_SECRET || ''); } catch (e) { secreto = ''; }
+      if (!secreto) return Response.json({ ok: false, mensaje: 'Falta PUENTE_SECRET en la bóveda.' }, { status: 503 });
+      const r = await fetch('https://propuesta.superleads.mx/api/presentaciones/lista', { headers: { 'x-puente-secreto': secreto } });
+      return new Response(await r.text(), { status: r.status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
+    }
+
     /* RLR — El historial vive en GitHub, pero el token NO vive en el navegador.
        Antes el index.html (público, en un repo público) traía el token disfrazado: cualquiera que
        abriera el archivo podía escribir en el repo. Ahora el token vive en la bóveda de la cuenta
