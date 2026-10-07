@@ -2,12 +2,14 @@
   "colegio": "Universidad Latina de América (UNLA)",
   "ciudad": "Morelia",
   "comercial": "ricardo",
-  "guardado": "01 oct 2026, 11:01 p.m.",
-  "guardado_ts": 1790895712566,
+  "guardado": "07 oct 2026, 03:48 p.m.",
+  "guardado_ts": 1791409725587,
   "data": {
     "colegio": "Universidad Latina de América (UNLA)",
     "prospecto_nombre": "Jocelyn Calderón Guzmán",
     "prospecto_cargo": "ViceRectora de desarrollo y promoción",
+    "prospecto_correo": "",
+    "prospecto_tel": "",
     "prospecto_2_nombre": "",
     "prospecto_2_cargo": "",
     "ciudad": "Morelia",
@@ -15,6 +17,8 @@
     "fecha_presentacion": "1 de octubre de 2026",
     "segmento": "universidad",
     "paquete": "estrategia",
+    "soporte": "sin",
+    "soporte_precios": {},
     "moneda": "mxn",
     "comercial": "ricardo",
     "notas_slide": {},
@@ -25,7 +29,9 @@
       "referidos": true,
       "academia": true,
       "integraciones": true,
-      "form_uni": true
+      "form_k12": true,
+      "primeras_semanas": true,
+      "equipo_soporte": true
     },
     "productos_orden": [],
     "productos_manual": {},
@@ -52,6 +58,7 @@
     "imagen_escala": "auto",
     "caso_id": "auto",
     "link_propuesta": "",
-    "origen_rayosx": "d1bb37c3-ba97-4592-bc51-2311fae2aaeb"
+    "origen_rayosx": "d1bb37c3-ba97-4592-bc51-2311fae2aaeb",
+    "implementacion": 30000
   }
 }
