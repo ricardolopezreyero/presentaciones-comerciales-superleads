@@ -3,7 +3,7 @@
   "ciudad": "Juárez",
   "comercial": "victor",
   "guardado": "07 oct 2026, 01:33 p.m.",
-  "guardado_ts": 1791401596671,
+  "guardado_ts": 1791401623392,
   "data": {
     "colegio": "INSTITUTO BILINGŪE CONETL",
     "prospecto_nombre": "ROBERTO ARMANDO VILLALOBOS ANCHONDO",
@@ -55,7 +55,7 @@
     "descuento": 0,
     "imagen_escala": "auto",
     "caso_id": "auto",
-    "link_propuesta": "",
+    "link_propuesta": "https://propuesta.superleads.mx/p/instituto-bilingue-conetl/v1",
     "origen_rayosx": "f184b355-f8fb-4240-bd53-b0cba4398bf2",
     "creditos": {}
   }
