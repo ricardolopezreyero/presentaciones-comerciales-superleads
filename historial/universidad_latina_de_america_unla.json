@@ -2,8 +2,8 @@
   "colegio": "Universidad Latina de América (UNLA)",
   "ciudad": "Morelia",
   "comercial": "ricardo",
-  "guardado": "07 oct 2026, 03:49 p.m.",
-  "guardado_ts": 1791409776501,
+  "guardado": "07 oct 2026, 04:45 p.m.",
+  "guardado_ts": 1791413116862,
   "data": {
     "colegio": "Universidad Latina de América (UNLA)",
     "prospecto_nombre": "Jocelyn Calderón Guzmán",
@@ -25,7 +25,8 @@
     "semaforo_override": {},
     "precios_override": {
       "universidad": {
-        "crm_paquete": 12000
+        "crm_paquete": 12000,
+        "de": 7000
       }
     },
     "productos_off": {
@@ -63,6 +64,7 @@
     "caso_id": "auto",
     "link_propuesta": "",
     "origen_rayosx": "d1bb37c3-ba97-4592-bc51-2311fae2aaeb",
-    "implementacion": 30000
+    "implementacion": 30000,
+    "creditos": {}
   }
 }
