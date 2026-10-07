@@ -2,8 +2,8 @@
   "colegio": "Cecype Educación",
   "ciudad": "Morelia",
   "comercial": "victor",
-  "guardado": "29 sep 2026, 08:40 p.m.",
-  "guardado_ts": 1790736041134,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445862,
   "data": {
     "colegio": "Cecype Educación",
     "prospecto_nombre": "Erick Espinosa",
@@ -25,7 +25,12 @@
     "semaforo_override": {
       "tasa_cita_alumno": "rojo"
     },
-    "precios_override": {},
+    "precios_override": {
+      "academia1": {
+        "de": 6000,
+        "ai": 6000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
@@ -87,6 +92,7 @@
     "imagen_escala": "auto",
     "caso_id": "auto",
     "link_propuesta": "https://propuesta.superleads.mx/p/cecype-educacion/v1",
-    "origen_rayosx": "dd7a8e7b-2444-4f0d-a150-a75dddbb5fbe"
+    "origen_rayosx": "dd7a8e7b-2444-4f0d-a150-a75dddbb5fbe",
+    "creditos": {}
   }
 }

@@ -2,8 +2,8 @@
   "colegio": "Hi Kids!",
   "ciudad": "Mérida",
   "comercial": "ricardo",
-  "guardado": "14 sep 2026, 06:29 p.m.",
-  "guardado_ts": 1789410540352,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445869,
   "data": {
     "colegio": "Hi Kids!",
     "prospecto_nombre": "Leonor López",
@@ -19,7 +19,12 @@
     "comercial": "ricardo",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "k12": {
+        "crm_paquete": 9000,
+        "de": 5000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
@@ -52,6 +57,9 @@
     "imagen_escala": "auto",
     "caso_id": "auto",
     "link_propuesta": "",
-    "origen_rayosx": "beb17be0-07bc-48e2-9bd9-165a92368ed8"
+    "origen_rayosx": "beb17be0-07bc-48e2-9bd9-165a92368ed8",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "creditos": {}
   }
 }

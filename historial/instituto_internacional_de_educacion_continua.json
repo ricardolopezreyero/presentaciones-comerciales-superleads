@@ -2,8 +2,8 @@
   "colegio": "Instituto Internacional de Educación Continua",
   "ciudad": "",
   "comercial": "victor",
-  "guardado": "01 sep 2026, 08:58 a.m.",
-  "guardado_ts": 1788274701304,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445870,
   "data": {
     "colegio": "Instituto Internacional de Educación Continua",
     "prospecto_nombre": "Carolina Morante Espinosa",
@@ -22,7 +22,8 @@
     "precios_override": {
       "academia1": {
         "crm_paquete": 8000,
-        "de": 5000
+        "de": 5000,
+        "ai": 6000
       }
     },
     "productos_off": {
@@ -56,6 +57,9 @@
     "imagen_escala": "auto",
     "caso_id": "auto",
     "link_propuesta": "",
-    "origen_rayosx": "c1c0fcbf-1085-4c8a-8513-94a78e8e43ad"
+    "origen_rayosx": "c1c0fcbf-1085-4c8a-8513-94a78e8e43ad",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "creditos": {}
   }
 }

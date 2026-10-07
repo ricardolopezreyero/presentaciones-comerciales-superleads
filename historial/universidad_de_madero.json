@@ -2,8 +2,8 @@
   "colegio": "Universidad de Madero",
   "ciudad": "Ciudad Madero, Tamaulipas",
   "comercial": "ricardo",
-  "guardado": "17 sep 2026, 05:57 p.m.",
-  "guardado_ts": 1789667823875,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445876,
   "data": {
     "colegio": "Universidad de Madero",
     "prospecto_nombre": "Oscar Genaro Hernandez Zuñiga",
@@ -19,7 +19,11 @@
     "comercial": "ricardo",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "universidad": {
+        "de": 7000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
@@ -65,6 +69,9 @@
     "imagen_escala": "auditorio",
     "caso_id": "cuenca",
     "link_propuesta": "",
-    "origen_rayosx": "df2f19d1-74fd-41e3-86f5-417772429057"
+    "origen_rayosx": "df2f19d1-74fd-41e3-86f5-417772429057",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "creditos": {}
   }
 }

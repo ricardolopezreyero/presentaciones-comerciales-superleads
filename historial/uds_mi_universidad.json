@@ -2,8 +2,8 @@
   "colegio": "UDS Mi Universidad",
   "ciudad": "Chiapas",
   "comercial": "victor",
-  "guardado": "21 ago 2026, 09:50 a.m.",
-  "guardado_ts": 1787327430395,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445874,
   "data": {
     "colegio": "UDS Mi Universidad",
     "prospecto_nombre": "Víctor Albores",
@@ -22,6 +22,7 @@
     "precios_override": {
       "grupo": {
         "crm_paquete": 14000,
+        "de": 10000,
         "ai": 15000
       }
     },
@@ -76,6 +77,9 @@
     "descuento": 0,
     "imagen_escala": "salon",
     "caso_id": "swiss",
-    "link_propuesta": ""
+    "link_propuesta": "",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "creditos": {}
   }
 }

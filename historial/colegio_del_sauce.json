@@ -2,8 +2,8 @@
   "colegio": "Colegio del Sauce",
   "ciudad": "Pachuca",
   "comercial": "victor",
-  "guardado": "01 sep 2026, 06:39 p.m.",
-  "guardado_ts": 1788287994118,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445864,
   "data": {
     "colegio": "Colegio del Sauce",
     "prospecto_nombre": "Francisco Emmanuel García Aguirre",
@@ -21,7 +21,8 @@
     "semaforo_override": {},
     "precios_override": {
       "k12": {
-        "crm_paquete": 7000
+        "crm_paquete": 7000,
+        "de": 5000
       }
     },
     "productos_off": {
@@ -92,6 +93,9 @@
     "imagen_escala": "auto",
     "caso_id": "auto",
     "link_propuesta": "",
-    "origen_rayosx": "defda79c-d669-4ab4-bc2d-8c622fcaa1d6"
+    "origen_rayosx": "defda79c-d669-4ab4-bc2d-8c622fcaa1d6",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "creditos": {}
   }
 }

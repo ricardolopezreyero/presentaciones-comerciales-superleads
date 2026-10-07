@@ -2,8 +2,8 @@
   "colegio": "Fray Diego de Rodríguez",
   "ciudad": "Atitalaquia",
   "comercial": "victor",
-  "guardado": "01 sep 2026, 10:09 a.m.",
-  "guardado_ts": 1788278956623,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445868,
   "data": {
     "colegio": "Fray Diego de Rodríguez",
     "prospecto_nombre": "Jorge Ramírez López",
@@ -19,7 +19,12 @@
     "comercial": "victor",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "k12": {
+        "crm_paquete": 9000,
+        "de": 5000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
@@ -52,6 +57,9 @@
     "imagen_escala": "auto",
     "caso_id": "auto",
     "link_propuesta": "",
-    "origen_rayosx": "64f47632-6e95-4123-8de7-8d71344fec8c"
+    "origen_rayosx": "64f47632-6e95-4123-8de7-8d71344fec8c",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "creditos": {}
   }
 }

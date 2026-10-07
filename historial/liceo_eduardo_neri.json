@@ -2,8 +2,8 @@
   "colegio": "Liceo Eduardo Neri",
   "ciudad": "Chilpancingo",
   "comercial": "ricardo",
-  "guardado": "09 sep 2026, 10:27 p.m.",
-  "guardado_ts": 1788992834115,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445871,
   "data": {
     "colegio": "Liceo Eduardo Neri",
     "prospecto_nombre": "Alhely Nuñez",
@@ -19,7 +19,12 @@
     "comercial": "ricardo",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "k12": {
+        "crm_paquete": 9000,
+        "de": 5000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
@@ -52,6 +57,9 @@
     "imagen_escala": "auto",
     "caso_id": "auto",
     "link_propuesta": "",
-    "origen_rayosx": "c65278a0-9afe-4a67-9b47-0f9586e69228"
+    "origen_rayosx": "c65278a0-9afe-4a67-9b47-0f9586e69228",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "creditos": {}
   }
 }

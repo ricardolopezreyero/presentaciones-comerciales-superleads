@@ -2,8 +2,8 @@
   "colegio": "Colegio mexicano bilingüe",
   "ciudad": "Torreón",
   "comercial": "victor",
-  "guardado": "17 sep 2026, 11:35 a.m.",
-  "guardado_ts": 1789666523708,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445867,
   "data": {
     "colegio": "Colegio mexicano bilingüe",
     "prospecto_nombre": "Jaime Alejandro Miranda Cruz",
@@ -21,7 +21,12 @@
     "comercial": "victor",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "k12": {
+        "crm_paquete": 9000,
+        "de": 5000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
@@ -55,6 +60,7 @@
     "imagen_escala": "auto",
     "caso_id": "auto",
     "link_propuesta": "",
-    "origen_rayosx": "655994f1-7975-40e4-b5f1-909ebaa18e89"
+    "origen_rayosx": "655994f1-7975-40e4-b5f1-909ebaa18e89",
+    "creditos": {}
   }
 }

@@ -2,8 +2,8 @@
   "colegio": "Castilo Alebrije",
   "ciudad": "Guadalajara",
   "comercial": "victor",
-  "guardado": "18 ago 2026, 02:55 p.m.",
-  "guardado_ts": 1787086537844,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445853,
   "data": {
     "colegio": "Castilo Alebrije",
     "prospecto_nombre": "Jacqueline Sandoval Jimenez",
@@ -19,7 +19,12 @@
     "comercial": "victor",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "maternal": {
+        "de": 4000,
+        "ai": 4000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
@@ -55,6 +60,9 @@
     "descuento": 0,
     "imagen_escala": "auditorio",
     "caso_id": "auto",
-    "link_propuesta": ""
+    "link_propuesta": "",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "creditos": {}
   }
 }

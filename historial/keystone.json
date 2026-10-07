@@ -2,8 +2,8 @@
   "colegio": "Keystone",
   "ciudad": "Hermosillo",
   "comercial": "ricardo",
-  "guardado": "29 sep 2026, 08:40 p.m.",
-  "guardado_ts": 1790736044057,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445877,
   "data": {
     "colegio": "Keystone",
     "prospecto_nombre": "Ivan Coronado",
@@ -23,6 +23,8 @@
     "semaforo_override": {},
     "precios_override": {
       "k12": {
+        "crm_paquete": 9000,
+        "de": 5000,
         "ai": 5000
       }
     },
@@ -72,6 +74,7 @@
     "imagen_escala": "auto",
     "caso_id": "auto",
     "link_propuesta": "https://propuesta.superleads.mx/p/keystone/v2",
-    "origen_rayosx": "5fbfb249-a95e-4aee-b2dd-a54947669ac9"
+    "origen_rayosx": "5fbfb249-a95e-4aee-b2dd-a54947669ac9",
+    "creditos": {}
   }
 }

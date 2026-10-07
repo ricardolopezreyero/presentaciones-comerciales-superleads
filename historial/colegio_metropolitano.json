@@ -2,8 +2,8 @@
   "colegio": "Colegio Metropolitano",
   "ciudad": "\tGómez Palacio, Durango",
   "comercial": "victor",
-  "guardado": "17 ago 2026, 07:44 p.m.",
-  "guardado_ts": 1787017450775,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445866,
   "data": {
     "colegio": "Colegio Metropolitano",
     "prospecto_nombre": "Sergio Armando Esquivel Saldaña",
@@ -25,7 +25,12 @@
     "semaforo_override": {
       "tasa_conversion": "verde"
     },
-    "precios_override": {},
+    "precios_override": {
+      "k12": {
+        "crm_paquete": 9000,
+        "de": 5000
+      }
+    },
     "productos_off": {
       "radar": true,
       "form_uni": true,
@@ -58,6 +63,9 @@
     "descuento": 0,
     "imagen_escala": "salon",
     "caso_id": "auto",
-    "link_propuesta": ""
+    "link_propuesta": "",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "creditos": {}
   }
 }

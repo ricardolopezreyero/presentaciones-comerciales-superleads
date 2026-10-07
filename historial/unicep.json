@@ -2,8 +2,8 @@
   "colegio": "UNICEP",
   "ciudad": "\tMérida, Yucatán",
   "comercial": "victor",
-  "guardado": "18 ago 2026, 02:43 p.m.",
-  "guardado_ts": 1787085808202,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445875,
   "data": {
     "colegio": "UNICEP",
     "prospecto_nombre": "\tHenry Josué Magaña Novelo",
@@ -21,6 +21,7 @@
     "semaforo_override": {},
     "precios_override": {
       "k12": {
+        "crm_paquete": 9000,
         "de": 7000
       }
     },
@@ -73,6 +74,9 @@
     "descuento": 0,
     "imagen_escala": "salon",
     "caso_id": "cuenca",
-    "link_propuesta": ""
+    "link_propuesta": "",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "creditos": {}
   }
 }

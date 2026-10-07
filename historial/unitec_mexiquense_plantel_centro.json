@@ -2,8 +2,8 @@
   "colegio": "Unitec Mexiquense Plantel Centro",
   "ciudad": "Toluca",
   "comercial": "victor",
-  "guardado": "25 ago 2026, 12:12 p.m.",
-  "guardado_ts": 1787681557789,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445875,
   "data": {
     "colegio": "Unitec Mexiquense Plantel Centro",
     "prospecto_nombre": "Edgar Adrián Hidalgo Leyva",
@@ -21,7 +21,11 @@
     "semaforo_override": {
       "tasa_cita_alumno": "verde"
     },
-    "precios_override": {},
+    "precios_override": {
+      "universidad": {
+        "de": 7000
+      }
+    },
     "productos_off": {
       "referidos": true,
       "academia": true,
@@ -81,6 +85,9 @@
     "descuento": 0,
     "imagen_escala": "autobus",
     "caso_id": "auto",
-    "link_propuesta": ""
+    "link_propuesta": "",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "creditos": {}
   }
 }

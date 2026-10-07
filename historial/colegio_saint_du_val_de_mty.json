@@ -2,8 +2,8 @@
   "colegio": "Colegio Saint Du Val de Mty",
   "ciudad": "San Nicolás de los Garza",
   "comercial": "ricardo",
-  "guardado": "17 ago 2026, 10:18 a.m.",
-  "guardado_ts": 1786983487374,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445868,
   "data": {
     "colegio": "Colegio Saint Du Val de Mty",
     "prospecto_nombre": "Shanty Sandoval",
@@ -19,7 +19,12 @@
     "comercial": "ricardo",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "k12": {
+        "crm_paquete": 9000,
+        "de": 5000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
@@ -65,6 +70,9 @@
     "descuento": 0,
     "imagen_escala": "autobus",
     "caso_id": "auto",
-    "link_propuesta": ""
+    "link_propuesta": "",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "creditos": {}
   }
 }

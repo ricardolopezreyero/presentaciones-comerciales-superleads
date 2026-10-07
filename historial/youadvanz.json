@@ -2,8 +2,8 @@
   "colegio": "Youadvanz",
   "ciudad": "Miami",
   "comercial": "ricardo",
-  "guardado": "28 sep 2026, 11:24 a.m.",
-  "guardado_ts": 1790616282657,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445878,
   "data": {
     "colegio": "Youadvanz",
     "prospecto_nombre": "Miriam Acuña",
@@ -23,7 +23,12 @@
     "comercial": "ricardo",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "k12": {
+        "crm_paquete": 9000,
+        "de": 5000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
@@ -58,6 +63,7 @@
     "imagen_escala": "auto",
     "caso_id": "auto",
     "link_propuesta": "https://propuesta.superleads.mx/p/youadvanz/v1",
-    "origen_rayosx": "d48493c8-9f83-4f79-88a4-890d21546737"
+    "origen_rayosx": "d48493c8-9f83-4f79-88a4-890d21546737",
+    "creditos": {}
   }
 }

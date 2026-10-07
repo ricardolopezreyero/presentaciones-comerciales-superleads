@@ -2,8 +2,8 @@
   "colegio": "Colegio Kaambal",
   "ciudad": "Zappopan Jalisco",
   "comercial": "victor",
-  "guardado": "28 ago 2026, 03:48 p.m.",
-  "guardado_ts": 1787932086495,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445865,
   "data": {
     "colegio": "Colegio Kaambal",
     "prospecto_nombre": "Juan Pablo Rojas Pérez",
@@ -21,7 +21,7 @@
     "semaforo_override": {},
     "precios_override": {
       "k12": {
-        "crm_paquete": 8000
+        "de": 5000
       }
     },
     "productos_off": {
@@ -78,6 +78,9 @@
     "imagen_escala": "auto",
     "caso_id": "auto",
     "link_propuesta": "",
-    "origen_rayosx": "070c4a56-103f-4d19-a9b0-f615e1d10f51"
+    "origen_rayosx": "070c4a56-103f-4d19-a9b0-f615e1d10f51",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "creditos": {}
   }
 }

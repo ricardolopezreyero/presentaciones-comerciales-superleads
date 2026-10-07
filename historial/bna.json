@@ -2,8 +2,8 @@
   "colegio": "BNA",
   "ciudad": "Ciudad de México",
   "comercial": "ricardo",
-  "guardado": "22 sep 2026, 04:38 p.m.",
-  "guardado_ts": 1790095082168,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445877,
   "data": {
     "colegio": "BNA",
     "prospecto_nombre": "David Porchini Medina",
@@ -19,7 +19,11 @@
     "comercial": "ricardo",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "universidad": {
+        "de": 7000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
@@ -52,6 +56,9 @@
     "imagen_escala": "auto",
     "caso_id": "auto",
     "link_propuesta": "",
-    "origen_rayosx": "57dfdb42-685a-460a-91a5-197f033b1c84"
+    "origen_rayosx": "57dfdb42-685a-460a-91a5-197f033b1c84",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "creditos": {}
   }
 }

@@ -2,8 +2,8 @@
   "colegio": "Liceo Real del Valle",
   "ciudad": "Tecamac, Edo de México",
   "comercial": "victor",
-  "guardado": "13 ago 2026, 12:28 p.m.",
-  "guardado_ts": 1786645682192,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445871,
   "data": {
     "colegio": "Liceo Real del Valle",
     "prospecto_nombre": "Abel Pérez",
@@ -19,7 +19,12 @@
     "comercial": "victor",
     "notas_slide": {},
     "semaforo_override": {},
-    "precios_override": {},
+    "precios_override": {
+      "k12": {
+        "crm_paquete": 9000,
+        "de": 5000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
@@ -50,6 +55,9 @@
     "descuento": 0,
     "imagen_escala": "salon",
     "caso_id": "auto",
-    "link_propuesta": ""
+    "link_propuesta": "",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "creditos": {}
   }
 }

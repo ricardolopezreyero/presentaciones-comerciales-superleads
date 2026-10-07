@@ -2,8 +2,8 @@
   "colegio": "Talent English",
   "ciudad": "Texcoco de Mora",
   "comercial": "victor",
-  "guardado": "02 sep 2026, 10:57 a.m.",
-  "guardado_ts": 1788368235767,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445873,
   "data": {
     "colegio": "Talent English",
     "prospecto_nombre": "Marco Granados",
@@ -22,7 +22,8 @@
     "precios_override": {
       "academia1": {
         "crm_paquete": 5000,
-        "de": 4000
+        "de": 4000,
+        "ai": 6000
       }
     },
     "productos_off": {
@@ -75,6 +76,9 @@
     "imagen_escala": "autobus",
     "caso_id": "auto",
     "link_propuesta": "",
-    "origen_rayosx": "f192c15b-9259-4955-8ff9-7044ee59e3cc"
+    "origen_rayosx": "f192c15b-9259-4955-8ff9-7044ee59e3cc",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "creditos": {}
   }
 }

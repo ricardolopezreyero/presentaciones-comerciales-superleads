@@ -2,8 +2,8 @@
   "colegio": "UDES Universidad",
   "ciudad": "Heroica Puebla de Zaragoza",
   "comercial": "ricardo",
-  "guardado": "07 sep 2026, 10:13 a.m.",
-  "guardado_ts": 1788797610450,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445874,
   "data": {
     "colegio": "UDES Universidad",
     "prospecto_nombre": "Arturo Hernández",
@@ -22,7 +22,11 @@
       "tasa_cita_alumno": "verde",
       "tasa_conversion": "amarillo"
     },
-    "precios_override": {},
+    "precios_override": {
+      "universidad": {
+        "de": 7000
+      }
+    },
     "productos_off": {
       "radar": true,
       "referidos": true,
@@ -74,6 +78,9 @@
     "imagen_escala": "autobus",
     "caso_id": "auto",
     "link_propuesta": "https://link.superleads.mx/documents/v1/ee72e3ec-3ef9-406f-9218-c81de0d761fb?locale=es",
-    "origen_rayosx": "c3c3009d-57ff-4329-b080-865cfb30de48"
+    "origen_rayosx": "c3c3009d-57ff-4329-b080-865cfb30de48",
+    "soporte": "sin",
+    "soporte_precios": {},
+    "creditos": {}
   }
 }

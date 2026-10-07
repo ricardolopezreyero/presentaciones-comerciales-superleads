@@ -2,8 +2,8 @@
   "colegio": "Centro Educativo Buckingham",
   "ciudad": "Guadalajara",
   "comercial": "victor",
-  "guardado": "15 sep 2026, 02:02 p.m.",
-  "guardado_ts": 1789502547753,
+  "guardado": "07 oct 2026, 04:00 p.m.",
+  "guardado_ts": 1791410445863,
   "data": {
     "colegio": "Centro Educativo Buckingham",
     "prospecto_nombre": "María del Refugio",
@@ -25,7 +25,8 @@
     },
     "precios_override": {
       "k12": {
-        "crm_paquete": 7000
+        "crm_paquete": 7000,
+        "de": 5000
       }
     },
     "productos_off": {
@@ -70,6 +71,7 @@
     "imagen_escala": "auto",
     "caso_id": "cuenca",
     "link_propuesta": "",
-    "origen_rayosx": "99a4dcf2-159c-4f21-b44f-fae0d738de7d"
+    "origen_rayosx": "99a4dcf2-159c-4f21-b44f-fae0d738de7d",
+    "creditos": {}
   }
 }
