@@ -2,8 +2,8 @@
   "colegio": "Saint Joseph International School",
   "ciudad": "Monterrey",
   "comercial": "victor",
-  "guardado": "08 oct 2026, 12:00 p.m.",
-  "guardado_ts": 1791482443353,
+  "guardado": "08 oct 2026, 12:41 p.m.",
+  "guardado_ts": 1791484892232,
   "data": {
     "colegio": "Saint Joseph International School",
     "prospecto_nombre": "Elvia Castillo",
@@ -17,7 +17,7 @@
     "fecha_presentacion": "5 de octubre de 2026",
     "segmento": "k12",
     "paquete": "estrategia",
-    "soporte": "mantenimiento",
+    "soporte": "sin",
     "soporte_precios": {},
     "moneda": "mxn",
     "comercial": "victor",
@@ -36,7 +36,16 @@
     "productos_manual": {},
     "sin_precios": false,
     "omitir_propuesta": false,
-    "embudo_marcas": {},
+    "embudo_marcas": {
+      "impresiones": "verde",
+      "alcance": "verde",
+      "clics": "verde",
+      "prospectos": "verde",
+      "contactados": "rojo",
+      "cita": "rojo",
+      "asistio": "rojo",
+      "inscritos": "rojo"
+    },
     "equipo_marcas": {},
     "sello_captura": "2026-10-08 12:00:43",
     "antiguedad_anios": 24,
@@ -55,7 +64,7 @@
     "mejora_conservadora": 2,
     "descuento": 0,
     "imagen_escala": "auto",
-    "caso_id": "auto",
+    "caso_id": "cuenca",
     "link_propuesta": "",
     "origen_rayosx": "0ec88c28-eb0e-46bd-af0e-03df8cf96ff2"
   }
