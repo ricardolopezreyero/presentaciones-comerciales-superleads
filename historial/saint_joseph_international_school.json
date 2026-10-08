@@ -2,8 +2,8 @@
   "colegio": "Saint Joseph International School",
   "ciudad": "Monterrey",
   "comercial": "victor",
-  "guardado": "08 oct 2026, 12:41 p.m.",
-  "guardado_ts": 1791484902280,
+  "guardado": "08 oct 2026, 12:44 p.m.",
+  "guardado_ts": 1791485096070,
   "data": {
     "colegio": "Saint Joseph International School",
     "prospecto_nombre": "Elvia Castillo",
@@ -65,7 +65,7 @@
     "descuento": 0,
     "imagen_escala": "auto",
     "caso_id": "cuenca",
-    "link_propuesta": "",
+    "link_propuesta": "https://propuesta.superleads.mx/p/saint-joseph-international-school/v1",
     "origen_rayosx": "0ec88c28-eb0e-46bd-af0e-03df8cf96ff2"
   }
 }
